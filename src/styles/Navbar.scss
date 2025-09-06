@@ -1,0 +1,190 @@
+/* Navbar – elegan, simple, modern, responsif; sinkron var(--color-*) */
+.navbar {
+  --nav-h: clamp(56px, 8vh, 64px);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--nav-h);
+  padding: 0 clamp(0.75rem, 2vw, 2rem);
+
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  backdrop-filter: saturate(140%) blur(6px);
+
+  /* Brand */
+  .navbar-brand {
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--color-text);
+      text-decoration: none;
+    }
+    .navbar-logo {
+      width: clamp(28px, 4.5vw, 40px);
+      height: clamp(28px, 4.5vw, 40px);
+      object-fit: contain;
+    }
+  }
+
+  /* Burger icon */
+  .navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: clamp(1.35rem, 5vw, 1.85rem);
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color .2s ease;
+    &:hover { color: var(--color-primary); }
+  }
+
+  /* Desktop menu */
+  .navbar-links.desktop {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      position: relative;
+
+      > a {
+        display: inline-block;
+        padding: .5rem .25rem;
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: .95rem;
+        transition: color .2s ease;
+
+        /* indicator garis kecil */
+        &::after {
+          content: "";
+          display: block;
+          height: 2px;
+          transform: scaleX(0);
+          transform-origin: left;
+          background: var(--color-primary);
+          transition: transform .2s ease;
+          margin-top: 4px;
+        }
+
+        &:hover,
+        &.active {
+          color: var(--color-primary);
+        }
+        &:hover::after,
+        &.active::after {
+          transform: scaleX(1);
+        }
+      }
+
+      &.has-submenu:hover .submenu {
+        opacity: 1; visibility: visible; transform: translateY(0);
+      }
+
+      .submenu {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 180px;
+        background: var(--color-surface);
+        list-style: none;
+        margin: 0; padding: .5rem 0;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        opacity: 0; visibility: hidden; transform: translateY(-8px);
+        transition: all .2s ease;
+
+        li a {
+          display: block;
+          padding: .5rem 1rem;
+          color: var(--color-text);
+          text-decoration: none;
+          font-weight: 500;
+          &:hover, &.active { color: var(--color-primary); }
+        }
+      }
+    }
+  }
+
+  /* Mobile menu (fixed di bawah navbar) */
+  .navbar-links.mobile {
+    display: none;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
+    background: var(--color-surface);
+    list-style: none; margin: 0; padding: 0;
+    overflow-y: auto; z-index: 999;
+
+    li {
+      border-bottom: 1px solid var(--color-border);
+      padding: .8rem 1.25rem;
+      &:last-child { border-bottom: none; }
+
+      a {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 600;
+        &.active, &:hover { color: var(--color-primary); }
+      }
+
+      details {
+        summary {
+          display: flex; align-items: center; justify-content: space-between;
+          font-weight: 600; cursor: pointer; list-style: none;
+          .chevron { margin-left: .5rem; transition: transform .2s ease; }
+          &:focus { outline: 2px solid var(--color-primary); }
+        }
+        &[open] .chevron { transform: rotate(180deg); }
+
+        .submenu {
+          list-style: none; padding-left: 1rem; margin-top: .5rem;
+          li a { display: block; padding: .5rem 0; }
+        }
+      }
+
+      &.mobile-theme-toggle button {
+        background: none; border: none; display: inline-flex; align-items: center; gap: .5rem;
+        color: var(--color-text); cursor: pointer; font-size: 1rem;
+      }
+    }
+  }
+
+  /* Desktop theme toggle */
+  .theme-toggle {
+    background: none; border: none; cursor: pointer;
+    color: var(--color-text); font-size: 1.25rem; margin-left: .5rem;
+    transition: color .2s ease;
+    &:hover { color: var(--color-primary); }
+  }
+
+  /* Breakpoints */
+  @media (max-width: 1024px) {
+    .navbar-links.desktop { display: none; }
+    .navbar-toggle { display: block; }
+  }
+  @media (max-width: 768px) {
+    .navbar-links.mobile { display: block; }
+    .theme-toggle { display: none; }
+  }
+  @media (max-width: 480px) {
+    padding: 0 .75rem;
+    .navbar-brand .brand-link { font-size: 1.2rem; }
+    .navbar-logo { width: 28px; height: 28px; }
+  }
+}

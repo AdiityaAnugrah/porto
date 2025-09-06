@@ -1,0 +1,103 @@
+/* Footer.scss
+   - Elegan, simple, modern, responsif
+   - Sinkron dengan index.css (var(--color-*))
+   - Minim spesifisitas, aman berdampingan dengan Tailwind
+*/
+
+/* Token & ukurannya */
+$pad-y: clamp(14px, 2.2vw, 22px);
+$pad-x: clamp(16px, 3vw, 28px);
+$radius: 14px;
+
+.footer {
+  width: 100%;
+  padding: $pad-y $pad-x;
+
+  /* Gunakan layer permukaan & border dari index.css */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0)) ,
+    var(--color-bg);
+  border-top: 1px solid var(--color-border);
+
+  display: grid;
+  place-items: center;
+
+  /* Kontainer tengah agar rapi di layar lebar */
+  &__inner {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    row-gap: 6px;
+  }
+
+  &__text {
+    margin: 0;
+    color: var(--color-text);
+    opacity: 0.82; /* haluskan kontras */
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-weight: 500;
+    font-size: clamp(12px, 1.6vw, 14px);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+
+    /* Link di dalam footer (jika ada) */
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 3px;
+      transition: text-decoration-color 160ms ease, color 160ms ease, outline-color 160ms ease;
+
+      &:hover {
+        text-decoration-color: currentColor;
+        opacity: 0.95;
+      }
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  /* (Opsional) baris link kecil—privacy, terms, dll. */
+  &__links {
+    display: inline-flex;
+    gap: 10px;
+
+    a {
+      color: var(--color-text);
+      opacity: 0.7;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: background-color 160ms ease, opacity 160ms ease, outline-color 160ms ease;
+
+      &:hover {
+        opacity: 0.94;
+        background-color: var(--color-surface);
+        border-color: var(--color-border);
+      }
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+    }
+  }
+}
+
+/* Sedikit penyesuaian responsif */
+@media (min-width: 640px) {
+  .footer__text { letter-spacing: 0.015em; }
+}
+@media (min-width: 1024px) {
+  .footer { padding: calc($pad-y + 2px) calc($pad-x + 4px); }
+}
+
+/* High-contrast (Windows) */
+@media (forced-colors: active) {
+  .footer a { outline: 1px solid CanvasText; }
+}

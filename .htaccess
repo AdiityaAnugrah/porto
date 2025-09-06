@@ -1,0 +1,14 @@
+# .htaccess (root domain)
+RewriteEngine On
+RewriteBase /
+
+# Biarkan file & folder asli dilayani apa adanya
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Kecualikan endpoint API (kalau ada), agar tidak di-redirect ke index.html
+RewriteCond %{REQUEST_URI} !^/api/
+
+# Semua selain itu arahkan ke React
+RewriteRule . /index.html [L]
