@@ -93,12 +93,27 @@ const About = () => {
   ];
 
   const education = [
-    { title: "Sarjana/Teknis (atau kursus intensif setara)", org: "Your University / Bootcamp", period: "—" },
+    {
+      title: <span className="text-lg font-bold">Teknik Informatika</span>,
+      org: <span className="text-base">Universita Dian Nuswontoro</span>,
+      period: <span className="text-sm">2019 — 2023</span>,
+    },
+    {
+      title: <span className="text-lg font-bold">SMA IPA</span>,
+      org: <span className="text-base">SMA Negeri 1 Semendawai Suku III</span>,
+      period: <span className="text-sm">2016 — 2019</span>,
+    },
   ];
 
   const certifications = [
-    { name: "Responsive Web Design", by: "freeCodeCamp" },
-    { name: "JavaScript Algorithms & Data Structures", by: "freeCodeCamp" },
+    {
+      name: <span className="text-lg font-bold">Responsive Web Design</span>,
+      by: <span className="text-base">Bangkit Academy</span>,
+    },
+    {
+      name: <span className="text-lg font-bold">JavaScript Algorithms & Data Structures</span>,
+      by: <span className="text-base">freeCodeCamp</span>,
+    },
   ];
 
   const facts = useMemo(
@@ -112,12 +127,12 @@ const About = () => {
   );
 
   const values = [
-    { icon: FaLightbulb, title: "Clarity First",  desc: "Mulai dari kebutuhan inti & KPI. Dokumen singkat, prototipe cepat, keputusan transparan." },
-    { icon: FaRocket,     title: "Fast & Lean",    desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
-    { icon: FaShieldAlt,  title: "Secure by Default", desc: "Validasi input, sanitasi, RBAC, audit log, dan prinsip least-privilege di awal." },
-    { icon: FaUsers,      title: "UX First",       desc: "Desain mobile-first, aksesibilitas, states jelas (loading/empty/error), navigasi nyaman." },
-    { icon: FaLeaf,       title: "Maintainable",   desc: "Arsitektur modular, naming konsisten, tokens/design system, test seperlunya." },
-    { icon: FaCogs,       title: "Pragmatic",      desc: "Pilih tool sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS—tanpa dogma." },
+    { icon: FaLightbulb, title: "Klarifikasi Terlebih Dahulu",  desc: "Mulai dari kebutuhan inti & KPI. Dokumen singkat, prototipe cepat, keputusan transparan." },
+    { icon: FaRocket,     title: "Cepat & Ringan",    desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
+    { icon: FaShieldAlt,  title: "Keamanan sebagai Default", desc: "Validasi input, sanitasi, RBAC, audit log, dan prinsip least-privilege di awal." },
+    { icon: FaUsers,      title: "UX Terlebih Dahulu",       desc: "Desain mobile-first, aksesibilitas, states jelas (loading/empty/error), navigasi nyaman." },
+    { icon: FaLeaf,       title: "Dapat Diperbarui",   desc: "Arsitektur modular, naming konsisten, tokens/design system, test seperlunya." },
+    { icon: FaCogs,       title: "Pragmatis",      desc: "Pilih tool sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS—tanpa dogma." },
   ];
 
   const faqs = [
