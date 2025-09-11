@@ -56,7 +56,7 @@ export const projects = [
     tags: ['Workflow', 'Admin'],
     cover:
       'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1600&auto=format&fit=crop',
-    links: { live: '', code: '' },
+    links: { live: 'https://bengkeltitanium.com', code: '' },
     features: [
       'Pipeline status: BONGKAR → DEMPUL → CAT → QC',
       'Export PDF per order',
@@ -117,7 +117,7 @@ export const projects = [
     tags: ['Church', 'Management'],
     cover:
       'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
-    links: { live: '', code: '' },
+    links: { live: 'https://blcc.id', code: '' },
     features: [
       'Data anggota, kehadiran, donasi, dan laporan',
       'Pencarian & filter lanjutan',
@@ -174,7 +174,7 @@ export const projects = [
     tags: ['E-Commerce', 'Payment'],
     cover:
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
-    links: { live: '', code: '' },
+    links: { live: 'https://lunareafurniture.com', code: '' },
     features: [
         'Filter produk (kategori, harga, popularitas)',
         'Wishlist',
