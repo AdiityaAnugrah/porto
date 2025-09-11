@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Img } from 'react-image';
 import {
@@ -11,13 +11,10 @@ import {
 } from 'react-icons/fa';
 import '../styles/Home.scss';
 import { projects as seed } from '../data/projects';
+import SEO from '../components/SEO';
 
 const Home = () => {
-  useEffect(() => {
-    document.title = 'Home — My Portfolio';
-  }, []);
-
-  // Ambil 3 proyek terbaru berdasar tahun
+  // Ambil 3 proyek terbaru berdasar tahun (pastikan numerik)
   const featured = useMemo(() => {
     return [...seed]
       .sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0))
@@ -36,6 +33,28 @@ const Home = () => {
 
   return (
     <main id="main-content" className="home" role="main">
+      <SEO
+        title="Home"
+        description="Portfolio Aditya Anugrah — web developer fokus e-commerce, dashboard, dan sistem absensi."
+        path="/"
+        type="website"
+        image="/assets/og-default.jpg"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'My Portfolio',
+          url:
+            (typeof window !== 'undefined' ? window.location.origin : '') + '/',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target:
+              (typeof window !== 'undefined' ? window.location.origin : '') +
+              '/projects?query={search_term_string}',
+            'query-input': 'required name=search_term_string',
+          },
+        }}
+      />
+
       {/* HERO */}
       <section className="hero" aria-labelledby="hero-title">
         <div className="container">
@@ -89,9 +108,11 @@ const Home = () => {
             <span className="dot" aria-hidden /> Trusted by
           </div>
           <div className="marquee" role="list" aria-label="Brand/klien">
+            {/* Track digandakan untuk efek scroll kontinu.
+                Diberi aria-hidden agar pembaca layar tidak mendengar item ganda. */}
             <div className="marquee-track" aria-hidden="true">
               {[...brands, ...brands].map((b, i) => (
-                <div className="brand" role="listitem" key={`${b}-${i}`}>{b}</div>
+                <div className="brand" key={`${b}-${i}`}>{b}</div>
               ))}
             </div>
           </div>

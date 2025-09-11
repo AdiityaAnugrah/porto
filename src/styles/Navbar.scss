@@ -44,7 +44,7 @@
       height: clamp(28px, 4.5vw, 40px);
       object-fit: contain;
       border-radius: 8px;
-      background: var(--color-bg);
+      background: transparent;
       box-shadow: 0 6px 18px rgba(0,0,0,.08);
     }
   }

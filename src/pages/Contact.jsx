@@ -55,7 +55,7 @@ const validate = (v) => {
 
 const Contact = () => {
   useEffect(() => {
-    document.title = "Contact — My Portfolio";
+    document.title = "Contact | My Portfolio";
   }, []);
 
   const info = useMemo(() => CONTACT_CONFIG, []);

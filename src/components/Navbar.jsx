@@ -53,19 +53,17 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  // Scroll-lock stabil (fix: scroll dulu lalu buka menu -> menu kadang tidak muncul)
+  // Scroll-lock stabil
   useEffect(() => {
     const body = document.body;
     if (isOpen) {
       scrollYRef.current = window.scrollY || window.pageYOffset || 0;
-      // kunci body dengan position:fixed (paling stabil di iOS)
       body.style.position = 'fixed';
       body.style.top = `-${scrollYRef.current}px`;
       body.style.left = '0';
       body.style.right = '0';
       body.style.width = '100%';
     } else {
-      // lepas kunci & restore posisi
       const y = scrollYRef.current;
       body.style.position = '';
       body.style.top = '';
@@ -108,6 +106,10 @@ const Navbar = () => {
 
   const toggleSubmenu = (key) => setOpenMenu((p) => (p === key ? null : key));
 
+  // === PILIH LOGO BERDASARKAN TEMA ===
+  const logoSrc = darkMode ? '/assets/aa-mark-white.png' : '/assets/aa-mark-dark.png';
+  const logoFallback = '/assets/aa-mark-primary.png'; // opsional, cyan/teal
+
   return (
     <nav className="navbar" ref={nodeRef} role="navigation" aria-label="Main navigation">
       <div className="navbar__inner">
@@ -115,11 +117,11 @@ const Navbar = () => {
         <div className="navbar-brand">
           <Link to="/" className="brand-link" aria-label="Go to homepage">
             <Img
-              src={['/assets/logo.png', '/assets/logo-fallback.png']}
-              alt="Logo"
+              src={[logoSrc, logoFallback]}
+              alt="AA Logo"
               className="navbar-logo"
             />
-            <span className="brand-text">My Portfolio</span>
+            {/* <span className="brand-text">My Portfolio</span> */}
           </Link>
         </div>
 
@@ -190,7 +192,6 @@ const Navbar = () => {
                   end={end}
                   role="menuitem"
                   className={({ isActive }) => (isActive ? 'active' : '')}
-                  /* Tutup SEBELUM navigate biar instan */
                   onClickCapture={() => setIsOpen(false)}
                 >
                   {label}

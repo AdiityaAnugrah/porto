@@ -15,7 +15,7 @@ const CV = () => {
   const [tall, setTall] = useState(false);
 
   useEffect(() => {
-    document.title = "CV — My Portfolio";
+    document.title = "CV | My Portfolio";
   }, []);
 
   // Jika iframe belum loaded > 5s, tampilkan bantuan

@@ -76,7 +76,7 @@ const Projects = () => {
 
   // sinkron kategori dgn URL setiap ganti route
   useEffect(() => { setCat(mapPathToCat(location.pathname)); }, [location.pathname]);
-  useEffect(() => { document.title = "Projects — My Portfolio"; }, []);
+  useEffect(() => { document.title = "Projects | My Portfolio"; }, []);
 
   const filtered = useMemo(() => {
     let arr = [...seed];

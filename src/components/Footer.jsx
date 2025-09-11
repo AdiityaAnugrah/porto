@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer__inner">
         <p className="footer__text">
-          Copyright &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+          Copyright &copy; {new Date().getFullYear()} A_A.
         </p>
         {/* (Opsional)
         <nav className="footer__links">

@@ -23,6 +23,7 @@ import {
   FaChevronDown,
   FaInstagram,
 } from "react-icons/fa";
+import SEO from "../components/SEO";
 import "../styles/About.scss";
 
 const CV_URL =
@@ -30,7 +31,7 @@ const CV_URL =
 
 const About = () => {
   useEffect(() => {
-    document.title = "About — My Portfolio";
+    document.title = "About | My Portfolio";
   }, []);
 
   // ====== DATA ======
@@ -135,12 +136,40 @@ const About = () => {
     </article>
   );
 
+  const sameAs = [
+    profile.socials.github,
+    profile.socials.linkedin,
+    profile.socials.instagram,
+  ].filter(Boolean);
+
   return (
     <main className="about" role="main">
+      <SEO
+        title="About"
+        description="Tentang Aditya Anugrah — Web Developer fokus e-commerce, dashboard, dan sistem absensi. Mengutamakan performa, keamanan, dan UX."
+        path="/about"
+        type="profile"
+        image="/assets/me-sunset.jpg"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: profile.name,
+          jobTitle: profile.role,
+          url: (typeof window !== "undefined" ? window.location.origin : "") + "/about",
+          email: `mailto:${profile.email}`,
+          sameAs,
+          image: (typeof window !== "undefined" ? window.location.origin : "") + "/assets/me-sunset.jpg",
+          worksFor: {
+            "@type": "Organization",
+            name: "Freelance",
+          },
+        }}
+      />
+
       <div className="container">
         {/* ===== HERO ===== */}
         <header className="about-hero">
-          {/* gunakan class baru agar tidak bentrok dengan .avatar di komponen */}
+          {/* gunakan class pembungkus baru agar tidak bentrok dengan .avatar milik komponen */}
           <div className="avatar-wrap">
             <Avatar srcBase="/assets/me-sunset" alt="Aditya Anugrah — sunset" size={180} />
           </div>
