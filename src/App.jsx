@@ -1,28 +1,20 @@
+import React from "react";
 import { Outlet } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
-// import NavbarMobile from "./components/NavbarMobile";
 import Footer from "./components/Footer";
 
-function App() {
-    return (
-        <div style={{ minHeight: "100svh" }} className="flex flex-col">
-            <Navbar />
-            <div
-                className="main-content"
-                style={{
-                    flex: 1,
-                    backgroundColor: "#f8f9fa",
-                }}
-            >
-                <Outlet />
-            </div>
-            {/* <NavbarMobile /> */}
-            <div className="footer-desktop">
-                <Footer />
-            </div>
-        </div>
-    );
+export default function App() {
+  return (
+    <div className="app-shell">
+      <Navbar />
+      {/* Jangan hardcode background di sini */}
+      <main className="main-content" role="main">
+        <Outlet />
+      </main>
+      <div className="footer-desktop">
+        <Footer />
+      </div>
+    </div>
+  );
 }
-
-export default App;

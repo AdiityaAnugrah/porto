@@ -5,17 +5,22 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: var(--nav-h);
-  padding: 0 clamp(0.75rem, 2vw, 2rem);
-
   background: var(--color-surface);
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   backdrop-filter: saturate(140%) blur(6px);
+
+  .navbar__inner {
+    min-height: var(--nav-h);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 clamp(0.75rem, 2vw, 2rem);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between; /* <-- kunci: burger ke kanan di mobile */
+  }
 
   /* Brand */
   .navbar-brand {
@@ -27,25 +32,40 @@
       font-weight: 700;
       color: var(--color-text);
       text-decoration: none;
+
+      &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 3px;
+        border-radius: 10px;
+      }
     }
     .navbar-logo {
       width: clamp(28px, 4.5vw, 40px);
       height: clamp(28px, 4.5vw, 40px);
       object-fit: contain;
+      border-radius: 8px;
+      background: var(--color-bg);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
     }
   }
 
-  /* Burger icon */
+  /* Burger */
   .navbar-toggle {
     display: none;
     background: none;
-    border: none;
-    font-size: clamp(1.35rem, 5vw, 1.85rem);
-    padding: 0.5rem;
-    cursor: pointer;
+    border: 1px solid var(--color-border);
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    padding: .5rem;
+    border-radius: 12px;
     color: var(--color-text);
-    transition: color .2s ease;
-    &:hover { color: var(--color-primary); }
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+
+    &:hover {
+      color: var(--color-primary);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      background: color-mix(in oklab, var(--color-border) 16%, transparent);
+    }
   }
 
   /* Desktop menu */
@@ -54,14 +74,16 @@
     align-items: center;
     gap: clamp(0.75rem, 2vw, 1.5rem);
     list-style: none;
-    margin: 0;
+    margin-left: auto;
     padding: 0;
 
     > li {
       position: relative;
 
       > a {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
         padding: .5rem .25rem;
         color: var(--color-text);
         text-decoration: none;
@@ -82,109 +104,181 @@
         }
 
         &:hover,
-        &.active {
-          color: var(--color-primary);
-        }
+        &.active { color: var(--color-primary); }
         &:hover::after,
-        &.active::after {
-          transform: scaleX(1);
-        }
+        &.active::after { transform: scaleX(1); }
+
+        .chevron { font-size: 10px; opacity: .7; }
       }
 
-      &.has-submenu:hover .submenu {
-        opacity: 1; visibility: visible; transform: translateY(0);
+      /* Desktop submenu */
+      @media (hover: hover) and (pointer: fine) {
+        &.has-submenu:hover .submenu,
+        &.has-submenu:focus-within .submenu {
+          opacity: 1; visibility: visible; transform: translateY(0);
+          pointer-events: auto;
+        }
       }
 
       .submenu {
         position: absolute;
         top: calc(100% + 8px);
         left: 0;
-        min-width: 180px;
+        min-width: 200px;
         background: var(--color-surface);
         list-style: none;
-        margin: 0; padding: .5rem 0;
+        margin: 0; padding: .5rem;
         border: 1px solid var(--color-border);
-        border-radius: 8px;
+        border-radius: 10px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-        opacity: 0; visibility: hidden; transform: translateY(-8px);
-        transition: all .2s ease;
+        opacity: 0; visibility: hidden; transform: translateY(-6px);
+        transition: all .18s ease;
+        pointer-events: none;
+        z-index: 60;
 
         li a {
           display: block;
-          padding: .5rem 1rem;
+          padding: .55rem .75rem;
           color: var(--color-text);
           text-decoration: none;
           font-weight: 500;
-          &:hover, &.active { color: var(--color-primary); }
+          border-radius: 8px;
+
+          &:hover, &.active {
+            color: var(--color-primary);
+            background: color-mix(in oklab, var(--color-border) 18%, transparent);
+          }
         }
-      }
-    }
-  }
-
-  /* Mobile menu (fixed di bawah navbar) */
-  .navbar-links.mobile {
-    display: none;
-    position: fixed;
-    top: var(--nav-h);
-    left: 0; right: 0; bottom: 0;
-    background: var(--color-surface);
-    list-style: none; margin: 0; padding: 0;
-    overflow-y: auto; z-index: 999;
-
-    li {
-      border-bottom: 1px solid var(--color-border);
-      padding: .8rem 1.25rem;
-      &:last-child { border-bottom: none; }
-
-      a {
-        color: var(--color-text);
-        text-decoration: none;
-        font-weight: 600;
-        &.active, &:hover { color: var(--color-primary); }
-      }
-
-      details {
-        summary {
-          display: flex; align-items: center; justify-content: space-between;
-          font-weight: 600; cursor: pointer; list-style: none;
-          .chevron { margin-left: .5rem; transition: transform .2s ease; }
-          &:focus { outline: 2px solid var(--color-primary); }
-        }
-        &[open] .chevron { transform: rotate(180deg); }
-
-        .submenu {
-          list-style: none; padding-left: 1rem; margin-top: .5rem;
-          li a { display: block; padding: .5rem 0; }
-        }
-      }
-
-      &.mobile-theme-toggle button {
-        background: none; border: none; display: inline-flex; align-items: center; gap: .5rem;
-        color: var(--color-text); cursor: pointer; font-size: 1rem;
       }
     }
   }
 
   /* Desktop theme toggle */
   .theme-toggle {
-    background: none; border: none; cursor: pointer;
-    color: var(--color-text); font-size: 1.25rem; margin-left: .5rem;
-    transition: color .2s ease;
-    &:hover { color: var(--color-primary); }
+    background: none;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    margin-left: .5rem;
+    border-radius: 12px;
+    height: 40px; width: 40px;
+    display: none;
+    align-items: center; justify-content: center;
+
+    &:hover {
+      color: var(--color-primary);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      background: color-mix(in oklab, var(--color-border) 16%, transparent);
+    }
+  }
+
+  /* Mobile drawer wrapper */
+  .mobile-drawer {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    transform: translateY(-8px);
+    opacity: 0; pointer-events: none;
+    transition: transform .18s ease, opacity .18s ease;
+    padding-top: max(0px, env(safe-area-inset-top));
+    z-index: 999;
+
+    /* Tambahan kecil agar scroll-nya halus & anti bounce */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    /* (opsional) kalau pernah tertutup elemen lain, naikkan:
+       z-index: 9999; */
+    &.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  /* Mobile menu list */
+  .navbar-links.mobile {
+    list-style: none; margin: 0; padding: 12px;
+    max-width: 1120px; width: 100%;
+    margin-inline: auto;
+    display: grid; gap: 8px;
+
+    li { width: 100%; }
+
+    a, .submenu-toggle {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center; justify-content: space-between;
+      gap: 10px;
+
+      &:hover, &.active { color: var(--color-primary); }
+      .chevron { opacity: .7; transition: transform .18s ease; }
+      &[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+    }
+
+    .has-submenu {
+      .submenu {
+        margin-top: 6px;
+        display: none;
+        padding-left: 6px;
+        list-style: none;
+
+        &.open { display: grid; gap: 6px; }
+
+        a {
+          padding: 12px 14px;
+          border-radius: 10px;
+          border: 1px solid var(--color-border);
+          background: var(--color-bg);
+          text-decoration: none;
+          color: var(--color-text);
+          font-weight: 500;
+
+          &.active { color: var(--color-primary); }
+        }
+      }
+    }
+
+    .mobile-theme-toggle {
+      margin-top: 4px;
+      button {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px dashed var(--color-border);
+        background: transparent;
+        color: var(--color-text);
+        display: inline-flex;
+        align-items: center; gap: 10px;
+        font-weight: 600;
+      }
+    }
   }
 
   /* Breakpoints */
   @media (max-width: 1024px) {
     .navbar-links.desktop { display: none; }
-    .navbar-toggle { display: block; }
+    .navbar-toggle { display: inline-flex; margin-left: auto; } /* <-- dorong ke kanan */
   }
-  @media (max-width: 768px) {
-    .navbar-links.mobile { display: block; }
-    .theme-toggle { display: none; }
+  @media (min-width: 1025px) {
+    .theme-toggle { display: inline-flex; }
   }
   @media (max-width: 480px) {
-    padding: 0 .75rem;
+    .navbar__inner { padding-inline: .75rem; }
     .navbar-brand .brand-link { font-size: 1.2rem; }
     .navbar-logo { width: 28px; height: 28px; }
   }
+
+  /* Prefer-reduced-motion */
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 }

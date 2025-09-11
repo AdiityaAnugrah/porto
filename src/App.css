@@ -1,0 +1,20 @@
+/* Shell aplikasi mengikuti tema global */
+.app-shell {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Ruang konten fleksibel—pakai warna tema, bukan warna hardcoded */
+.main-content {
+  flex: 1;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Footer container opsional; biarkan footer sendiri yang atur tampilannya */
+.footer-desktop {
+  background: transparent; /* atau var(--color-bg) kalau mau */
+}

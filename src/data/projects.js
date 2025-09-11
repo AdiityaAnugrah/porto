@@ -1,0 +1,221 @@
+// src/data/projects.js
+export const projects = [
+  {
+    id: 'ilenafurniture',
+    title: 'Ilena Furniture — E-Commerce',
+    summary:
+      'Storefront kustom dengan kalkulator dimensi/berat, SKU matrix, integrasi ongkir, dan analytics.',
+    category: 'Web Apps',
+    year: 2025,
+    role: 'Full-stack',
+    client: 'Ilena Furniture',
+    duration: '4 bulan',
+    team: '2 dev + 1 designer',
+    tech: ['Next.js', 'React', 'CI4/PHP', 'MySQL', 'SCSS'],
+    tags: ['E-Commerce', 'SEO', 'SSR'],
+    cover:
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
+    links: { live: 'https://ilenafurniture.com', code: '' },
+    features: [
+      'Kalkulator ongkir berbasis dimensi/berat',
+      'SKU matrix & varian produk',
+      'Manajemen stok & pesanan',
+      'Dashboard analytics (human vs bot filter)',
+    ],
+    responsibilities: [
+      'Arsitektur Next.js (SSR/ISR) untuk SEO & performa',
+      'Integrasi API CI4 (auth, cart, order)',
+      'Desain komponen UI SCSS dengan tokens',
+      'Deployment & monitoring',
+    ],
+    challenges: [
+      'Optimasi gambar & LCP untuk halaman produk',
+      'Sinkronisasi stok real-time dengan batas rate API',
+    ],
+    results: [
+      'TTFB turun ~30%, CLS < 0.05',
+      'Peningkatan conversion di mobile (indikatif) ~+12%',
+    ],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Dashboard analytics' },
+      { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },
+    ],
+  },
+  {
+    id: 'titanium-group',
+    title: 'Titanium Group — Workshop Admin',
+    summary:
+      'Dashboard CI4: tracking order, status pipeline (BONGKAR→DEMPUL→CAT), PDF export.',
+    category: 'Web Apps',
+    year: 2024,
+    role: 'Backend + UI',
+    client: 'Titanium Group',
+    duration: '3 bulan',
+    team: '1 dev',
+    tech: ['CodeIgniter 4', 'PHP', 'Bootstrap', 'MySQL'],
+    tags: ['Workflow', 'Admin'],
+    cover:
+      'https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '', code: '' },
+    features: [
+      'Pipeline status: BONGKAR → DEMPUL → CAT → QC',
+      'Export PDF per order',
+      'Pencarian & filter lanjutan',
+    ],
+    responsibilities: [
+      'Perancangan skema DB & relasi',
+      'REST endpoints untuk front end',
+      'Template admin (Bootstrap) dengan komponen modular',
+    ],
+    challenges: ['Penanganan batch update dengan transaksi DB'],
+    results: ['Lead time internal turun ~20% (estimasi internal)'],
+    gallery: [
+      { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop' },
+    ],
+  },
+  {
+    id: 'absensi-site',
+    title: 'Absensi.site — Attendance Platform',
+    summary:
+      'Next.js login NIK, kalender shift (L/1-6), device-aware session, dan role-based.',
+    category: 'Web Apps',
+    year: 2025,
+    role: 'Full-stack',
+    client: 'Internal',
+    duration: 'Sampai sekarang',
+    team: '2 dev',
+    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind/SCSS'],
+    tags: ['HR', 'Attendance'],
+    cover:
+      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
+    links: { live: 'https://absensi.site', code: '' },
+    features: [
+      'Login berbasis pola NIK',
+      'Kalender shift (L/1-6)',
+      'Role-based access',
+    ],
+    responsibilities: [
+      'Perancangan DB & API',
+      'Pembangunan front end Next.js + Tailwind',
+    ],
+    challenges: ['Aturan session berbeda untuk mobile vs desktop'],
+    results: ['Mempercepat rekap kehadiran mingguan'],
+    gallery: [],
+  },
+  {
+    id: 'BLCC',
+    title: 'BLCC — Church Management',
+    summary:
+      'Aplikasi manajemen gereja: data anggota, kehadiran, donasi, dan laporan.',
+    category: 'Web Apps',
+    year: 2023,
+    role: 'Full-stack',
+    client: 'BLCC',
+    duration: '2 minggu',
+    team: '2 dev',
+    tech: ['Laravel', 'PHP', 'Bootstrap', 'MySQL'],
+    tags: ['Church', 'Management'],
+    cover:
+      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '', code: '' },
+    features: [
+      'Data anggota, kehadiran, donasi, dan laporan',
+      'Pencarian & filter lanjutan',
+    ],
+    responsibilities: [
+        'Perancangan skema DB & relasi',
+        'Template admin (Bootstrap) dengan komponen modular',
+    ],    challenges: [
+        'Optimasi performa untuk tabel data besar',
+        'Keamanan data anggota',
+    ],    results: [
+        'Mempercepat rekap data anggota & donasi ~30% (indikatif)',
+        'Lead time internal turun ~20% (estimasi internal)',    
+    ],    gallery: [
+        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Member management' },
+        { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Donation tracking' },
+        { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Attendance report' },    
+    ],
+  },
+  {
+    id: 'landing-promo',
+    title: 'Landing — Promo Campaign',
+    summary:
+      'Landing page ringan untuk kampanye promosi, fokus CTA & kecepatan.',
+    category: 'Landing Pages',
+    year: 2023,
+    role: 'Frontend',
+    client: 'Campaign Team',
+    duration: '2 minggu',
+    team: '1 dev',
+    tech: ['React', 'SCSS'],
+    tags: ['Landing', 'Marketing'],
+    cover:
+      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '#', code: '' },
+    features: ['Section hero + CTA', 'Form lead', 'Integrasi analytics'],
+    responsibilities: ['Implement UI, optimasi performa'],
+    challenges: ['CLS & font loading'],
+    results: ['First input delay rendah, bounce turun'],
+    gallery: [],
+  },
+  {
+    id: 'Lunarea Furniture',
+    title: 'Lunarea Furniture — E-Commerce',
+    summary:
+      'Storefront e-commerce dengan filter produk, wishlist, dan integrasi payment gateway.',
+    category: 'Web Apps',
+    year: 2023,
+    role: 'Full-stack',
+    client: 'Lunarea Furniture',
+    duration: '2 minggu',
+    team: '2 dev',
+    tech: ['CodeIgniter 4', 'PHP', 'Bootstrap', 'MySQL'],
+    tags: ['E-Commerce', 'Payment'],
+    cover:
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '', code: '' },
+    features: [
+        'Filter produk (kategori, harga, popularitas)',
+        'Wishlist',
+        'Integrasi payment gateway',
+    ],
+    responsibilities: [
+        'Arsitektur CI4 untuk modularitas & maintainability',
+        'Integrasi API payment gateway',
+        'Desain UI responsif (Bootstrap)',
+    ],    challenges: [
+        'Optimasi performa untuk halaman produk dengan banyak varian',
+        'Keamanan transaksi & data pengguna',
+    ],    results: [
+        'Peningkatan conversion rate ~8% (indikatif)',
+        'Pengurangan abandoned cart ~15% (indikatif)',    ],    gallery: [
+        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },   { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Checkout page' },   { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Mobile view' },
+        { src: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop', alt: 'Admin dashboard' },
+        { src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop', alt: 'Order management' },
+        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Analytics dashboard' },   
+    ],
+  },
+  {
+    id: 'service-app',
+    title: 'Service App — Mobile Prototype',
+    summary:
+      'Prototype mobile (PWA) untuk booking servis kendaraan, notifikasi & tracking.',
+    category: 'Mobile Apps',
+    year: 2022,
+    role: 'Frontend',
+    client: 'Internal',
+    duration: '3 minggu',
+    team: '1 dev',
+    tech: ['PWA', 'React', 'SCSS'],
+    tags: ['PWA', 'Mobile'],
+    cover:
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '#', code: '' },
+    features: ['Booking slot', 'Push notification mock', 'Tracking status'],
+    responsibilities: ['Implement UI & service worker dasar'],
+    challenges: ['Cache strategy untuk data dinamis'],
+    results: ['MVP validasi konsep'],
+    gallery: [],
+  },
+];

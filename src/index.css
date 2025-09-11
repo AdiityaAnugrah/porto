@@ -18,10 +18,10 @@ html::-webkit-scrollbar {
 /* ======= LIGHT MODE (Monochrome) ======= */
 :root {
   /* Background layers */
-  --gray-100: #FFFFFF; /* pure white */
-  --gray-200: #F7F7F7; /* almost white */
-  --gray-300: #E0E0E0; /* light gray */
-  --gray-400: #CCCCCC; /* mid-light gray */
+  --gray-100: #F9F9F9; /* soft white */
+  --gray-200: #E6E6E6; /* almost white */
+  --gray-300: #C7C5B8; /* light gray */
+  --gray-400: #969696; /* mid-light gray */
 
   /* Text & UI */
   --gray-700: #4D4D4D; /* dark text */

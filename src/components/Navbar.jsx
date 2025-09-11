@@ -1,35 +1,102 @@
 // src/components/Navbar.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Img } from 'react-image';
 import { FaBars, FaTimes, FaSun, FaMoon, FaChevronDown } from 'react-icons/fa';
-// ⛔️ Tidak impor motion:
 import '../styles/Navbar.scss';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
-  const nodeRef = useRef(null);
+const BREAKPOINT = 1024;
 
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);        // drawer mobile
+  const [openMenu, setOpenMenu] = useState(null);     // submenu mobile
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = (typeof window !== 'undefined' && localStorage.getItem('theme')) || 'light';
+    return saved === 'dark';
+  });
+
+  const nodeRef = useRef(null);
+  const location = useLocation();
+  const scrollYRef = useRef(0);
+
+  // sinkron tema
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
     document.body.classList.toggle('dark-mode', darkMode);
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    if (typeof window !== 'undefined') localStorage.setItem('theme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
+  // tutup saat pindah rute
   useEffect(() => {
-    const onClick = (e) => { if (nodeRef.current && !nodeRef.current.contains(e.target)) setIsOpen(false); };
-    const onKey = (e) => { if (e.key === 'Escape') setIsOpen(false); };
-    document.addEventListener('mousedown', onClick);
+    setIsOpen(false);
+    setOpenMenu(null);
+  }, [location.pathname]);
+
+  // klik di luar + ESC (+ support touch)
+  useEffect(() => {
+    const onPointer = (e) => {
+      if (!isOpen) return;
+      if (nodeRef.current && !nodeRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setOpenMenu(null);
+      }
+    };
+    const onKey = (e) => { if (e.key === 'Escape') { setIsOpen(false); setOpenMenu(null); } };
+
+    document.addEventListener('mousedown', onPointer);
+    document.addEventListener('touchstart', onPointer, { passive: true });
     document.addEventListener('keydown', onKey);
-    return () => { document.removeEventListener('mousedown', onClick); document.removeEventListener('keydown', onKey); };
+    return () => {
+      document.removeEventListener('mousedown', onPointer);
+      document.removeEventListener('touchstart', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen]);
+
+  // Scroll-lock stabil (fix: scroll dulu lalu buka menu -> menu kadang tidak muncul)
+  useEffect(() => {
+    const body = document.body;
+    if (isOpen) {
+      scrollYRef.current = window.scrollY || window.pageYOffset || 0;
+      // kunci body dengan position:fixed (paling stabil di iOS)
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollYRef.current}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+    } else {
+      // lepas kunci & restore posisi
+      const y = scrollYRef.current;
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      if (y) window.scrollTo(0, y);
+    }
+    return () => {
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+    };
+  }, [isOpen]);
+
+  // auto-close saat resize ke desktop
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= BREAKPOINT) setIsOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const links = [
     { to: '/', label: 'Home', end: true },
     { to: '/about', label: 'About' },
     {
-      to: '/projects', label: 'Projects',
+      to: '/projects',
+      label: 'Projects',
+      key: 'projects',
       submenu: [
         { to: '/projects/web', label: 'Web Apps' },
         { to: '/projects/mobile', label: 'Mobile Apps' },
@@ -39,76 +106,140 @@ const Navbar = () => {
     { to: '/contact', label: 'Contact' },
   ];
 
+  const toggleSubmenu = (key) => setOpenMenu((p) => (p === key ? null : key));
+
   return (
     <nav className="navbar" ref={nodeRef} role="navigation" aria-label="Main navigation">
-      <div className="navbar-brand">
-        <Link to="/" className="brand-link">
-          <Img src={['/assets/logo.png', '/assets/logo-fallback.png']} alt="Logo" className="navbar-logo" />
-          My Portfolio
-        </Link>
+      <div className="navbar__inner">
+        {/* Brand */}
+        <div className="navbar-brand">
+          <Link to="/" className="brand-link" aria-label="Go to homepage">
+            <Img
+              src={['/assets/logo.png', '/assets/logo-fallback.png']}
+              alt="Logo"
+              className="navbar-logo"
+            />
+            <span className="brand-text">My Portfolio</span>
+          </Link>
+        </div>
+
+        {/* Desktop */}
+        <ul className="navbar-links desktop" role="menubar" aria-label="Primary">
+          {links.map(({ to, label, end, submenu }) => (
+            <li key={to} className={submenu ? 'has-submenu' : ''} role="none">
+              <NavLink
+                to={to}
+                end={end}
+                className={({ isActive }) => (isActive ? 'active' : '')}
+                role="menuitem"
+                aria-haspopup={!!submenu || undefined}
+              >
+                {label}
+                {submenu && <FaChevronDown className="chevron" aria-hidden />}
+              </NavLink>
+
+              {submenu && (
+                <ul className="submenu" role="menu" aria-label={`${label} submenu`}>
+                  {submenu.map((s) => (
+                    <li key={s.to} role="none">
+                      <NavLink
+                        to={s.to}
+                        role="menuitem"
+                        className={({ isActive }) => (isActive ? 'active' : '')}
+                      >
+                        {s.label}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        {/* Theme toggle (desktop) */}
+        <button
+          className="theme-toggle"
+          onClick={() => setDarkMode((d) => !d)}
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          {darkMode ? <FaSun /> : <FaMoon />}
+        </button>
+
+        {/* Burger (mobile) */}
+        <button
+          className="navbar-toggle"
+          onClick={() => setIsOpen((v) => !v)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
 
-      <button
-        className="navbar-toggle"
-        onClick={() => setIsOpen(v => !v)}
-        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={isOpen}
-        aria-controls="mobile-menu"
-      >
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </button>
-
-      {/* Mobile menu tanpa framer-motion */}
-      {isOpen && (
-        <ul id="mobile-menu" className="navbar-links mobile">
-          {links.map(({ to, label, end, submenu }) => (
-            <li key={to}>
+      {/* Mobile drawer */}
+      <div id="mobile-menu" className={`mobile-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
+        <ul className="navbar-links mobile" role="menu" aria-label="Mobile primary">
+          {links.map(({ to, label, end, submenu, key }) => (
+            <li key={to} className={submenu ? 'has-submenu' : ''} role="none">
               {!submenu ? (
-                <NavLink to={to} end={end} className={({ isActive }) => (isActive ? 'active' : '')} onClick={() => setIsOpen(false)}>
+                <NavLink
+                  to={to}
+                  end={end}
+                  role="menuitem"
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                  /* Tutup SEBELUM navigate biar instan */
+                  onClickCapture={() => setIsOpen(false)}
+                >
                   {label}
                 </NavLink>
               ) : (
-                <details>
-                  <summary>{label} <FaChevronDown className="chevron" /></summary>
-                  <ul className="submenu">
-                    {submenu.map(s => (
-                      <li key={s.to}>
-                        <NavLink to={s.to} className={({ isActive }) => (isActive ? 'active' : '')} onClick={() => setIsOpen(false)}>
+                <>
+                  <button
+                    type="button"
+                    className="submenu-toggle"
+                    aria-expanded={openMenu === key}
+                    aria-controls={`submenu-${key}`}
+                    onClick={() => toggleSubmenu(key)}
+                  >
+                    {label} <FaChevronDown className="chevron" aria-hidden />
+                  </button>
+                  <ul
+                    id={`submenu-${key}`}
+                    className={`submenu ${openMenu === key ? 'open' : ''}`}
+                    role="menu"
+                    aria-label={`${label} submenu`}
+                  >
+                    {submenu.map((s) => (
+                      <li key={s.to} role="none">
+                        <NavLink
+                          to={s.to}
+                          role="menuitem"
+                          className={({ isActive }) => (isActive ? 'active' : '')}
+                          onClickCapture={() => {
+                            setIsOpen(false);
+                            setOpenMenu(null);
+                          }}
+                        >
                           {s.label}
                         </NavLink>
                       </li>
                     ))}
                   </ul>
-                </details>
+                </>
               )}
             </li>
           ))}
-          <li className="mobile-theme-toggle">
-            <button onClick={() => setDarkMode(d => !d)} aria-label="Toggle theme">
+
+          <li className="mobile-theme-toggle" role="none">
+            <button onClick={() => setDarkMode((d) => !d)} role="menuitem">
               {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? 'Light' : 'Dark'}
             </button>
           </li>
         </ul>
-      )}
-
-      <ul className="navbar-links desktop">
-        {links.map(({ to, label, end, submenu }) => (
-          <li key={to} className={submenu ? 'has-submenu' : ''}>
-            <NavLink to={to} end={end} className={({ isActive }) => (isActive ? 'active' : '')}>{label}</NavLink>
-            {submenu && (
-              <ul className="submenu">
-                {submenu.map(s => (
-                  <li key={s.to}><NavLink to={s.to} className={({ isActive }) => (isActive ? 'active' : '')}>{s.label}</NavLink></li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <button className="theme-toggle" onClick={() => setDarkMode(d => !d)} aria-label="Toggle theme" title="Toggle theme">
-        {darkMode ? <FaSun /> : <FaMoon />}
-      </button>
+      </div>
     </nav>
   );
 };
