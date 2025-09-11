@@ -6,12 +6,12 @@ export const projects = [
     summary:
       'Storefront kustom dengan kalkulator dimensi/berat, SKU matrix, integrasi ongkir, dan analytics.',
     category: 'Web Apps',
-    year: 2025,
+    year: 2023,
     role: 'Full-stack',
     client: 'Ilena Furniture',
-    duration: '4 bulan',
+    duration: '8 bulan',
     team: '2 dev + 1 designer',
-    tech: ['Next.js', 'React', 'CI4/PHP', 'MySQL', 'SCSS'],
+    tech: ['React', 'CI4/PHP', 'MySQL','Bootstrap',],
     tags: ['E-Commerce', 'SEO', 'SSR'],
     cover:
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
@@ -190,7 +190,9 @@ export const projects = [
     ],    results: [
         'Peningkatan conversion rate ~8% (indikatif)',
         'Pengurangan abandoned cart ~15% (indikatif)',    ],    gallery: [
-        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },   { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Checkout page' },   { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Mobile view' },
+        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },   
+        { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Checkout page' },   
+        { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Mobile view' },
         { src: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop', alt: 'Admin dashboard' },
         { src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop', alt: 'Order management' },
         { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Analytics dashboard' },   
@@ -216,6 +218,28 @@ export const projects = [
     responsibilities: ['Implement UI & service worker dasar'],
     challenges: ['Cache strategy untuk data dinamis'],
     results: ['MVP validasi konsep'],
+    gallery: [],
+  },
+  {
+    id: 'photobooth',
+    title: 'Photobooth — Event App',
+    summary:
+      'Aplikasi photobooth sederhana: capture foto, filter, dan unduh.',
+    category: 'Web Apps',
+    year: 2025,
+    role: 'Frontend',
+    client: 'Internal',
+    duration: '2 minggu',
+    team: '1 dev',
+    tech: ['React', 'SCSS'],
+    tags: ['Webcam', 'Event'],
+    cover:
+      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1600&auto=format&fit=crop',
+    links: { live: '#', code: '' },
+    features: ['Capture foto', 'Filter foto', 'Unduh foto'],
+    responsibilities: ['Implement UI, optimasi performa'],
+    challenges: ['Optimasi performa untuk capture foto'],
+    results: ['First input delay rendah, bounce turun'],
     gallery: [],
   },
 ];
