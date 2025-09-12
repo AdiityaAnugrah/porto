@@ -236,4 +236,25 @@ export const projects = [
     results: ['MVP validasi konsep'],
     gallery: [],
   },
+  { id: 'dsinematix.id',
+    title: 'Dsinematix.id — Website Company Profile',
+    summary:
+      'Website company profile dengan halaman dinamis, blog, dan integrasi SEO.',
+    category: 'Landing Pages',
+    year: 2024,
+    role: 'Frontend',
+    client: 'Internal',
+    duration: '2 minggu',
+    team: '1 dev',
+    tech: ['HTML', 'CSS', 'JavaScript','WordPress'],
+    tags: ['PWA', 'website'],
+    cover:
+      'https://i.ibb.co/xqrxyqr3/Screenshot-2025-09-12-133703.png',
+    links: { live: 'https://dsinematix.id', code: '' },
+    features: ['Ambil foto', 'Tambahkan filter', 'Unduh atau bagikan'],
+    responsibilities: ['Implement UI & service worker dasar'],
+    challenges: ['Cache strategy untuk data dinamis'],
+    results: ['MVP validasi konsep'],
+    gallery: [],
+  }
 ];
