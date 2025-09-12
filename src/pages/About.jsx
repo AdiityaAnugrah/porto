@@ -64,7 +64,7 @@ const About = () => {
     {
       title: "Full-stack Developer",
       company: "Ilena Furniture (E-Commerce)",
-      period: "2024 — 2025",
+      period: "2023 — sekarang",
       points: [
         "Bangun storefront Next.js (SSR/ISR) + backend CI4.",
         "Integrasi ongkir, SKU matrix, manajemen stok & pesanan.",
@@ -74,7 +74,7 @@ const About = () => {
     {
       title: "Backend + UI",
       company: "Titanium Group (Workshop Admin)",
-      period: "2023 — 2024",
+      period: "2024 — 2025",
       points: [
         "Rancang skema DB & REST API CI4.",
         "Pipeline status BONGKAR→DEMPUL→CAT + export PDF.",
@@ -84,10 +84,19 @@ const About = () => {
     {
       title: "Full-stack Developer",
       company: "Absensi.site (Attendance Platform)",
-      period: "2025",
+      period: "2024 — sekarang",
       points: [
         "Login NIK, role-based access, kalender shift.",
         "Next.js + Tailwind, Postgres, session device-aware.",
+      ],
+    },
+    {
+      title: "Freelance Web Developer",
+      company: "Proyek lain-lain",
+      period: "2022 — sekarang",
+      points: [
+        "Landing page, dashboard admin, dan blog statis.",
+        "Next.js, CI4/PHP, WordPress, dan sesuai kebutuhan klien.",
       ],
     },
   ];
@@ -107,12 +116,20 @@ const About = () => {
 
   const certifications = [
     {
-      name: <span className="text-lg font-bold">Responsive Web Design</span>,
+      name: <span className="text-lg font-bold">Mobile Development</span>,
       by: <span className="text-base">Bangkit Academy</span>,
     },
     {
-      name: <span className="text-lg font-bold">JavaScript Algorithms & Data Structures</span>,
-      by: <span className="text-base">freeCodeCamp</span>,
+      name: <span className="text-lg font-bold">Android Development</span>,
+      by: <span className="text-base">Coursera</span>,
+    },
+    {
+      name: <span className="text-lg font-bold">JavaScript Algorithms</span>,
+      by: <span className="text-base">FreeCodeCamp</span>,
+    },
+    {
+      name: <span className="text-lg font-bold">Aplikasi Android Intermediate</span>,
+      by: <span className="text-base">Dicoding</span>,
     },
   ];
 

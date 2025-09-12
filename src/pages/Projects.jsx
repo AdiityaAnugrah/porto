@@ -7,7 +7,7 @@ import "../styles/Projects.scss";
 import { projects as seed } from "../data/projects";
 
 const CATEGORIES = ["All", "Web Apps", "Mobile Apps", "Landing Pages"];
-const SORTS = ["Newest", "Oldest", "A–Z"];
+const SORTS = ["Terbaru", "Terlama", "A–Z"];
 
 // AUTO: mapping path -> kategori
 const mapPathToCat = (pathname) => {
@@ -72,7 +72,7 @@ const Projects = () => {
 
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState(mapPathToCat(location.pathname));
-  const [sort, setSort] = useState("Newest");
+  const [sort, setSort] = useState("Terbaru");
 
   // sinkron kategori dgn URL setiap ganti route
   useEffect(() => { setCat(mapPathToCat(location.pathname)); }, [location.pathname]);
@@ -91,8 +91,8 @@ const Projects = () => {
       });
     }
 
-    if (sort === "Newest") arr.sort((a, b) => (b.year || 0) - (a.year || 0));
-    if (sort === "Oldest") arr.sort((a, b) => (a.year || 0) - (b.year || 0));
+    if (sort === "Terbaru") arr.sort((a, b) => (b.year || 0) - (a.year || 0));
+    if (sort === "Terlama") arr.sort((a, b) => (a.year || 0) - (b.year || 0));
     if (sort === "A–Z") arr.sort((a, b) => a.title.localeCompare(b.title));
 
     return arr;

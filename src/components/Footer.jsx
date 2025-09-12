@@ -7,12 +7,6 @@ const Footer = () => {
         <p className="footer__text">
           Copyright &copy; {new Date().getFullYear()} A_A.
         </p>
-        {/* (Opsional)
-        <nav className="footer__links">
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
-        </nav>
-        */}
       </div>
     </footer>
   );
