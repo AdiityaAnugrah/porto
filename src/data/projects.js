@@ -14,7 +14,7 @@ export const projects = [
     tech: ['React', 'CI4/PHP', 'MySQL','Bootstrap',],
     tags: ['E-Commerce', 'SEO', 'SSR'],
     cover:
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
+      'https://i.ibb.co.com/d0sL4g8D/Screenshot-2025-09-12-083216.png',
     links: { live: 'https://ilenafurniture.com', code: '' },
     features: [
       'Kalkulator ongkir berbasis dimensi/berat',
@@ -37,8 +37,8 @@ export const projects = [
       'Peningkatan conversion di mobile (indikatif) ~+12%',
     ],
     gallery: [
-      { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Dashboard analytics' },
-      { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },
+      { src: 'https://i.ibb.co.com/xK59ZCvW/Screenshot-2025-09-12-083515.png', alt: 'Dashboard product' },
+      { src: 'https://i.ibb.co.com/1JJspfqx/Screenshot-2025-09-12-083636.png', alt: 'Dashboard analytics' },
     ],
   },
   {
@@ -87,7 +87,7 @@ export const projects = [
     tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind/SCSS'],
     tags: ['HR', 'Attendance'],
     cover:
-      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
+      'https://i.ibb.co.com/WW6wVdrM/Screenshot-2025-09-12-084241.png',
     links: { live: 'https://absensi.site', code: '' },
     features: [
       'Login berbasis pola NIK',
@@ -100,23 +100,25 @@ export const projects = [
     ],
     challenges: ['Aturan session berbeda untuk mobile vs desktop'],
     results: ['Mempercepat rekap kehadiran mingguan'],
-    gallery: [],
+    gallery: [
+      { src: 'https://i.ibb.co.com/JwfH9mWL/Screenshot-2025-09-12-084144.png', alt: 'Attendance dashboard' },
+    ],
   },
   {
     id: 'BLCC',
     title: 'BLCC — Church Management',
     summary:
       'Aplikasi manajemen gereja: data anggota, kehadiran, donasi, dan laporan.',
-    category: 'Web Apps',
-    year: 2023,
+    category: 'Mobile Apps',
+    year: 2025,
     role: 'Full-stack',
     client: 'BLCC',
     duration: '2 minggu',
     team: '2 dev',
-    tech: ['Laravel', 'PHP', 'Bootstrap', 'MySQL'],
+    tech: ['Laravel', 'PHP', 'Bootstrap', 'MySQL','Kotlin'],
     tags: ['Church', 'Management'],
     cover:
-      'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
+      'https://i.ibb.co.com/ZzJfBprf/Screenshot-2025-09-12-084323.png',
     links: { live: 'https://blcc.id', code: '' },
     features: [
       'Data anggota, kehadiran, donasi, dan laporan',
@@ -131,28 +133,25 @@ export const projects = [
     ],    results: [
         'Mempercepat rekap data anggota & donasi ~30% (indikatif)',
         'Lead time internal turun ~20% (estimasi internal)',    
-    ],    gallery: [
-        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Member management' },
-        { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Donation tracking' },
-        { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Attendance report' },    
+    ],    gallery: [   
     ],
   },
   {
-    id: 'landing-promo',
-    title: 'Landing — Promo Campaign',
+    id: 'cargomate',
+    title: 'CargoMate — Landing Page',
     summary:
-      'Landing page ringan untuk kampanye promosi, fokus CTA & kecepatan.',
+      'Landing page kustom untuk jasa pengiriman barang dengan form lead & analytics.',
     category: 'Landing Pages',
     year: 2023,
     role: 'Frontend',
     client: 'Campaign Team',
     duration: '2 minggu',
     team: '1 dev',
-    tech: ['React', 'SCSS'],
+    tech: ['HTML', 'CSS', 'JavaScript','WordPress'],
     tags: ['Landing', 'Marketing'],
     cover:
-      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600&auto=format&fit=crop',
-    links: { live: '#', code: '' },
+      'https://i.ibb.co.com/PZxWKZjY/Screenshot-2025-09-12-085131.png',
+    links: { live: 'https://cargomate.id', code: '' },
     features: ['Section hero + CTA', 'Form lead', 'Integrasi analytics'],
     responsibilities: ['Implement UI, optimasi performa'],
     challenges: ['CLS & font loading'],
@@ -173,7 +172,7 @@ export const projects = [
     tech: ['CodeIgniter 4', 'PHP', 'Bootstrap', 'MySQL'],
     tags: ['E-Commerce', 'Payment'],
     cover:
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop',
+      'https://i.ibb.co.com/ZRPtqc8r/Screenshot-2025-09-12-083813.png',
     links: { live: 'https://lunareafurniture.com', code: '' },
     features: [
         'Filter produk (kategori, harga, popularitas)',
@@ -190,12 +189,7 @@ export const projects = [
     ],    results: [
         'Peningkatan conversion rate ~8% (indikatif)',
         'Pengurangan abandoned cart ~15% (indikatif)',    ],    gallery: [
-        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Product detail page' },   
-        { src: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop', alt: 'Checkout page' },   
-        { src: 'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop', alt: 'Mobile view' },
-        { src: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1200&auto=format&fit=crop', alt: 'Admin dashboard' },
-        { src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop', alt: 'Order management' },
-        { src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', alt: 'Analytics dashboard' },   
+        { src: 'https://i.ibb.co.com/MDtTXkcy/Screenshot-2025-09-12-083938.png', alt: 'mobile view' },
     ],
   },
   {
@@ -204,7 +198,7 @@ export const projects = [
     summary:
       'Prototype mobile (PWA) untuk booking servis kendaraan, notifikasi & tracking.',
     category: 'Mobile Apps',
-    year: 2022,
+    year: 2024,
     role: 'Frontend',
     client: 'Internal',
     duration: '3 minggu',
@@ -221,12 +215,12 @@ export const projects = [
     gallery: [],
   },
   {
-    id: 'photobooth',
-    title: 'Photobooth — Event App',
+    id: 'SikamTrip',
+    title: 'SikamTrip — Booking App',
     summary:
-      'Aplikasi photobooth sederhana: ambil foto, tambahkan filter, unduh atau bagikan.',
+      'Aplikasi booking travel dengan pencarian, filter, dan integrasi pembayaran.',
     category: 'Web Apps',
-    year: 2024,
+    year: 2023,
     role: 'Frontend',
     client: 'Internal',
     duration: '2 minggu',
@@ -234,7 +228,7 @@ export const projects = [
     tech: ['HTML', 'CSS'],
     tags: ['PWA', 'Mobile'],
     cover:
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop',
+      'https://i.ibb.co.com/zhPWXKYC/Screenshot-2025-09-12-084711.png',
     links: { live: '#', code: '' },
     features: ['Ambil foto', 'Tambahkan filter', 'Unduh atau bagikan'],
     responsibilities: ['Implement UI & service worker dasar'],

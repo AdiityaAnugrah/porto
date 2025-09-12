@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -38,8 +38,28 @@
     <meta name="twitter:title" content="My Portfolio" />
     <meta name="twitter:description" content="Portfolio Aditya Anugrah — web developer fokus e-commerce, dashboard, dan sistem absensi." />
     <meta name="twitter:image" content="/assets/aa-mark-primary.png" />
+
+    <!-- Set tema paling awal: default dark, override ke light jika user pernah pilih -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+          if (saved === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.addEventListener('DOMContentLoaded', function () {
+              document.body.classList.remove('dark-mode');
+            });
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.addEventListener('DOMContentLoaded', function () {
+              document.body.classList.add('dark-mode');
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body>
+  <body class="dark-mode">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

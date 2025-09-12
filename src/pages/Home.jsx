@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Img } from 'react-image';
@@ -167,7 +166,7 @@ const Home = () => {
       <section className="stack" aria-labelledby="stack-title">
         <div className="container">
           <h2 id="stack-title" className="section-title">Stack yang sering saya pakai</h2>
-          <ul className="stack-chips" role="list">
+        <ul className="stack-chips" role="list">
             {stack.map((t) => (
               <li className="chip" role="listitem" key={t}>{t}</li>
             ))}

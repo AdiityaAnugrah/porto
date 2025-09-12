@@ -10,20 +10,37 @@ const BREAKPOINT = 1024;
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);        // drawer mobile
   const [openMenu, setOpenMenu] = useState(null);     // submenu mobile
+
+  // ===== Inisialisasi tema: hormati <html data-theme> (set dari index.html) -> localStorage -> default dark
   const [darkMode, setDarkMode] = useState(() => {
-    const saved = (typeof window !== 'undefined' && localStorage.getItem('theme')) || 'light';
-    return saved === 'dark';
+    try {
+      if (typeof document !== 'undefined') {
+        const htmlPref = document.documentElement.getAttribute('data-theme');
+        if (htmlPref) return htmlPref === 'dark';
+      }
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+        if (saved) return saved === 'dark';
+      }
+    } catch {
+      // ignore
+    }
+    return true; // default: dark
   });
 
   const nodeRef = useRef(null);
   const location = useLocation();
   const scrollYRef = useRef(0);
 
-  // sinkron tema
+  // sinkron tema (atribut <html> + class body + localStorage)
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
     document.body.classList.toggle('dark-mode', darkMode);
-    if (typeof window !== 'undefined') localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    try {
+      if (typeof window !== 'undefined') localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    } catch {
+      // ignore
+    }
   }, [darkMode]);
 
   // tutup saat pindah rute

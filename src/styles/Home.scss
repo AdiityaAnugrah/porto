@@ -2,13 +2,19 @@
 .home {
   background: var(--color-bg);
   color: var(--color-text);
-}
 
-.container {
-  max-width: 1120px;
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: clamp(12px, 2vw, 24px);
+  /* Variabel container untuk halaman ini */
+  --container-max: 1120px;
+  --container-pad: clamp(16px, 5vw, 28px);
+
+  /* Semua .container di dalam .home akan konsisten */
+  .container {
+    box-sizing: border-box;
+    max-width: var(--container-max);
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+  }
 }
 
 /* ---------- HERO ---------- */
@@ -118,7 +124,7 @@
     display: inline-flex; gap: 24px; align-items: center;
     padding: 10px 12px; min-width: 100%;
     animation: scrollx 18s linear infinite;
-    will-change: transform; /* smoother anim */
+    will-change: transform;
   }
   .brand {
     white-space: nowrap; font-weight: 700;
@@ -215,7 +221,7 @@
     border-radius: 16px; padding: 12px 14px; box-shadow: 0 8px 22px rgba(0,0,0,.06);
   }
   .status {
-    width: 12px; height: 12px; border-radius: 999px; background: #22c55e; /* green */
+    width: 12px; height: 12px; border-radius: 999px; background: #22c55e;
     box-shadow: 0 0 0 0 rgba(34,197,94, .5); animation: pulse 1.8s infinite;
   }
   .text { margin: 0; }
@@ -247,13 +253,13 @@
   /* MOBILE 2 kolom */
   .recent-grid {
     display: grid; gap: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr)); /* dua kolom di mobile */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     @media (min-width: 760px) { grid-template-columns: repeat(3, 1fr); }
   }
 
   .recent-card {
     background: var(--color-surface); border: 1px solid var(--color-border);
-    border-radius: 16px; overflow: hidden; /* <- fix: was clip */
+    border-radius: 16px; overflow: hidden; /* <- rapi sampai tepi */
     box-shadow: 0 8px 22px rgba(0,0,0,.06);
     transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease;
 
