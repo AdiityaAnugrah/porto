@@ -16,7 +16,7 @@ import {
 import "../styles/Contact.scss";
 
 const CONTACT_CONFIG = {
-  email: "adityaanugrah494@gmail.com",
+  email: "admin@adityaanugra.me",
   phone: "+6281379430432",
   location: "Indonesia (WIB)",
   whatsappUrl:
