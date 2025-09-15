@@ -1,20 +1,125 @@
-/* Shell aplikasi mengikuti tema global */
+/* ---- Shell & layering ---- */
 .app-shell {
+  position: relative;
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
   background: var(--color-bg);
   color: var(--color-text);
 }
 
-/* Ruang konten fleksibel—pakai warna tema, bukan warna hardcoded */
-.main-content {
-  flex: 1;
-  background: var(--color-bg);
-  color: var(--color-text);
+/* Pastikan konten selalu di atas layer FX */
+.app-shell > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Footer container opsional; biarkan footer sendiri yang atur tampilannya */
-.footer-desktop {
-  background: transparent; /* atau var(--color-bg) kalau mau */
+/* ---- FX container (global background) ---- */
+.app-fx {
+  position: fixed;
+  inset: -8% -4% -16% -4%; /* overscan supaya glow tidak terpotong */
+  z-index: 0;
+  pointer-events: none;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* ===== AURORA (3 blob besar mengambang lembut) ===== */
+.app-fx__aurora {
+  position: absolute;
+  inset: 0;
+  filter: saturate(120%);
+}
+
+.app-fx__aurora .a {
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 999px;
+  opacity: 0.18;                 /* halus, tidak mengganggu konten */
+  filter: blur(70px);
+  background:
+    radial-gradient(closest-side,
+      color-mix(in oklab, var(--color-primary) 78%, transparent) 0%,
+      transparent 70%);
+  will-change: transform;
+}
+
+.app-fx__aurora .a1 { top: -18%; left: -10%; animation: fxAuroraA 22s ease-in-out infinite alternate; }
+.app-fx__aurora .a2 {
+  bottom: -24%; right: -14%;
+  background: radial-gradient(closest-side,
+    color-mix(in oklab, var(--color-primary) 52%, transparent) 0%,
+    transparent 72%);
+  animation: fxAuroraB 26s ease-in-out infinite alternate;
+}
+.app-fx__aurora .a3 {
+  top: 38%; left: 28%; width: 48vmax; height: 48vmax;
+  background: radial-gradient(closest-side,
+    color-mix(in oklab, var(--color-primary) 64%, transparent) 0%,
+    transparent 75%);
+  animation: fxAuroraC 24s ease-in-out infinite alternate;
+}
+
+@keyframes fxAuroraA {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(28px,-18px,0) scale(1.06) rotate(-1deg); }
+}
+@keyframes fxAuroraB {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(-32px,22px,0) scale(1.05) rotate(1deg); }
+}
+@keyframes fxAuroraC {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to   { transform: translate3d(18px,-24px,0) scale(1.08); }
+}
+
+/* ===== GRID tipis yang drift pelan ===== */
+.app-fx__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(transparent 95%, color-mix(in oklab, var(--color-primary) 22%, transparent) 95%),
+    linear-gradient(90deg, transparent 95%, color-mix(in oklab, var(--color-primary) 22%, transparent) 95%);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(90% 80% at 50% 40%, #000 60%, transparent 100%);
+  opacity: 0.10; /* sangat halus */
+  animation: fxGridDrift 30s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes fxGridDrift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 44px 0, 0 44px; }
+}
+
+/* ===== ORB aksen kecil ===== */
+.app-fx__orb {
+  position: absolute;
+  width: 22vmax; height: 22vmax;
+  border-radius: 999px;
+  opacity: 0.16;
+  filter: blur(40px);
+  background:
+    radial-gradient(closest-side,
+      color-mix(in oklab, var(--color-primary) 80%, transparent) 0%,
+      transparent 70%);
+  will-change: transform;
+}
+.app-fx__orb.o1 { top: -10%; right: 10%; animation: fxOrb1 18s ease-in-out infinite alternate; }
+.app-fx__orb.o2 { bottom: -14%; left: 14%; animation: fxOrb2 20s ease-in-out infinite alternate; }
+
+@keyframes fxOrb1 {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-16px, 20px, 0) scale(1.04); }
+}
+@keyframes fxOrb2 {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(20px,-16px, 0) scale(1.05); }
+}
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .app-fx *,
+  .app-fx {
+    animation: none !important;
+  }
 }

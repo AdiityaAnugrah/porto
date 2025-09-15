@@ -46,7 +46,7 @@ const About = () => {
     socials: {
       github: "https://github.com/adiityaanugrah",
       linkedin: "https://www.linkedin.com/in/aditya-anugrah/",
-      instagram: "https://www.instagram.com/adiityaanugrah/",
+      instagram: "https://www.instagram.com/adityaanugrah/",
     },
     availability: "Tersedia untuk freelance/kolaborasi (part-time).",
     languages: ["Indonesia", "English"],
@@ -201,7 +201,19 @@ const About = () => {
       <div className="container">
         {/* ===== HERO ===== */}
         <header className="about-hero">
-          {/* gunakan class pembungkus baru agar tidak bentrok dengan .avatar milik komponen */}
+          {/* FX Latar full layar */}
+          <div className="hero-fx" aria-hidden="true">
+            <div className="fx-aurora">
+              <span className="a a1" />
+              <span className="a a2" />
+              <span className="a a3" />
+            </div>
+            <div className="fx-grid fg-flicker" />
+            <span className="fx-orb o1" />
+            <span className="fx-orb o2" />
+          </div>
+
+          {/* Avatar */}
           <div className="avatar-wrap">
             <Avatar srcBase="/assets/me-sunset" alt="Aditya Anugrah — sunset" size={180} />
           </div>
@@ -283,7 +295,7 @@ const About = () => {
         {values.length > 0 && (
           <section className="values" aria-labelledby="values-title">
             <div className="values-head">
-              <h2 id="values-title" className="section-title">Nilai & Pendekatan</h2>
+              <h2 id="values-title" className="section-title font-bold">Nilai & Pendekatan</h2>
               <p className="muted">Prinsip kerja yang selalu saya pegang saat membangun produk.</p>
             </div>
             <div className="values-grid">

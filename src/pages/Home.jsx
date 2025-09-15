@@ -11,6 +11,7 @@ import {
 import '../styles/Home.scss';
 import { projects as seed } from '../data/projects';
 import SEO from '../components/SEO';
+import FXBubbles from '../components/FXBubbles'; // <— tambahkan
 
 const Home = () => {
   // Ambil 3 proyek terbaru berdasar tahun (pastikan numerik)
@@ -97,6 +98,12 @@ const Home = () => {
           </ul>
         </div>
 
+        {/* FX: Interactive Floating Bubbles (dekoratif, full hero) */}
+        <div className="fx-bubbles-wrap" aria-hidden="true">
+          <FXBubbles />
+        </div>
+
+        {/* Glow lama tetap ada, ditaruh paling belakang */}
         <div className="hero-bg" aria-hidden="true" />
       </section>
 
@@ -107,8 +114,6 @@ const Home = () => {
             <span className="dot" aria-hidden /> Trusted by
           </div>
           <div className="marquee" role="list" aria-label="Brand/klien">
-            {/* Track digandakan untuk efek scroll kontinu.
-                Diberi aria-hidden agar pembaca layar tidak mendengar item ganda. */}
             <div className="marquee-track" aria-hidden="true">
               {[...brands, ...brands].map((b, i) => (
                 <div className="brand" key={`${b}-${i}`}>{b}</div>
@@ -166,7 +171,7 @@ const Home = () => {
       <section className="stack" aria-labelledby="stack-title">
         <div className="container">
           <h2 id="stack-title" className="section-title">Stack yang sering saya pakai</h2>
-        <ul className="stack-chips" role="list">
+          <ul className="stack-chips" role="list">
             {stack.map((t) => (
               <li className="chip" role="listitem" key={t}>{t}</li>
             ))}

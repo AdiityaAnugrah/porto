@@ -12,6 +12,9 @@
 
 /* ===== HERO ===== */
 .about-hero {
+  position: relative;
+  isolation: isolate; /* lapisan FX terpisah dari konten */
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
@@ -22,19 +25,119 @@
     grid-template-columns: 260px 1fr;
   }
 
-  /* Wrapper baru agar avatar center & tidak dapat border dobel */
+  /* === FX Latar Elegan & Bergerak === */
+  .hero-fx {
+    position: absolute;
+    inset: -8% -4% -16% -4%; /* overscan biar glow full */
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* aurora: 3 blob besar yang mengambang lembut */
+  .fx-aurora {
+    position: absolute;
+    inset: 0;
+    filter: saturate(120%);
+  }
+  .fx-aurora .a {
+    position: absolute;
+    width: 60vmax;
+    height: 60vmax;
+    border-radius: 999px;
+    opacity: .20;
+    filter: blur(70px);
+    background:
+      radial-gradient(closest-side,
+        color-mix(in oklab, var(--color-primary) 78%, transparent) 0%,
+        transparent 70%);
+    will-change: transform;
+  }
+  .fx-aurora .a1 { top: -18%; left: -10%; animation: auroraA 22s ease-in-out infinite alternate; }
+  .fx-aurora .a2 {
+    bottom: -24%; right: -14%;
+    background: radial-gradient(closest-side,
+      color-mix(in oklab, var(--color-primary) 52%, transparent) 0%,
+      transparent 72%);
+    animation: auroraB 26s ease-in-out infinite alternate;
+  }
+  .fx-aurora .a3 {
+    top: 38%; left: 28%; width: 48vmax; height: 48vmax;
+    background: radial-gradient(closest-side,
+      color-mix(in oklab, var(--color-primary) 64%, transparent) 0%,
+      transparent 75%);
+    animation: auroraC 24s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraA {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(28px,-18px,0) scale(1.06) rotate(-1deg); }
+  }
+  @keyframes auroraB {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(-32px,22px,0) scale(1.05) rotate(1deg); }
+  }
+  @keyframes auroraC {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(18px,-24px,0) scale(1.08); }
+  }
+
+  /* grid tipis bergerak pelan (drift dasar) */
+  .fx-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(transparent 95%, color-mix(in oklab, var(--color-primary) 22%, transparent) 95%),
+      linear-gradient(90deg, transparent 95%, color-mix(in oklab, var(--color-primary) 22%, transparent) 95%);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(90% 80% at 50% 40%, #000 60%, transparent 100%);
+    opacity: .12;
+    animation: gridDrift 30s linear infinite;
+    will-change: background-position;
+  }
+  @keyframes gridDrift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 44px 0, 0 44px; }
+  }
+
+  /* orb kecil untuk aksen */
+  .fx-orb {
+    position: absolute;
+    width: 22vmax; height: 22vmax;
+    border-radius: 999px;
+    opacity: .18;
+    filter: blur(40px);
+    background:
+      radial-gradient(closest-side,
+        color-mix(in oklab, var(--color-primary) 80%, transparent) 0%,
+        transparent 70%);
+    will-change: transform;
+  }
+  .fx-orb.o1 { top: -10%; right: 10%; animation: orbFloat1 18s ease-in-out infinite alternate; }
+  .fx-orb.o2 { bottom: -14%; left: 14%; animation: orbFloat2 20s ease-in-out infinite alternate; }
+  @keyframes orbFloat1 {
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(-16px, 20px, 0) scale(1.04); }
+  }
+  @keyframes orbFloat2 {
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(20px,-16px, 0) scale(1.05); }
+  }
+
+  /* Konten di atas FX */
+  > *:not(.hero-fx) { position: relative; z-index: 1; }
+
+  /* Avatar wrapper */
   .avatar-wrap {
-    justify-self: center;                 /* center di mobile */
+    justify-self: center;
     display: grid; place-items: center;
     width: min(60vw, 220px);
     max-width: 260px;
-    border: none;                         /* pastikan tidak mewarisi border */
+    border: none;
     background: none;
     box-shadow: none;
     padding: 0;
     margin: 0;
 
-    /* pastikan elemen .avatar dari komponen tidak ketiban style lain */
     .avatar { margin: 0 auto; }
   }
 
@@ -367,7 +470,96 @@
 @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); } 70% { box-shadow: 0 0 0 10px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 
+/* ===== Flickering Grid Background (opt-in via .fg-flicker) ===== */
+.about-hero .fx-grid.fg-flicker {
+  /* tambahkan flicker di atas drift dasar */
+  opacity: .10;
+  animation:
+    gridDrift 30s linear infinite,
+    fgFlickerPulse 6s ease-in-out infinite;
+  will-change: background-position, opacity;
+}
+
+.about-hero .fx-grid.fg-flicker::before,
+.about-hero .fx-grid.fg-flicker::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Glow lembut supaya grid terasa “hidup” */
+.about-hero .fx-grid.fg-flicker::before {
+  background:
+    radial-gradient(60% 40% at 50% 40%,
+      color-mix(in oklab, var(--color-primary) 18%, transparent) 0%,
+      transparent 70%);
+  filter: blur(60px);
+  opacity: .12;
+  animation: fgPulseGlow 12s ease-in-out infinite;
+}
+
+/* Scanline + noise tipis untuk “flicker” modern */
+.about-hero .fx-grid.fg-flicker::after {
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,0) 60%),             /* sweep */
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, rgba(0,0,0,.03) 1px 2px),/* scanlines */
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,.05) 0 8px, transparent 8px),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,.04) 0 6px, transparent 6px);
+  mix-blend-mode: overlay;
+  opacity: .12;
+  animation:
+    fgScan 8s linear infinite,
+    fgNoiseJitter 1.1s steps(60) infinite;
+  will-change: transform, background-position, opacity;
+}
+
+/* ---- Animations ---- */
+
+/* pulsa opacity acak-acak-an tapi tetap subtle */
+@keyframes fgFlickerPulse {
+  0%   { opacity: .10; }
+  6%   { opacity: .06; }
+  8%   { opacity: .12; }
+  11%  { opacity: .05; }
+  13%  { opacity: .14; }
+  35%  { opacity: .11; }
+  36%  { opacity: .07; }
+  60%  { opacity: .12; }
+  61%  { opacity: .06; }
+  62%  { opacity: .13; }
+  85%  { opacity: .09; }
+  100% { opacity: .10; }
+}
+
+/* sweep garis terang dari atas ke bawah */
+@keyframes fgScan {
+  0%   { transform: translateY(-100%); opacity: .10; }
+  45%  { opacity: .06; }
+  100% { transform: translateY(100%);  opacity: .10; }
+}
+
+/* noise jitter ringan (geser background-position acak) */
+@keyframes fgNoiseJitter {
+  0%   { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 10px -8px, 0 2px, -6px 3px, 4px -3px; }
+}
+
+/* glow bernafas pelan */
+@keyframes fgPulseGlow {
+  0%   { opacity: .08; }
+  50%  { opacity: .16; }
+  100% { opacity: .08; }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .about * { transition: none !important; animation: none !important; }
+
+  .about-hero .fx-grid.fg-flicker,
+  .about-hero .fx-grid.fg-flicker::before,
+  .about-hero .fx-grid.fg-flicker::after {
+    animation: none !important;
+  }
 }
+
