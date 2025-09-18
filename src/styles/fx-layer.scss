@@ -1,0 +1,34 @@
+/* src/styles/fx-layer.scss
+   Layer FX fullscreen untuk latar halaman (pakai FXBubbles).
+   Aman: pointer-events none, berada di bawah konten. */
+
+.about {
+  position: relative; /* jadi root stacking context */
+}
+
+/* layer FX mengisi viewport penuh */
+.about .fx-layer {
+  position: fixed;  /* kunci ke viewport */
+  inset: 0;
+  z-index: 0;       /* di belakang konten */
+  pointer-events: none; /* biar nggak ganggu interaksi */
+}
+
+/* pastikan semua konten lain di atas layer FX */
+.about > *:not(.fx-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+/* kanvas FX harus stretch penuh */
+.fx-bubbles-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: saturate(118%); /* match gaya kamu */
+}
+
+/* jika user pilih reduced motion, efek tetap halus */
+@media (prefers-reduced-motion: reduce) {
+  .fx-bubbles-canvas { filter: none; }
+}

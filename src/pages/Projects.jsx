@@ -106,11 +106,12 @@ const Projects = () => {
 
   return (
     <main className="projects" role="main">
+      {/* TOOLBAR (glass iOS 26) */}
       <section className="toolbar" aria-label="Projects filter">
         <div className="container">
-          <div className="toolbar-row">
+          <div className="bar">
             {/* Search */}
-            <label className="search-wrap" htmlFor="search">
+            <label className="search" htmlFor="search">
               <FaSearch className="ic" aria-hidden />
               <input
                 id="search"
@@ -138,24 +139,27 @@ const Projects = () => {
             </div>
           </div>
 
-          {/* Categories */}
+          {/* Chips rail */}
           <div className="chips" role="tablist" aria-label="Categories">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c}
-                role="tab"
-                aria-selected={cat === c}
-                className={`chip ${cat === c ? "active" : ""}`}
-                onClick={() => setCat(c)}
-              >
-                {c}
-                <span className="badge">{counts[c] ?? 0}</span>
-              </button>
-            ))}
+            <div className="rail">
+              {CATEGORIES.map((c) => (
+                <button
+                  key={c}
+                  role="tab"
+                  aria-selected={cat === c}
+                  className={`chip ${cat === c ? "active" : ""}`}
+                  onClick={() => setCat(c)}
+                >
+                  {c}
+                  <span className="badge">{counts[c] ?? 0}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* GRID */}
       <section className="grid-wrap">
         <div className="container">
           {filtered.length === 0 ? (
@@ -168,6 +172,7 @@ const Projects = () => {
         </div>
       </section>
 
+      {/* CTA bottom */}
       <section className="cta-bottom" aria-label="Call to action">
         <div className="container">
           <div className="cta-box">

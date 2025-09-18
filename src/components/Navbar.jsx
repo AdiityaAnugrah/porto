@@ -8,10 +8,8 @@ import '../styles/Navbar.scss';
 const BREAKPOINT = 1024;
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);        // drawer mobile
-  const [openMenu, setOpenMenu] = useState(null);     // submenu mobile
-
-  // ===== Inisialisasi tema: hormati <html data-theme> (set dari index.html) -> localStorage -> default dark
+  const [isOpen, setIsOpen] = useState(false);       // drawer mobile
+  const [openMenu, setOpenMenu] = useState(null);    // submenu (mobile + tablet)
   const [darkMode, setDarkMode] = useState(() => {
     try {
       if (typeof document !== 'undefined') {
@@ -19,47 +17,40 @@ const Navbar = () => {
         if (htmlPref) return htmlPref === 'dark';
       }
       if (typeof window !== 'undefined') {
-        const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+        const saved = localStorage.getItem('theme');
         if (saved) return saved === 'dark';
       }
     } catch {
-      // ignore
+      // Ignore errors (e.g., localStorage not available)
     }
-    return true; // default: dark
+    return true;
   });
 
   const nodeRef = useRef(null);
   const location = useLocation();
   const scrollYRef = useRef(0);
 
-  // sinkron tema (atribut <html> + class body + localStorage)
+  // sync theme
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
     document.body.classList.toggle('dark-mode', darkMode);
-    try {
-      if (typeof window !== 'undefined') localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-    } catch {
-      // ignore
+    try { localStorage.setItem('theme', darkMode ? 'dark' : 'light'); } catch {
+      // Ignore errors (e.g., localStorage not available)
     }
   }, [darkMode]);
 
-  // tutup saat pindah rute
-  useEffect(() => {
-    setIsOpen(false);
-    setOpenMenu(null);
-  }, [location.pathname]);
+  // close on route change
+  useEffect(() => { setIsOpen(false); setOpenMenu(null); }, [location.pathname]);
 
-  // klik di luar + ESC (+ support touch)
+  // click outside + ESC
   useEffect(() => {
     const onPointer = (e) => {
       if (!isOpen) return;
       if (nodeRef.current && !nodeRef.current.contains(e.target)) {
-        setIsOpen(false);
-        setOpenMenu(null);
+        setIsOpen(false); setOpenMenu(null);
       }
     };
     const onKey = (e) => { if (e.key === 'Escape') { setIsOpen(false); setOpenMenu(null); } };
-
     document.addEventListener('mousedown', onPointer);
     document.addEventListener('touchstart', onPointer, { passive: true });
     document.addEventListener('keydown', onKey);
@@ -70,7 +61,7 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  // Scroll-lock stabil
+  // scroll lock when drawer open
   useEffect(() => {
     const body = document.body;
     if (isOpen) {
@@ -98,7 +89,7 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
-  // auto-close saat resize ke desktop
+  // auto-close drawer when resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth >= BREAKPOINT) setIsOpen(false); };
     window.addEventListener('resize', onResize);
@@ -123,9 +114,16 @@ const Navbar = () => {
 
   const toggleSubmenu = (key) => setOpenMenu((p) => (p === key ? null : key));
 
-  // === PILIH LOGO BERDASARKAN TEMA ===
+  // handle parent menu click on tablet (<=1024px): toggle instead of navigate
+  const onParentClick = (e, key) => {
+    if (window.innerWidth <= BREAKPOINT) {
+      e.preventDefault();
+      toggleSubmenu(key);
+    }
+  };
+
   const logoSrc = darkMode ? '/assets/aa-mark-white.png' : '/assets/aa-mark-dark.png';
-  const logoFallback = '/assets/aa-mark-primary.png'; // opsional, cyan/teal
+  const logoFallback = '/assets/aa-mark-primary.png';
 
   return (
     <nav className="navbar" ref={nodeRef} role="navigation" aria-label="Main navigation">
@@ -133,39 +131,47 @@ const Navbar = () => {
         {/* Brand */}
         <div className="navbar-brand">
           <Link to="/" className="brand-link" aria-label="Go to homepage">
-            <Img
-              src={[logoSrc, logoFallback]}
-              alt="AA Logo"
-              className="navbar-logo"
-            />
-            {/* <span className="brand-text">My Portfolio</span> */}
+            <Img src={[logoSrc, logoFallback]} alt="AA Logo" className="navbar-logo" />
           </Link>
         </div>
 
-        {/* Desktop */}
+        {/* Desktop/Tablet menu (CSS yang atur visibility) */}
         <ul className="navbar-links desktop" role="menubar" aria-label="Primary">
-          {links.map(({ to, label, end, submenu }) => (
-            <li key={to} className={submenu ? 'has-submenu' : ''} role="none">
-              <NavLink
-                to={to}
-                end={end}
-                className={({ isActive }) => (isActive ? 'active' : '')}
-                role="menuitem"
-                aria-haspopup={!!submenu || undefined}
-              >
-                {label}
-                {submenu && <FaChevronDown className="chevron" aria-hidden />}
-              </NavLink>
+          {links.map(({ to, label, end, submenu, key }) => (
+            <li
+              key={to}
+              className={`${submenu ? 'has-submenu' : ''} ${openMenu === key ? 'open' : ''}`}
+              role="none"
+            >
+              {submenu ? (
+                <NavLink
+                  to={to}
+                  end={end}
+                  role="menuitem"
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                  aria-haspopup="true"
+                  aria-expanded={openMenu === key}
+                  onClick={(e) => onParentClick(e, key)}
+                >
+                  {label}
+                  <FaChevronDown className="chevron" aria-hidden />
+                </NavLink>
+              ) : (
+                <NavLink
+                  to={to}
+                  end={end}
+                  role="menuitem"
+                  className={({ isActive }) => (isActive ? 'active' : '')}
+                >
+                  {label}
+                </NavLink>
+              )}
 
               {submenu && (
                 <ul className="submenu" role="menu" aria-label={`${label} submenu`}>
                   {submenu.map((s) => (
                     <li key={s.to} role="none">
-                      <NavLink
-                        to={s.to}
-                        role="menuitem"
-                        className={({ isActive }) => (isActive ? 'active' : '')}
-                      >
+                      <NavLink to={s.to} role="menuitem" className={({ isActive }) => (isActive ? 'active' : '')}>
                         {s.label}
                       </NavLink>
                     </li>
@@ -176,7 +182,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Theme toggle (desktop) */}
+        {/* Theme toggle */}
         <button
           className="theme-toggle"
           onClick={() => setDarkMode((d) => !d)}
@@ -186,7 +192,7 @@ const Navbar = () => {
           {darkMode ? <FaSun /> : <FaMoon />}
         </button>
 
-        {/* Burger (mobile) */}
+        {/* Burger (mobile only) */}
         <button
           className="navbar-toggle"
           onClick={() => setIsOpen((v) => !v)}
@@ -198,7 +204,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Drawer (mobile only) */}
       <div id="mobile-menu" className={`mobile-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
         <ul className="navbar-links mobile" role="menu" aria-label="Mobile primary">
           {links.map(({ to, label, end, submenu, key }) => (
@@ -236,10 +242,7 @@ const Navbar = () => {
                           to={s.to}
                           role="menuitem"
                           className={({ isActive }) => (isActive ? 'active' : '')}
-                          onClickCapture={() => {
-                            setIsOpen(false);
-                            setOpenMenu(null);
-                          }}
+                          onClickCapture={() => { setIsOpen(false); setOpenMenu(null); }}
                         >
                           {s.label}
                         </NavLink>

@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Img } from 'react-image';
@@ -8,27 +9,34 @@ import {
   FaMobileAlt,
   FaExternalLinkAlt,
 } from 'react-icons/fa';
+
 import '../styles/Home.scss';
 import { projects as seed } from '../data/projects';
 import SEO from '../components/SEO';
-import FXBubbles from '../components/FXBubbles'; // <— tambahkan
+import FXBubbles from '../components/FXBubbles';
 
 const Home = () => {
-  // Ambil 3 proyek terbaru berdasar tahun (pastikan numerik)
+  // ambil 3 proyek terbaru buat section "Recent"
   const featured = useMemo(() => {
     return [...seed]
       .sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0))
       .slice(0, 3);
   }, []);
 
-  // (Dummy) brand/klien untuk marquee
   const brands = useMemo(
     () => ['Ilena Furniture', 'Titanium Group', 'Lunarea Furniture', 'virtualxcellence', 'BLCC'],
     []
   );
 
   const stack = [
-    'Next.js', 'React', 'TypeScript', 'CI4/PHP', 'Node.js', 'MySQL', 'SCSS/Tailwind', 'Vite'
+    'Next.js',
+    'React',
+    'TypeScript',
+    'CI4/PHP',
+    'Node.js',
+    'MySQL',
+    'SCSS/Tailwind',
+    'Vite',
   ];
 
   return (
@@ -43,8 +51,7 @@ const Home = () => {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'My Portfolio',
-          url:
-            (typeof window !== 'undefined' ? window.location.origin : '') + '/',
+          url: (typeof window !== 'undefined' ? window.location.origin : '') + '/',
           potentialAction: {
             '@type': 'SearchAction',
             target:
@@ -55,8 +62,15 @@ const Home = () => {
         }}
       />
 
-      {/* HERO */}
+      {/* ===== HERO ===== */}
       <section className="hero" aria-labelledby="hero-title">
+        {/* FX bubble — hanya di area hero */}
+        <div className="fx-bubbles-wrap" aria-hidden="true">
+          <FXBubbles className="fx-bubbles-canvas" />
+        </div>
+        {/* glow background lembut */}
+        <div className="hero-bg" aria-hidden="true" />
+
         <div className="container">
           <p className="eyebrow">Web Developer • Indonesia (WIB)</p>
 
@@ -97,33 +111,29 @@ const Home = () => {
             </li>
           </ul>
         </div>
-
-        {/* FX: Interactive Floating Bubbles (dekoratif, full hero) */}
-        <div className="fx-bubbles-wrap" aria-hidden="true">
-          <FXBubbles />
-        </div>
-
-        {/* Glow lama tetap ada, ditaruh paling belakang */}
-        <div className="hero-bg" aria-hidden="true" />
       </section>
 
-      {/* TRUSTED BY (Marquee) */}
+      {/* ===== TRUSTED ===== */}
       <section className="trusted" aria-label="Pernah bekerja sama dengan">
         <div className="container">
           <div className="trusted-head">
-            <span className="dot" aria-hidden /> Trusted by
+            <span className="dot" aria-hidden />
+            Trusted by
           </div>
+
           <div className="marquee" role="list" aria-label="Brand/klien">
             <div className="marquee-track" aria-hidden="true">
               {[...brands, ...brands].map((b, i) => (
-                <div className="brand" key={`${b}-${i}`}>{b}</div>
+                <div className="brand" key={`${b}-${i}`}>
+                  {b}
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* ===== FEATURES ===== */}
       <section className="features" aria-labelledby="features-title">
         <div className="container">
           <h2 id="features-title" className="section-title">
@@ -148,8 +158,8 @@ const Home = () => {
               </div>
               <h3>Keamanan & Stabilitas</h3>
               <p>
-                Otentikasi aman, validasi input, sanitasi data, serta role-based access untuk
-                aplikasi berskala.
+                Otentikasi aman, validasi input, sanitasi data, serta role-based access untuk aplikasi
+                berskala.
               </p>
             </article>
 
@@ -167,19 +177,25 @@ const Home = () => {
         </div>
       </section>
 
-      {/* TECH STACK */}
+      {/* ===== STACK ===== */}
       <section className="stack" aria-labelledby="stack-title">
         <div className="container">
-          <h2 id="stack-title" className="section-title">Stack yang sering saya pakai</h2>
+          <h2 id="stack-title" className="section-title">
+            Stack yang sering saya pakai
+          </h2>
+        </div>
+        <div className="container">
           <ul className="stack-chips" role="list">
             {stack.map((t) => (
-              <li className="chip" role="listitem" key={t}>{t}</li>
+              <li className="chip" role="listitem" key={t}>
+                {t}
+              </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* AVAILABILITY CALLOUT */}
+      {/* ===== AVAILABILITY ===== */}
       <section className="availability" aria-label="Ketersediaan">
         <div className="container">
           <div className="availability-box">
@@ -187,12 +203,14 @@ const Home = () => {
             <p className="text">
               Saat ini <strong>tersedia</strong> untuk freelance/kolaborasi (part-time).
             </p>
-            <Link className="btn btn-primary" to="/contact">Ajak Kolaborasi</Link>
+            <Link className="btn btn-primary" to="/contact">
+              Ajak Kolaborasi
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* RECENT / FEATURED PROJECTS */}
+      {/* ===== RECENT PROJECTS ===== */}
       <section className="recent" aria-labelledby="recent-title">
         <div className="container">
           <div className="recent-head">
@@ -258,12 +276,7 @@ const Home = () => {
             ))}
           </div>
 
-          {/* Quick paths ke kategori */}
-          <div className="quick-paths" aria-label="Kategori populer">
-            <Link to="/projects/web" className="qp-chip">Web Apps</Link>
-            <Link to="/projects/mobile" className="qp-chip">Mobile Apps</Link>
-            <Link to="/projects/landing" className="qp-chip">Landing Pages</Link>
-          </div>
+          <div className="quick-paths" aria-label="Kategori populer" />
         </div>
       </section>
     </main>

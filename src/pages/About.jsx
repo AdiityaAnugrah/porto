@@ -13,7 +13,6 @@ import {
   FaTools,
   FaGlobeAsia,
   FaCheckCircle,
-  FaLightbulb,
   FaShieldAlt,
   FaUsers,
   FaRocket,
@@ -24,10 +23,12 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 import SEO from "../components/SEO";
+import FXBubbles from "../components/FXBubbles";
 import "../styles/About.scss";
+import "../styles/fx-layer.scss"; // <-- style kecil untuk layer FX fullscreen
 
 const CV_URL =
-  "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview"; // /preview agar view-only
+  "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview";
 
 const About = () => {
   useEffect(() => {
@@ -144,19 +145,18 @@ const About = () => {
   );
 
   const values = [
-    { icon: FaLightbulb, title: "Klarifikasi Terlebih Dahulu",  desc: "Mulai dari kebutuhan inti & KPI. Dokumen singkat, prototipe cepat, keputusan transparan." },
     { icon: FaRocket,     title: "Cepat & Ringan",    desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
-    { icon: FaShieldAlt,  title: "Keamanan sebagai Default", desc: "Validasi input, sanitasi, RBAC, audit log, dan prinsip least-privilege di awal." },
-    { icon: FaUsers,      title: "UX Terlebih Dahulu",       desc: "Desain mobile-first, aksesibilitas, states jelas (loading/empty/error), navigasi nyaman." },
-    { icon: FaLeaf,       title: "Dapat Diperbarui",   desc: "Arsitektur modular, naming konsisten, tokens/design system, test seperlunya." },
-    { icon: FaCogs,       title: "Pragmatis",      desc: "Pilih tool sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS—tanpa dogma." },
+    { icon: FaShieldAlt,  title: "Keamanan Default",   desc: "Validasi input, sanitasi, RBAC, audit log, least-privilege sejak awal." },
+    { icon: FaUsers,      title: "UX Terlebih Dahulu", desc: "Mobile-first, aksesibilitas, state jelas (loading/empty/error), navigasi nyaman." },
+    { icon: FaLeaf,       title: "Mudah Dirawat",      desc: "Modular, naming konsisten, tokens/design system, test seperlunya." },
+    { icon: FaCogs,       title: "Pragmatis",          desc: "Pilih tools sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS." },
   ];
 
   const faqs = [
     { q: "Stack favorit kamu apa untuk e-commerce?", a: "Front-end Next.js (SSR/ISR) untuk SEO + performa, backend CI4/PHP atau Node sesuai tim, DB Postgres/MySQL, dan integrasi pembayaran/logistik via REST." },
     { q: "Berapa estimasi waktu landing page?", a: "Untuk 1–3 section custom: ±3–5 hari kerja termasuk optimasi performa & copy ringan. Tambah fitur (form, CMS, animasi) menyesuaikan." },
     { q: "Bisa join existing codebase?", a: "Bisa. Mulai dengan audit ringan (struktur, ketergantungan, debt), susun rencana refactor bertahap tanpa down-time." },
-    { q: "Cara kerja & kolaborasi?", a: "Kickoff singkat, bagi milestone mingguan, demo rutin, dan dokumentasi ringkas. Komunikasi via WhatsApp/Slack/Email, repo GitHub/Bitbucket." },
+    { q: "Cara kerja & kolaborasi?", a: "Kickoff singkat, milestone mingguan, demo rutin, dan dokumentasi ringkas. Komunikasi via WhatsApp/Slack/Email; repo GitHub/Bitbucket." },
     { q: "Garansi bugfix?", a: "Bugfix minor pasca rilis 14 hari tanpa biaya untuk scope yang sama." },
   ];
 
@@ -176,6 +176,11 @@ const About = () => {
 
   return (
     <main className="about" role="main">
+      {/* === FX layer fullscreen (mengikuti var(--color-primary)) === */}
+      <div className="fx-layer" aria-hidden="true">
+        <FXBubbles />
+      </div>
+
       <SEO
         title="About"
         description="Tentang Aditya Anugrah — Web Developer fokus e-commerce, dashboard, dan sistem absensi. Mengutamakan performa, keamanan, dan UX."
@@ -191,28 +196,13 @@ const About = () => {
           email: `mailto:${profile.email}`,
           sameAs,
           image: (typeof window !== "undefined" ? window.location.origin : "") + "/assets/me-sunset.jpg",
-          worksFor: {
-            "@type": "Organization",
-            name: "Freelance",
-          },
+          worksFor: { "@type": "Organization", name: "Freelance" },
         }}
       />
 
       <div className="container">
         {/* ===== HERO ===== */}
         <header className="about-hero">
-          {/* FX Latar full layar */}
-          <div className="hero-fx" aria-hidden="true">
-            <div className="fx-aurora">
-              <span className="a a1" />
-              <span className="a a2" />
-              <span className="a a3" />
-            </div>
-            <div className="fx-grid fg-flicker" />
-            <span className="fx-orb o1" />
-            <span className="fx-orb o2" />
-          </div>
-
           {/* Avatar */}
           <div className="avatar-wrap">
             <Avatar srcBase="/assets/me-sunset" alt="Aditya Anugrah — sunset" size={180} />

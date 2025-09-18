@@ -1,27 +1,64 @@
 /* Contact.scss — rapi, responsif, pakai var(--color-*) */
-.contact {
-  background: var(--color-bg);
-  color: var(--color-text);
-}
+.contact { background: var(--color-bg); color: var(--color-text); }
 .container {
-  max-width: 1120px;
-  width: 100%;
-  margin-inline: auto;
+  max-width: 1120px; width: 100%; margin-inline: auto;
   padding-inline: clamp(12px, 2vw, 24px);
+}
+
+/* ========= iOS 26 glass (for buttons only) ========= */
+:root {
+  --ios26-noise-alpha: .06;
+  --ios26-blur: 16px;
+  --ios26-saturate: 140%;
+  --ios26-surface-alpha: 26%;
+  --ios26-stroke-alpha: 22%;
+  --ios26-highlight-alpha: 14%;
+  --ios26-elev: 1;
+}
+@function _ios26-noise() {
+  @return
+    repeating-linear-gradient(0deg,  rgba(255,255,255,var(--ios26-noise-alpha)) 0 1px, rgba(255,255,255,0) 1px 2px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,var(--ios26-noise-alpha)) 0 1px,  rgba(0,0,0,0) 1px 2px);
+}
+@mixin ios26-stroke() {
+  border: 1px solid color-mix(in oklab, var(--color-primary) var(--ios26-stroke-alpha), var(--color-border));
+}
+@mixin ios26-fill($alpha: var(--ios26-surface-alpha)) {
+  background:
+    radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, #fff var(--ios26-highlight-alpha), transparent) 0%, transparent 60%),
+    linear-gradient(180deg, color-mix(in oklab, var(--color-primary) 14%, transparent) 0%, color-mix(in oklab, var(--color-primary) 8%, transparent) 100%),
+    color-mix(in oklab, var(--color-surface) $alpha, transparent);
+}
+@mixin ios26-shadow($elev: var(--ios26-elev)) {
+  box-shadow:
+    0 calc(8px * #{$elev}) calc(20px * #{$elev}) rgba(0,0,0,.08),
+    0 calc(14px * #{$elev}) calc(34px * #{$elev}) rgba(0,0,0,.06);
+}
+@mixin glass-ios26($blur: var(--ios26-blur)) {
+  @include ios26-stroke(); @include ios26-fill(); @include ios26-shadow();
+  -webkit-backdrop-filter: blur($blur) saturate(var(--ios26-saturate));
+          backdrop-filter: blur($blur) saturate(var(--ios26-saturate));
+  position: relative; overflow: hidden;
+  &::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: _ios26-noise(); mix-blend-mode: overlay; opacity: .4; }
+}
+/* Accent (khusus primary) */
+@mixin ios26-accent() {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-primary) 22%, transparent) 0%, color-mix(in oklab, var(--color-primary) 14%, transparent) 100%),
+    color-mix(in oklab, var(--color-surface) 28%, transparent);
+  border-color: color-mix(in oklab, var(--color-primary) 50%, var(--color-border));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 28px color-mix(in oklab, var(--color-primary) 22%, transparent);
 }
 
 /* Header */
 .c-head {
   padding: clamp(18px, 4vw, 28px) 0 10px;
   .title {
-    margin: 0;
-    font-weight: 800;
-    letter-spacing: -.02em;
+    margin: 0; font-weight: 800; letter-spacing: -.02em;
     font-size: clamp(22px, 4.2vw, 32px);
   }
   .lead {
-    margin: 6px 0 0;
-    max-width: 72ch;
+    margin: 6px 0 0; max-width: 72ch;
     color: color-mix(in oklab, var(--color-text) 82%, transparent);
     line-height: 1.75;
   }
@@ -29,64 +66,46 @@
 
 /* Alert (form nonaktif) */
 .c-alert {
-  margin: 6px 0 12px;
-  padding: 10px 12px;
-  border-radius: 12px;
+  margin: 6px 0 12px; padding: 10px 12px; border-radius: 12px;
   border: 1px dashed var(--color-border);
   background: color-mix(in oklab, var(--color-primary) 10%, var(--color-surface));
   font-weight: 700;
-
-  a {
-    color: var(--color-text);
-    text-underline-offset: 3px;
-    text-decoration: underline;
-  }
+  a { color: var(--color-text); text-underline-offset: 3px; text-decoration: underline; }
 }
 
 /* Grid */
 .c-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;
-  padding: 8px 0 22px;
-
-  @media (min-width: 980px) {
-    grid-template-columns: 1fr 1.3fr; /* aside / form */
-  }
+  display: grid; gap: 16px; grid-template-columns: 1fr; padding: 8px 0 22px;
+  @media (min-width: 980px) { grid-template-columns: 1fr 1.3fr; }
 }
 
 /* Aside info */
 .c-aside .c-card {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  border-radius: 16px;
-  padding: 14px;
+  border-radius: 16px; padding: 14px;
   box-shadow: 0 10px 26px rgba(0,0,0,.06);
 }
 .c-card__title { margin: 0 0 10px; font-size: 16px; font-weight: 800; }
 
-.c-list {
-  list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;
-}
+.c-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .c-item {
   display: grid; grid-template-columns: auto 1fr auto;
-  gap: 10px; align-items: center;
-  padding: 10px; border: 1px solid var(--color-border);
-  background: var(--color-bg);
-  border-radius: 12px;
+  gap: 10px; align-items: center; padding: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg); border-radius: 12px;
 
   .ic { color: var(--color-primary); font-size: 18px; }
   .label { font-size: 12px; color: color-mix(in oklab, var(--color-text) 70%, transparent); }
   .val { color: var(--color-text); text-decoration: none; font-weight: 700; }
   .copy {
-    background: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: 10px; padding: 6px; cursor: pointer;
     display: inline-grid; place-items: center;
-    transition: background-color .18s ease, border-color .18s ease;
-    &:hover {
-      background: color-mix(in oklab, var(--color-border) 18%, var(--color-surface));
-      border-color: color-mix(in oklab, var(--color-primary) 40%, var(--color-border));
-    }
+    /* iOS 26 glass ONLY for this button */
+    @include glass-ios26(14px);
+    transition: filter .18s ease, transform .1s ease;
+    &:hover { filter: brightness(1.04); }
+    &:active { transform: translateY(1px); }
   }
 }
 
@@ -113,37 +132,25 @@
 .c-formwrap .c-form {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  border-radius: 16px;
-  padding: 14px;
+  border-radius: 16px; padding: 14px;
   box-shadow: 0 10px 26px rgba(0,0,0,.06);
 }
-
-.c-form .hp { /* honeypot */
-  position: absolute !important;
-  left: -9999px !important;
-  width: 1px; height: 1px;
-  opacity: 0; pointer-events: none;
+.c-form .hp {
+  position: absolute !important; left: -9999px !important;
+  width: 1px; height: 1px; opacity: 0; pointer-events: none;
 }
-
 .c-form .row {
-  display: grid; gap: 10px;
-  grid-template-columns: 1fr;
+  display: grid; gap: 10px; grid-template-columns: 1fr;
   @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
 }
-
 .field {
   display: grid; gap: 6px;
   label { font-weight: 800; font-size: 14px; }
   input, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg);
-    color: var(--color-text);
-    outline: none;
+    width: 100%; padding: 10px 12px; border-radius: 12px;
+    border: 1px solid var(--color-border); background: var(--color-bg);
+    color: var(--color-text); outline: none;
     transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
-
     &:focus {
       border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
       box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-primary) 22%, transparent);
@@ -155,48 +162,38 @@
     &::placeholder { color: color-mix(in oklab, var(--color-text) 50%, transparent); }
   }
   textarea { resize: vertical; min-height: 140px; }
-  .help {
-    font-size: 12px;
-    color: color-mix(in oklab, var(--color-text) 70%, transparent);
-    justify-self: end;
-  }
-  .err {
-    font-size: 12px; color: #ef4444; font-weight: 700;
-  }
+  .help { font-size: 12px; color: color-mix(in oklab, var(--color-text) 70%, transparent); justify-self: end; }
+  .err { font-size: 12px; color: #ef4444; font-weight: 700; }
 }
 
+/* Actions (buttons get glass) */
 .actions {
   display: inline-flex; flex-wrap: wrap; gap: 8px; margin-top: 6px;
 
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 14px;
-    border-radius: 14px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg); color: var(--color-text);
-    text-decoration: none; font-weight: 700;
-    transition: background-color .18s ease, box-shadow .18s ease, transform .1s ease;
+    padding: 10px 14px; border-radius: 14px; text-decoration: none; font-weight: 700;
+    color: var(--color-text);
+    /* iOS 26 glass ONLY for buttons */
+    @include glass-ios26(16px);
+    transition: filter .18s ease, box-shadow .18s ease, transform .1s ease;
 
-    &:hover {
-      background: color-mix(in oklab, var(--color-border) 18%, var(--color-bg));
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    }
+    &:hover { filter: brightness(1.04); }
     &:active { transform: translateY(1px); }
     &[disabled] { opacity: .7; cursor: not-allowed; }
   }
   .btn-primary {
-    background: var(--color-primary); color: #fff;
-    border-color: color-mix(in oklab, var(--color-primary) 45%, var(--color-border));
-    box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    color: #fff;
+    @include ios26-accent(); /* accent layer di atas glass */
   }
-  .btn-ghost { background: var(--color-surface); }
+  .btn-ghost {
+    /* tetap glass dasar; teks warna normal */
+  }
 }
 
 /* Captcha placeholder */
 .captcha-placeholder {
-  margin-top: 6px;
-  height: 64px;
-  border: 1px dashed var(--color-border);
+  margin-top: 6px; height: 64px; border: 1px dashed var(--color-border);
   border-radius: 12px;
   background:
     repeating-linear-gradient(45deg,
@@ -206,37 +203,54 @@
 
 /* Success */
 .c-success {
-  display: grid; grid-template-columns: auto 1fr; gap: 12px;
-  align-items: center; border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  border-radius: 16px; padding: 12px 14px;
-  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center;
+  border: 1px solid var(--color-border); background: var(--color-surface);
+  border-radius: 16px; padding: 12px 14px; box-shadow: 0 8px 22px rgba(0,0,0,.06);
 
   .ok-ic { color: #22c55e; font-size: 28px; }
   .ok-title { font-weight: 800; margin: 0 0 2px; }
   .ok-text { margin: 0; color: color-mix(in oklab, var(--color-text) 80%, transparent); }
-  .link {
-    background: none; border: none; padding: 0; text-decoration: underline;
-    color: var(--color-primary); cursor: pointer; font-weight: 700;
-  }
+  .link { background: none; border: none; padding: 0; text-decoration: underline; color: var(--color-primary); cursor: pointer; font-weight: 700; }
 }
 .c-back {
   display: inline-flex; gap: 10px; margin-top: 14px;
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 14px; border-radius: 14px;
-    border: 1px solid var(--color-border);
-    background: var(--color-bg); color: var(--color-text);
-    text-decoration: none; font-weight: 700;
-    transition: background-color .18s ease, box-shadow .18s ease, transform .1s ease;
-
-    &:hover { background: color-mix(in oklab, var(--color-border) 18%, var(--color-bg)); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+    padding: 10px 14px; border-radius: 14px; text-decoration: none; font-weight: 700;
+    /* iOS 26 glass for back buttons also */
+    @include glass-ios26(16px);
+    transition: filter .18s ease, transform .1s ease;
+    &:hover { filter: brightness(1.04); }
     &:active { transform: translateY(1px); }
   }
-  .btn-ghost { background: var(--color-surface); }
+  .btn-ghost { /* tetap glass dasar */ }
+}
+
+/* ============ MOBILE TWEAKS (≤639px) ============ */
+@media (max-width: 639px) {
+  .c-head { padding: 16px 0 8px;
+    .title { font-size: clamp(20px, 5.2vw, 24px); }
+    .lead { font-size: .95rem; line-height: 1.6; }
+  }
+  .c-grid { gap: 12px; padding: 6px 0 18px; }
+  .c-aside .c-card, .c-formwrap .c-form { padding: 12px; }
+
+  .c-item { padding: 8px; gap: 8px;
+    .ic { font-size: 16px; }
+    .label { font-size: 11px; }
+    .val { font-size: .95rem; }
+    .copy { padding: 5px; border-radius: 10px; }
+  }
+
+  .field label { font-size: 13px; }
+  .field input, .field textarea { padding: 9px 10px; border-radius: 12px; }
+  .actions .btn { padding: 9px 12px; border-radius: 12px; font-size: .95rem; }
+  .c-back .btn { padding: 9px 12px; border-radius: 12px; font-size: .95rem; }
+  .c-socials .s-link { padding: 7px 10px; }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .contact * { transition: none !important; animation: none !important; }
+  .actions .btn, .c-back .btn, .c-item .copy { box-shadow: none; }
 }

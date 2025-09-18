@@ -15,47 +15,52 @@ html::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 
-/* ======= LIGHT MODE (Monochrome) ======= */
 :root {
-  /* Background layers */
-  --gray-100: #F9F9F9; /* soft white */
-  --gray-200: #E6E6E6; /* almost white */
-  --gray-300: #C7C5B8; /* light gray */
-  --gray-400: #969696; /* mid-light gray */
+  --gray-100: #FAFBFD; /* bg */
+  --gray-200: #F2F4F8; /* surface */
+  --gray-300: #E0E6EF; /* border */
+  --gray-400: #AAB4C6; /* mid gray */
 
-  /* Text & UI */
-  --gray-700: #4D4D4D; /* dark text */
-  --gray-800: #333333; /* primary text */
-  --gray-900: #1A1A1A; /* near black */
+  --gray-700: #3A4050;
+  --gray-800: #222732;
+  --gray-900: #0D111A;
 
-  /* Semantic mappings */
-  --color-bg:       var(--gray-100);
-  --color-surface:  var(--gray-200);
-  --color-border:   var(--gray-300);
-  --color-primary:  var(--gray-400);
-  --color-secondary:var(--gray-300);
-  --color-text:     var(--gray-800);
+  --color-bg:        var(--gray-100);
+  --color-surface:   var(--gray-200);
+  --color-border:    var(--gray-300);
+  --color-text:      var(--gray-800);
+
+  --color-primary:   #3E7BFA; /* calm blue */
+  --color-secondary: var(--gray-300);
+  --brand:           #3E7BFA;
 }
 
-/* ======= DARK MODE (Monochrome) ======= */
+
+
+
+/* ======= DARK MODE (Neutral + Blue accent) ======= */
 body.dark-mode,
 html[data-theme="dark"] {
-  --gray-100: #1A1A1A; /* near black */
-  --gray-200: #2A2A2A; /* very dark gray */
-  --gray-300: #4D4D4D; /* mid-dark gray */
-  --gray-400: #666666; /* mid gray */
+  --gray-100: #101215; /* background */
+  --gray-200: #181B1F; /* surface */
+  --gray-300: #2C3138; /* border */
+  --gray-400: #4E5662; /* mid gray */
 
-  --gray-700: #CCCCCC; /* light text */
-  --gray-800: #E5E5E5; /* lighter text */
-  --gray-900: #F7F7F7; /* almost white */
+  --gray-700: #C4C9D1; /* light text */
+  --gray-800: #E6E9EE; /* main text */
+  --gray-900: #F7F9FB; /* white text */
 
-  --color-bg:       var(--gray-100);
-  --color-surface:  var(--gray-200);
-  --color-border:   var(--gray-300);
-  --color-primary:  var(--gray-400);
-  --color-secondary:var(--gray-300);
-  --color-text:     var(--gray-800);
+  --color-bg:        var(--gray-100);
+  --color-surface:   var(--gray-200);
+  --color-border:    var(--gray-300);
+  --color-primary:   #7DA2FF; /* accent biru lebih terang */
+  --color-secondary: var(--gray-300);
+  --color-text:      var(--gray-800);
+
+  --brand:           #7DA2FF;
 }
+
+
 
 /* ======= GLOBAL STYLES ======= */
 html,
