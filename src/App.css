@@ -123,3 +123,20 @@
     animation: none !important;
   }
 }
+
+/* ---- Layout utama (sticky footer) ---- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* penuh layar */
+}
+
+.main-content {
+  flex: 1; /* dorong footer ke bawah */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-desktop {
+  margin-top: auto; /* selalu tempel di bawah */
+}
