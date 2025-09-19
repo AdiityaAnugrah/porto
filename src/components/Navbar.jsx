@@ -21,7 +21,7 @@ const Navbar = () => {
         if (saved) return saved === 'dark';
       }
     } catch {
-      // Ignore errors (e.g., localStorage not available)
+      // ignore
     }
     return true;
   });
@@ -35,7 +35,7 @@ const Navbar = () => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
     document.body.classList.toggle('dark-mode', darkMode);
     try { localStorage.setItem('theme', darkMode ? 'dark' : 'light'); } catch {
-      // Ignore errors (e.g., localStorage not available)
+      // ignore
     }
   }, [darkMode]);
 
@@ -126,142 +126,151 @@ const Navbar = () => {
   const logoFallback = '/assets/aa-mark-primary.png';
 
   return (
-    <nav className="navbar" ref={nodeRef} role="navigation" aria-label="Main navigation">
-      <div className="navbar__inner">
-        {/* Brand */}
-        <div className="navbar-brand">
-          <Link to="/" className="brand-link" aria-label="Go to homepage">
-            <Img src={[logoSrc, logoFallback]} alt="AA Logo" className="navbar-logo" />
-          </Link>
-        </div>
+    <>
+      <nav className="navbar" ref={nodeRef} role="navigation" aria-label="Main navigation">
+        <div className="navbar__inner">
+          {/* Brand */}
+          <div className="navbar-brand">
+            <Link to="/" className="brand-link" aria-label="Go to homepage">
+              <Img src={[logoSrc, logoFallback]} alt="AA Logo" className="navbar-logo" />
+            </Link>
+          </div>
 
-        {/* Desktop/Tablet menu (CSS yang atur visibility) */}
-        <ul className="navbar-links desktop" role="menubar" aria-label="Primary">
-          {links.map(({ to, label, end, submenu, key }) => (
-            <li
-              key={to}
-              className={`${submenu ? 'has-submenu' : ''} ${openMenu === key ? 'open' : ''}`}
-              role="none"
-            >
-              {submenu ? (
-                <NavLink
-                  to={to}
-                  end={end}
-                  role="menuitem"
-                  className={({ isActive }) => (isActive ? 'active' : '')}
-                  aria-haspopup="true"
-                  aria-expanded={openMenu === key}
-                  onClick={(e) => onParentClick(e, key)}
-                >
-                  {label}
-                  <FaChevronDown className="chevron" aria-hidden />
-                </NavLink>
-              ) : (
-                <NavLink
-                  to={to}
-                  end={end}
-                  role="menuitem"
-                  className={({ isActive }) => (isActive ? 'active' : '')}
-                >
-                  {label}
-                </NavLink>
-              )}
-
-              {submenu && (
-                <ul className="submenu" role="menu" aria-label={`${label} submenu`}>
-                  {submenu.map((s) => (
-                    <li key={s.to} role="none">
-                      <NavLink to={s.to} role="menuitem" className={({ isActive }) => (isActive ? 'active' : '')}>
-                        {s.label}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        {/* Theme toggle */}
-        <button
-          className="theme-toggle"
-          onClick={() => setDarkMode((d) => !d)}
-          aria-label="Toggle theme"
-          title="Toggle theme"
-        >
-          {darkMode ? <FaSun /> : <FaMoon />}
-        </button>
-
-        {/* Burger (mobile only) */}
-        <button
-          className="navbar-toggle"
-          onClick={() => setIsOpen((v) => !v)}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-        >
-          {isOpen ? <FaTimes /> : <FaBars />}
-        </button>
-      </div>
-
-      {/* Drawer (mobile only) */}
-      <div id="mobile-menu" className={`mobile-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
-        <ul className="navbar-links mobile" role="menu" aria-label="Mobile primary">
-          {links.map(({ to, label, end, submenu, key }) => (
-            <li key={to} className={submenu ? 'has-submenu' : ''} role="none">
-              {!submenu ? (
-                <NavLink
-                  to={to}
-                  end={end}
-                  role="menuitem"
-                  className={({ isActive }) => (isActive ? 'active' : '')}
-                  onClickCapture={() => setIsOpen(false)}
-                >
-                  {label}
-                </NavLink>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className="submenu-toggle"
+          {/* Desktop/Tablet menu (CSS yang atur visibility) */}
+          <ul className="navbar-links desktop" role="menubar" aria-label="Primary">
+            {links.map(({ to, label, end, submenu, key }) => (
+              <li
+                key={to}
+                className={`${submenu ? 'has-submenu' : ''} ${openMenu === key ? 'open' : ''}`}
+                role="none"
+              >
+                {submenu ? (
+                  <NavLink
+                    to={to}
+                    end={end}
+                    role="menuitem"
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                    aria-haspopup="true"
                     aria-expanded={openMenu === key}
-                    aria-controls={`submenu-${key}`}
-                    onClick={() => toggleSubmenu(key)}
+                    onClick={(e) => onParentClick(e, key)}
                   >
-                    {label} <FaChevronDown className="chevron" aria-hidden />
-                  </button>
-                  <ul
-                    id={`submenu-${key}`}
-                    className={`submenu ${openMenu === key ? 'open' : ''}`}
-                    role="menu"
-                    aria-label={`${label} submenu`}
+                    {label}
+                    <FaChevronDown className="chevron" aria-hidden />
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    to={to}
+                    end={end}
+                    role="menuitem"
+                    className={({ isActive }) => (isActive ? 'active' : '')}
                   >
+                    {label}
+                  </NavLink>
+                )}
+
+                {submenu && (
+                  <ul className="submenu" role="menu" aria-label={`${label} submenu`}>
                     {submenu.map((s) => (
                       <li key={s.to} role="none">
-                        <NavLink
-                          to={s.to}
-                          role="menuitem"
-                          className={({ isActive }) => (isActive ? 'active' : '')}
-                          onClickCapture={() => { setIsOpen(false); setOpenMenu(null); }}
-                        >
+                        <NavLink to={s.to} role="menuitem" className={({ isActive }) => (isActive ? 'active' : '')}>
                           {s.label}
                         </NavLink>
                       </li>
                     ))}
                   </ul>
-                </>
-              )}
-            </li>
-          ))}
+                )}
+              </li>
+            ))}
+          </ul>
 
-          <li className="mobile-theme-toggle" role="none">
-            <button onClick={() => setDarkMode((d) => !d)} role="menuitem">
-              {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? 'Light' : 'Dark'}
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          {/* Theme toggle */}
+          <button
+            className="theme-toggle"
+            onClick={() => setDarkMode((d) => !d)}
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
+          </button>
+
+          {/* Burger (mobile only) */}
+          <button
+            className="navbar-toggle"
+            onClick={() => setIsOpen((v) => !v)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+
+        {/* Drawer (mobile only) */}
+        <div id="mobile-menu" className={`mobile-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
+          <ul className="navbar-links mobile" role="menu" aria-label="Mobile primary">
+            {links.map(({ to, label, end, submenu, key }) => (
+              <li key={to} className={submenu ? 'has-submenu' : ''} role="none">
+                {!submenu ? (
+                  <NavLink
+                    to={to}
+                    end={end}
+                    role="menuitem"
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                    onClickCapture={() => setIsOpen(false)}
+                  >
+                    {label}
+                  </NavLink>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="submenu-toggle"
+                      aria-expanded={openMenu === key}
+                      aria-controls={`submenu-${key}`}
+                      onClick={() => toggleSubmenu(key)}
+                    >
+                      {label} <FaChevronDown className="chevron" aria-hidden />
+                    </button>
+                    <ul
+                      id={`submenu-${key}`}
+                      className={`submenu ${openMenu === key ? 'open' : ''}`}
+                      role="menu"
+                      aria-label={`${label} submenu`}
+                    >
+                      {submenu.map((s) => (
+                        <li key={s.to} role="none">
+                          <NavLink
+                            to={s.to}
+                            role="menuitem"
+                            className={({ isActive }) => (isActive ? 'active' : '')}
+                            onClickCapture={() => { setIsOpen(false); setOpenMenu(null); }}
+                          >
+                            {s.label}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </li>
+            ))}
+
+            <li className="mobile-theme-toggle" role="none">
+              <button onClick={() => setDarkMode((d) => !d)} role="menuitem">
+                {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? 'Light' : 'Dark'}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      {/* Overlay blur di belakang (fokus ke menu) */}
+      <div
+        className={`navbar-backdrop ${isOpen ? 'show' : ''}`}
+        aria-hidden={!isOpen}
+        onClick={() => { setIsOpen(false); setOpenMenu(null); }}
+      />
+    </>
   );
 };
 
