@@ -15,30 +15,29 @@ html::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 
+/* ===== 🌅 LIGHT MODE — Sunset / Senja ===== */
 :root {
-  --gray-100: #FAFBFD; /* bg */
-  --gray-200: #F2F4F8; /* surface */
-  --gray-300: #E0E6EF; /* border */
-  --gray-400: #AAB4C6; /* mid gray */
+  --gray-100: #FFF7ED; /* bg peach muda */
+  --gray-200: #FFEAD5; /* surface pastel */
+  --gray-300: #FED7AA; /* border oranye pastel */
+  --gray-400: #FDBA74; /* oranye matang */
 
-  --gray-700: #3A4050;
-  --gray-800: #222732;
-  --gray-900: #0D111A;
+  --gray-700: #7C2D12; /* teks sekunder coklat hangat */
+  --gray-800: #431407; /* teks utama coklat tua */
+  --gray-900: #1C1917; /* heading kontras */
 
   --color-bg:        var(--gray-100);
   --color-surface:   var(--gray-200);
   --color-border:    var(--gray-300);
   --color-text:      var(--gray-800);
 
-  --color-primary:   #3E7BFA; /* calm blue */
-  --color-secondary: var(--gray-300);
-  --brand:           #3E7BFA;
+  --color-primary:   #F97316; /* sunset orange */
+  --color-secondary: #F43F5E; /* pink senja */
+  --brand:           #FB923C; /* golden sun */
 }
 
 
-
-
-/* ======= DARK MODE (Neutral + Blue accent) ======= */
+/* ===== 🌌 DARK MODE — Angkasa Kosmik ===== */
 body.dark-mode,
 html[data-theme="dark"] {
   --gray-100: #101215; /* background */
@@ -53,12 +52,13 @@ html[data-theme="dark"] {
   --color-bg:        var(--gray-100);
   --color-surface:   var(--gray-200);
   --color-border:    var(--gray-300);
-  --color-primary:   #87CEEB; /* blue sky */
+  --color-primary:   #87CEEB; /* blue sky accent */
   --color-secondary: var(--gray-300);
   --color-text:      var(--gray-800);
 
-  --brand:           #7DA2FF;
+  --brand:           #7DA2FF; /* soft blue branding */
 }
+
 
 
 

@@ -178,7 +178,7 @@ const About = () => {
     <main className="about" role="main">
       {/* === FX layer fullscreen (mengikuti var(--color-primary)) === */}
       <div className="fx-layer" aria-hidden="true">
-        <FXBubbles />
+        <FXBubbles motion={true} density={1} blur={20} />
       </div>
 
       <SEO
