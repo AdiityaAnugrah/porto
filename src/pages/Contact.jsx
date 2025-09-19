@@ -1,5 +1,5 @@
 // src/pages/Contact.jsx
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaEnvelope,
@@ -13,18 +13,20 @@ import {
   FaCopy,
   FaInstagram,
 } from "react-icons/fa";
+import SEO from "../components/SEO";
 import "../styles/Contact.scss";
 
+/* ================== Config ================== */
 const CONTACT_CONFIG = {
   email: "admin@adityaanugra.me",
   phone: "+6281379430432",
   location: "Indonesia (WIB)",
-  whatsappUrl:
-    "https://wa.me/6281379430432?text=Halo%20AA%2C%20saya%20tertarik%20kolaborasi",
+  whatsappNumber: "6281379430432",
+  whatsappText: "Halo AA, saya tertarik kolaborasi",
   socials: {
     github: "https://github.com/adiityaanugrah",
     linkedin: "https://www.linkedin.com/in/aditya-anugrah/",
-    instagram: "https://www.instagram.com/adiityaanugrah",
+    instagram: "https://www.instagram.com/adityaanugrah",
   },
   // Kosongkan untuk MENONAKTIFKAN pengiriman:
   FORM_ENDPOINT: "",
@@ -53,13 +55,16 @@ const validate = (v) => {
   return errs;
 };
 
-const Contact = () => {
-  useEffect(() => {
-    document.title = "Contact | My Portfolio";
+const buildWaLink = (number, text) =>
+  `https://wa.me/${number}?text=${encodeURIComponent(text || "")}`;
+
+export default function Contact() {
+  const info = useMemo(() => {
+    const wUrl = buildWaLink(CONTACT_CONFIG.whatsappNumber, CONTACT_CONFIG.whatsappText);
+    return { ...CONTACT_CONFIG, whatsappUrl: wUrl };
   }, []);
 
-  const info = useMemo(() => CONTACT_CONFIG, []);
-  const formDisabled = !info.FORM_ENDPOINT; // <-- toggle nonaktif
+  const formDisabled = !info.FORM_ENDPOINT;
 
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
@@ -69,6 +74,12 @@ const Contact = () => {
 
   const [copyMsg, setCopyMsg] = useState(""); // status copy email
   const [formMsg, setFormMsg] = useState(""); // status kirim form
+
+  // Refs untuk fokus otomatis ke error pertama saat submit
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const subjectRef = useRef(null);
+  const messageRef = useRef(null);
 
   useEffect(() => {
     setErrors(validate(values));
@@ -81,6 +92,13 @@ const Contact = () => {
   const onBlur = (e) => {
     const { name } = e.target;
     setTouched((t) => ({ ...t, [name]: true }));
+  };
+
+  const focusFirstError = (errs) => {
+    if (errs.name && nameRef.current) return nameRef.current.focus();
+    if (errs.email && emailRef.current) return emailRef.current.focus();
+    if (errs.subject && subjectRef.current) return subjectRef.current.focus();
+    if (errs.message && messageRef.current) return messageRef.current.focus();
   };
 
   const copyEmail = async () => {
@@ -112,7 +130,10 @@ const Contact = () => {
     setErrors(errs);
     setTouched({ name: true, email: true, subject: true, message: true });
 
-    if (Object.keys(errs).length > 0) return;
+    if (Object.keys(errs).length > 0) {
+      focusFirstError(errs);
+      return;
+    }
 
     // Jika sedang DINONAKTIFKAN → jangan kirim network request
     if (formDisabled) {
@@ -121,7 +142,6 @@ const Contact = () => {
       return;
     }
 
-    // (Kalau suatu saat diaktifkan lagi)
     if (values.company) return; // stop bot
     setSubmitting(true);
     setFormMsg("");
@@ -147,10 +167,18 @@ const Contact = () => {
     }
   };
 
+  // Panel sukses hanya jika form aktif & pengiriman sukses
   if (ok && !formDisabled) {
-    // Hanya tampilkan panel sukses kalau form aktif
     return (
       <main className="contact" role="main">
+        <SEO
+          title="Contact"
+          description="Hubungi Aditya Anugrah — kirim pesan via form, email, atau WhatsApp untuk kolaborasi."
+          path="/contact"
+          type="website"
+          image="/assets/og-contact.jpg"
+          imageAlt="Kontak Aditya Anugrah"
+        />
         <div className="container">
           <header className="c-head">
             <h1 className="title">Terima kasih 🙌</h1>
@@ -183,6 +211,15 @@ const Contact = () => {
 
   return (
     <main className="contact" role="main">
+      <SEO
+        title="Contact"
+        description="Hubungi Aditya Anugrah — kirim pesan via form, email, atau WhatsApp untuk kolaborasi."
+        path="/contact"
+        type="website"
+        image="/assets/og-contact.jpg"
+        imageAlt="Kontak Aditya Anugrah"
+      />
+
       <div className="container">
         {/* HEADER */}
         <header className="c-head">
@@ -215,7 +252,7 @@ const Contact = () => {
                     <div className="label">Email</div>
                     <a href={`mailto:${info.email}`} className="val">{info.email}</a>
                   </div>
-                  <button className="copy" onClick={copyEmail} aria-label="Copy email">
+                  <button className="copy" onClick={copyEmail} aria-label="Salin email">
                     <FaCopy />
                   </button>
                 </li>
@@ -255,17 +292,35 @@ const Contact = () => {
               {(info.socials.github || info.socials.linkedin || info.socials.instagram) && (
                 <div className="c-socials">
                   {info.socials.github && (
-                    <a href={info.socials.github} target="_blank" rel="noopener noreferrer" className="s-link">
+                    <a
+                      href={info.socials.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="s-link"
+                      aria-label="GitHub"
+                    >
                       <FaGithub /> GitHub
                     </a>
                   )}
                   {info.socials.linkedin && (
-                    <a href={info.socials.linkedin} target="_blank" rel="noopener noreferrer" className="s-link">
+                    <a
+                      href={info.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="s-link"
+                      aria-label="LinkedIn"
+                    >
                       <FaLinkedin /> LinkedIn
                     </a>
                   )}
                   {info.socials.instagram && (
-                    <a href={info.socials.instagram} target="_blank" rel="noopener noreferrer" className="s-link">
+                    <a
+                      href={info.socials.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="s-link"
+                      aria-label="Instagram"
+                    >
                       <FaInstagram /> Instagram
                     </a>
                   )}
@@ -306,7 +361,9 @@ const Contact = () => {
                     value={values.name}
                     onChange={onChange}
                     onBlur={onBlur}
+                    ref={nameRef}
                     autoComplete="name"
+                    maxLength={80}
                     aria-invalid={touched.name && !!errors.name}
                     aria-describedby="name-err"
                   />
@@ -327,7 +384,9 @@ const Contact = () => {
                     value={values.email}
                     onChange={onChange}
                     onBlur={onBlur}
+                    ref={emailRef}
                     autoComplete="email"
+                    maxLength={120}
                     aria-invalid={touched.email && !!errors.email}
                     aria-describedby="email-err"
                   />
@@ -349,7 +408,9 @@ const Contact = () => {
                   value={values.subject}
                   onChange={onChange}
                   onBlur={onBlur}
+                  ref={subjectRef}
                   autoComplete="off"
+                  maxLength={120}
                   aria-invalid={touched.subject && !!errors.subject}
                   aria-describedby="subject-err"
                 />
@@ -370,6 +431,7 @@ const Contact = () => {
                   value={values.message}
                   onChange={onChange}
                   onBlur={onBlur}
+                  ref={messageRef}
                   aria-invalid={touched.message && !!errors.message}
                   aria-describedby="message-help message-err"
                   maxLength={1000}
@@ -424,6 +486,4 @@ const Contact = () => {
       </div>
     </main>
   );
-};
-
-export default Contact;
+}

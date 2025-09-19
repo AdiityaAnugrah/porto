@@ -1,40 +1,20 @@
 // src/pages/About.jsx
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import Avatar from "../components/Avatar";
 import { Link } from "react-router-dom";
 import {
-  FaDownload,
-  FaEnvelope,
-  FaGithub,
-  FaLinkedin,
-  FaMapMarkerAlt,
-  FaCalendarAlt,
-  FaBriefcase,
-  FaTools,
-  FaGlobeAsia,
-  FaCheckCircle,
-  FaShieldAlt,
-  FaUsers,
-  FaRocket,
-  FaLeaf,
-  FaCogs,
-  FaQuestionCircle,
-  FaChevronDown,
-  FaInstagram,
+  FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaCalendarAlt,
+  FaBriefcase, FaTools, FaGlobeAsia, FaCheckCircle, FaShieldAlt, FaUsers,
+  FaRocket, FaLeaf, FaCogs, FaQuestionCircle, FaChevronDown, FaInstagram,
 } from "react-icons/fa";
 import SEO from "../components/SEO";
 import FXBubbles from "../components/FXBubbles";
 import "../styles/About.scss";
-import "../styles/fx-layer.scss"; // <-- style kecil untuk layer FX fullscreen
+import "../styles/fx-layer.scss";
 
-const CV_URL =
-  "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview";
+const CV_URL = "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview";
 
 const About = () => {
-  useEffect(() => {
-    document.title = "About | My Portfolio";
-  }, []);
-
   // ====== DATA ======
   const profile = {
     name: "Aditya Anugrah",
@@ -56,10 +36,12 @@ const About = () => {
   };
 
   const primarySkills = [
-    "Next.js","React","TypeScript","CI4/PHP","Node.js","MySQL","SCSS/Tailwind","kotlin (dasar)",
+    "Next.js", "React", "TypeScript", "CI4/PHP", "Node.js", "MySQL", "SCSS/Tailwind", "Kotlin (dasar)",
   ];
 
-  const tools = ["Git/GitHub","OpenLiteServer","Figma/canva","Postman","VSCode","Chrome DevTools"];
+  const tools = [
+    "Git/GitHub", "OpenLiteServer", "Figma/Canva", "Postman", "VSCode", "Chrome DevTools",
+  ];
 
   const experiences = [
     {
@@ -103,35 +85,15 @@ const About = () => {
   ];
 
   const education = [
-    {
-      title: <span className="text-lg font-bold">Teknik Informatika</span>,
-      org: <span className="text-base">Universita Dian Nuswontoro</span>,
-      period: <span className="text-sm">2019 — 2023</span>,
-    },
-    {
-      title: <span className="text-lg font-bold">SMA IPA</span>,
-      org: <span className="text-base">SMA Negeri 1 Semendawai Suku III</span>,
-      period: <span className="text-sm">2016 — 2019</span>,
-    },
+    { title: "Teknik Informatika", org: "Universitas Dian Nuswantoro", period: "2019 — 2023" },
+    { title: "SMA IPA", org: "SMA Negeri 1 Semendawai Suku III", period: "2016 — 2019" },
   ];
 
   const certifications = [
-    {
-      name: <span className="text-lg font-bold">Mobile Development</span>,
-      by: <span className="text-base">Bangkit Academy</span>,
-    },
-    {
-      name: <span className="text-lg font-bold">Android Development</span>,
-      by: <span className="text-base">Coursera</span>,
-    },
-    {
-      name: <span className="text-lg font-bold">JavaScript Algorithms</span>,
-      by: <span className="text-base">FreeCodeCamp</span>,
-    },
-    {
-      name: <span className="text-lg font-bold">Aplikasi Android Intermediate</span>,
-      by: <span className="text-base">Dicoding</span>,
-    },
+    { name: "Mobile Development", by: "Bangkit Academy" },
+    { name: "Android Development", by: "Coursera" },
+    { name: "JavaScript Algorithms", by: "FreeCodeCamp" },
+    { name: "Aplikasi Android Intermediate", by: "Dicoding" },
   ];
 
   const facts = useMemo(
@@ -145,11 +107,11 @@ const About = () => {
   );
 
   const values = [
-    { icon: FaRocket,     title: "Cepat & Ringan",    desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
-    { icon: FaShieldAlt,  title: "Keamanan Default",   desc: "Validasi input, sanitasi, RBAC, audit log, least-privilege sejak awal." },
-    { icon: FaUsers,      title: "UX Terlebih Dahulu", desc: "Mobile-first, aksesibilitas, state jelas (loading/empty/error), navigasi nyaman." },
-    { icon: FaLeaf,       title: "Mudah Dirawat",      desc: "Modular, naming konsisten, tokens/design system, test seperlunya." },
-    { icon: FaCogs,       title: "Pragmatis",          desc: "Pilih tools sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS." },
+    { icon: FaRocket,    title: "Cepat & Ringan",        desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
+    { icon: FaShieldAlt, title: "Keamanan Default",       desc: "Validasi input, sanitasi, RBAC, audit log, least-privilege sejak awal." },
+    { icon: FaUsers,     title: "UX Terlebih Dahulu",     desc: "Mobile-first, aksesibilitas, state jelas (loading/empty/error), navigasi nyaman." },
+    { icon: FaLeaf,      title: "Mudah Dirawat",          desc: "Modular, naming konsisten, tokens/design system, test seperlunya." },
+    { icon: FaCogs,      title: "Pragmatis",              desc: "Pilih tools sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS." },
   ];
 
   const faqs = [
@@ -187,15 +149,16 @@ const About = () => {
         path="/about"
         type="profile"
         image="/assets/me-sunset.jpg"
+        imageAlt="Foto Aditya Anugrah"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
           name: profile.name,
           jobTitle: profile.role,
-          url: (typeof window !== "undefined" ? window.location.origin : "") + "/about",
+          url: "/about",
           email: `mailto:${profile.email}`,
           sameAs,
-          image: (typeof window !== "undefined" ? window.location.origin : "") + "/assets/me-sunset.jpg",
+          image: "/assets/me-sunset.jpg",
           worksFor: { "@type": "Organization", name: "Freelance" },
         }}
       />
@@ -221,17 +184,17 @@ const About = () => {
                 <FaEnvelope /> Email
               </a>
               {profile.socials.github && (
-                <a className="btn btn-ghost" href={profile.socials.github} target="_blank" rel="noreferrer">
+                <a className="btn btn-ghost" href={profile.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub">
                   <FaGithub /> GitHub
                 </a>
               )}
               {profile.socials.linkedin && (
-                <a className="btn btn-ghost" href={profile.socials.linkedin} target="_blank" rel="noreferrer">
+                <a className="btn btn-ghost" href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                   <FaLinkedin /> LinkedIn
                 </a>
               )}
               {profile.socials.instagram && (
-                <a className="btn btn-ghost" href={profile.socials.instagram} target="_blank" rel="noreferrer">
+                <a className="btn btn-ghost" href={profile.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
                   <FaInstagram /> Instagram
                 </a>
               )}

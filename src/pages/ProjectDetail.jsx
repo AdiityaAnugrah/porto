@@ -1,5 +1,5 @@
 // src/pages/ProjectDetail.jsx
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Img } from "react-image";
 import {
@@ -16,11 +16,13 @@ import {
 } from "react-icons/fa";
 import "../styles/ProjectDetail.scss";
 import { projects } from "../data/projects";
+import SEO from "../components/SEO";
 
 const Section = ({ title, children, id }) => {
   if (!children) return null;
-  const hasContent =
-    Array.isArray(children) ? children.length > 0 : String(children).trim().length > 0;
+  const hasContent = Array.isArray(children)
+    ? children.length > 0
+    : String(children).trim().length > 0;
   if (!hasContent) return null;
   return (
     <section className="pd-section" aria-labelledby={id}>
@@ -39,7 +41,11 @@ const InfoRow = ({ icon: Icon, label, value }) => {
   if (!value) return null;
   return (
     <div className="pd-inforow">
-      {Icon && React.createElement(Icon, { className: "pd-inforow__icon", "aria-hidden": true })}
+      {Icon &&
+        React.createElement(Icon, {
+          className: "pd-inforow__icon",
+          "aria-hidden": true,
+        })}
       <div className="pd-inforow__text">
         <div className="pd-inforow__label">{label}</div>
         <div className="pd-inforow__value">{value}</div>
@@ -48,7 +54,7 @@ const InfoRow = ({ icon: Icon, label, value }) => {
   );
 };
 
-const ProjectDetail = () => {
+export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -63,23 +69,87 @@ const ProjectDetail = () => {
     };
   }, [id]);
 
-  useEffect(() => {
-    document.title = data ? `${data.title} — Project` : "Project tidak ditemukan";
-  }, [data]);
+  // ===== SEO props =====
+  const seo = useMemo(() => {
+    if (!data) {
+      return {
+        title: "Project tidak ditemukan",
+        description:
+          "Project yang kamu cari tidak ditemukan. Lihat daftar proyek lain di portfolio.",
+        path: `/projects/item/${id || ""}`,
+        type: "article",
+        image: "/assets/og-projects.jpg",
+        imageAlt: "Portfolio projects",
+        jsonLd: {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Project tidak ditemukan",
+          url: "/projects",
+        },
+      };
+    }
+    const coverImg = data.cover || "/assets/placeholder.jpg";
+    const baseLd = {
+      "@context": "https://schema.org",
+      "@type":
+        data.links?.code || Array.isArray(data.tech)
+          ? "SoftwareSourceCode"
+          : "CreativeWork",
+      name: data.title,
+      description: data.summary,
+      url: `/projects/item/${data.id}`,
+      image: coverImg,
+      dateCreated: data.year ? `${data.year}-01-01` : undefined,
+      programmingLanguage: Array.isArray(data.tech) ? data.tech.join(", ") : undefined,
+      author: {
+        "@type": "Person",
+        name: "Aditya Anugrah",
+      },
+      inLanguage: "id",
+      keywords: Array.isArray(data.tags) ? data.tags.join(", ") : undefined,
+    };
+    if (data.links?.live) baseLd.discussionUrl = data.links.live;
+    if (data.links?.code) baseLd.codeRepository = data.links.code;
+
+    return {
+      title: `${data.title} — Project`,
+      description: data.summary || `${data.title} — detail project portfolio.`,
+      path: `/projects/item/${data.id}`,
+      type: "article",
+      image: coverImg,
+      imageAlt: data.title,
+      jsonLd: baseLd,
+    };
+  }, [data, id]);
 
   if (!data) {
     return (
       <main className="pd container" style={{ padding: "24px 0" }}>
+        <SEO
+          title={seo.title}
+          description={seo.description}
+          path={seo.path}
+          type={seo.type}
+          image={seo.image}
+          imageAlt={seo.imageAlt}
+          jsonLd={seo.jsonLd}
+        />
         <nav className="pd-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/projects">Projects</Link></li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
             <li aria-current="page">Not found</li>
           </ol>
         </nav>
         <h1>Project tidak ditemukan</h1>
         <p>
-          <Link className="pd-btn" to="/projects">← Kembali ke Projects</Link>
+          <Link className="pd-btn" to="/projects">
+            ← Kembali ke Projects
+          </Link>
         </p>
       </main>
     );
@@ -107,13 +177,26 @@ const ProjectDetail = () => {
 
   return (
     <main className="pd" role="main">
-      <div className="container">
+      <SEO
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        type={seo.type}
+        image={seo.image}
+        imageAlt={seo.imageAlt}
+        jsonLd={seo.jsonLd}
+      />
 
+      <div className="container">
         {/* Breadcrumbs */}
         <nav className="pd-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/projects">Projects</Link></li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
             <li aria-current="page">{title}</li>
           </ol>
         </nav>
@@ -121,7 +204,12 @@ const ProjectDetail = () => {
         {/* Header */}
         <header className="pd-header">
           <div className="pd-header__top">
-            <button className="pd-btn pd-btn--ghost" onClick={() => navigate(-1)}>
+            <button
+              className="pd-btn pd-btn--ghost"
+              onClick={() => navigate(-1)}
+              aria-label="Kembali"
+              title="Kembali"
+            >
               <FaArrowLeft /> Kembali
             </button>
           </div>
@@ -130,9 +218,21 @@ const ProjectDetail = () => {
 
           <div className="pd-meta">
             {category && <Chip>{category}</Chip>}
-            {year && <Chip><FaCalendarAlt aria-hidden /> {year}</Chip>}
-            {role && <Chip><FaUser aria-hidden /> {role}</Chip>}
-            {duration && <Chip><FaClock aria-hidden /> {duration}</Chip>}
+            {year && (
+              <Chip>
+                <FaCalendarAlt aria-hidden /> {year}
+              </Chip>
+            )}
+            {role && (
+              <Chip>
+                <FaUser aria-hidden /> {role}
+              </Chip>
+            )}
+            {duration && (
+              <Chip>
+                <FaClock aria-hidden /> {duration}
+              </Chip>
+            )}
           </div>
 
           {/* Cover */}
@@ -157,7 +257,9 @@ const ProjectDetail = () => {
             <Section title="Fitur Utama" id="features">
               {Array.isArray(features) && features.length > 0 && (
                 <ul className="pd-list">
-                  {features.map((f, i) => <li key={i}>{f}</li>)}
+                  {features.map((f, i) => (
+                    <li key={i}>{f}</li>
+                  ))}
                 </ul>
               )}
             </Section>
@@ -165,7 +267,9 @@ const ProjectDetail = () => {
             <Section title="Tanggung Jawab" id="responsibilities">
               {Array.isArray(responsibilities) && responsibilities.length > 0 && (
                 <ul className="pd-list">
-                  {responsibilities.map((r, i) => <li key={i}>{r}</li>)}
+                  {responsibilities.map((r, i) => (
+                    <li key={i}>{r}</li>
+                  ))}
                 </ul>
               )}
             </Section>
@@ -173,7 +277,9 @@ const ProjectDetail = () => {
             <Section title="Tantangan & Solusi" id="challenges">
               {Array.isArray(challenges) && challenges.length > 0 && (
                 <ul className="pd-list">
-                  {challenges.map((c, i) => <li key={i}>{c}</li>)}
+                  {challenges.map((c, i) => (
+                    <li key={i}>{c}</li>
+                  ))}
                 </ul>
               )}
             </Section>
@@ -181,7 +287,9 @@ const ProjectDetail = () => {
             <Section title="Hasil & Dampak" id="results">
               {Array.isArray(results) && results.length > 0 && (
                 <ul className="pd-list">
-                  {results.map((res, i) => <li key={i}>{res}</li>)}
+                  {results.map((res, i) => (
+                    <li key={i}>{res}</li>
+                  ))}
                 </ul>
               )}
             </Section>
@@ -189,8 +297,16 @@ const ProjectDetail = () => {
             {/* Tech Stack */}
             <Section title="Tech Stack" id="tech">
               <div className="pd-chips">
-                {tech.map((t) => <Chip key={t}><FaTools aria-hidden /> {t}</Chip>)}
-                {tags.map((t) => <Chip key={`tag-${t}`}><FaTag aria-hidden /> {t}</Chip>)}
+                {tech.map((t) => (
+                  <Chip key={t}>
+                    <FaTools aria-hidden /> {t}
+                  </Chip>
+                ))}
+                {tags.map((t) => (
+                  <Chip key={`tag-${t}`}>
+                    <FaTag aria-hidden /> {t}
+                  </Chip>
+                ))}
               </div>
             </Section>
 
@@ -198,12 +314,22 @@ const ProjectDetail = () => {
             {(links?.live || links?.code) && (
               <div className="pd-links">
                 {links.live && (
-                  <a className="pd-btn pd-btn--primary" href={links.live} target="_blank" rel="noreferrer">
+                  <a
+                    className="pd-btn pd-btn--primary"
+                    href={links.live}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Buka Situs <FaExternalLinkAlt />
                   </a>
                 )}
                 {links.code && (
-                  <a className="pd-btn pd-btn--ghost" href={links.code} target="_blank" rel="noreferrer">
+                  <a
+                    className="pd-btn pd-btn--ghost"
+                    href={links.code}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Lihat Source <FaGithub />
                   </a>
                 )}
@@ -215,7 +341,14 @@ const ProjectDetail = () => {
               <Section title="Gallery" id="gallery">
                 <div className="pd-gallery">
                   {gallery.map((g, i) => (
-                    <a key={i} href={g.src} target="_blank" rel="noreferrer" className="pd-gallery__item">
+                    <a
+                      key={i}
+                      href={g.src}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pd-gallery__item"
+                      aria-label={`Lihat gambar ${i + 1} — ${title}`}
+                    >
                       <Img
                         src={[g.src, "/assets/placeholder.jpg"]}
                         alt={g.alt || `Gallery ${i + 1} — ${title}`}
@@ -229,7 +362,7 @@ const ProjectDetail = () => {
           </div>
 
           {/* Sidebar */}
-          <aside className="pd-aside" aria-label="Project info">
+          <aside className="pd-aside" aria-label="Info proyek">
             <div className="pd-card">
               <h3 className="pd-card__title">Info Proyek</h3>
               <div className="pd-card__body">
@@ -244,12 +377,22 @@ const ProjectDetail = () => {
               {(links?.live || links?.code) && (
                 <div className="pd-card__actions">
                   {links.live && (
-                    <a className="pd-btn pd-btn--primary" href={links.live} target="_blank" rel="noreferrer">
+                    <a
+                      className="pd-btn pd-btn--primary"
+                      href={links.live}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Kunjungi <FaExternalLinkAlt />
                     </a>
                   )}
                   {links.code && (
-                    <a className="pd-btn pd-btn--ghost" href={links.code} target="_blank" rel="noreferrer">
+                    <a
+                      className="pd-btn pd-btn--ghost"
+                      href={links.code}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Source <FaGithub />
                     </a>
                   )}
@@ -260,14 +403,16 @@ const ProjectDetail = () => {
         </div>
 
         {/* Prev/Next */}
-        <nav className="pd-nav">
+        <nav className="pd-nav" aria-label="Navigasi project sebelumnya/berikutnya">
           <div className="pd-nav__item">
             {prev ? (
               <Link to={`/projects/item/${prev.id}`} className="pd-link">
                 <FaArrowLeft /> <span className="pd-nav__meta">Sebelumnya</span>
                 <span className="pd-nav__title">{prev.title}</span>
               </Link>
-            ) : <span className="pd-nav__placeholder" />}
+            ) : (
+              <span className="pd-nav__placeholder" />
+            )}
           </div>
           <div className="pd-nav__item pd-nav__item--right">
             {next ? (
@@ -275,12 +420,12 @@ const ProjectDetail = () => {
                 <span className="pd-nav__meta">Berikutnya</span> <FaArrowRight />
                 <span className="pd-nav__title">{next.title}</span>
               </Link>
-            ) : <span className="pd-nav__placeholder" />}
+            ) : (
+              <span className="pd-nav__placeholder" />
+            )}
           </div>
         </nav>
       </div>
     </main>
   );
-};
-
-export default ProjectDetail;
+}

@@ -2,9 +2,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Img } from "react-image";
-import { FaExternalLinkAlt, FaGithub, FaSearch, FaChevronDown } from "react-icons/fa";
+import {
+  FaExternalLinkAlt,
+  FaGithub,
+  FaSearch,
+  FaChevronDown,
+} from "react-icons/fa";
 import "../styles/Projects.scss";
 import { projects as seed } from "../data/projects";
+import SEO from "../components/SEO";
 
 const CATEGORIES = ["All", "Web Apps", "Mobile Apps", "Landing Pages"];
 const SORTS = ["Terbaru", "Terlama", "A–Z"];
@@ -45,29 +51,43 @@ const ProjectCard = ({ p }) => (
       {Array.isArray(p.tech) && p.tech.length > 0 && (
         <ul className="tech">
           {p.tech.slice(0, 5).map((t) => (
-            <li key={t} className="chip">{t}</li>
+            <li key={t} className="chip">
+              {t}
+            </li>
           ))}
         </ul>
       )}
 
       <div className="actions">
         {p.links?.live && (
-          <a className="btn btn-ghost" href={p.links.live} target="_blank" rel="noreferrer">
+          <a
+            className="btn btn-ghost"
+            href={p.links.live}
+            target="_blank"
+            rel="noreferrer"
+          >
             Live <FaExternalLinkAlt className="ic" />
           </a>
         )}
         {p.links?.code && (
-          <a className="btn btn-ghost" href={p.links.code} target="_blank" rel="noreferrer">
+          <a
+            className="btn btn-ghost"
+            href={p.links.code}
+            target="_blank"
+            rel="noreferrer"
+          >
             Code <FaGithub className="ic" />
           </a>
         )}
-        <Link className="btn" to={`/projects/item/${p.id}`}>Detail</Link>
+        <Link className="btn" to={`/projects/item/${p.id}`}>
+          Detail
+        </Link>
       </div>
     </div>
   </article>
 );
 
-const Projects = () => {
+export default function Projects() {
   const location = useLocation();
 
   const [query, setQuery] = useState("");
@@ -75,8 +95,9 @@ const Projects = () => {
   const [sort, setSort] = useState("Terbaru");
 
   // sinkron kategori dgn URL setiap ganti route
-  useEffect(() => { setCat(mapPathToCat(location.pathname)); }, [location.pathname]);
-  useEffect(() => { document.title = "Projects | My Portfolio"; }, []);
+  useEffect(() => {
+    setCat(mapPathToCat(location.pathname));
+  }, [location.pathname]);
 
   const filtered = useMemo(() => {
     let arr = [...seed];
@@ -100,13 +121,24 @@ const Projects = () => {
 
   const counts = useMemo(() => {
     const c = { All: seed.length };
-    CATEGORIES.slice(1).forEach((k) => { c[k] = seed.filter((p) => p.category === k).length; });
+    CATEGORIES.slice(1).forEach((k) => {
+      c[k] = seed.filter((p) => p.category === k).length;
+    });
     return c;
   }, []);
 
   return (
     <main className="projects" role="main">
-      {/* TOOLBAR (glass iOS 26) */}
+      <SEO
+        title="Projects"
+        description="Kumpulan proyek karya Aditya Anugrah: web apps, landing pages, hingga aplikasi mobile. Lengkap dengan teknologi dan link demo."
+        path="/projects"
+        type="website"
+        image="/assets/og-projects.jpg"
+        imageAlt="Preview proyek portfolio"
+      />
+
+      {/* TOOLBAR (glass iOS style) */}
       <section className="toolbar" aria-label="Projects filter">
         <div className="container">
           <div className="bar">
@@ -132,7 +164,11 @@ const Projects = () => {
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
                 >
-                  {SORTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                  {SORTS.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
                 </select>
                 <FaChevronDown className="chev" aria-hidden />
               </div>
@@ -166,7 +202,9 @@ const Projects = () => {
             <p className="muted nores">Tidak ada proyek yang cocok.</p>
           ) : (
             <div className="grid">
-              {filtered.map((p) => <ProjectCard p={p} key={p.id} />)}
+              {filtered.map((p) => (
+                <ProjectCard p={p} key={p.id} />
+              ))}
             </div>
           )}
         </div>
@@ -177,16 +215,20 @@ const Projects = () => {
         <div className="container">
           <div className="cta-box">
             <h2>Ingin membangun sesuatu bersama?</h2>
-            <p className="muted">Freelance/kolaborasi: dashboard, e-commerce, hingga sistem internal.</p>
+            <p className="muted">
+              Freelance/kolaborasi: dashboard, e-commerce, hingga sistem internal.
+            </p>
             <div className="cta-actions">
-              <Link className="btn btn-primary" to="/contact">Hubungi Saya</Link>
-              <Link className="btn btn-ghost" to="/about">Tentang Saya</Link>
+              <Link className="btn btn-primary" to="/contact">
+                Hubungi Saya
+              </Link>
+              <Link className="btn btn-ghost" to="/about">
+                Tentang Saya
+              </Link>
             </div>
           </div>
         </div>
       </section>
     </main>
   );
-};
-
-export default Projects;
+}

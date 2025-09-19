@@ -66,7 +66,7 @@ const Home = () => {
       <section className="hero" aria-labelledby="hero-title">
         {/* FX bubble — hanya di area hero */}
         <div className="fx-bubbles-wrap" aria-hidden="true">
-          <FXBubbles className="fx-bubbles-canvas" />
+          <FXBubbles motion={true} density={1} blur={20} className="fx-bubbles-canvas" />
         </div>
         {/* glow background lembut */}
         <div className="hero-bg" aria-hidden="true" />

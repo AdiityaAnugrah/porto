@@ -1,84 +1,130 @@
-import { useEffect } from "react";
+// src/components/SEO.jsx
+import { useEffect, useMemo } from "react";
 
-/** Helper: base URL dari env atau origin */
+/* ========= Helpers ========= */
+
+/** Base URL dari env atau origin (fallback) */
 const SITE_URL =
-  import.meta?.env?.VITE_SITE_URL ||
+  (typeof import.meta !== "undefined" &&
+    import.meta.env?.VITE_SITE_URL) ||
   (typeof window !== "undefined" ? window.location.origin : "");
 
+/** Nama situs (opsional dari env) */
+const SITE_NAME =
+  (typeof import.meta !== "undefined" &&
+    import.meta.env?.VITE_SITE_NAME) ||
+  "My Portfolio";
 /** Pastikan absolute URL */
 const toAbsUrl = (pathOrUrl = "") => {
   if (!pathOrUrl) return SITE_URL;
   try {
-    new URL(pathOrUrl); // sudah absolute
+    // Sudah absolute
+    // eslint-disable-next-line no-new
+    new URL(pathOrUrl);
     return pathOrUrl;
   } catch {
-    const base = SITE_URL.replace(/\/+$/, "");
-    const rel = String(pathOrUrl).startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
+    const base = String(SITE_URL || "").replace(/\/+$/, "");
+    const rel = String(pathOrUrl || "").startsWith("/")
+      ? pathOrUrl
+      : `/${pathOrUrl || ""}`;
     return base + rel;
   }
 };
 
-/** Upsert <meta name="..."> */
-const upsertMetaByName = (name, content, id) => {
-  if (!content) return null;
-  let el =
-    document.head.querySelector(`meta[name="${name}"][data-seo="${id}"]`) ||
-    document.createElement("meta");
-  el.setAttribute("name", name);
-  el.setAttribute("content", String(content));
-  el.setAttribute("data-seo", id);
-  if (!el.parentNode) document.head.appendChild(el);
+/** Upsert meta by name/property/link/script dengan data-seo id */
+const upsert = (selector, create, attrs) => {
+  if (typeof document === "undefined") return null;
+  const head = document.head || document.getElementsByTagName("head")[0];
+  if (!head) return null;
+
+  let el = head.querySelector(selector);
+  if (!el) {
+    el = create();
+    head.appendChild(el);
+  }
+  Object.entries(attrs || {}).forEach(([k, v]) => {
+    if (v === null || v === undefined || v === false) return;
+    el.setAttribute(k, String(v));
+  });
+  // khusus script ld+json: textContent, bukan attribute
+  if ("textContent" in attrs) {
+    el.textContent = attrs.textContent;
+  }
   return el;
 };
 
-/** Upsert <meta property="..."> */
-const upsertMetaByProp = (prop, content, id) => {
-  if (!content) return null;
-  let el =
-    document.head.querySelector(
-      `meta[property="${prop}"][data-seo="${id}"]`
-    ) || document.createElement("meta");
-  el.setAttribute("property", prop);
-  el.setAttribute("content", String(content));
-  el.setAttribute("data-seo", id);
-  if (!el.parentNode) document.head.appendChild(el);
-  return el;
+const setMetaByName = (name, content, id) =>
+  content
+    ? upsert(`meta[name="${name}"][data-seo="${id}"]`, () => {
+        const m = document.createElement("meta");
+        m.setAttribute("name", name);
+        return m;
+      }, { content, "data-seo": id })
+    : null;
+
+const setMetaByProp = (prop, content, id) =>
+  content
+    ? upsert(`meta[property="${prop}"][data-seo="${id}"]`, () => {
+        const m = document.createElement("meta");
+        m.setAttribute("property", prop);
+        return m;
+      }, { content, "data-seo": id })
+    : null;
+
+const setCanonical = (href, id) =>
+  href
+    ? upsert(`link[rel="canonical"][data-seo="${id}"]`, () => {
+        const l = document.createElement("link");
+        l.setAttribute("rel", "canonical");
+        return l;
+      }, { href, "data-seo": id })
+    : null;
+
+const setJsonLd = (json, id) =>
+  json
+    ? upsert(
+        `script[type="application/ld+json"][data-seo="${id}"]`,
+        () => {
+          const s = document.createElement("script");
+          s.type = "application/ld+json";
+          return s;
+        },
+        { "data-seo": id, textContent: JSON.stringify(json) }
+      )
+    : null;
+
+/** Normalisasi robots (mis. boolean/array/string) */
+const normalizeRobots = (robots) => {
+  if (!robots) return "index,follow";
+  if (robots === true) return "index,follow";
+  if (robots === false) return "noindex,nofollow";
+  if (Array.isArray(robots)) return robots.join(",");
+  return String(robots);
 };
 
-/** Upsert <link rel="canonical"> */
-const upsertCanonical = (href, id) => {
-  if (!href) return null;
-  let el =
-    document.head.querySelector(`link[rel="canonical"][data-seo="${id}"]`) ||
-    document.createElement("link");
-  el.setAttribute("rel", "canonical");
-  el.setAttribute("href", href);
-  el.setAttribute("data-seo", id);
-  if (!el.parentNode) document.head.appendChild(el);
-  return el;
+/** Potong panjang aman (untuk meta) */
+const clamp = (str, n) => {
+  if (!str) return str;
+  const s = String(str);
+  return s.length > n ? `${s.slice(0, n - 1)}…` : s;
 };
 
-/** Upsert JSON-LD */
-const upsertJsonLd = (json, id) => {
-  if (!json) return null;
-  let el =
-    document.head.querySelector(`script[type="application/ld+json"][data-seo="${id}"]`) ||
-    document.createElement("script");
-  el.type = "application/ld+json";
-  el.textContent = JSON.stringify(json);
-  el.setAttribute("data-seo", id);
-  if (!el.parentNode) document.head.appendChild(el);
-  return el;
-};
+/* ========= Komponen ========= */
 
 /**
- * SEO props:
+ * SEO
+ * Props:
  * - title, description
- * - path        (untuk canonical; contoh "/about")
- * - type        (og:type)  "website" | "article" | "profile"
- * - image       (relative/absolute)
- * - robots      (default "index,follow")
- * - jsonLd      (object schema.org)
+ * - path         (untuk canonical, ex: "/about")
+ * - type         (og:type) "website" | "article" | "profile" | etc.
+ * - image        (relative/absolute)
+ * - imageAlt     (alt untuk og/twitter)
+ * - robots       (string | string[] | boolean)
+ * - jsonLd       (object schema.org)
+ * - siteName     (override, default env/VITE_SITE_NAME)
+ * - titleTemplate (override, default: `${title} – ${siteName}`)
+ * - locale       (default: "id_ID")
+ * - twitter      ({ site, creator })
  */
 export default function SEO({
   title,
@@ -86,55 +132,101 @@ export default function SEO({
   path = "",
   type = "website",
   image = "/assets/og-default.jpg",
+  imageAlt,
   robots = "index,follow",
-  jsonLd
+  jsonLd,
+  siteName = SITE_NAME,
+  titleTemplate,
+  locale = "id_ID",
+  twitter,
 }) {
-  useEffect(() => {
-    const id = "seo-managed"; // penanda agar mudah dibersihkan saat route berubah
+  // Hindari re-render LD karena referensi object baru;
+  // jika benar-benar dinamis, caller bisa memoize sebelum dikirim.
+  const memoLd = useMemo(() => jsonLd, [JSON.stringify(jsonLd || {})]);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return () => {};
+
+    const id = "seo-managed"; // penanda untuk cleanup
     const prevTitle = document.title;
-    const fullTitle = title ? `${title} | My Portfolio` : "My Portfolio";
+
+    // Title
+    const fullTitle = title
+      ? (titleTemplate
+          ? titleTemplate.replace(/%s/g, String(title))
+          : `${title} | ${siteName}`)
+      : siteName;
+
     document.title = fullTitle;
 
-    // canonical + URLs
+    // Canonical / URL / Image absolute
     const canonical = toAbsUrl(path);
     const ogImage = toAbsUrl(image);
 
-    // name metas
-    const mDesc = upsertMetaByName("description", description, id);
-    const mRobots = upsertMetaByName("robots", robots, id);
+    // Robots
+    const robotsNorm = normalizeRobots(robots);
 
-    // canonical
-    const lCanon = upsertCanonical(canonical, id);
+    // ====== Meta by name ======
+    setMetaByName("description", clamp(description, 300), id);
+    setMetaByName("robots", robotsNorm, id);
+    setMetaByName("twitter:card", "summary_large_image", id);
+    setMetaByName("twitter:title", clamp(fullTitle, 70), id);
+    setMetaByName("twitter:description", clamp(description, 200), id);
+    setMetaByName("twitter:image", ogImage, id);
+    setMetaByName("twitter:image:alt", imageAlt || title || siteName, id);
+    if (twitter?.site) setMetaByName("twitter:site", twitter.site, id);
+    if (twitter?.creator) setMetaByName("twitter:creator", twitter.creator, id);
 
-    // Open Graph
-    const ogType = upsertMetaByProp("og:type", type, id);
-    const ogTitle = upsertMetaByProp("og:title", fullTitle, id);
-    const ogDesc = upsertMetaByProp("og:description", description, id);
-    const ogUrl  = upsertMetaByProp("og:url", canonical, id);
-    const ogSite = upsertMetaByProp("og:site_name", "My Portfolio", id);
-    const ogImg  = upsertMetaByProp("og:image", ogImage, id);
-    const ogW    = upsertMetaByProp("og:image:width", "1200", id);
-    const ogH    = upsertMetaByProp("og:image:height", "630", id);
-    const ogAlt  = upsertMetaByProp("og:image:alt", title || "My Portfolio", id);
+    // ====== Canonical ======
+    setCanonical(canonical, id);
 
-    // Twitter
-    const twCard = upsertMetaByName("twitter:card", "summary_large_image", id);
-    const twTitle= upsertMetaByName("twitter:title", fullTitle, id);
-    const twDesc = upsertMetaByName("twitter:description", description, id);
-    const twImg  = upsertMetaByName("twitter:image", ogImage, id);
+    // ====== Open Graph ======
+    setMetaByProp("og:type", type, id);
+    setMetaByProp("og:title", clamp(fullTitle, 70), id);
+    setMetaByProp("og:description", clamp(description, 200), id);
+    setMetaByProp("og:url", canonical, id);
+    setMetaByProp("og:site_name", siteName, id);
+    setMetaByProp("og:locale", locale, id);
+    setMetaByProp("og:image", ogImage, id);
+    setMetaByProp("og:image:secure_url", ogImage, id);
+    setMetaByProp("og:image:alt", imageAlt || title || siteName, id);
+    setMetaByProp("og:image:width", "1200", id);
+    setMetaByProp("og:image:height", "630", id);
 
-    // JSON-LD
-    const ld = upsertJsonLd(jsonLd, id);
+    // (Opsional) theme-color sesuai CSS var; aman jika tidak ada
+    try {
+      const theme = getComputedStyle(document.documentElement)
+        .getPropertyValue("--color-bg")
+        .trim();
+      if (theme) setMetaByName("theme-color", theme, id);
+    } catch {
+      // ignore
+    }
 
-    // Cleanup saat unmount: hapus tag yang kita buat, kembalikan title
+    // ====== JSON-LD ======
+    setJsonLd(memoLd, id);
+
+    // Cleanup saat unmount/route change
     return () => {
       document.title = prevTitle;
-      document.head
-        .querySelectorAll(`[data-seo="${id}"]`)
-        .forEach((n) => n.parentNode?.removeChild(n));
+      const nodes = document.head?.querySelectorAll(`[data-seo="${id}"]`);
+      nodes?.forEach((n) => n.parentNode?.removeChild(n));
     };
-  }, [title, description, path, type, image, robots, JSON.stringify(jsonLd)]);
+  }, [
+    title,
+    description,
+    path,
+    type,
+    image,
+    imageAlt,
+    robots,
+    siteName,
+    titleTemplate,
+    locale,
+    twitter?.site,
+    twitter?.creator,
+    memoLd,
+  ]);
 
   return null;
 }
