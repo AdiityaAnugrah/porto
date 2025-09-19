@@ -12,6 +12,9 @@ import FXBubbles from "../components/FXBubbles";
 import "../styles/About.scss";
 import "../styles/fx-layer.scss";
 
+const SITE_ORIGIN =
+  (typeof window !== "undefined" ? window.location.origin : "") || "https://example.com";
+
 const CV_URL = "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview";
 
 const About = () => {
@@ -143,9 +146,10 @@ const About = () => {
         <FXBubbles motion={true} density={1} blur={20} />
       </div>
 
+      {/* ===== SEO diperkuat untuk nama pribadi ===== */}
       <SEO
-        title="About"
-        description="Tentang Aditya Anugrah — Web Developer fokus e-commerce, dashboard, dan sistem absensi. Mengutamakan performa, keamanan, dan UX."
+        title="About — Aditya Anugrah"
+        description="Tentang Aditya Anugrah, Web Developer Indonesia. Fokus e-commerce, dashboard, dan sistem absensi dengan performa, keamanan, dan UX yang kuat."
         path="/about"
         type="profile"
         image="/assets/me-sunset.jpg"
@@ -155,11 +159,11 @@ const About = () => {
           "@type": "Person",
           name: profile.name,
           jobTitle: profile.role,
-          url: "/about",
+          url: SITE_ORIGIN + "/about",
           email: `mailto:${profile.email}`,
           sameAs,
-          image: "/assets/me-sunset.jpg",
-          worksFor: { "@type": "Organization", name: "Freelance" },
+          image: SITE_ORIGIN + "/assets/me-sunset.jpg",
+          worksFor: { "@type": "Organization", name: "Freelance" }
         }}
       />
 

@@ -15,6 +15,9 @@ import { projects as seed } from '../data/projects';
 import SEO from '../components/SEO';
 import FXBubbles from '../components/FXBubbles';
 
+const SITE_ORIGIN =
+  (typeof window !== 'undefined' ? window.location.origin : '') || 'https://example.com';
+
 const Home = () => {
   // ambil 3 proyek terbaru buat section "Recent"
   const featured = useMemo(() => {
@@ -41,25 +44,43 @@ const Home = () => {
 
   return (
     <main id="main-content" className="home" role="main">
+      {/* ===== SEO yang dioptimalkan untuk nama brand pribadi ===== */}
       <SEO
-        title="Home"
-        description="Portfolio Aditya Anugrah — web developer fokus e-commerce, dashboard, dan sistem absensi."
+        title="Aditya Anugrah | Web Developer Portfolio"
+        description="Website resmi Aditya Anugrah | Web Developer dari Indonesia. Lihat portofolio proyek, tech stack, dan cara menghubungi untuk kolaborasi."
         path="/"
         type="website"
         image="/assets/og-default.jpg"
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'My Portfolio',
-          url: (typeof window !== 'undefined' ? window.location.origin : '') + '/',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target:
-              (typeof window !== 'undefined' ? window.location.origin : '') +
-              '/projects?query={search_term_string}',
-            'query-input': 'required name=search_term_string',
+        imageAlt="Aditya Anugrah Web Developer Portfolio"
+        // Kirim array JSON-LD: WebSite + Person agar Google lebih yakin identitasnya
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Aditya Anugrah Portfolio',
+            url: SITE_ORIGIN + '/',
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: SITE_ORIGIN + '/projects?query={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
           },
-        }}
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Aditya Anugrah',
+            url: SITE_ORIGIN + '/',
+            image: SITE_ORIGIN + '/assets/profile.jpg',
+            jobTitle: 'Web Developer',
+            description:
+              'Aditya Anugrah adalah Web Developer dari Indonesia. Fokus pada e-commerce, dashboard, dan sistem internal dengan performa & UX yang baik.',
+            sameAs: [
+              'https://github.com/adiityaanugrah',
+              'https://www.linkedin.com/in/aditya-anugrah/',
+              'https://www.instagram.com/adityaanugrah',
+            ],
+          },
+        ]}
       />
 
       {/* ===== HERO ===== */}
@@ -74,6 +95,7 @@ const Home = () => {
         <div className="container">
           <p className="eyebrow">Web Developer • Indonesia (WIB)</p>
 
+          {/* gunakan nama lengkap jelas untuk memperkuat sinyal entity */}
           <h1 id="hero-title" className="title">
             Hi, I’m <span className="accent">Aditya Anugrah</span> — I build fast, elegant web apps.
           </h1>
