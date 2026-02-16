@@ -1,55 +1,70 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
+
+// Register Service Worker for Instant Subsequent Loads
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => {
+      console.log('SW registration failed: ', err);
+    });
+  });
+}
+// Smooth Scroll
+import Lenis from "lenis";
+
+// Initialize Lenis globally
+if (typeof window !== "undefined") {
+  new Lenis({
+    autoRaf: true,
+  });
+}
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./Layout.jsx";
+import PageLoader from "./components/common/PageLoader.jsx";
 
-// Pages
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import NotFond from "./pages/NotFond.jsx";
+// Lazy Load Pages for Performance
+const Home = lazy(() => import("./pages/Home.jsx"));
+const About = lazy(() => import("./pages/About.jsx"));
+const NotFound = lazy(() => import("./pages/NotFound.jsx"));
+const Projects = lazy(() => import("./pages/Projects.jsx"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail.jsx"));
+const Contact = lazy(() => import("./pages/Contact.jsx"));
+const CV = lazy(() => import("./pages/CV.jsx"));
 
-// Projects
-import Projects from "./pages/Projects.jsx";
-import ProjectDetail from "./pages/ProjectDetail.jsx";
-
-import Contact from "./pages/Contact.jsx";
-import CV from "./pages/CV.jsx";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          {/* Home */}
-          <Route index element={<Home />} />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+            {/* Home */}
+            <Route index element={<Home />} />
 
-          {/* About */}
-          <Route path="about" element={<About />} />
-          {/* CV */}
-          <Route path="cv" element={<CV />} />
+            {/* About */}
+            <Route path="about" element={<About />} />
+            {/* CV */}
+            <Route path="cv" element={<CV />} />
 
-          {/* Projects:
-              /projects             -> semua project
-              /projects/web         -> kategori "Web Apps"
-              /projects/mobile      -> kategori "Mobile Apps"
-              /projects/landing     -> kategori "Landing Pages"
-              /projects/item/:id    -> halaman detail project */}
-          <Route path="projects">
-            <Route index element={<Projects />} />
-            <Route path="web" element={<Projects />} />
-            <Route path="mobile" element={<Projects />} />
-            <Route path="landing" element={<Projects />} />
-            <Route path="item/:id" element={<ProjectDetail />} />
-          </Route>
+            {/* Projects */}
+            <Route path="projects">
+                <Route index element={<Projects />} />
+                <Route path="web" element={<Projects />} />
+                <Route path="mobile" element={<Projects />} />
+                <Route path="landing" element={<Projects />} />
+                <Route path="item/:id" element={<ProjectDetail />} />
+            </Route>
 
             {/* Contact */}
             <Route path="contact" element={<Contact />} />
 
-          {/* 404 */}
-          <Route path="*" element={<NotFond />} />
-        </Route>
-      </Routes>
+            {/* 404 */}
+            <Route path="*" element={<NotFound />} />
+            </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   </React.StrictMode>
 );

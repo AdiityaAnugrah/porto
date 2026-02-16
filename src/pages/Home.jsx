@@ -1,307 +1,160 @@
-// src/pages/Home.jsx
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Img } from 'react-image';
-import {
-  FaArrowRight,
-  FaBolt,
-  FaShieldAlt,
-  FaMobileAlt,
-  FaExternalLinkAlt,
-} from 'react-icons/fa';
+import React from "react";
+import Hero from "../components/home/Hero";
+import ClientLogos from "../components/home/ClientLogos";
+import Services from "../components/home/Services";
+import Workflow from "../components/home/Workflow";
+import ProjectCard from "../components/projects/ProjectCard";
+import SEO from "../components/SEO";
+import { projects } from "../data/projects";
+import { FaReact, FaNodeJs, FaPhp, FaDatabase } from "react-icons/fa";
+import { SiTailwindcss, SiTypescript, SiNextdotjs, SiCodeigniter } from "react-icons/si";
 
-import '../styles/Home.scss';
-import { projects as seed } from '../data/projects';
-import SEO from '../components/SEO';
-import FXBubbles from '../components/FXBubbles';
-
-const SITE_ORIGIN =
-  (typeof window !== 'undefined' ? window.location.origin : '') || 'https://example.com';
+const stack = [
+  { name: "React", icon: FaReact, color: "text-blue-400" },
+  { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "text-cyan-400" },
+  { name: "Node.js", icon: FaNodeJs, color: "text-green-500" },
+  { name: "PHP / CI4", icon: SiCodeigniter, color: "text-orange-500" },
+  { name: "MySQL", icon: FaDatabase, color: "text-yellow-500" },
+];
 
 const Home = () => {
-  // ambil 3 proyek terbaru buat section "Recent"
-  const featured = useMemo(() => {
-    return [...seed]
-      .sort((a, b) => (Number(b.year) || 0) - (Number(a.year) || 0))
-      .slice(0, 3);
-  }, []);
+  // Get latest 4 projects
+  const featuredProjects = projects.sort((a, b) => b.year - a.year).slice(0, 4);
 
-  const brands = useMemo(
-    () => ['Ilena Furniture', 'Titanium Group', 'Lunarea Furniture', 'virtualxcellence', 'BLCC'],
-    []
-  );
-
-  const stack = [
-    'Next.js',
-    'React',
-    'TypeScript',
-    'CI4/PHP',
-    'Node.js',
-    'MySQL',
-    'SCSS/Tailwind',
-    'Vite',
+  // Advanced JSON-LD for "Developer Business" Authority
+  const jsonLdGraph = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://adityaanugra.me/#person",
+      "name": "Aditya Anugrah",
+      "jobTitle": "Web Developer & Business Consultant",
+      "url": "https://adityaanugra.me",
+      "sameAs": [
+        "https://github.com/adiityaanugrah",
+        "https://www.linkedin.com/in/aditya-anugrah/",
+        "https://www.instagram.com/adityaanugrah"
+      ],
+      "image": "https://adityaanugra.me/assets/me-sunset.jpg",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelance Professional"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": "https://adityaanugra.me/#business",
+      "name": "Aditya Anugrah - Solusi Digital & Web Development",
+      "description": "Jasa pembuatan website profesional, aplikasi bisnis, dan sistem manajemen (ERP/POS) di Indonesia. Fokus pada performa, keamanan, dan pertumbuhan bisnis.",
+      "url": "https://adityaanugra.me",
+      "logo": "https://adityaanugra.me/assets/icon.png",
+      "image": "https://adityaanugra.me/assets/og-default.jpg",
+      "telephone": "+6281379430432",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ID",
+        "addressRegion": "Jawa Tengah",
+        "addressLocality": "Semarang"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-6.9667",
+        "longitude": "110.4167" 
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/aditya-anugrah/"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Web Application Development",
+      "provider": { "@id": "https://adityaanugra.me/#business" },
+      "areaServed": { "@type": "Country", "name": "Indonesia" },
+      "description": "Custom high-performance web applications built with React, Node.js, and PHP."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "E-Commerce Solutions",
+      "provider": { "@id": "https://adityaanugra.me/#business" },
+      "description": "Scalable online stores with custom SKU management, payment gateways, and shipping integration."
+    }
   ];
 
   return (
-    <main id="main-content" className="home" role="main">
-      {/* ===== SEO yang dioptimalkan untuk nama brand pribadi ===== */}
-      <SEO
-        title="Aditya Anugrah | Web Developer Portfolio"
-        description="Website resmi Aditya Anugrah | Web Developer dari Indonesia. Lihat portofolio proyek, tech stack, dan cara menghubungi untuk kolaborasi."
-        path="/"
+    <div className="pb-32">
+      <SEO 
+        title="Aditya Anugrah | Web Developer Semarang & Business Consultant" 
+        description="Jasa pembuatan website dan aplikasi bisnis di Semarang. Aditya Anugrah membantu UMKM dan perusahaan berkembang dengan solusi digital modern."
+        jsonLd={jsonLdGraph}
         type="website"
-        image="/assets/og-default.jpg"
-        imageAlt="Aditya Anugrah Web Developer Portfolio"
-        // Kirim array JSON-LD: WebSite + Person agar Google lebih yakin identitasnya
-        jsonLd={[
-          {
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'Aditya Anugrah Portfolio',
-            url: SITE_ORIGIN + '/',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: SITE_ORIGIN + '/projects?query={search_term_string}',
-              'query-input': 'required name=search_term_string',
-            },
-          },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'Person',
-            name: 'Aditya Anugrah',
-            url: SITE_ORIGIN + '/',
-            image: SITE_ORIGIN + '/assets/profile.jpg',
-            jobTitle: 'Web Developer',
-            description:
-              'Aditya Anugrah adalah Web Developer dari Indonesia. Fokus pada e-commerce, dashboard, dan sistem internal dengan performa & UX yang baik.',
-            sameAs: [
-              'https://github.com/adiityaanugrah',
-              'https://www.linkedin.com/in/aditya-anugrah/',
-              'https://www.instagram.com/adityaanugrah',
-            ],
-          },
-        ]}
       />
+      
+      {/* Navbar is already in Layout.jsx */}
+      
+      <Hero />
+      <ClientLogos />
+      <Services />
+      <Workflow />
 
-      {/* ===== HERO ===== */}
-      <section className="hero" aria-labelledby="hero-title">
-        {/* FX bubble — hanya di area hero */}
-        <div className="fx-bubbles-wrap" aria-hidden="true">
-          <FXBubbles motion={true} density={1} blur={20} className="fx-bubbles-canvas" />
-        </div>
-        {/* glow background lembut */}
-        <div className="hero-bg" aria-hidden="true" />
-
-        <div className="container">
-          <p className="eyebrow">Web Developer • Indonesia (WIB)</p>
-
-          {/* gunakan nama lengkap jelas untuk memperkuat sinyal entity */}
-          <h1 id="hero-title" className="title">
-            Hi, I’m <span className="accent">Aditya Anugrah</span> — I build fast, elegant web apps.
-          </h1>
-
-          <p className="lead">
-            Fokus pada e-commerce, admin dashboard, dan sistem absensi dengan UX yang bersih,
-            cepat, dan mudah di-maintain.
-          </p>
-
-          <div className="cta">
-            <Link to="/projects" className="btn btn-primary" aria-label="View projects">
-              Lihat Project <FaArrowRight className="icon" />
-            </Link>
-            <Link to="/contact" className="btn btn-ghost" aria-label="Contact me">
-              Kontak Saya
-            </Link>
-          </div>
-
-          <ul className="quick-stats" aria-label="Highlights">
-            <li>
-              <strong>2+</strong>
-              <span>Tahun pengalaman</span>
-            </li>
-            <li>
-              <strong>30+</strong>
-              <span>Project selesai</span>
-            </li>
-            <li>
-              <strong>100%</strong>
-              <span>Error Handling</span>
-            </li>
-            <li>
-              <strong>CI4/PHP</strong>
-              <span>Praktis</span>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* ===== TRUSTED ===== */}
-      <section className="trusted" aria-label="Pernah bekerja sama dengan">
-        <div className="container">
-          <div className="trusted-head">
-            <span className="dot" aria-hidden />
-            Trusted by
-          </div>
-
-          <div className="marquee" role="list" aria-label="Brand/klien">
-            <div className="marquee-track" aria-hidden="true">
-              {[...brands, ...brands].map((b, i) => (
-                <div className="brand" key={`${b}-${i}`}>
-                  {b}
-                </div>
-              ))}
+      {/* Featured Projects Section */}
+      <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+            <div>
+            <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">Featured Case Studies</h2>
+                <p className="text-white/50 max-w-md">
+                    Helping businesses grow through custom web solutions. 
+                    From e-commerce to internal management systems.
+                </p>
             </div>
-          </div>
+            <a href="/projects" aria-label="View All Projects" className="text-sm font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors">
+                View All Projects &rarr;
+            </a>
         </div>
-      </section>
 
-      {/* ===== FEATURES ===== */}
-      <section className="features" aria-labelledby="features-title">
-        <div className="container">
-          <h2 id="features-title" className="section-title">
-            Apa yang saya kerjakan
-          </h2>
-
-          <div className="grid">
-            <article className="card">
-              <div className="card-icon" aria-hidden="true">
-                <FaBolt />
-              </div>
-              <h3>Performa Kencang</h3>
-              <p>
-                Rendering efisien, asset minified, image lazy-load, dan caching yang tepat agar
-                TTFB/CLS stabil.
-              </p>
-            </article>
-
-            <article className="card">
-              <div className="card-icon" aria-hidden="true">
-                <FaShieldAlt />
-              </div>
-              <h3>Keamanan & Stabilitas</h3>
-              <p>
-                Otentikasi aman, validasi input, sanitasi data, serta role-based access untuk aplikasi
-                berskala.
-              </p>
-            </article>
-
-            <article className="card">
-              <div className="card-icon" aria-hidden="true">
-                <FaMobileAlt />
-              </div>
-              <h3>Responsif & Aksesibel</h3>
-              <p>
-                Desain mobile-first, navigasi keyboard-friendly, kontras warna sesuai, dan elemen
-                ter-ARIA.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== STACK ===== */}
-      <section className="stack" aria-labelledby="stack-title">
-        <div className="container">
-          <h2 id="stack-title" className="section-title">
-            Stack yang sering saya pakai
-          </h2>
-        </div>
-        <div className="container">
-          <ul className="stack-chips" role="list">
-            {stack.map((t) => (
-              <li className="chip" role="listitem" key={t}>
-                {t}
-              </li>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {featuredProjects.map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} />
             ))}
-          </ul>
         </div>
       </section>
 
-      {/* ===== AVAILABILITY ===== */}
-      <section className="availability" aria-label="Ketersediaan">
-        <div className="container">
-          <div className="availability-box">
-            <span className="status" aria-hidden />
-            <p className="text">
-              Saat ini <strong>tersedia</strong> untuk freelance/kolaborasi (part-time).
-            </p>
-            <Link className="btn btn-primary" to="/contact">
-              Ajak Kolaborasi
-            </Link>
-          </div>
+      {/* Tech Stack Marquee (Simple Grid for now) */}
+      <section className="py-20 border-t border-white/5">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+            <h2 className="text-2xl font-display font-bold mb-12 text-white/40">Modern Tech for Scalable Apps</h2>
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 grayscale hover:grayscale-0 transition-all duration-500">
+                {stack.map((tech) => (
+                    <div key={tech.name} className="flex flex-col items-center gap-3 group">
+                        <span className={`text-4xl ${tech.color} opacity-50 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-300`}>
+                            <tech.icon />
+                        </span>
+                        <span className="text-xs font-mono opacity-0 group-hover:opacity-50 transition-opacity">
+                            {tech.name}
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
       </section>
-
-      {/* ===== RECENT PROJECTS ===== */}
-      <section className="recent" aria-labelledby="recent-title">
-        <div className="container">
-          <div className="recent-head">
-            <h2 id="recent-title" className="section-title">
-              Proyek Terbaru
-            </h2>
-            <Link to="/projects" className="link-more">
-              Lihat semua <FaArrowRight aria-hidden />
-            </Link>
-          </div>
-
-          <div className="recent-grid">
-            {featured.map((p) => (
-              <article key={p.id} className="recent-card">
-                <Link
-                  to={`/projects/item/${p.id}`}
-                  className="thumb"
-                  aria-label={`Lihat detail ${p.title}`}
-                >
-                  <Img
-                    src={[p.cover, '/assets/placeholder.jpg']}
-                    alt={p.title}
-                    loader={<div className="skeleton" aria-hidden="true" />}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </Link>
-
-                <div className="body">
-                  <div className="meta">
-                    <span className="pill">{p.category}</span>
-                    {p.year && (
-                      <>
-                        <span className="dot">•</span>
-                        <span className="muted">{p.year}</span>
-                      </>
-                    )}
-                  </div>
-
-                  <h3 className="title">
-                    <Link to={`/projects/item/${p.id}`}>{p.title}</Link>
-                  </h3>
-
-                  {p.summary && <p className="summary">{p.summary}</p>}
-
-                  <div className="actions">
-                    <Link to={`/projects/item/${p.id}`} className="btn">
-                      Detail
-                    </Link>
-                    {p.links?.live && (
-                      <a
-                        href={p.links.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-ghost"
-                      >
-                        Live <FaExternalLinkAlt className="ic" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="quick-paths" aria-label="Kategori populer" />
-        </div>
-      </section>
-    </main>
+    </div>
   );
 };
 

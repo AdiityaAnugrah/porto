@@ -1,489 +1,175 @@
-// src/pages/Contact.jsx
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaWhatsapp,
-  FaGithub,
-  FaLinkedin,
-  FaPaperPlane,
-  FaCheckCircle,
-  FaCopy,
-  FaInstagram,
-} from "react-icons/fa";
+import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 import SEO from "../components/SEO";
-import "../styles/Contact.scss";
+import { FaPaperPlane, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import FAQ from "../components/contact/FAQ";
 
-/* ================== Config ================== */
-const CONTACT_CONFIG = {
-  email: "admin@adityaanugra.me",
-  phone: "+6281379430432",
-  location: "Indonesia (WIB)",
-  whatsappNumber: "6281379430432",
-  whatsappText: "Halo AA, saya tertarik kolaborasi",
-  socials: {
-    github: "https://github.com/adiityaanugrah",
-    linkedin: "https://www.linkedin.com/in/aditya-anugrah/",
-    instagram: "https://www.instagram.com/adityaanugrah",
-  },
-  // Kosongkan untuk MENONAKTIFKAN pengiriman:
-  FORM_ENDPOINT: "",
-};
+const Contact = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
 
-const initialValues = {
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
-  company: "", // honeypot (biarkan kosong)
-};
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const validate = (v) => {
-  const errs = {};
-  if (!v.name.trim()) errs.name = "Nama wajib diisi.";
-  if (!v.email.trim()) errs.email = "Email wajib diisi.";
-  else if (!emailRegex.test(v.email)) errs.email = "Format email tidak valid.";
-  if (!v.subject.trim()) errs.subject = "Subjek wajib diisi.";
-  if (!v.message.trim()) errs.message = "Pesan wajib diisi.";
-  else if (v.message.length < 10) errs.message = "Minimal 10 karakter.";
-  else if (v.message.length > 1000) errs.message = "Maksimal 1000 karakter.";
-  if (v.company) errs.company = "Spam terdeteksi.";
-  return errs;
-};
-
-const buildWaLink = (number, text) =>
-  `https://wa.me/${number}?text=${encodeURIComponent(text || "")}`;
-
-export default function Contact() {
-  const info = useMemo(() => {
-    const wUrl = buildWaLink(CONTACT_CONFIG.whatsappNumber, CONTACT_CONFIG.whatsappText);
-    return { ...CONTACT_CONFIG, whatsappUrl: wUrl };
-  }, []);
-
-  const formDisabled = !info.FORM_ENDPOINT;
-
-  const [values, setValues] = useState(initialValues);
-  const [touched, setTouched] = useState({});
-  const [errors, setErrors] = useState({});
-  const [submitting, setSubmitting] = useState(false);
-  const [ok, setOk] = useState(false);
-
-  const [copyMsg, setCopyMsg] = useState(""); // status copy email
-  const [formMsg, setFormMsg] = useState(""); // status kirim form
-
-  // Refs untuk fokus otomatis ke error pertama saat submit
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
-  const subjectRef = useRef(null);
-  const messageRef = useRef(null);
-
-  useEffect(() => {
-    setErrors(validate(values));
-  }, [values]);
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setValues((s) => ({ ...s, [name]: value }));
-  };
-  const onBlur = (e) => {
-    const { name } = e.target;
-    setTouched((t) => ({ ...t, [name]: true }));
-  };
-
-  const focusFirstError = (errs) => {
-    if (errs.name && nameRef.current) return nameRef.current.focus();
-    if (errs.email && emailRef.current) return emailRef.current.focus();
-    if (errs.subject && subjectRef.current) return subjectRef.current.focus();
-    if (errs.message && messageRef.current) return messageRef.current.focus();
-  };
-
-  const copyEmail = async () => {
-    try {
-      if (navigator?.clipboard?.writeText) {
-        await navigator.clipboard.writeText(info.email);
-      } else {
-        const tmp = document.createElement("textarea");
-        tmp.value = info.email;
-        tmp.setAttribute("readonly", "");
-        tmp.style.position = "absolute";
-        tmp.style.left = "-9999px";
-        document.body.appendChild(tmp);
-        tmp.select();
-        document.execCommand("copy");
-        document.body.removeChild(tmp);
-      }
-      setCopyMsg("Email disalin ke clipboard.");
-    } catch {
-      setCopyMsg("Gagal menyalin email.");
-    } finally {
-      setTimeout(() => setCopyMsg(""), 2200);
-    }
-  };
+  // EmailJS Configuration
+  // 1. Create account at https://www.emailjs.com/
+  // 2. Add Email Service (Gmail) -> Get Service ID
+  // 3. Add Email Template -> Get Template ID
+  // 4. Account > API Keys -> Get Public Key
+  const SERVICE_ID = "service_vr0p9hi"; 
+  const TEMPLATE_ID = "template_dv924xl";
+  const PUBLIC_KEY = "sIWIuNBhbXcJPGjrE";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errs = validate(values);
-    setErrors(errs);
-    setTouched({ name: true, email: true, subject: true, message: true });
-
-    if (Object.keys(errs).length > 0) {
-      focusFirstError(errs);
-      return;
+    
+    // Check if keys are still placeholders (just in case)
+    if (SERVICE_ID === "YOUR_SERVICE_ID") {
+        alert("EmailJS configuration missing.");
+        return;
     }
 
-    // Jika sedang DINONAKTIFKAN → jangan kirim network request
-    if (formDisabled) {
-      setFormMsg("Form sementara dinonaktifkan. Silakan kirim via Email atau WhatsApp.");
-      setTimeout(() => setFormMsg(""), 4000);
-      return;
-    }
-
-    if (values.company) return; // stop bot
-    setSubmitting(true);
-    setFormMsg("");
-
+    setStatus("sending");
+    
     try {
-      const res = await fetch(info.FORM_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) throw new Error("Request gagal");
-
-      setOk(true);
-      setValues(initialValues);
-      setTouched({});
-      setFormMsg("Terima kasih! Pesanmu sudah terkirim.");
-    } catch (err) {
-      console.error(err);
-      setFormMsg("Maaf, pengiriman gagal. Coba lagi atau kontak via email/WhatsApp.");
-    } finally {
-      setSubmitting(false);
-      setTimeout(() => setFormMsg(""), 4000);
+        await emailjs.send(
+            SERVICE_ID, 
+            TEMPLATE_ID, 
+            {
+                from_name: formData.name,
+                from_email: formData.email,
+                message: formData.message,
+                to_name: "Aditya Anugrah",
+            }, 
+            PUBLIC_KEY
+        );
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus(""), 5000);
+    } catch (error) {
+        console.error("EmailJS Error:", error);
+        setStatus("error");
+        setTimeout(() => setStatus(""), 5000);
     }
   };
 
-  // Panel sukses hanya jika form aktif & pengiriman sukses
-  if (ok && !formDisabled) {
-    return (
-      <main className="contact" role="main">
-        <SEO
-          title="Contact"
-          description="Hubungi Aditya Anugrah — kirim pesan via form, email, atau WhatsApp untuk kolaborasi."
-          path="/contact"
-          type="website"
-          image="/assets/og-contact.jpg"
-          imageAlt="Kontak Aditya Anugrah"
-        />
-        <div className="container">
-          <header className="c-head">
-            <h1 className="title">Terima kasih 🙌</h1>
-            <p className="lead">
-              Pesan kamu sudah terkirim. Aku akan balas secepatnya melalui email/WhatsApp.
-            </p>
-          </header>
-
-          <div className="c-success" role="status" aria-live="polite">
-            <FaCheckCircle className="ok-ic" aria-hidden />
-            <div className="ok-body">
-              <div className="ok-title">Pesan terkirim</div>
-              <p className="ok-text">
-                Ingin kirim pesan lagi?{" "}
-                <button className="link" onClick={() => setOk(false)}>
-                  Buka form
-                </button>
-              </p>
-            </div>
-          </div>
-
-          <div className="c-back">
-            <Link to="/projects" className="btn">Lihat Proyek</Link>
-            <Link to="/" className="btn btn-ghost">Kembali ke Home</Link>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   return (
-    <main className="contact" role="main">
-      <SEO
-        title="Contact"
-        description="Hubungi Aditya Anugrah — kirim pesan via form, email, atau WhatsApp untuk kolaborasi."
-        path="/contact"
-        type="website"
-        image="/assets/og-contact.jpg"
-        imageAlt="Kontak Aditya Anugrah"
+    <div className="pt-24 pb-32 px-6 max-w-4xl mx-auto min-h-screen flex flex-col justify-center">
+      <SEO 
+        title="Contact | Aditya Anugrah" 
+        description="Get in touch with Aditya Anugrah for collaborations or inquiries."
       />
 
-      <div className="container">
-        {/* HEADER */}
-        <header className="c-head">
-          <h1 className="title">Kontak</h1>
-          <p className="lead">
-            Ada proyek, ide, atau kolaborasi? Kirim pesan lewat form di bawah.
-            Bisa juga langsung via email/WhatsApp—tersedia tombol cepat di samping.
-          </p>
-        </header>
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-6xl font-bold font-display mb-4">
+            Let's work <span className="text-gradient">together.</span>
+        </h1>
+        <p className="text-white/60 text-lg">
+            Have a project in mind? I'm always open to discussing new ideas.
+        </p>
+      </div>
 
-        {/* ALERT nonaktif */}
-        {formDisabled && (
-          <div className="c-alert" role="status" aria-live="polite">
-            Form sementara <strong>dinonaktifkan</strong>. Silakan gunakan{" "}
-            <a href={`mailto:${info.email}`}>Email</a> atau{" "}
-            <a href={info.whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>.
-          </div>
-        )}
+      <div className="grid md:grid-cols-2 gap-12 glass-panel p-6 md:p-12 rounded-3xl relative overflow-hidden">
+        {/* Glow */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="c-grid">
-          {/* ASIDE INFO */}
-          <aside className="c-aside" aria-label="Informasi kontak">
-            <div className="c-card">
-              <h2 className="c-card__title">Hubungi Langsung</h2>
-
-              <ul className="c-list">
-                <li className="c-item">
-                  <FaEnvelope className="ic" aria-hidden />
-                  <div className="col">
-                    <div className="label">Email</div>
-                    <a href={`mailto:${info.email}`} className="val">{info.email}</a>
-                  </div>
-                  <button className="copy" onClick={copyEmail} aria-label="Salin email">
-                    <FaCopy />
-                  </button>
-                </li>
-
-                <li className="c-item">
-                  <FaWhatsapp className="ic" aria-hidden />
-                  <div className="col">
-                    <div className="label">WhatsApp</div>
-                    <a
-                      href={info.whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="val"
-                    >
-                      Chat sekarang
+        <div className="space-y-8">
+            <div>
+                <h3 className="text-xl font-bold mb-2">My Contacts</h3>
+                <p className="text-white/50 mb-6">Feel free to reach out directly.</p>
+                
+                <div className="space-y-4">
+                    <a href="mailto:admin@adityaanugra.me" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                        <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400">
+                            <FaEnvelope />
+                        </div>
+                        <div>
+                            <div className="text-xs text-white/40 uppercase tracking-widest">Email</div>
+                            <div className="font-mono">admin@adityaanugra.me</div>
+                        </div>
                     </a>
-                  </div>
-                </li>
-
-                <li className="c-item">
-                  <FaPhone className="ic" aria-hidden />
-                  <div className="col">
-                    <div className="label">Telepon</div>
-                    <a href={`tel:${info.phone}`} className="val">{info.phone}</a>
-                  </div>
-                </li>
-
-                <li className="c-item">
-                  <FaMapMarkerAlt className="ic" aria-hidden />
-                  <div className="col">
-                    <div className="label">Lokasi</div>
-                    <div className="val">{info.location}</div>
-                  </div>
-                </li>
-              </ul>
-
-              {(info.socials.github || info.socials.linkedin || info.socials.instagram) && (
-                <div className="c-socials">
-                  {info.socials.github && (
-                    <a
-                      href={info.socials.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="s-link"
-                      aria-label="GitHub"
-                    >
-                      <FaGithub /> GitHub
+                    <a href="https://wa.me/6281379430432" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                        <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400">
+                            <FaWhatsapp />
+                        </div>
+                        <div>
+                            <div className="text-xs text-white/40 uppercase tracking-widest">WhatsApp</div>
+                            <div className="font-mono">+62 813 7943 0432</div>
+                        </div>
                     </a>
-                  )}
-                  {info.socials.linkedin && (
-                    <a
-                      href={info.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="s-link"
-                      aria-label="LinkedIn"
-                    >
-                      <FaLinkedin /> LinkedIn
-                    </a>
-                  )}
-                  {info.socials.instagram && (
-                    <a
-                      href={info.socials.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="s-link"
-                      aria-label="Instagram"
-                    >
-                      <FaInstagram /> Instagram
-                    </a>
-                  )}
                 </div>
-              )}
-
-              {copyMsg && (
-                <div className="c-status" role="status" aria-live="polite">
-                  {copyMsg}
-                </div>
-              )}
             </div>
-          </aside>
+        </div>
 
-          {/* FORM */}
-          <section className="c-formwrap" aria-label="Formulir kontak">
-            <form className="c-form" noValidate onSubmit={handleSubmit}>
-              {/* Honeypot */}
-              <input
-                type="text"
-                name="company"
-                value={values.company}
-                onChange={onChange}
-                className="hp"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-              />
-
-              <div className="row">
-                <div className="field">
-                  <label htmlFor="name">Nama</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Nama lengkap"
-                    value={values.name}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    ref={nameRef}
-                    autoComplete="name"
-                    maxLength={80}
-                    aria-invalid={touched.name && !!errors.name}
-                    aria-describedby="name-err"
-                  />
-                  {touched.name && errors.name && (
-                    <div id="name-err" className="err" role="alert">
-                      {errors.name}
-                    </div>
-                  )}
-                </div>
-
-                <div className="field">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="nama@email.com"
-                    value={values.email}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    ref={emailRef}
-                    autoComplete="email"
-                    maxLength={120}
-                    aria-invalid={touched.email && !!errors.email}
-                    aria-describedby="email-err"
-                  />
-                  {touched.email && errors.email && (
-                    <div id="email-err" className="err" role="alert">
-                      {errors.email}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="field">
-                <label htmlFor="subject">Subjek</label>
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  placeholder="Tentang apa kita bahas?"
-                  value={values.subject}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  ref={subjectRef}
-                  autoComplete="off"
-                  maxLength={120}
-                  aria-invalid={touched.subject && !!errors.subject}
-                  aria-describedby="subject-err"
-                />
-                {touched.subject && errors.subject && (
-                  <div id="subject-err" className="err" role="alert">
-                    {errors.subject}
-                  </div>
-                )}
-              </div>
-
-              <div className="field">
-                <label htmlFor="message">Pesan</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  placeholder="Ceritakan kebutuhanmu secara singkat..."
-                  value={values.message}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  ref={messageRef}
-                  aria-invalid={touched.message && !!errors.message}
-                  aria-describedby="message-help message-err"
-                  maxLength={1000}
-                />
-                <div id="message-help" className="help">
-                  {values.message.length}/1000
-                </div>
-                {touched.message && errors.message && (
-                  <div id="message-err" className="err" role="alert">
-                    {errors.message}
-                  </div>
-                )}
-              </div>
-
-              <div className="actions">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={submitting || formDisabled}
-                  aria-disabled={submitting || formDisabled}
-                  title={formDisabled ? "Form dinonaktifkan" : undefined}
+        <div className="relative min-h-[400px]">
+            {status === "success" ? (
+                <div 
+                    className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-6 h-full"
                 >
-                  <FaPaperPlane aria-hidden />
-                  {formDisabled ? "Form Dinonaktifkan" : (submitting ? "Mengirim..." : "Kirim Pesan")}
-                </button>
-
-                <a className="btn btn-ghost" href={`mailto:${info.email}`}>
-                  Kirim via Email
-                </a>
-                <a
-                  className="btn btn-ghost"
-                  href={info.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  WhatsApp
-                </a>
-              </div>
-
-              {/* Status form */}
-              {formMsg && (
-                <div className="c-status c-status--form" role="status" aria-live="polite">
-                  {formMsg}
+                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center text-green-400 text-3xl animate-bounce">
+                        <FaPaperPlane />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold font-display mb-2">Message Sent!</h3>
+                        <p className="text-white/60 max-w-xs mx-auto">
+                            Thank you for reaching out, {formData.name}. I'll get back to you within 24 hours.
+                        </p>
+                    </div>
+                    <button 
+                        onClick={() => setStatus("")}
+                        className="text-sm text-cyan-400 font-bold hover:text-cyan-300 transition-colors"
+                    >
+                        Send another message
+                    </button>
                 </div>
-              )}
-
-              {/* reCAPTCHA placeholder hanya tampil jika form aktif */}
-              {!formDisabled && <div className="captcha-placeholder" aria-hidden="true" />}
-            </form>
-          </section>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-1">
+                        <label className="text-sm font-bold ml-1">Name</label>
+                        <input 
+                            type="text" 
+                            required
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors"
+                            placeholder="John Doe"
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        />
+                    </div>
+                    <div className="space-y-1">
+                        <label className="text-sm font-bold ml-1">Email</label>
+                        <input 
+                            type="email" 
+                            required
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors"
+                            placeholder="john@example.com"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        />
+                    </div>
+                    <div className="space-y-1">
+                        <label className="text-sm font-bold ml-1">Message</label>
+                        <textarea 
+                            required
+                            rows="4"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
+                            placeholder="Project details..."
+                            value={formData.message}
+                            onChange={(e) => setFormData({...formData, message: e.target.value})}
+                        />
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        disabled={status === "sending"}
+                        className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
+                    >
+                        {status === "sending" ? "Sending..." : <><FaPaperPlane /> Send Message</>}
+                    </button>
+                </form>
+            )}
         </div>
       </div>
-    </main>
+
+      <FAQ />
+    </div>
   );
-}
+};
+
+export default Contact;

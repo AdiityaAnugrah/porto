@@ -1,234 +1,66 @@
-// src/pages/Projects.jsx
-import React, { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Img } from "react-image";
-import {
-  FaExternalLinkAlt,
-  FaGithub,
-  FaSearch,
-  FaChevronDown,
-} from "react-icons/fa";
-import "../styles/Projects.scss";
-import { projects as seed } from "../data/projects";
+/* eslint-disable no-unused-vars */
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ProjectCard from "../components/projects/ProjectCard";
 import SEO from "../components/SEO";
+import { projects } from "../data/projects";
 
-const CATEGORIES = ["All", "Web Apps", "Mobile Apps", "Landing Pages"];
-const SORTS = ["Terbaru", "Terlama", "A–Z"];
+const Projects = () => {
+  const CATEGORIES = ["All", "Web Apps", "Mobile Apps", "Landing Pages"];
+  const [activeCategory, setActiveCategory] = useState("All");
 
-// AUTO: mapping path -> kategori
-const mapPathToCat = (pathname) => {
-  if (pathname.endsWith("/web")) return "Web Apps";
-  if (pathname.endsWith("/mobile")) return "Mobile Apps";
-  if (pathname.endsWith("/landing")) return "Landing Pages";
-  return "All";
-};
-
-const ProjectCard = ({ p }) => (
-  <article className="proj-card" tabIndex={0}>
-    <div className="thumb">
-      <Img
-        src={[p.cover, "/assets/placeholder.jpg"]}
-        alt={p.title}
-        loader={<div className="skeleton" aria-hidden="true" />}
-      />
-    </div>
-
-    <div className="body">
-      <h3 className="title">{p.title}</h3>
-      <p className="meta">
-        <span className="pill">{p.category}</span>
-        <span className="muted">•</span>
-        <span className="muted">{p.year}</span>
-        {p.role && (
-          <>
-            <span className="muted">•</span>
-            <span className="muted">{p.role}</span>
-          </>
-        )}
-      </p>
-      <p className="summary">{p.summary}</p>
-
-      {Array.isArray(p.tech) && p.tech.length > 0 && (
-        <ul className="tech">
-          {p.tech.slice(0, 5).map((t) => (
-            <li key={t} className="chip">
-              {t}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="actions">
-        {p.links?.live && (
-          <a
-            className="btn btn-ghost"
-            href={p.links.live}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Live <FaExternalLinkAlt className="ic" />
-          </a>
-        )}
-        {p.links?.code && (
-          <a
-            className="btn btn-ghost"
-            href={p.links.code}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Code <FaGithub className="ic" />
-          </a>
-        )}
-        <Link className="btn" to={`/projects/item/${p.id}`}>
-          Detail
-        </Link>
-      </div>
-    </div>
-  </article>
-);
-
-export default function Projects() {
-  const location = useLocation();
-
-  const [query, setQuery] = useState("");
-  const [cat, setCat] = useState(mapPathToCat(location.pathname));
-  const [sort, setSort] = useState("Terbaru");
-
-  // sinkron kategori dgn URL setiap ganti route
-  useEffect(() => {
-    setCat(mapPathToCat(location.pathname));
-  }, [location.pathname]);
-
-  const filtered = useMemo(() => {
-    let arr = [...seed];
-
-    if (cat !== "All") arr = arr.filter((p) => p.category === cat);
-
-    const q = query.trim().toLowerCase();
-    if (q) {
-      arr = arr.filter((p) => {
-        const hay = `${p.title} ${p.summary} ${(p.tech || []).join(" ")}`.toLowerCase();
-        return hay.includes(q);
-      });
-    }
-
-    if (sort === "Terbaru") arr.sort((a, b) => (b.year || 0) - (a.year || 0));
-    if (sort === "Terlama") arr.sort((a, b) => (a.year || 0) - (b.year || 0));
-    if (sort === "A–Z") arr.sort((a, b) => a.title.localeCompare(b.title));
-
-    return arr;
-  }, [cat, sort, query]);
-
-  const counts = useMemo(() => {
-    const c = { All: seed.length };
-    CATEGORIES.slice(1).forEach((k) => {
-      c[k] = seed.filter((p) => p.category === k).length;
-    });
-    return c;
-  }, []);
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "All") return projects;
+    return projects.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
 
   return (
-    <main className="projects" role="main">
-      <SEO
-        title="Projects"
-        description="Kumpulan proyek karya Aditya Anugrah: web apps, landing pages, hingga aplikasi mobile. Lengkap dengan teknologi dan link demo."
-        path="/projects"
-        type="website"
-        image="/assets/og-projects.jpg"
-        imageAlt="Preview proyek portfolio"
+    <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen">
+      <SEO 
+        title="Works | Aditya Anugrah" 
+        description="Explore my latest web development projects, ranging from e-commerce platforms to creative landing pages."
       />
 
-      {/* TOOLBAR (glass iOS style) */}
-      <section className="toolbar" aria-label="Projects filter">
-        <div className="container">
-          <div className="bar">
-            {/* Search */}
-            <label className="search" htmlFor="search">
-              <FaSearch className="ic" aria-hidden />
-              <input
-                id="search"
-                type="search"
-                placeholder="Cari proyek (judul, teknologi)…"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                aria-label="Search projects"
-              />
-            </label>
+      <div className="mb-12">
+        <h1 className="text-5xl md:text-7xl font-bold font-display mb-6">
+          Selected <span className="text-gradient">Works</span>
+        </h1>
+        <p className="text-white/60 max-w-xl text-lg">
+          A collection of projects where design meets code. 
+          Focusing on performance, accessibility, and user experience.
+        </p>
+      </div>
 
-            {/* Sort */}
-            <div className="sort">
-              <span className="muted">Sort</span>
-              <div className="select">
-                <select
-                  aria-label="Sort projects"
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value)}
-                >
-                  {SORTS.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-                <FaChevronDown className="chev" aria-hidden />
-              </div>
-            </div>
-          </div>
+      {/* Filter Chips */}
+      <div className="flex flex-wrap gap-4 mb-16">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-6 py-2 rounded-full border transition-all duration-300 ${
+              activeCategory === cat
+                ? "bg-white text-black border-white"
+                : "bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
-          {/* Chips rail */}
-          <div className="chips" role="tablist" aria-label="Categories">
-            <div className="rail">
-              {CATEGORIES.map((c) => (
-                <button
-                  key={c}
-                  role="tab"
-                  aria-selected={cat === c}
-                  className={`chip ${cat === c ? "active" : ""}`}
-                  onClick={() => setCat(c)}
-                >
-                  {c}
-                  <span className="badge">{counts[c] ?? 0}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GRID */}
-      <section className="grid-wrap">
-        <div className="container">
-          {filtered.length === 0 ? (
-            <p className="muted nores">Tidak ada proyek yang cocok.</p>
-          ) : (
-            <div className="grid">
-              {filtered.map((p) => (
-                <ProjectCard p={p} key={p.id} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA bottom */}
-      <section className="cta-bottom" aria-label="Call to action">
-        <div className="container">
-          <div className="cta-box">
-            <h2>Ingin membangun sesuatu bersama?</h2>
-            <p className="muted">
-              Freelance/kolaborasi: dashboard, e-commerce, hingga sistem internal.
-            </p>
-            <div className="cta-actions">
-              <Link className="btn btn-primary" to="/contact">
-                Hubungi Saya
-              </Link>
-              <Link className="btn btn-ghost" to="/about">
-                Tentang Saya
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      {/* Projects Grid */}
+      <motion.div 
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+      >
+        <AnimatePresence>
+          {filteredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
-}
+};
+
+export default Projects;

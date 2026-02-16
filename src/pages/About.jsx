@@ -1,366 +1,106 @@
-// src/pages/About.jsx
-import React, { useMemo } from "react";
-import Avatar from "../components/Avatar";
-import { Link } from "react-router-dom";
-import {
-  FaDownload, FaEnvelope, FaGithub, FaLinkedin, FaMapMarkerAlt, FaCalendarAlt,
-  FaBriefcase, FaTools, FaGlobeAsia, FaCheckCircle, FaShieldAlt, FaUsers,
-  FaRocket, FaLeaf, FaCogs, FaQuestionCircle, FaChevronDown, FaInstagram,
-} from "react-icons/fa";
+import React from "react";
+// import { motion } from "framer-motion"; // Removing unused import
 import SEO from "../components/SEO";
-import FXBubbles from "../components/FXBubbles";
-import "../styles/About.scss";
-import "../styles/fx-layer.scss";
-
-const SITE_ORIGIN =
-  (typeof window !== "undefined" ? window.location.origin : "") || "https://example.com";
-
-const CV_URL = "https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview";
+import LazyImage from "../components/common/LazyImage";
+import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const About = () => {
-  // ====== DATA ======
-  const profile = {
-    name: "Aditya Anugrah",
-    role: "Web Developer",
-    location: "Indonesia (WIB)",
-    bio:
-      "Saya membangun aplikasi web yang cepat, elegan, dan mudah dipelihara — pada e-commerce, admin dashboard, dan sistem absensi. Mengutamakan UX yang bersih, performa stabil, dan keamanan.",
-    email: "adityaanugrah494@gmail.com",
-    cv: CV_URL,
-    socials: {
-      github: "https://github.com/adiityaanugrah",
-      linkedin: "https://www.linkedin.com/in/aditya-anugrah/",
-      instagram: "https://www.instagram.com/adityaanugrah/",
-    },
-    availability: "Tersedia untuk freelance/kolaborasi (part-time).",
-    languages: ["Indonesia", "English"],
-    yearsExp: 2,
-    shipped: 30,
-  };
-
-  const primarySkills = [
-    "Next.js", "React", "TypeScript", "CI4/PHP", "Node.js", "MySQL", "SCSS/Tailwind", "Kotlin (dasar)",
-  ];
-
-  const tools = [
-    "Git/GitHub", "OpenLiteServer", "Figma/Canva", "Postman", "VSCode", "Chrome DevTools",
-  ];
-
-  const experiences = [
-    {
-      title: "Full-stack Developer",
-      company: "Ilena Furniture (E-Commerce)",
-      period: "2023 — sekarang",
-      points: [
-        "Bangun storefront Next.js (SSR/ISR) + backend CI4.",
-        "Integrasi ongkir, SKU matrix, manajemen stok & pesanan.",
-        "Optimasi LCP & TTFB; aksesibilitas & best practices.",
-      ],
-    },
-    {
-      title: "Backend + UI",
-      company: "Titanium Group (Workshop Admin)",
-      period: "2024 — 2025",
-      points: [
-        "Rancang skema DB & REST API CI4.",
-        "Pipeline status BONGKAR→DEMPUL→CAT + export PDF.",
-        "Audit keamanan dasar dan hardening form input.",
-      ],
-    },
-    {
-      title: "Full-stack Developer",
-      company: "Absensi.site (Attendance Platform)",
-      period: "2024 — sekarang",
-      points: [
-        "Login NIK, role-based access, kalender shift.",
-        "Next.js + Tailwind, Postgres, session device-aware.",
-      ],
-    },
-    {
-      title: "Freelance Web Developer",
-      company: "Proyek lain-lain",
-      period: "2022 — sekarang",
-      points: [
-        "Landing page, dashboard admin, dan blog statis.",
-        "Next.js, CI4/PHP, WordPress, dan sesuai kebutuhan klien.",
-      ],
-    },
-  ];
-
-  const education = [
-    { title: "Teknik Informatika", org: "Universitas Dian Nuswantoro", period: "2019 — 2023" },
-    { title: "SMA IPA", org: "SMA Negeri 1 Semendawai Suku III", period: "2016 — 2019" },
-  ];
-
-  const certifications = [
-    { name: "Mobile Development", by: "Bangkit Academy" },
-    { name: "Android Development", by: "Coursera" },
-    { name: "JavaScript Algorithms", by: "FreeCodeCamp" },
-    { name: "Aplikasi Android Intermediate", by: "Dicoding" },
-  ];
-
-  const facts = useMemo(
-    () => [
-      { icon: <FaMapMarkerAlt aria-hidden className="ic" />, label: "Lokasi", value: profile.location },
-      { icon: <FaGlobeAsia aria-hidden className="ic" />, label: "Bahasa", value: profile.languages.join(" • ") },
-      { icon: <FaCalendarAlt aria-hidden className="ic" />, label: "Pengalaman", value: `${profile.yearsExp}+ Tahun` },
-      { icon: <FaBriefcase aria-hidden className="ic" />, label: "Project", value: `${profile.shipped}+ Selesai` },
-    ],
-    [profile]
-  );
-
-  const values = [
-    { icon: FaRocket,    title: "Cepat & Ringan",        desc: "Prioritas performa & fokus pada hal penting. Hindari over-engineering, cicil iteratif." },
-    { icon: FaShieldAlt, title: "Keamanan Default",       desc: "Validasi input, sanitasi, RBAC, audit log, least-privilege sejak awal." },
-    { icon: FaUsers,     title: "UX Terlebih Dahulu",     desc: "Mobile-first, aksesibilitas, state jelas (loading/empty/error), navigasi nyaman." },
-    { icon: FaLeaf,      title: "Mudah Dirawat",          desc: "Modular, naming konsisten, tokens/design system, test seperlunya." },
-    { icon: FaCogs,      title: "Pragmatis",              desc: "Pilih tools sesuai konteks: Next.js/CI4, Postgres/MySQL, Tailwind/SCSS." },
-  ];
-
-  const faqs = [
-    { q: "Stack favorit kamu apa untuk e-commerce?", a: "Front-end Next.js (SSR/ISR) untuk SEO + performa, backend CI4/PHP atau Node sesuai tim, DB Postgres/MySQL, dan integrasi pembayaran/logistik via REST." },
-    { q: "Berapa estimasi waktu landing page?", a: "Untuk 1–3 section custom: ±3–5 hari kerja termasuk optimasi performa & copy ringan. Tambah fitur (form, CMS, animasi) menyesuaikan." },
-    { q: "Bisa join existing codebase?", a: "Bisa. Mulai dengan audit ringan (struktur, ketergantungan, debt), susun rencana refactor bertahap tanpa down-time." },
-    { q: "Cara kerja & kolaborasi?", a: "Kickoff singkat, milestone mingguan, demo rutin, dan dokumentasi ringkas. Komunikasi via WhatsApp/Slack/Email; repo GitHub/Bitbucket." },
-    { q: "Garansi bugfix?", a: "Bugfix minor pasca rilis 14 hari tanpa biaya untuk scope yang sama." },
-  ];
-
-  const ValueCard = ({ icon: Icon, title, desc }) => (
-    <article className="v-card">
-      {Icon && React.createElement(Icon, { className: "v-ic", "aria-hidden": true })}
-      <h3 className="v-title">{title}</h3>
-      <p className="v-desc">{desc}</p>
-    </article>
-  );
-
-  const sameAs = [
-    profile.socials.github,
-    profile.socials.linkedin,
-    profile.socials.instagram,
-  ].filter(Boolean);
-
   return (
-    <main className="about" role="main">
-      {/* === FX layer fullscreen (mengikuti var(--color-primary)) === */}
-      <div className="fx-layer" aria-hidden="true">
-        <FXBubbles motion={true} density={1} blur={20} />
-      </div>
-
-      {/* ===== SEO diperkuat untuk nama pribadi ===== */}
-      <SEO
-        title="About — Aditya Anugrah"
-        description="Tentang Aditya Anugrah, Web Developer Indonesia. Fokus e-commerce, dashboard, dan sistem absensi dengan performa, keamanan, dan UX yang kuat."
-        path="/about"
-        type="profile"
-        image="/assets/me-sunset.jpg"
-        imageAlt="Foto Aditya Anugrah"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: profile.name,
-          jobTitle: profile.role,
-          url: SITE_ORIGIN + "/about",
-          email: `mailto:${profile.email}`,
-          sameAs,
-          image: SITE_ORIGIN + "/assets/me-sunset.jpg",
-          worksFor: { "@type": "Organization", name: "Freelance" }
-        }}
+    <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
+      <SEO 
+        title="About | Aditya Anugrah" 
+        description="More about Aditya Anugrah, a Web Developer based in Indonesia."
       />
 
-      <div className="container">
-        {/* ===== HERO ===== */}
-        <header className="about-hero">
-          {/* Avatar */}
-          <div className="avatar-wrap">
-            <Avatar srcBase="/assets/me-sunset" alt="Aditya Anugrah — sunset" size={180} />
-          </div>
-
-          <div className="intro">
-            <p className="eyebrow">{profile.role}</p>
-            <h1 className="title">Halo, saya {profile.name} 👋</h1>
-            <p className="lead">{profile.bio}</p>
-
-            <div className="actions">
-              <Link className="btn btn-primary" to="/cv" aria-label="Buka CV (view only)">
-                <FaDownload /> Lihat CV
-              </Link>
-              <a className="btn btn-ghost" href={`mailto:${profile.email}`} aria-label="Kirim email">
-                <FaEnvelope /> Email
-              </a>
-              {profile.socials.github && (
-                <a className="btn btn-ghost" href={profile.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-                  <FaGithub /> GitHub
-                </a>
-              )}
-              {profile.socials.linkedin && (
-                <a className="btn btn-ghost" href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                  <FaLinkedin /> LinkedIn
-                </a>
-              )}
-              {profile.socials.instagram && (
-                <a className="btn btn-ghost" href={profile.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
-                  <FaInstagram /> Instagram
-                </a>
-              )}
-            </div>
-
-            {profile.availability && (
-              <div className="availability">
-                <span className="dot" aria-hidden />
-                <span className="text">{profile.availability}</span>
-              </div>
-            )}
-          </div>
-        </header>
-
-        {/* ===== QUICK FACTS ===== */}
-        <section className="facts" aria-label="Quick facts">
-          <ul className="facts-grid">
-            {facts.map((f, i) => (
-              <li key={i} className="facts-item">
-                {f.icon}
-                <div className="txt">
-                  <div className="label">{f.label}</div>
-                  <div className="value">{f.value}</div>
+      <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
+        {/* Sidebar / Image */}
+        <div className="space-y-8 sticky top-24">
+            <div className="relative group">
+                {/* Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel relative border border-white/10 group-hover:border-white/20 transition-colors">
+                    <LazyImage 
+                        src="/assets/me-sunset.webp" 
+                        alt="Aditya Anugrah"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    {/* Overlay gradient for text readability if needed */}
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* ===== SKILLS & TOOLS ===== */}
-        <section className="skills" aria-labelledby="skills-title">
-          <h2 id="skills-title" className="section-title">Keahlian Utama</h2>
-          <ul className="chipset" role="list">
-            {primarySkills.map((s) => (
-              <li className="chip" role="listitem" key={s}>
-                <FaCheckCircle className="ic" aria-hidden />
-                {s}
-              </li>
-            ))}
-          </ul>
-
-          <h3 className="sub-title"><FaTools className="ic" aria-hidden /> Tools & Ekstra</h3>
-          <ul className="chipset" role="list">
-            {tools.map((s) => (
-              <li className="chip" role="listitem" key={s}>{s}</li>
-            ))}
-          </ul>
-        </section>
-
-        {/* ===== VALUES ===== */}
-        {values.length > 0 && (
-          <section className="values" aria-labelledby="values-title">
-            <div className="values-head">
-              <h2 id="values-title" className="section-title font-bold">Nilai & Pendekatan</h2>
-              <p className="muted">Prinsip kerja yang selalu saya pegang saat membangun produk.</p>
             </div>
-            <div className="values-grid">
-              {values.map((v, i) => (
-                <ValueCard key={i} icon={v.icon} title={v.title} desc={v.desc} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ===== EXPERIENCE ===== */}
-        <section className="experience" aria-labelledby="exp-title">
-          <h2 id="exp-title" className="section-title">Pengalaman</h2>
-          <ol className="timeline">
-            {experiences.map((e, i) => (
-              <li className="tl-item" key={i}>
-                <div className="tl-dot" aria-hidden />
-                <div className="tl-card">
-                  <div className="tl-head">
-                    <h3 className="tl-title">{e.title}</h3>
-                    <span className="tl-period">{e.period}</span>
-                  </div>
-                  <div className="tl-company">{e.company}</div>
-                  {Array.isArray(e.points) && e.points.length > 0 && (
-                    <ul className="tl-points">
-                      {e.points.map((p, idx) => <li key={idx}>{p}</li>)}
-                    </ul>
-                  )}
+            
+            <div className="flex flex-col gap-4">
+                <a href="https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview" target="_blank" rel="noopener noreferrer" className="btn-primary w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold bg-white text-black hover:bg-cyan-50 transition-colors">
+                    <FaDownload /> Download CV
+                </a>
+                <div className="flex justify-center gap-6 text-2xl text-white/50">
+                     <a href="https://github.com/adiityaanugrah" className="hover:text-white transition-colors"><FaGithub /></a>
+                     <a href="https://www.linkedin.com/in/aditya-anugrah/" className="hover:text-white transition-colors"><FaLinkedin /></a>
+                     <a href="mailto:adityaanugrah494@gmail.com" className="hover:text-white transition-colors"><FaEnvelope /></a>
                 </div>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* ===== EDUCATION & CERTS ===== */}
-        <section className="edu-cert" aria-label="Pendidikan & Sertifikasi">
-          <div className="grid-two">
-            <div className="box">
-              <h2 className="section-title">Pendidikan</h2>
-              <ul className="simple-list">
-                {education.map((ed, i) => (
-                  <li key={i}>
-                    <div className="top">
-                      <span className="name">{ed.title}</span>
-                      <span className="period">{ed.period}</span>
-                    </div>
-                    <div className="org">{ed.org}</div>
-                  </li>
-                ))}
-              </ul>
             </div>
+        </div>
 
-            <div className="box">
-              <h2 className="section-title">Sertifikasi</h2>
-              <ul className="simple-list">
-                {certifications.map((c, i) => (
-                  <li key={i}>
-                    <div className="top">
-                      <span className="name">{c.name}</span>
-                      <span className="period">{c.by}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+        {/* Content */}
+        <div className="space-y-12">
+            <section>
+                <h1 className="text-4xl md:text-5xl font-bold font-display mb-6">
+                    Hi, I'm <span className="text-gradient">Aditya.</span>
+                </h1>
+                <p className="text-white/70 text-xs md:text-lg leading-relaxed mb-6">
+                    I am a passionate <strong className="text-white">Web Developer</strong> based in Indonesia, specializing in building modern web applications. 
+                    My journey started with a curiosity for how things work on the internet, which quickly turned into a career crafting digital solutions.
+                </p>
+                <p className="text-white/70 text-xs md:text-lg leading-relaxed">
+                    I focus on <span className="text-cyan-400">simplicity</span>, <span className="text-purple-400">performance</span>, and <span className="text-pink-400">user experience</span>. 
+                    Whether it's a complex dashboard or a simple landing page, I strive to write clean, maintainable code.
+                </p>
+            </section>
 
-        {/* ===== FAQ ===== */}
-        {faqs.length > 0 && (
-          <section className="faq" aria-labelledby="faq-title">
-            <div className="faq-head">
-              <h2 id="faq-title" className="section-title">FAQ</h2>
-              <p className="muted">Beberapa pertanyaan umum seputar cara kerja saya.</p>
-            </div>
+            <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-white/30"></span> Experience
+                </h2>
+                <div className="space-y-8 border-l border-white/10 pl-8 ml-3 relative">
+                     {/* Timeline Item */}
+                     <div className="relative">
+                        <span className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-cyan-500 border-4 border-[#0a0a0a]" />
+                        <h3 className="text-xl font-bold">Full-stack Developer</h3>
+                        <p className="text-white/50 text-sm mb-2">Ilena Furniture • 2023 - Present</p>
+                        <ul className="list-disc list-outside ml-4 text-white/70 space-y-1">
+                            <li>Built Next.js storefront with SSR/ISR for optimal SEO.</li>
+                            <li>Integrated shipping calculators and SKU matrix systems.</li>
+                        </ul>
+                     </div>
 
-            <div className="accordion" role="list">
-              {faqs.map((f, i) => (
-                <details key={i} className="acc-item" role="listitem">
-                  <summary className="acc-sum">
-                    <span className="q">
-                      <FaQuestionCircle className="q-ic" aria-hidden />
-                      {f.q}
-                    </span>
-                    <FaChevronDown className="chev" aria-hidden />
-                  </summary>
-                  <div className="acc-body">
-                    <p>{f.a}</p>
-                  </div>
-                </details>
-              ))}
-            </div>
-          </section>
-        )}
+                     <div className="relative">
+                        <span className="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-purple-500 border-4 border-[#0a0a0a]" />
+                        <h3 className="text-xl font-bold">Backend + UI Developer</h3>
+                        <p className="text-white/50 text-sm mb-2">Titanium Group • 2024 - 2025</p>
+                         <ul className="list-disc list-outside ml-4 text-white/70 space-y-1">
+                            <li>Designed database schemas and REST APIs using CI4.</li>
+                            <li>Developed workshop management dashboard and PDF reporting.</li>
+                        </ul>
+                     </div>
+                </div>
+            </section>
 
-        {/* ===== CTA ===== */}
-        <section className="about-cta" aria-label="Ajakan kolaborasi">
-          <div className="cta-box">
-            <h2>Siap bangun sesuatu bareng?</h2>
-            <p className="muted">Ayo diskusikan kebutuhanmu.</p>
-            <div className="cta-actions">
-              <Link className="btn btn-primary" to="/contact">Hubungi Saya</Link>
-              <Link className="btn btn-ghost" to="/projects">Lihat Proyek</Link>
-            </div>
-          </div>
-        </section>
+             <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-white/30"></span> Tech Stack
+                </h2>
+                <div className="flex flex-wrap gap-2 text-sm font-mono text-white/60">
+                    {["JavaScript (ES6+)", "TypeScript", "React", "Next.js", "Tailwind CSS", "Node.js", "PHP", "CodeIgniter 4", "MySQL", "PostgreSQL", "Git"].map(tech => (
+                        <span key={tech} className="px-3 py-1 rounded border border-white/10 bg-white/5">
+                            {tech}
+                        </span>
+                    ))}
+                </div>
+            </section>
+        </div>
       </div>
-    </main>
+    </div>
   );
 };
 

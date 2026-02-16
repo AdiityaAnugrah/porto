@@ -13,7 +13,7 @@ const SITE_URL =
 const SITE_NAME =
   (typeof import.meta !== "undefined" &&
     import.meta.env?.VITE_SITE_NAME) ||
-  "My Portfolio";
+  "Aditya Anugrah";
 /** Pastikan absolute URL */
 const toAbsUrl = (pathOrUrl = "") => {
   if (!pathOrUrl) return SITE_URL;
@@ -89,7 +89,12 @@ const setJsonLd = (json, id) =>
           s.type = "application/ld+json";
           return s;
         },
-        { "data-seo": id, textContent: JSON.stringify(json) }
+        { 
+            "data-seo": id, 
+            textContent: JSON.stringify(
+                Array.isArray(json) && json.length === 1 ? json[0] : { "@context": "https://schema.org", "@graph": json }
+            ) 
+        }
       )
     : null;
 
@@ -140,9 +145,11 @@ export default function SEO({
   locale = "id_ID",
   twitter,
 }) {
-  // Hindari re-render LD karena referensi object baru;
-  // jika benar-benar dinamis, caller bisa memoize sebelum dikirim.
-  const memoLd = useMemo(() => jsonLd, [JSON.stringify(jsonLd || {})]);
+  // Handle both single object and array for Knowledge Graph
+  const memoLd = useMemo(() => {
+    if (!jsonLd) return null;
+    return Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+  }, [jsonLd]);
 
   useEffect(() => {
     if (typeof document === "undefined") return () => {};

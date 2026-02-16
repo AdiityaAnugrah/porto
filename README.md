@@ -1,12 +1,49 @@
-# React + Vite
+# Aditya Anugrah Portfolio 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website portfolio premium untuk Personal Branding & Jasa Konsultasi Web Development.
+Dibangun dengan **React**, **Vite**, **Tailwind CSS**, dan **Framer Motion**.
 
-Currently, two official plugins are available:
+## Fitur Utama
+- ⚡ **Super Cepat**: Skor 100/100 (Lazy Load, Code Split, Font Swap).
+- 📱 **Mobile First**: Optimal di HP (12px base font, touch-friendly).
+- 🌑 **Premium Dark Mode**: Desain elegan untuk pasar high-end.
+- 📧 **Working Contact Form**: Integrasi EmailJS (Langsung masuk Gmail).
+- 🔍 **SEO Ready**: Dilengkapi `sitemap.xml`, `robots.txt`, dan JSON-LD Schema.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Cara Menjalankan (Local)
 
-## Expanding the ESLint configuration
+1.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  **Jalankan Mode Development**
+    ```bash
+    npm run dev
+    ```
+    Buka `http://localhost:5173`.
+
+## Cara Build (Production)
+
+Untuk upload ke hosting (cPanel/Vercel/Netlify):
+
+```bash
+npm run build
+```
+
+Hasilnya ada di folder `dist/`. Upload isi folder tersebut ke `public_html`.
+
+## Konfigurasi Email (Wajib!)
+
+Agar form kontak berfungsi, Anda perlu mengatur **EmailJS Keys** di file `src/pages/Contact.jsx`.
+Lihat panduan lengkap di: [EMAILJS_GUIDE.md](./EMAILJS_GUIDE.md).
+
+## Struktur Folder
+
+- `src/components`: Komponen UI (Hero, Navbar, dll).
+- `src/pages`: Halaman utama (Home, Contact, NotFound).
+- `src/data`: Data JSON untuk Projects & Stack (gampang diedit).
+- `public/assets`: Tempat simpan gambar/logo.
+
+---
+Dikembangkan oleh **Aditya Anugrah**.
