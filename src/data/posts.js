@@ -38,5 +38,31 @@ export const posts = [
 
       Portfolio saya menunjukkan komitmen terhadap performa ekstrem menggunakan teknologi OpenLiteSpeed dan React.
     `
+  },
+  {
+    id: 'di-balik-layar-load-time-1-7s',
+    title: 'Di Balik Layar: Bagaimana Saya Membangun Portofolio dengan Load Time 1.7 Detik',
+    excerpt: 'Bedah teknologi di balik website ini: HTTP/3, Brotli Compression, dan OpenLiteSpeed Tuning untuk performa ekstrem.',
+    date: '2026-02-16',
+    category: 'Technical Case Study',
+    image: 'https://images.unsplash.com/photo-1551288049-bbbda536ad79?auto=format&fit=crop&q=80&w=800',
+    content: `
+      Banyak orang bertanya, "Gimana sih caranya bikin website animasi berat tapi tetap enteng pas dibuka?" 
+      Jawabannya bukan cuma di kode frontend, tapi di optimalisasi infrastruktur server. Website portofolio ini adalah buktinya.
+
+      ### 1. Protokol Masa Depan: HTTP/3 (QUIC)
+      Saya mengaktifkan HTTP/3 pada OpenLiteSpeed. Berbeda dengan HTTP/2, QUIC mengurangi latency koneksi secara signifikan, terutama pada jaringan seluler (4G/5G) yang sering naik-turun. Hasilnya? Koneksi awal terasa "instan".
+
+      ### 2. Brotli vs Gzip
+      Brotli dari Google memberikan kompresi sekitar 20% lebih baik dibanding Gzip untuk aset berbasis teks (HTML, JS, CSS). Ini artinya paket data yang dikirim ke browser pengunjung jadi lebih padat dan cepat sampai.
+
+      ### 3. Service Workers & PWA
+      Dengan Service Worker, kunjungan kedua pengunjung akan terasa instan karena aset dasar sudah tersimpan di cache lokal (disk cache). Website ini pun sudah siap diinstall sebagai aplikasi (PWA).
+
+      ### 4. Code Splitting & Lazy Loading
+      Halaman dipisah menjadi "chunks" kecil. Pengunjung hanya mendownload kode yang memang mereka butuhkan di halaman tersebut. Ini mengurangi beban bandwidth secara drastis saat awal dibuka.
+
+      Kesimpulannya, performa bukan sekadar angka di Lighthouse, tapi kenyamanan nyata bagi pengunjung. Website yang cepat adalah bentuk profesionalisme tertinggi bagi seorang developer.
+    `
   }
 ];

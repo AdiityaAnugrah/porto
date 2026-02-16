@@ -11,6 +11,33 @@ export default function BlogDetail() {
   const navigate = useNavigate();
   const post = useMemo(() => posts.find(p => p.id === id), [id]);
   
+  // Track Read Progress
+  useEffect(() => {
+    let triggered = false;
+    const handleScroll = () => {
+      if (triggered) return;
+      const h = document.documentElement, 
+            b = document.body,
+            st = 'scrollTop',
+            sh = 'scrollHeight';
+      const percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+      
+      if (percent > 75) {
+        triggered = true;
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'blog_read_complete', {
+            'event_category': 'Engagement',
+            'event_label': post?.title,
+            'value': 75
+          });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [post]);
+
   // Logic Artikel Terkait: Cari kategori yang sama, maksimal 2 artikel
   const relatedPosts = useMemo(() => {
     return posts
