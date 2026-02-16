@@ -37,34 +37,33 @@ const CV = lazy(() => import("./pages/CV.jsx"));
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-            <Route path="/" element={<Layout />}>
-            {/* Home */}
-            <Route index element={<Home />} />
+      <Routes>
+          <Route path="/" element={<Layout />}>
+          {/* Home */}
+          <Route index element={<Home />} />
 
-            {/* About */}
-            <Route path="about" element={<About />} />
-            {/* CV */}
-            <Route path="cv" element={<CV />} />
+          {/* About */}
+          <Route path="about" element={<About />} />
+          {/* CV */}
+          <Route path="cv" element={<CV />} />
 
-            {/* Projects */}
-            <Route path="projects">
-                <Route index element={<Projects />} />
-                <Route path="web" element={<Projects />} />
-                <Route path="mobile" element={<Projects />} />
-                <Route path="landing" element={<Projects />} />
-                <Route path="item/:id" element={<ProjectDetail />} />
-            </Route>
+          {/* Projects */}
+          <Route path="projects">
+              <Route index element={<Projects />} />
+              <Route path="web" element={<Projects />} />
+              <Route path="mobile" element={<Projects />} />
+              <Route path="landing" element={<Projects />} />
+              <Route path="item/:id" element={<ProjectDetail />} />
+          </Route>
 
-            {/* Contact */}
-            <Route path="contact" element={<Contact />} />
+          {/* Contact */}
+          <Route path="contact" element={<Contact />} />
 
-            {/* 404 */}
-            <Route path="*" element={<NotFound />} />
-            </Route>
-        </Routes>
-      </Suspense>
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+          </Route>
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
+
