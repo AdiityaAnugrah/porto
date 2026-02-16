@@ -28,22 +28,32 @@ const Contact = () => {
 
     setStatus("sending");
     
-    try {
-        await emailjs.send(
-            SERVICE_ID, 
-            TEMPLATE_ID, 
-            {
-                from_name: formData.name,
-                from_email: formData.email,
-                message: formData.message,
-                to_name: "Aditya Anugrah",
-            }, 
-            PUBLIC_KEY
-        );
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setStatus(""), 5000);
-    } catch (error) {
+        try {
+            await emailjs.send(
+                SERVICE_ID, 
+                TEMPLATE_ID, 
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    message: formData.message,
+                    to_name: "Aditya Anugrah",
+                }, 
+                PUBLIC_KEY
+            );
+
+            // Track Conversion
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'generate_lead', {
+                    'event_category': 'Contact',
+                    'event_label': 'Contact Form Success'
+                });
+            }
+
+            setStatus("success");
+            setFormData({ name: "", email: "", message: "" });
+            setTimeout(() => setStatus(""), 5000);
+        } catch (error) {
+
         console.error("EmailJS Error:", error);
         setStatus("error");
         setTimeout(() => setStatus(""), 5000);
@@ -76,13 +86,13 @@ const Contact = () => {
                 <p className="text-white/50 mb-6">Feel free to reach out directly.</p>
                 
                 <div className="space-y-4">
-                    <a href="mailto:admin@adityaanugra.me" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                    <a href="mailto:admin@adityaanugrah.me" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                         <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400">
                             <FaEnvelope />
                         </div>
                         <div>
                             <div className="text-xs text-white/40 uppercase tracking-widest">Email</div>
-                            <div className="font-mono">admin@adityaanugra.me</div>
+                            <div className="font-mono">admin@adityaanugrah.me</div>
                         </div>
                     </a>
                     <a href="https://wa.me/6281379430432" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
