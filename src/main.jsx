@@ -32,6 +32,8 @@ const Projects = lazy(() => import("./pages/Projects.jsx"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
 const CV = lazy(() => import("./pages/CV.jsx"));
+const Blog = lazy(() => import("./pages/Blog.jsx"));
+const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
 
 
 createRoot(document.getElementById("root")).render(
@@ -58,6 +60,12 @@ createRoot(document.getElementById("root")).render(
 
           {/* Contact */}
           <Route path="contact" element={<Contact />} />
+
+          {/* Blog */}
+          <Route path="blog">
+              <Route index element={<Blog />} />
+              <Route path=":id" element={<BlogDetail />} />
+          </Route>
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

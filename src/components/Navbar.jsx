@@ -2,12 +2,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaHome, FaUser, FaCode, FaEnvelope } from "react-icons/fa";
+import { FaHome, FaUser, FaCode, FaEnvelope, FaBookOpen } from "react-icons/fa";
 
 const navItems = [
   { path: "/", label: "Home", icon: FaHome },
   { path: "/about", label: "About", icon: FaUser },
   { path: "/projects", label: "Work", icon: FaCode },
+  { path: "/blog", label: "Blog", icon: FaBookOpen },
   { path: "/contact", label: "Contact", icon: FaEnvelope },
 ];
 
