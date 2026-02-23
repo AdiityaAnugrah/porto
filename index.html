@@ -54,9 +54,81 @@
     <meta property="og:image" content="https://adityaanugrah.me/assets/aa-mark-primary.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aditya Anugrah | Web Dev Semarang" />
-    <meta name="twitter:description" content="Premium web development and business consulting services in Indonesia." />
-    <meta name="twitter:image" content="/assets/aa-mark-primary.png" />
+    <meta name="twitter:title" content="Aditya Anugrah | Web Developer Semarang & Palembang" />
+    <meta name="twitter:description" content="Full-Stack Web Developer dari Semarang & Palembang. Ahli React, Next.js, Node.js, PHP. Tersedia untuk jasa website seluruh Indonesia." />
+    <meta name="twitter:image" content="https://adityaanugrah.me/assets/aa-mark-primary.png" />
+
+    <!-- Structured Data: WebSite + SiteNavigation (mendorong Google Sitelinks) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://adityaanugrah.me/#website",
+          "url": "https://adityaanugrah.me/",
+          "name": "Aditya Anugrah",
+          "description": "Portfolio & Web Developer Services - Semarang & Palembang",
+          "publisher": {
+            "@type": "Person",
+            "name": "Aditya Anugrah",
+            "url": "https://adityaanugrah.me/about"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://adityaanugrah.me/?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "SiteLinksSearchBox",
+          "url": "https://adityaanugrah.me/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://adityaanugrah.me/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "name": "Navigasi Utama",
+          "itemListElement": [
+            {
+              "@type": "SiteNavigationElement",
+              "position": 1,
+              "name": "About",
+              "description": "Tentang Aditya Anugrah – Full-Stack Web Developer Semarang & Palembang",
+              "url": "https://adityaanugrah.me/about"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 2,
+              "name": "Projects",
+              "description": "Portfolio proyek web development Aditya Anugrah",
+              "url": "https://adityaanugrah.me/projects"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 3,
+              "name": "Blog",
+              "description": "Artikel teknologi dan web development oleh Aditya Anugrah",
+              "url": "https://adityaanugrah.me/blog"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 4,
+              "name": "Contact",
+              "description": "Hubungi Aditya Anugrah untuk proyek web development",
+              "url": "https://adityaanugrah.me/contact"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 
     <!-- Set tema paling awal: default dark, override ke light jika user pernah pilih -->
     <script>
