@@ -4,6 +4,7 @@ import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import PubgCard from "../components/about/PubgCard";
+import SpotifyCard from "../components/about/SpotifyCard";
 
 const About = () => {
   return (
@@ -108,6 +109,16 @@ const About = () => {
                     When I'm not coding, you'll find me dropping into Erangel. Here's my live PUBG profile.
                 </p>
                 <PubgCard />
+            </section>
+
+            <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-white/30"></span> Now Playing
+                </h2>
+                <p className="text-white/50 text-sm mb-5 leading-relaxed">
+                    Music keeps me in the zone. Here's what I'm listening to right now via Spotify.
+                </p>
+                <SpotifyCard />
             </section>
         </div>
       </div>
