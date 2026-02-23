@@ -66,15 +66,63 @@ const About = () => {
 
             {/* BENTO GRID LAYOUT */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 relative z-10 w-full mb-8">
-                {/* ---------- BENTO 1: EXPERIENCE (7 cols) ---------- */}
-                <div className="md:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
+                
+                {/* ---------- BENTO 1: TECH STACK (12 cols) ---------- */}
+                <div className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col sm:flex-row sm:items-center gap-6">
+                    <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
+                    <div className="flex-shrink-0">
+                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-purple-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                            Tech Stack
+                        </h2>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono">
+                        {["JavaScript", "TypeScript", "React", "Next.js", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Postgres", "Git"].map(tech => (
+                            <span key={tech} className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all cursor-default relative overflow-hidden group/badge">
+                                <span className="absolute inset-0 bg-white/5 translate-y-full group-hover/badge:translate-y-0 transition-transform" />
+                                <span className="relative z-10">{tech}</span>
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ---------- BENTO 2: MUSIC VIBES (5 cols) ---------- */}
+                <div className="md:col-span-4 lg:col-span-5 flex flex-col relative group h-full pb-2 lg:pb-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="mb-4 pl-3">
+                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
+                            <span className="text-base sm:text-xl">🎧</span> Music Flow
+                        </h2>
+                    </div>
+                    {/* Mengisi sisa flex */}
+                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01] h-full">
+                        <SpotifyCard />
+                    </div>
+                </div>
+
+                {/* ---------- BENTO 3: GAMING (7 cols) ---------- */}
+                <div className="md:col-span-8 lg:col-span-7 flex flex-col relative group h-full pb-2 lg:pb-0">
+                    <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="mb-4 pl-3">
+                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
+                            <span className="text-base sm:text-xl">🎮</span> Gaming Flow
+                        </h2>
+                    </div>
+                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
+                        <PubgCard />
+                    </div>
+                </div>
+
+                {/* ---------- BENTO 4: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
+                <div className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-500/5 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                        Experience
+                        Professional Journey
                     </h2>
                     
-                    <div className="space-y-8 border-l border-white/10 pl-6 relative">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 border-l border-white/10 pl-6 relative">
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
@@ -140,61 +188,6 @@ const About = () => {
                                 Managed administrative tasks, preparing vessel clearance, and communicating with port authorities. Entrusted with crucial documents for port operations.
                             </p>
                          </div>
-                    </div>
-                </div>
-
-                {/* ---------- BENTO 2: TECH STACK (5 cols) ---------- */}
-                <div className="md:col-span-1 md:hidden lg:block lg:col-span-5 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col justify-center">
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
-                    <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-6 flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-purple-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                        Tech Arsenal
-                    </h2>
-                    
-                    <div className="flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono">
-                        {["JavaScript", "TypeScript", "React", "Next.js", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Postgres", "Git"].map(tech => (
-                            <span key={tech} className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all cursor-default relative overflow-hidden group/badge">
-                                <span className="absolute inset-0 bg-white/5 translate-y-full group-hover/badge:translate-y-0 transition-transform" />
-                                <span className="relative z-10">{tech}</span>
-                            </span>
-                        ))}
-                    </div>
-                </div>
-                
-                {/* Fallback untuk ukuran MD (tablet vertikal) agar Tech Stack muat responsif */}
-                <div className="hidden md:block lg:hidden md:col-span-5 glass-panel p-6 rounded-3xl relative group overflow-hidden border border-white/10">
-                     <h2 className="text-xs font-mono uppercase tracking-widest text-white/40 mb-4">Tech Arsenal</h2>
-                     <div className="flex flex-wrap gap-1.5 text-[9px] font-mono">
-                        {["JS/TS", "React/Next", "Tailwind", "Node/PHP", "SQL", "Git"].map(tech => (
-                            <span key={tech} className="px-2 py-1 rounded border border-white/10 bg-white/5 text-white/70">{tech}</span>
-                        ))}
-                    </div>
-                </div>
-
-                {/* ---------- BENTO 3: MUSIC VIBES (5 cols) ---------- */}
-                <div className="md:col-span-5 flex flex-col relative group pb-4 lg:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="mb-4 pl-3">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎧</span> Vibe Check
-                        </h2>
-                    </div>
-                    {/* Mengisi sisa flex */}
-                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01] h-full">
-                        <SpotifyCard />
-                    </div>
-                </div>
-
-                {/* ---------- BENTO 4: GAMING (7 cols) ---------- */}
-                <div className="md:col-span-7 flex flex-col relative group h-full pb-4 lg:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="mb-4 pl-3">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎮</span> Off-Duty
-                        </h2>
-                    </div>
-                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
-                        <PubgCard />
                     </div>
                 </div>
             </div>
