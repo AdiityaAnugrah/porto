@@ -17,17 +17,17 @@ const Projects = () => {
   return (
     <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen">
       <SEO 
-        title="Works | Aditya Anugrah" 
-        description="Explore my latest web development projects, ranging from e-commerce platforms to creative landing pages."
+        title="Karya Pilihan | Aditya Anugrah" 
+        description="Kumpulan proyek di mana desain bertemu dengan kode. Fokus pada kinerja, aksesibilitas, dan pengalaman pengguna."
       />
 
       <div className="mb-12">
         <h1 className="text-5xl md:text-7xl font-bold font-display mb-6">
-          Selected <span className="text-gradient">Works</span>
+          Karya <span className="text-gradient">Pilihan</span>
         </h1>
         <p className="text-white/60 max-w-xl text-lg">
-          A collection of projects where design meets code. 
-          Focusing on performance, accessibility, and user experience.
+          Kumpulan proyek di mana desain bertemu dengan kode. 
+          Fokus pada kinerja, aksesibilitas, dan pengalaman pengguna.
         </p>
       </div>
 

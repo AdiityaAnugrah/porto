@@ -14,7 +14,7 @@ const NotFound = () => {
       </h1>
 
       <p className="text-xl text-white/50 mb-8 max-w-md">
-        The page you are looking for doesn't exist or has been moved.
+        Halaman yang Anda cari tidak ada atau telah dipindahkan.
       </p>
 
       <Link 

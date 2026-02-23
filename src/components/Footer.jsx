@@ -33,15 +33,15 @@ const Footer = () => {
         <div>
             <h4 className="text-white font-bold mb-4">Services</h4>
             <ul className="space-y-2 text-sm text-white/50" aria-label="Expertise area">
-                <li>Web Application Development</li>
-                <li>E-Commerce Solutions</li>
-                <li>Landing Pages for Business</li>
-                <li>Technical SEO & Optimization</li>
+                <li>Pembuatan Website</li>
+                <li>Pembuatan Aplikasi</li>
+                <li>Pembuatan Landing Page</li>
+                <li>Optimasi SEO</li>
             </ul>
         </div>
 
         <div>
-            <h4 className="text-white font-bold mb-4">Contact Info</h4>
+            <h4 className="text-white font-bold mb-4">Informasi Kontak</h4>
             <ul className="space-y-2 text-sm text-white/50" aria-label="Contact details">
                 <li>
                     <a href="mailto:admin@adityaanugra.me" aria-label="Send Email" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
@@ -61,8 +61,7 @@ const Footer = () => {
       </div>
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30">
-        <p>&copy; {currentYear} Aditya Anugrah. All rights reserved.</p>
-        <p>Built with React, Tailwind & Framer Motion.</p>
+        <p>&copy; {currentYear} Aditya Anugrah</p>
       </div>
     </footer>
   );

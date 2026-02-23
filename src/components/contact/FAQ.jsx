@@ -5,20 +5,20 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 
 const faqs = [
   {
-    question: "Do you provide maintenance after the project is done?",
-    answer: "Yes! Every project includes a 30-day free support period. I also offer monthly maintenance packages for updates, security, and backups."
+    question: "Apakah Anda menyediakan pemeliharaan setelah proyek selesai?",
+    answer: "Ya! Setiap proyek mencakup periode dukungan gratis selama 30 hari. Saya juga menawarkan paket pemeliharaan bulanan untuk pembaruan, keamanan, dan pencadangan."
   },
   {
-    question: "How much does a website cost?",
-    answer: "It depends on the complexity. A landing page starts from potential lower range, while custom web apps depend on features. Let's discuss your needs to get an exact quote."
+    question: "Berapa biaya pembuatan website?",
+    answer: "Itu tergantung pada kompleksitasnya. Halaman arahan dimulai dari kisaran bawah, sedangkan aplikasi web khusus bergantung pada fitur. Mari diskusikan kebutuhan Anda untuk mendapatkan penawaran yang tepat."
   },
   {
-    question: "How long does the development take?",
-    answer: "Standard company profiles take 1-2 weeks. Complex custom applications (ERP/POS) can take 4-8 weeks depending on the requirements."
+    question: "Berapa lama waktu yang dibutuhkan untuk pengembangan?",
+    answer: "Profil perusahaan standar memakan waktu 1-2 minggu. Aplikasi khusus yang kompleks (ERP/POS) dapat memakan waktu 4-8 minggu tergantung pada persyaratan."
   },
   {
-    question: "Can I manage the website content myself?",
-    answer: "Absolutely. I build dynamic websites with easy-to-use Admin Panels (CMS) so you can update text, images, and products without coding."
+    question: " Bisakah saya mengelola konten website sendiri?",
+    answer: "Tentu saja. Saya membangun website dinamis dengan Panel Admin (CMS) yang mudah digunakan sehingga Anda dapat memperbarui teks, gambar, dan produk tanpa coding."
   }
 ];
 
@@ -27,7 +27,7 @@ const FAQ = () => {
 
   return (
     <div className="mt-24 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold font-display text-center mb-8">Frequently Asked Questions</h2>
+      <h2 className="text-2xl font-bold font-display text-center mb-8">Pertanyaan yang Sering Diajukan</h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="border border-white/10 rounded-xl bg-white/5 overflow-hidden">

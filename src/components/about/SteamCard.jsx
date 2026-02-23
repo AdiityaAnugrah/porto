@@ -96,7 +96,7 @@ const SteamCard = () => {
                  <FaSteamSymbol className="text-3xl text-[#66c0f4] drop-shadow-[0_0_8px_rgba(102,192,244,0.5)]" />
             </div>
             <div>
-                 <h2 className="text-white/80 font-display font-semibold tracking-wide text-sm uppercase">Gaming Profile</h2>
+                 <h2 className="text-white/80 font-display font-semibold tracking-wide text-sm uppercase">Profil Gaming</h2>
                  <p className="text-[#66c0f4] text-xs font-mono font-medium tracking-wider">STEAM COMMUNITY</p>
             </div>
         </div>

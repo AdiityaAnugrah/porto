@@ -82,7 +82,7 @@ export default function PubgCard() {
             <span className="text-lg leading-none">🎮</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] uppercase tracking-widest text-white/40 font-mono">Favorite Game</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40 font-mono">Game Favorit</p>
             <h3 className="text-sm font-bold text-white leading-tight">PUBG: Battlegrounds</h3>
           </div>
           <div className="flex items-center gap-1.5 bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 rounded-full flex-shrink-0">
@@ -101,7 +101,7 @@ export default function PubgCard() {
                 {data.platform}
               </span>
               <span className="text-[10px] text-white/30 font-mono">
-                {data.recentMatchIds?.length ?? 0} recent matches
+                {data.recentMatchIds?.length ?? 0} pertandingan terakhir
               </span>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function PubgCard() {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-orange-500/15 to-yellow-500/10 border border-orange-500/20 hover:border-orange-500/40 hover:from-orange-500/25 hover:to-yellow-500/15 text-orange-300 hover:text-orange-200 text-[11px] font-mono uppercase tracking-widest transition-all duration-300 group/cta"
           >
-            <span>View Full Stats on PUBG OP.GG</span>
+            <span>Lihat Statistik Lengkap di PUBG OP.GG</span>
             <span className="translate-x-0 group-hover/cta:translate-x-1 transition-transform duration-200">→</span>
           </a>
         </div>

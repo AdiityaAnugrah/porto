@@ -69,10 +69,10 @@ const Contact = () => {
 
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-6xl font-bold font-display mb-4">
-            Let's work <span className="text-gradient">together.</span>
+            Mari bekerja <span className="text-gradient">bersama.</span>
         </h1>
         <p className="text-white/60 text-lg">
-            Have a project in mind? I'm always open to discussing new ideas.
+            Ada proyek yang ingin dibuat? Saya selalu terbuka untuk mendiskusikan ide baru.
         </p>
       </div>
 
@@ -82,8 +82,8 @@ const Contact = () => {
 
         <div className="space-y-8">
             <div>
-                <h3 className="text-xl font-bold mb-2">My Contacts</h3>
-                <p className="text-white/50 mb-6">Feel free to reach out directly.</p>
+                <h3 className="text-xl font-bold mb-2">Kontak Saya</h3>
+                <p className="text-white/50 mb-6">Jangan ragu untuk menghubungi saya.</p>
                 
                 <div className="space-y-4">
                     <a href="mailto:admin@adityaanugrah.me" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
@@ -117,22 +117,22 @@ const Contact = () => {
                         <FaPaperPlane />
                     </div>
                     <div>
-                        <h3 className="text-2xl font-bold font-display mb-2">Message Sent!</h3>
+                        <h3 className="text-2xl font-bold font-display mb-2">Pesan Terkirim!</h3>
                         <p className="text-white/60 max-w-xs mx-auto">
-                            Thank you for reaching out, {formData.name}. I'll get back to you within 24 hours.
+                            Terima kasih telah menghubungi saya, {formData.name}. Saya akan segera menghubungi Anda dalam 24 jam.
                         </p>
                     </div>
                     <button 
                         onClick={() => setStatus("")}
                         className="text-sm text-cyan-400 font-bold hover:text-cyan-300 transition-colors"
                     >
-                        Send another message
+                        Kirim pesan lain
                     </button>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-1">
-                        <label className="text-sm font-bold ml-1">Name</label>
+                        <label className="text-sm font-bold ml-1">Nama</label>
                         <input 
                             type="text" 
                             required
@@ -154,7 +154,7 @@ const Contact = () => {
                         />
                     </div>
                     <div className="space-y-1">
-                        <label className="text-sm font-bold ml-1">Message</label>
+                        <label className="text-sm font-bold ml-1">Pesan</label>
                         <textarea 
                             required
                             rows="4"
@@ -170,7 +170,7 @@ const Contact = () => {
                         disabled={status === "sending"}
                         className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
                     >
-                        {status === "sending" ? "Sending..." : <><FaPaperPlane /> Send Message</>}
+                        {status === "sending" ? "Mengirim..." : <><FaPaperPlane /> Kirim Pesan</>}
                     </button>
                 </form>
             )}

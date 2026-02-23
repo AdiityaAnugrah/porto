@@ -54,8 +54,8 @@ export default function ProjectDetail() {
   if (!project) {
     return (
       <div className="min-h-screen pt-32 pb-20 px-6 text-center">
-         <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-         <Link to="/projects" className="text-cyan-400 hover:text-cyan-300">Back to Projects</Link>
+         <h1 className="text-4xl font-bold mb-4">Proyek Tidak Ditemukan</h1>
+         <Link to="/projects" className="text-cyan-400 hover:text-cyan-300">Kembali ke Proyek</Link>
       </div>
     );
   }
@@ -74,7 +74,7 @@ export default function ProjectDetail() {
             onClick={() => navigate(-1)} 
             className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
         >
-            <FaArrowLeft /> Back
+            <FaArrowLeft /> Kembali
         </button>
         
         <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
@@ -92,12 +92,12 @@ export default function ProjectDetail() {
         <div className="flex gap-4">
             {project.links?.live && (
                 <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold hover:bg-cyan-400 transition-colors">
-                    Visit Site <FaExternalLinkAlt />
+                    Kunjungi Situs <FaExternalLinkAlt />
                 </a>
             )}
             {project.links?.code && (
                 <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="btn-ghost flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
-                    View Code <FaGithub />
+                    Lihat Kode <FaGithub />
                 </a>
             )}
         </div>

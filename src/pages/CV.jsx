@@ -21,7 +21,7 @@ export default function CV() {
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
             <Link to="/about" className="text-white/50 hover:text-white flex items-center gap-2 mb-2 transition-colors">
-                <FaArrowLeft /> Back to About
+                <FaArrowLeft /> Kembali ke Tentang Saya 
             </Link>
             <h1 className="text-3xl font-bold font-display">Curriculum Vitae</h1>
         </div>
@@ -31,7 +31,7 @@ export default function CV() {
                 onClick={() => setModalOpen(true)}
                 className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center gap-2 transition-colors"
             >
-                <FaExpand /> Fullscreen
+                <FaExpand /> Tampilkan
             </button>
             <a 
                 href={VIEW_URL}
@@ -39,7 +39,7 @@ export default function CV() {
                 rel="noopener noreferrer"
                 className="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white flex items-center gap-2 transition-colors"
             >
-                Open in Drive <FaExternalLinkAlt className="text-sm" />
+                Buka di Drive <FaExternalLinkAlt className="text-sm" />
             </a>
         </div>
       </div>

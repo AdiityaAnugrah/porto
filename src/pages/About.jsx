@@ -277,7 +277,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
-                            <p className="text-cyan-500/70 text-[10px] sm:text-xs font-mono mb-2">Ilena Furniture â€¢ 2023 - Sekarang</p>
+                            <p className="text-cyan-500/70 text-[10px] sm:text-xs font-mono mb-2">Ilena Furniture 2023 - Sekarang</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                                 Membangun storefront Next.js dengan SSR/ISR untuk SEO optimal. Mengintegrasikan kalkulator ongkos kirim dan sistem matriks SKU.
                             </p>
@@ -286,7 +286,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-green-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-green-300 transition-colors">Web Developer</h3>
-                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri â€¢ Semarang â€¢ 2022 - Sekarang</p>
+                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri Semarang 2022 - Sekarang</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
                                 Mengembangkan aplikasi web menggunakan HTML, CSS, PHP, dan CodeIgniter. Meningkatkan performa web hingga 30% melalui optimasi kode dan teknik SEO.
                             </p>
@@ -299,7 +299,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-purple-300 transition-colors">Backend + UI Developer</h3>
-                            <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group â€¢ 2024 - 2025</p>
+                            <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group 2024 - 2025</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                                 Merancang skema database dan REST API menggunakan CodeIgniter 4. Mengembangkan dashboard manajemen bengkel dan laporan PDF otomatis.
                             </p>
@@ -308,7 +308,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-orange-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-orange-300 transition-colors">Android Development</h3>
-                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka â€¢ Bandung â€¢ 2022</p>
+                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka Bandung 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
                                 Mengembangkan aplikasi Android tingkat menengah menggunakan Kotlin dan Java. 
                             </p>
@@ -321,7 +321,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-pink-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-pink-300 transition-colors">UI/UX Design</h3>
-                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika â€¢ Jakarta â€¢ 2022</p>
+                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika Jakarta 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
                                 Mempelajari prinsip UI/UX dan proses desain aplikasi mobile yang intuitif.
                             </p>
@@ -334,7 +334,7 @@ const About = () => {
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-gray-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-gray-300 transition-colors">Staff Admin</h3>
-                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran â€¢ Palembang â€¢ 2021 - 2022</p>
+                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran Palembang 2021 - 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                                 Mengelola tugas administrasi, menyiapkan surat clearance kapal, dan berkomunikasi dengan otoritas pelabuhan. Dipercaya menangani dokumen penting operasional pelabuhan.
                             </p>
