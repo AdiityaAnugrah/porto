@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 
 const API_URL = "https://api.beliakun.com/pubg/steam/player/BOKONG_BASAH";
 
-const StatBadge = ({ label, value }) => (
-  <div className="flex flex-col items-center px-4 py-2 rounded-xl bg-white/5 border border-white/10">
-    <span className="text-[10px] uppercase tracking-widest text-white/40 font-mono">{label}</span>
-    <span className="text-sm font-bold text-white mt-1">{value}</span>
-  </div>
-);
+const PUBG_STATS = [
+  { label: "Main Map", value: "Erangel", icon: "🗺️" },
+  { label: "Mode", value: "Squad", icon: "👥" },
+  { label: "Rank", value: "Platinum", icon: "🏅" },
+];
 
 export default function PubgCard() {
   const [data, setData] = useState(null);
@@ -25,16 +24,19 @@ export default function PubgCard() {
       .catch((e) => { setErr(e.message); setLoading(false); });
   }, []);
 
-  /* ── Skeleton / Error states ── */
   if (loading) {
     return (
-      <div className="glass-panel rounded-2xl p-5 animate-pulse space-y-3">
-        <div className="h-4 w-32 bg-white/10 rounded" />
-        <div className="h-3 w-48 bg-white/5 rounded" />
-        <div className="flex gap-2 mt-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="h-12 w-20 bg-white/5 rounded-xl" />
-          ))}
+      <div className="glass-panel rounded-2xl p-5 animate-pulse space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-white/10" />
+          <div className="space-y-2">
+            <div className="h-3 w-24 bg-white/10 rounded" />
+            <div className="h-2 w-16 bg-white/5 rounded" />
+          </div>
+        </div>
+        <div className="h-14 bg-white/5 rounded-xl" />
+        <div className="flex gap-2">
+          {[1, 2, 3].map((i) => <div key={i} className="h-16 flex-1 bg-white/5 rounded-xl" />)}
         </div>
       </div>
     );
@@ -52,16 +54,16 @@ export default function PubgCard() {
     );
   }
 
-  const recentIds = data.recentMatchIds?.slice(0, 5) ?? [];
+  const matchCount = data.recentMatchIds?.length ?? 0;
 
   return (
     <div className="relative group">
-      {/* Glow */}
+      {/* Ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/10 to-yellow-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      <div className="glass-panel rounded-2xl p-5 space-y-5 relative border border-white/10 group-hover:border-orange-400/30 transition-colors duration-300">
+      <div className="glass-panel rounded-2xl p-5 space-y-4 relative border border-white/10 group-hover:border-orange-400/30 transition-colors duration-300">
 
-        {/* Header */}
+        {/* ── Header ── */}
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-orange-500/20 flex-shrink-0">
             <span className="text-lg leading-none">🎮</span>
@@ -77,40 +79,47 @@ export default function PubgCard() {
           </div>
         </div>
 
-        {/* Player Info */}
-        <div className="flex items-center gap-3">
+        {/* ── Player Identity Banner ── */}
+        <div className="flex items-center gap-3 bg-gradient-to-r from-orange-500/10 to-yellow-500/5 border border-orange-500/20 rounded-xl px-4 py-3">
           <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xl flex-shrink-0">
             🪖
           </div>
-          <div>
-            <p className="text-base font-bold text-white">{data.ign}</p>
-            <p className="text-[11px] text-white/40 font-mono capitalize">{data.platform} Platform</p>
+          <div className="min-w-0">
+            <p className="text-base font-bold text-white tracking-wide">{data.ign}</p>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-[10px] font-mono text-orange-400/80 uppercase tracking-widest bg-orange-500/10 px-1.5 py-0.5 rounded">
+                {data.platform}
+              </span>
+              <span className="text-[10px] text-white/30 font-mono">
+                {matchCount} recent matches tracked
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Player ID */}
-        <div className="bg-white/5 border border-white/10 rounded-xl px-3 py-2">
-          <p className="text-[9px] uppercase tracking-widest text-white/30 font-mono mb-1">Player ID</p>
-          <p className="text-xs font-mono text-cyan-400 truncate">{data.playerId}</p>
+        {/* ── Quick Stats ── */}
+        <div className="grid grid-cols-3 gap-2">
+          {PUBG_STATS.map(({ label, value, icon }) => (
+            <div key={label} className="flex flex-col items-center gap-1 bg-white/5 border border-white/10 rounded-xl py-3 px-2 hover:bg-white/8 hover:border-orange-500/20 transition-colors duration-200">
+              <span className="text-xl leading-none">{icon}</span>
+              <span className="text-xs font-bold text-white mt-1">{value}</span>
+              <span className="text-[9px] uppercase tracking-widest text-white/30 font-mono">{label}</span>
+            </div>
+          ))}
         </div>
 
-        {/* Recent Matches */}
-        {recentIds.length > 0 && (
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-white/40 font-mono mb-2">Recent Matches</p>
-            <ul className="space-y-1.5">
-              {recentIds.map((id, idx) => (
-                <li
-                  key={id}
-                  className="flex items-center gap-2.5 bg-white/5 border border-white/5 rounded-lg px-3 py-1.5"
-                >
-                  <span className="text-[10px] text-white/20 font-mono w-3 flex-shrink-0">#{idx + 1}</span>
-                  <span className="text-[11px] font-mono text-white/50 truncate">{id}</span>
-                </li>
-              ))}
-            </ul>
+        {/* ── Player ID (truncated nicely) ── */}
+        <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2">
+          <span className="text-white/20 text-xs">🔑</span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[9px] uppercase tracking-widest text-white/30 font-mono">Player ID</p>
+            <p className="text-[11px] font-mono text-cyan-400/70 truncate">{data.playerId}</p>
           </div>
-        )}
+          <span className="text-[9px] font-mono text-white/20 flex-shrink-0 bg-white/5 px-1.5 py-0.5 rounded">
+            STEAM
+          </span>
+        </div>
+
       </div>
     </div>
   );
