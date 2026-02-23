@@ -115,48 +115,6 @@ export default function PubgCard() {
           </a>
         </div>
 
-        {/* ── Recent Matches ── */}
-        <div className="px-5 pt-4 pb-2">
-          <p className="text-[10px] uppercase tracking-widest text-white/30 font-mono mb-2.5">Recent Matches</p>
-          <ul className="space-y-2">
-            {matches.map((id, idx) => (
-              <li
-                key={id}
-                className={`flex items-center gap-3 bg-gradient-to-r ${MAP_COLORS[idx % MAP_COLORS.length]} border rounded-lg px-3 py-2.5 group/match hover:brightness-125 transition-all duration-200`}
-              >
-                {/* Index */}
-                <span className="text-[10px] text-white/20 font-mono w-4 flex-shrink-0 text-center">
-                  #{idx + 1}
-                </span>
-
-                {/* Match ID (short) */}
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-mono font-semibold text-white/80 tracking-wider">
-                    {shortId(id)}
-                  </p>
-                  <p className="text-[9px] text-white/30 font-mono mt-0.5 truncate hidden sm:block">
-                    {id}
-                  </p>
-                </div>
-
-                {/* Time ago */}
-                <span className="text-[9px] font-mono text-white/25 flex-shrink-0">
-                  {AGO_LABELS[idx]}
-                </span>
-
-                {/* External link */}
-                <a
-                  href={OPGG_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 opacity-0 group-hover/match:opacity-100 text-[9px] font-mono text-white/40 hover:text-white/80 bg-white/5 hover:bg-white/10 px-2 py-1 rounded transition-all duration-150"
-                >
-                  View ↗
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* ── CTA Footer ── */}
         <div className="px-5 pb-5 pt-3">
