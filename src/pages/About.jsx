@@ -76,12 +76,16 @@ const About = () => {
                 </h1>
                 <div className="space-y-4 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
                     <p>
-                        I am a passionate <strong className="text-white">Web Developer</strong> based in Indonesia, specializing in building modern web applications. 
-                        My journey started with a curiosity for how things work on the internet, which quickly turned into a career crafting digital solutions.
+                        I am a passionate <strong className="text-white">Full-Stack Web Developer</strong> based in Indonesia, with over 3 years of experience building digital products — from company-scale backends to pixel-perfect frontends. My journey started with a curiosity for how things work on the internet, which quickly turned into a career crafting meaningful digital solutions.
                     </p>
                     <p>
-                        I focus on <span className="text-cyan-400">simplicity</span>, <span className="text-purple-400">performance</span>, and <span className="text-pink-400">user experience</span>. 
-                        Whether it's a complex dashboard or a simple landing page, I strive to write clean, maintainable code.
+                        I specialize in the modern JavaScript ecosystem — <span className="text-cyan-400">React</span>, <span className="text-cyan-400">Next.js</span>, and <span className="text-cyan-400">Node.js</span> — alongside strong foundations in <span className="text-purple-400">PHP / CodeIgniter</span> and <span className="text-purple-400">MySQL</span> for robust server-side development. I've built everything from high-traffic REST APIs and real-time WebSocket systems to multi-platform mobile apps with Kotlin.
+                    </p>
+                    <p>
+                        I focus on <span className="text-cyan-400">simplicity</span>, <span className="text-purple-400">performance</span>, and <span className="text-pink-400">user experience</span>. I believe great software should be invisible — it just works, feels fast, and solves real problems. Whether it's a complex internal dashboard or a simple, beautiful landing page, I strive to write clean, maintainable code that stands the test of time.
+                    </p>
+                    <p>
+                        Outside of code, I'm an avid gamer 🎮, a music enthusiast 🎧, and a lifelong learner who constantly follows the latest trends in web technology and system design.
                     </p>
                 </div>
             </motion.section>
