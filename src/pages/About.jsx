@@ -1,5 +1,5 @@
 import React from "react";
-// import { motion } from "framer-motion"; // Removing unused import
+import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
@@ -7,6 +7,20 @@ import PubgCard from "../components/about/PubgCard";
 import SpotifyCard from "../components/about/SpotifyCard";
 
 const About = () => {
+  // Variabel animasi untuk efek stagger bergelombang
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", bounce: 0.4, duration: 0.8 } }
+  };
+
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO 
@@ -15,10 +29,14 @@ const About = () => {
       />
 
       <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
-        {/* Sidebar / Image */}
-        <div className="space-y-8 sticky top-24">
+        {/* Sidebar / Image (Animasi masuk dari kiri) */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="space-y-8 sticky top-24"
+        >
             <div className="relative group">
-                {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
                 
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel relative border border-white/10 group-hover:border-white/20 transition-colors">
@@ -27,7 +45,6 @@ const About = () => {
                         alt="Aditya Anugrah"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    {/* Overlay gradient for text readability if needed */}
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
             </div>
@@ -42,12 +59,17 @@ const About = () => {
                      <a href="mailto:adityaanugrah494@gmail.com" className="hover:text-white transition-colors"><FaEnvelope /></a>
                 </div>
             </div>
-        </div>
+        </motion.div>
 
-        {/* Content */}
-        <div className="space-y-10">
+        {/* Content Area dengan Staggered Animasi */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="space-y-10"
+        >
             {/* Intro Header */}
-            <section className="relative">
+            <motion.section variants={itemVariants} className="relative">
                 <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-2xl rounded-full opacity-50 pointer-events-none" />
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6 tracking-tight relative z-10">
                     Hi, I'm <span className="text-gradient">Aditya.</span>
@@ -62,13 +84,13 @@ const About = () => {
                         Whether it's a complex dashboard or a simple landing page, I strive to write clean, maintainable code.
                     </p>
                 </div>
-            </section>
+            </motion.section>
 
             {/* BENTO GRID LAYOUT */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 relative z-10 w-full mb-8">
                 
                 {/* ---------- BENTO 1: TECH STACK (12 cols) ---------- */}
-                <div className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col sm:flex-row sm:items-center gap-6">
+                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col sm:flex-row sm:items-center gap-6">
                     <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
                     <div className="flex-shrink-0">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3">
@@ -78,17 +100,17 @@ const About = () => {
                     </div>
                     
                     <div className="flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono">
-                        {["JavaScript", "TypeScript", "React", "Next.js", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Postgres", "Git"].map(tech => (
+                        {["JavaScript", "TypeScript", "React", "Next.js", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Git" , "Kotlin"].map(tech => (
                             <span key={tech} className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all cursor-default relative overflow-hidden group/badge">
                                 <span className="absolute inset-0 bg-white/5 translate-y-full group-hover/badge:translate-y-0 transition-transform" />
                                 <span className="relative z-10">{tech}</span>
                             </span>
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
                 {/* ---------- BENTO 2: MUSIC VIBES (5 cols) ---------- */}
-                <div className="md:col-span-4 lg:col-span-5 flex flex-col relative group h-full pb-2 lg:pb-0">
+                <motion.div variants={itemVariants} className="md:col-span-4 lg:col-span-5 flex flex-col relative group h-full pb-2 lg:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
@@ -99,10 +121,10 @@ const About = () => {
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01] h-full">
                         <SpotifyCard />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* ---------- BENTO 3: GAMING (7 cols) ---------- */}
-                <div className="md:col-span-8 lg:col-span-7 flex flex-col relative group h-full pb-2 lg:pb-0">
+                <motion.div variants={itemVariants} className="md:col-span-8 lg:col-span-7 flex flex-col relative group h-full pb-2 lg:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
@@ -112,10 +134,10 @@ const About = () => {
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
                         <PubgCard />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* ---------- BENTO 4: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
-                <div className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
+                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-500/5 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
@@ -189,9 +211,9 @@ const About = () => {
                             </p>
                          </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
