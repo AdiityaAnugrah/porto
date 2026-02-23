@@ -74,7 +74,7 @@ const About = () => {
                         Experience
                     </h2>
                     
-                    <div className="space-y-8 border-l border-white/10 pl-6 relative max-h-[480px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-cyan-500/50 scrollbar-track-transparent">
+                    <div className="space-y-8 border-l border-white/10 pl-6 relative">
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
