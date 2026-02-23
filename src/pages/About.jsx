@@ -74,7 +74,7 @@ const About = () => {
                         Experience
                     </h2>
                     
-                    <div className="space-y-8 border-l border-white/10 pl-6 relative">
+                    <div className="space-y-8 border-l border-white/10 pl-6 relative max-h-[480px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10 hover:scrollbar-thumb-cyan-500/50 scrollbar-track-transparent">
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
@@ -83,6 +83,19 @@ const About = () => {
                                 Built Next.js storefront with SSR/ISR for optimal SEO. Integrated complex shipping calculators and SKU matrix systems.
                             </p>
                          </div>
+
+                         <div className="relative group/item">
+                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-green-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
+                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-green-300 transition-colors">Web Developer</h3>
+                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri • Semarang • 2022 - Present</p>
+                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
+                                Developed web apps using HTML, CSS, PHP, and CodeIgniter. Improved web performance by 30% via code optimization and SEO techniques.
+                            </p>
+                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
+                                <li>Collaborated in Agile teams, ensuring timely delivery.</li>
+                                <li>Managed databases for accurate backend integration.</li>
+                            </ul>
+                         </div>
     
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
@@ -90,6 +103,41 @@ const About = () => {
                             <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group • 2024 - 2025</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                                 Designed robust database schemas and REST APIs using CodeIgniter 4. Developed workshop management dashboards and PDF reporting.
+                            </p>
+                         </div>
+
+                         <div className="relative group/item">
+                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-orange-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
+                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-orange-300 transition-colors">Android Development</h3>
+                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka • Bandung • 2022</p>
+                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
+                                Developed intermediate Android applications using Kotlin and Java. 
+                            </p>
+                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
+                                <li>Gained hands-on experience in Android lifecycle and UI design.</li>
+                                <li>Collaborated in real-world team project building apps.</li>
+                            </ul>
+                         </div>
+
+                         <div className="relative group/item">
+                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-pink-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
+                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-pink-300 transition-colors">UI/UX Design</h3>
+                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika • Jakarta • 2022</p>
+                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
+                                Learned UI/UX principles and intuitive mobile application design processes.
+                            </p>
+                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
+                                <li>Created Android mockups and prototypes using design software.</li>
+                                <li>Collaborated with teams to improve UX elements.</li>
+                            </ul>
+                         </div>
+
+                         <div className="relative group/item">
+                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-gray-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
+                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-gray-300 transition-colors">Staff Admin</h3>
+                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran • Palembang • 2021 - 2022</p>
+                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
+                                Managed administrative tasks, preparing vessel clearance, and communicating with port authorities. Entrusted with crucial documents for port operations.
                             </p>
                          </div>
                     </div>
