@@ -56,7 +56,7 @@ export default function SpotifyCard() {
 
   return (
     <a
-      href={data.songUrl}
+      href={data.songUrl || "https://open.spotify.com"}
       target="_blank"
       rel="noopener noreferrer"
       className="block relative group"
