@@ -2,37 +2,26 @@ import { useEffect, useState } from "react";
 import { FaSpotify } from "react-icons/fa";
 
 // Contoh endpoint API masa depan:
-// const API_URL = "https://api.beliakun.com/spotify/now-playing";
+const API_URL = "https://api.beliakun.com/spotify/now-playing";
 
 export default function SpotifyCard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Simulasi fetch API
   useEffect(() => {
-    const fetchDummyData = () => {
-      // Dummy data untuk testing UI
-      const dummyResponse = {
-        isPlaying: true, // Ganti ke false untuk test UI saat tidak ada musik
-        title: "Starboy",
-        artist: "The Weeknd, Daft Punk",
-        albumImageUrl: "https://i.scdn.co/image/ab67616d0000b2734718e2b124f79258be7bc452",
-        songUrl: "https://open.spotify.com/track/7MXVkk9YMqq6mX5F0m8wL7",
-      };
-
-      setTimeout(() => {
-        setData(dummyResponse);
+    fetch(API_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch Spotify data");
+        return res.json();
+      })
+      .then((json) => {
+        setData(json);
         setLoading(false);
-      }, 1000);
-    };
-
-    fetchDummyData();
-
-    // ── NANTI GANTI DENGAN KODE ASLI INI ──
-    // fetch(API_URL)
-    //   .then((res) => res.json())
-    //   .then((json) => { setData(json); setLoading(false); })
-    //   .catch(() => { setLoading(false); });
+      })
+      .catch((err) => {
+        console.error("Spotify API Error:", err);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {
