@@ -64,7 +64,7 @@ const ClientLogos = () => {
     <section className="py-16 border-y border-white/5 bg-white/[0.02] overflow-hidden whitespace-nowrap">
       <div className="max-w-7xl mx-auto px-6 mb-10">
         <p className="text-center text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-[0.3em]">
-          Selected Professional Collaborations
+          Klien yang pernah bekerja sama dengan saya
         </p>
       </div>
 
