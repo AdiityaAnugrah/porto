@@ -123,24 +123,72 @@ const About = () => {
           initial="hidden"
           animate="show"
         >
-            {/* Intro Header */}
+                {/* Intro Header */}
             <motion.section variants={itemVariants} className="relative">
                 <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-2xl rounded-full opacity-50 pointer-events-none" />
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6 tracking-tight relative z-10">
-                    Hi, I'm <span className="text-gradient">Aditya.</span>
+
+                {/* H1 — SATU, SEO-rich, sebut profesi + lokasi */}
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-2 tracking-tight relative z-10 leading-tight">
+                    Aditya Anugrah <span className="sr-only">—</span><br />
+                    <span className="text-gradient text-4xl md:text-5xl lg:text-6xl">Full-Stack Web Developer</span>
                 </h1>
-                <div className="space-y-4 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
+                <p className="text-white/40 font-mono text-sm uppercase tracking-widest mb-6 relative z-10">
+                    Semarang &amp; Palembang, Indonesia
+                </p>
+
+                {/* ===== BIO CONTENT (SEO-friendly, 300+ kata) ===== */}
+                <div className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
+
+                    {/* Paragraf 1 — Perkenalan + lokasi + profesi */}
                     <p>
-                        I am a passionate <strong className="text-white">Full-Stack Web Developer</strong> based in Indonesia, with over 3 years of experience building digital products — from company-scale backends to pixel-perfect frontends. My journey started with a curiosity for how things work on the internet, which quickly turned into a career crafting meaningful digital solutions.
+                        Saya <strong className="text-white">Aditya Anugrah</strong>, seorang{" "}
+                        <strong className="text-white">Full-Stack Web Developer</strong> berbasis di{" "}
+                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital — mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
                     </p>
+
+                    {/* H2 — Keahlian Teknis */}
+                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
+                        Keahlian &amp; Teknologi
+                    </h2>
                     <p>
-                        I specialize in the modern JavaScript ecosystem — <span className="text-cyan-400">React</span>, <span className="text-cyan-400">Next.js</span>, and <span className="text-cyan-400">Node.js</span> — alongside strong foundations in <span className="text-purple-400">PHP / CodeIgniter</span> and <span className="text-purple-400">MySQL</span> for robust server-side development. I've built everything from high-traffic REST APIs and real-time WebSocket systems to multi-platform mobile apps with Kotlin.
+                        Saya berspesialisasi dalam ekosistem JavaScript modern —{" "}
+                        <span className="text-cyan-400">React</span>,{" "}
+                        <span className="text-cyan-400">Next.js</span>, dan{" "}
+                        <span className="text-cyan-400">Node.js</span> — serta fondasi server-side yang kuat menggunakan{" "}
+                        <span className="text-purple-400">PHP / CodeIgniter</span> dan{" "}
+                        <span className="text-purple-400">MySQL</span>. Saya telah membangun berbagai jenis sistem: REST API high-traffic, WebSocket real-time, hingga aplikasi mobile Android menggunakan Kotlin.
                     </p>
+
+                    {/* H2 — Pengalaman */}
+                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
+                        Pengalaman sebagai Full-Stack Developer
+                    </h2>
                     <p>
-                        I focus on <span className="text-cyan-400">simplicity</span>, <span className="text-purple-400">performance</span>, and <span className="text-pink-400">user experience</span>. I believe great software should be invisible — it just works, feels fast, and solves real problems. Whether it's a complex internal dashboard or a simple, beautiful landing page, I strive to write clean, maintainable code that stands the test of time.
+                        Selama lebih dari 3 tahun, saya membantu UMKM, startup, dan perusahaan dalam merancang solusi digital yang cepat, aman, dan <em>scalable</em>. Saya terbiasa mengerjakan proyek secara end-to-end — dari perencanaan arsitektur, pengembangan, hingga deployment. Fokus saya adalah <span className="text-cyan-400">clean code</span>, <span className="text-purple-400">performansi</span>, dan <span className="text-pink-400">user experience</span>.
                     </p>
+
+                    {/* H2 — Lokasi & Jangkauan */}
+                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-pink-500 inline-block" />
+                        Web Developer Semarang &amp; Palembang
+                    </h2>
                     <p>
-                        Outside of code, I'm an avid gamer 🎮, a music enthusiast 🎧, and a lifelong learner who constantly follows the latest trends in web technology and system design.
+                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya melayani klien dari seluruh Indonesia secara <em>remote</em> maupun tatap muka. Setiap proyek saya tangani dengan profesionalisme penuh — dari konsultasi kebutuhan awal hingga serah terima produk akhir.
+                    </p>
+
+                    {/* Internal Links */}
+                    <p className="text-white/50 text-sm border-t border-white/10 pt-4">
+                        Lihat hasil kerja saya di{" "}
+                        <a href="/projects" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-medium">
+                            halaman Portfolio Proyek
+                        </a>
+                        {" "}atau{" "}
+                        <a href="/contact" className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors font-medium">
+                            hubungi saya langsung
+                        </a>
+                        {" "}untuk diskusi proyek. Di luar kode, saya juga seorang gamer 🎮 dan music enthusiast 🎧.
                     </p>
                 </div>
             </motion.section>
