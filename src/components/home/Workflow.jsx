@@ -6,24 +6,24 @@ import { FaRegComments, FaCode, FaRocket } from "react-icons/fa";
 const steps = [
   {
     icon: FaRegComments,
-    title: "1. Discovery & Strategy",
-    desc: "We don't just write code. We analyze your business goals, target audience, and competitors to build a solution that actually solves problems.",
+    title: "1. Diskusi & Strategi",
+    desc: "Saya tidak hanya menulis kode. Saya menganalisis tujuan bisnis Anda, audiens target, dan pesaing untuk membangun solusi yang benar-benar memecahkan masalah. Saya akan memberikan saran terbaik untuk bisnis Anda.",
     color: "text-blue-400",
     bg: "bg-blue-400/10",
     border: "border-blue-400/20"
   },
   {
     icon: FaCode,
-    title: "2. Agile Development",
-    desc: "Transparent progress. You get regular updates and demos. We build scalable systems with modern tech stacks (React, Next.js, Cloud).",
+    title: "2. Pengembangan Agile",
+    desc: "Proses transparan. Anda mendapatkan pembaruan dan demo secara teratur. Saya membangun sistem yang dapat diskalakan dengan tumpukan teknologi modern (React, Next.js, Cloud).",
     color: "text-cyan-400",
     bg: "bg-cyan-400/10",
     border: "border-cyan-400/20"
   },
   {
     icon: FaRocket,
-    title: "3. Launch & Growth",
-    desc: "Deployment is just the beginning. I ensure your site is fast, secure, and SEO-optimized so you can start getting traffic immediately.",
+    title: "3. Peluncuran & Pertumbuhan",
+    desc: "Saya memastikan situs Anda cepat, aman, dan dioptimalkan untuk SEO sehingga Anda dapat mulai mendapatkan lalu lintas segera.",
     color: "text-purple-400",
     bg: "bg-purple-400/10",
     border: "border-purple-400/20"
@@ -39,11 +39,11 @@ const Workflow = () => {
         <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">
-                    Why <span className="text-gradient">Choose Me?</span>
+                    Mengapa <span className="text-gradient">Memilih Saya?</span>
                 </h2>
                 <p className="text-white/50 max-w-2xl mx-auto">
-                    I work as your strategic technical partner, not just a freelancer. 
-                    Here is how I ensure your project succeeds.
+                    Saya bekerja sebagai mitra teknis strategis Anda, bukan hanya seorang freelancer. 
+                    Berikut adalah bagaimana saya memastikan proyek Anda berhasil.
                 </p>
             </div>
 
