@@ -108,14 +108,14 @@ const Home = () => {
       <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div>
-            <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">Featured Case Studies</h2>
+            <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">Proyek Unggulan</h2>
                 <p className="text-white/50 max-w-md">
-                    Helping businesses grow through custom web solutions. 
-                    From e-commerce to internal management systems.
+                    Membantu bisnis berkembang melalui solusi web yang kustom.
+                    Dari e-commerce hingga sistem manajemen internal.
                 </p>
             </div>
-            <Link to="/projects" aria-label="View All Projects" className="text-sm font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors">
-                View All Projects &rarr;
+            <Link to="/projects" aria-label="Lihat Semua Proyek" className="text-sm font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors">
+                Lihat Semua Proyek &rarr;
             </Link>
         </div>
 
@@ -130,13 +130,13 @@ const Home = () => {
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div>
-                <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">Latest Insights</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-display mb-2">Artikel Terbaru</h2>
                 <p className="text-white/50 max-w-md">
-                    Thoughts on technology, business logic, and web performance.
+                    Pemikiran seputar teknologi, logika bisnis, dan performa web.
                 </p>
             </div>
-            <Link to="/blog" aria-label="View All Articles" className="text-sm font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors">
-                Read All Articles &rarr;
+            <Link to="/blog" aria-label="Lihat Semua Artikel" className="text-sm font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors">
+                Baca Semua Artikel &rarr;
             </Link>
         </div>
 
@@ -175,7 +175,7 @@ const Home = () => {
       {/* Tech Stack - Infinite CSS Marquee (Ultra Fast, No JS Overhead) */}
       <section className="py-20 border-y border-white/5 overflow-hidden">
         <div className="max-w-5xl mx-auto px-6 text-center mb-10">
-            <h2 className="text-2xl font-display font-bold text-white/40">Modern Tech for Scalable Apps</h2>
+            <h2 className="text-2xl font-display font-bold text-white/40">Teknologi Modern untuk Aplikasi Scalable</h2>
         </div>
         
         {/* Marquee Wrapper */}
@@ -216,18 +216,18 @@ const Home = () => {
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
             <span className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-sm font-mono text-cyan-400 mb-6 inline-block uppercase tracking-widest backdrop-blur-md">
-                Available for meaningful work
+                Tersedia untuk proyek baru
             </span>
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-display tracking-tight leading-tight mb-8">
-                Let's Build <br/> Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Amazing.</span>
+                Mari Bangun <br/>Sesuatu yang <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Luar Biasa.</span>
             </h2>
             <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12">
-                Have an idea you'd like to bring to life? Let's discuss your project and see how we can help your business grow.
+                Punya ide yang ingin diwujudkan? Mari diskusikan proyek Anda dan lihat bagaimana kami bisa membantu bisnis Anda berkembang.
             </p>
             
             <div className="flex justify-center">
                  <Link to="/contact" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-cyan-50 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:scale-105 active:scale-95 duration-300 overflow-hidden">
-                    <span className="relative z-10">Start a Project</span>
+                    <span className="relative z-10">Mulai Proyek</span>
                     <FaArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
                     {/* Hover Glow Background inside Button */}
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-100 to-white opacity-0 group-hover:opacity-100 transition-opacity" />

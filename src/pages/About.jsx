@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
@@ -25,11 +25,11 @@ const About = () => {
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO 
-        title="Aditya Anugrah – Web Developer Semarang & Palembang"
+        title="Aditya Anugrah â€“ Web Developer Semarang & Palembang"
         description="Aditya Anugrah adalah Full-Stack Web Developer & Software Engineer dari Semarang dan Palembang dengan 3+ tahun pengalaman. Ahli React, Next.js, Node.js, PHP, dan MySQL. Tersedia untuk jasa website, REST API, dan sistem bisnis di seluruh Indonesia."
         path="/about"
         type="profile"
-        imageAlt="Aditya Anugrah – Web Developer Semarang & Palembang"
+        imageAlt="Aditya Anugrah â€“ Web Developer Semarang & Palembang"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
@@ -127,9 +127,9 @@ const About = () => {
             <motion.section variants={itemVariants} className="relative">
                 <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-2xl rounded-full opacity-50 pointer-events-none" />
 
-                {/* H1 — SATU, SEO-rich, sebut profesi + lokasi */}
+                {/* H1 â€” SATU, SEO-rich, sebut profesi + lokasi */}
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-2 tracking-tight relative z-10 leading-tight">
-                    Aditya Anugrah <span className="sr-only">—</span><br />
+                    Aditya Anugrah <span className="sr-only">â€”</span><br />
                     <span className="text-gradient text-4xl md:text-5xl lg:text-6xl">Full-Stack Web Developer</span>
                 </h1>
                 <p className="text-white/40 font-mono text-sm uppercase tracking-widest mb-6 relative z-10">
@@ -139,43 +139,43 @@ const About = () => {
                 {/* ===== BIO CONTENT (SEO-friendly, 300+ kata) ===== */}
                 <div className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
 
-                    {/* Paragraf 1 — Perkenalan + lokasi + profesi */}
+                    {/* Paragraf 1 â€” Perkenalan + lokasi + profesi */}
                     <p>
                         Saya <strong className="text-white">Aditya Anugrah</strong>, seorang{" "}
                         <strong className="text-white">Full-Stack Web Developer</strong> berbasis di{" "}
-                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital — mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
+                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital â€” mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
                     </p>
 
-                    {/* H2 — Keahlian Teknis */}
+                    {/* H2 â€” Keahlian Teknis */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
                         Keahlian &amp; Teknologi
                     </h2>
                     <p>
-                        Saya berspesialisasi dalam ekosistem JavaScript modern —{" "}
+                        Saya berspesialisasi dalam ekosistem JavaScript modern â€”{" "}
                         <span className="text-cyan-400">React</span>,{" "}
                         <span className="text-cyan-400">Next.js</span>, dan{" "}
-                        <span className="text-cyan-400">Node.js</span> — serta fondasi server-side yang kuat menggunakan{" "}
+                        <span className="text-cyan-400">Node.js</span> â€” serta fondasi server-side yang kuat menggunakan{" "}
                         <span className="text-purple-400">PHP / CodeIgniter</span> dan{" "}
                         <span className="text-purple-400">MySQL</span>. Saya telah membangun berbagai jenis sistem: REST API high-traffic, WebSocket real-time, hingga aplikasi mobile Android menggunakan Kotlin.
                     </p>
 
-                    {/* H2 — Pengalaman */}
+                    {/* H2 â€” Pengalaman */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
                         Pengalaman sebagai Full-Stack Developer
                     </h2>
                     <p>
-                        Selama lebih dari 3 tahun, saya membantu UMKM, startup, dan perusahaan dalam merancang solusi digital yang cepat, aman, dan <em>scalable</em>. Saya terbiasa mengerjakan proyek secara end-to-end — dari perencanaan arsitektur, pengembangan, hingga deployment. Fokus saya adalah <span className="text-cyan-400">clean code</span>, <span className="text-purple-400">performansi</span>, dan <span className="text-pink-400">user experience</span>.
+                        Selama lebih dari 3 tahun, saya membantu UMKM, startup, dan perusahaan dalam merancang solusi digital yang cepat, aman, dan <em>scalable</em>. Saya terbiasa mengerjakan proyek secara end-to-end â€” dari perencanaan arsitektur, pengembangan, hingga deployment. Fokus saya adalah <span className="text-cyan-400">clean code</span>, <span className="text-purple-400">performansi</span>, dan <span className="text-pink-400">user experience</span>.
                     </p>
 
-                    {/* H2 — Lokasi & Jangkauan */}
+                    {/* H2 â€” Lokasi & Jangkauan */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-pink-500 inline-block" />
                         Web Developer Semarang &amp; Palembang
                     </h2>
                     <p>
-                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya melayani klien dari seluruh Indonesia secara <em>remote</em> maupun tatap muka. Setiap proyek saya tangani dengan profesionalisme penuh — dari konsultasi kebutuhan awal hingga serah terima produk akhir.
+                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya melayani klien dari seluruh Indonesia secara <em>remote</em> maupun tatap muka. Setiap proyek saya tangani dengan profesionalisme penuh â€” dari konsultasi kebutuhan awal hingga serah terima produk akhir.
                     </p>
 
                     {/* Internal Links */}
@@ -188,7 +188,7 @@ const About = () => {
                         <a href="/contact" className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors font-medium">
                             hubungi saya langsung
                         </a>
-                        {" "}untuk diskusi proyek. Di luar kode, saya juga seorang gamer 🎮 dan music enthusiast 🎧.
+                        {" "}untuk diskusi proyek. Di luar kode, saya juga seorang gamer ðŸŽ® dan music enthusiast ðŸŽ§.
                     </p>
                 </div>
             </motion.section>
@@ -230,7 +230,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎧</span> Music Flow
+                            <span className="text-base sm:text-xl">ðŸŽ§</span> Music Flow
                         </h2>
                     </div>
                     {/* Mengisi sisa flex */}
@@ -244,7 +244,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎮</span> PUBG STEAM
+                            <span className="text-base sm:text-xl">ðŸŽ®</span> PUBG STEAM
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
@@ -257,7 +257,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-tl from-[#66c0f4]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">👾</span> Steam Profile
+                            <span className="text-base sm:text-xl">ðŸ‘¾</span> Steam Profile
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
@@ -270,73 +270,73 @@ const About = () => {
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-500/5 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                        Professional Journey
+                        Perjalanan Karier
                     </h2>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 border-l border-white/10 pl-6 relative">
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
-                            <p className="text-cyan-500/70 text-[10px] sm:text-xs font-mono mb-2">Ilena Furniture • 2023 - Present</p>
+                            <p className="text-cyan-500/70 text-[10px] sm:text-xs font-mono mb-2">Ilena Furniture â€¢ 2023 - Sekarang</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Built Next.js storefront with SSR/ISR for optimal SEO. Integrated complex shipping calculators and SKU matrix systems.
+                                Membangun storefront Next.js dengan SSR/ISR untuk SEO optimal. Mengintegrasikan kalkulator ongkos kirim dan sistem matriks SKU.
                             </p>
                          </div>
 
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-green-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-green-300 transition-colors">Web Developer</h3>
-                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri • Semarang • 2022 - Present</p>
+                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri â€¢ Semarang â€¢ 2022 - Sekarang</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Developed web apps using HTML, CSS, PHP, and CodeIgniter. Improved web performance by 30% via code optimization and SEO techniques.
+                                Mengembangkan aplikasi web menggunakan HTML, CSS, PHP, dan CodeIgniter. Meningkatkan performa web hingga 30% melalui optimasi kode dan teknik SEO.
                             </p>
                             <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Collaborated in Agile teams, ensuring timely delivery.</li>
-                                <li>Managed databases for accurate backend integration.</li>
+                                <li>Berkolaborasi dalam tim Agile untuk memastikan pengiriman tepat waktu.</li>
+                                <li>Mengelola database untuk integrasi backend yang akurat.</li>
                             </ul>
                          </div>
     
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-purple-300 transition-colors">Backend + UI Developer</h3>
-                            <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group • 2024 - 2025</p>
+                            <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group â€¢ 2024 - 2025</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Designed robust database schemas and REST APIs using CodeIgniter 4. Developed workshop management dashboards and PDF reporting.
+                                Merancang skema database dan REST API menggunakan CodeIgniter 4. Mengembangkan dashboard manajemen bengkel dan laporan PDF otomatis.
                             </p>
                          </div>
 
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-orange-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-orange-300 transition-colors">Android Development</h3>
-                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka • Bandung • 2022</p>
+                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka â€¢ Bandung â€¢ 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Developed intermediate Android applications using Kotlin and Java. 
+                                Mengembangkan aplikasi Android tingkat menengah menggunakan Kotlin dan Java. 
                             </p>
                             <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Gained hands-on experience in Android lifecycle and UI design.</li>
-                                <li>Collaborated in real-world team project building apps.</li>
+                                <li>Mendapat pengalaman langsung dalam Android lifecycle dan desain UI.</li>
+                                <li>Berkolaborasi dalam proyek tim nyata untuk membangun aplikasi.</li>
                             </ul>
                          </div>
 
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-pink-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-pink-300 transition-colors">UI/UX Design</h3>
-                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika • Jakarta • 2022</p>
+                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika â€¢ Jakarta â€¢ 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Learned UI/UX principles and intuitive mobile application design processes.
+                                Mempelajari prinsip UI/UX dan proses desain aplikasi mobile yang intuitif.
                             </p>
                             <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Created Android mockups and prototypes using design software.</li>
-                                <li>Collaborated with teams to improve UX elements.</li>
+                                <li>Membuat mockup dan prototipe Android menggunakan software desain.</li>
+                                <li>Berkolaborasi dengan tim untuk meningkatkan elemen UX.</li>
                             </ul>
                          </div>
 
                          <div className="relative group/item">
                             <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-gray-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
                             <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-gray-300 transition-colors">Staff Admin</h3>
-                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran • Palembang • 2021 - 2022</p>
+                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran â€¢ Palembang â€¢ 2021 - 2022</p>
                             <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Managed administrative tasks, preparing vessel clearance, and communicating with port authorities. Entrusted with crucial documents for port operations.
+                                Mengelola tugas administrasi, menyiapkan surat clearance kapal, dan berkomunikasi dengan otoritas pelabuhan. Dipercaya menangani dokumen penting operasional pelabuhan.
                             </p>
                          </div>
                     </div>
@@ -348,3 +348,4 @@ const About = () => {
 };
 
 export default About;
+
