@@ -143,7 +143,7 @@ const About = () => {
                     <p>
                         Saya <strong className="text-white">Aditya Anugrah</strong>, seorang{" "}
                         <strong className="text-white">Full-Stack Web Developer</strong> berbasis di{" "}
-                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital â€” mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
+                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
                     </p>
 
                     {/* H2 â€” Keahlian Teknis */}
@@ -188,7 +188,7 @@ const About = () => {
                         <a href="/contact" className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors font-medium">
                             hubungi saya langsung
                         </a>
-                        {" "}untuk diskusi proyek. Di luar kode, saya juga seorang gamer ðŸŽ® dan music enthusiast ðŸŽ§.
+                        {" "}untuk diskusi proyek. Di luar perkodean saya juga suka bermain game dan mendengarkan musik.
                     </p>
                 </div>
             </motion.section>

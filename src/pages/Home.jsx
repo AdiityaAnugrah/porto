@@ -79,10 +79,12 @@ const Home = () => {
           "Tuesday",
           "Wednesday",
           "Thursday",
-          "Friday"
+          "Friday",
+          "Saturday",
+          "Sunday"
         ],
-        "opens": "09:00",
-        "closes": "17:00"
+        "opens": "06:00",
+        "closes": "23:00"
       },
       "sameAs": [
         "https://www.linkedin.com/in/aditya-anugrah/"
