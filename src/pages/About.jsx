@@ -62,12 +62,11 @@ const About = () => {
             </div>
         </motion.div>
 
-        {/* Content Area dengan Staggered Animasi */}
+        {/* Content Area - hanya Intro di sini */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="space-y-10"
         >
             {/* Intro Header */}
             <motion.section variants={itemVariants} className="relative">
@@ -86,7 +85,16 @@ const About = () => {
                     </p>
                 </div>
             </motion.section>
+        </motion.div>
+      </div>
 
+      {/* ===== FULL-WIDTH BENTO SECTION (below hero) ===== */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="mt-12"
+      >
             {/* BENTO GRID LAYOUT */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 relative z-10 w-full mb-8">
                 
@@ -227,8 +235,7 @@ const About = () => {
                     </div>
                 </motion.div>
             </div>
-        </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };
