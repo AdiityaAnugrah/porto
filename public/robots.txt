@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /cv
-Disallow: /api/
 
-Sitemap: https://adityaanugra.me/sitemap.xml
+Sitemap: https://adityaanugrah.me/sitemap.xml

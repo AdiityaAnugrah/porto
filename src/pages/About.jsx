@@ -25,8 +25,33 @@ const About = () => {
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO 
-        title="About | Aditya Anugrah" 
-        description="More about Aditya Anugrah, a Web Developer based in Indonesia."
+        title="Aditya Anugrah – Full-Stack Web Developer Indonesia"
+        description="Aditya Anugrah adalah Full-Stack Web Developer & Software Engineer dari Indonesia dengan 3+ tahun pengalaman. Ahli React, Next.js, Node.js, PHP, dan MySQL. Tersedia untuk proyek website, aplikasi web, dan konsultasi digital."
+        path="/about"
+        type="profile"
+        imageAlt="Aditya Anugrah – Full-Stack Web Developer"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Aditya Anugrah",
+          "alternateName": ["Aditya Anugrah Dev", "adiityaanugrah"],
+          "url": "https://adityaanugrah.me/about",
+          "image": "https://adityaanugrah.me/assets/me-sunset.webp",
+          "jobTitle": "Full-Stack Web Developer",
+          "description": "Full-Stack Web Developer dari Indonesia dengan keahlian di React, Next.js, Node.js, PHP, CodeIgniter, dan MySQL. 3+ tahun membangun website, REST API, dan aplikasi bisnis.",
+          "email": "adityaanugrah494@gmail.com",
+          "nationality": "Indonesian",
+          "sameAs": [
+            "https://github.com/adiityaanugrah",
+            "https://www.linkedin.com/in/aditya-anugrah/",
+            "https://steamcommunity.com/id/claraikaa/"
+          ],
+          "knowsAbout": ["React", "Next.js", "Node.js", "PHP", "CodeIgniter", "MySQL", "JavaScript", "TypeScript", "Web Development", "REST API", "Kotlin", "Android Development"],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "PT Catur Bahkti Mandiri"
+          }
+        }}
       />
 
       <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
