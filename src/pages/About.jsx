@@ -3,6 +3,7 @@ import React from "react";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import PubgCard from "../components/about/PubgCard";
 
 const About = () => {
   return (
@@ -97,6 +98,16 @@ const About = () => {
                         </span>
                     ))}
                 </div>
+            </section>
+
+            <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-white/30"></span> Gaming
+                </h2>
+                <p className="text-white/50 text-sm mb-5 leading-relaxed">
+                    When I'm not coding, you'll find me dropping into Erangel. Here's my live PUBG profile.
+                </p>
+                <PubgCard />
             </section>
         </div>
       </div>
