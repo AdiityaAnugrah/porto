@@ -25,31 +25,61 @@ const About = () => {
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO 
-        title="Aditya Anugrah – Full-Stack Web Developer Indonesia"
-        description="Aditya Anugrah adalah Full-Stack Web Developer & Software Engineer dari Indonesia dengan 3+ tahun pengalaman. Ahli React, Next.js, Node.js, PHP, dan MySQL. Tersedia untuk proyek website, aplikasi web, dan konsultasi digital."
+        title="Aditya Anugrah – Web Developer Semarang & Palembang"
+        description="Aditya Anugrah adalah Full-Stack Web Developer & Software Engineer dari Semarang dan Palembang dengan 3+ tahun pengalaman. Ahli React, Next.js, Node.js, PHP, dan MySQL. Tersedia untuk jasa website, REST API, dan sistem bisnis di seluruh Indonesia."
         path="/about"
         type="profile"
-        imageAlt="Aditya Anugrah – Full-Stack Web Developer"
+        imageAlt="Aditya Anugrah – Web Developer Semarang & Palembang"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
           "name": "Aditya Anugrah",
-          "alternateName": ["Aditya Anugrah Dev", "adiityaanugrah"],
+          "alternateName": [
+            "Aditya Anugrah Dev",
+            "Aditya Anugrah web developer",
+            "full stack engineer Aditya Anugrah",
+            "adiityaanugrah"
+          ],
           "url": "https://adityaanugrah.me/about",
           "image": "https://adityaanugrah.me/assets/me-sunset.webp",
           "jobTitle": "Full-Stack Web Developer",
-          "description": "Full-Stack Web Developer dari Indonesia dengan keahlian di React, Next.js, Node.js, PHP, CodeIgniter, dan MySQL. 3+ tahun membangun website, REST API, dan aplikasi bisnis.",
+          "description": "Full-Stack Web Developer & Software Engineer berbasis di Semarang dan Palembang, Indonesia. Spesialisasi React, Next.js, Node.js, PHP, CodeIgniter, MySQL. Tersedia untuk proyek web developer Semarang, web developer Palembang, dan seluruh Indonesia.",
           "email": "adityaanugrah494@gmail.com",
           "nationality": "Indonesian",
+          "homeLocation": [
+            {
+              "@type": "City",
+              "name": "Semarang",
+              "addressCountry": "ID"
+            },
+            {
+              "@type": "City",
+              "name": "Palembang",
+              "addressCountry": "ID"
+            }
+          ],
           "sameAs": [
             "https://github.com/adiityaanugrah",
             "https://www.linkedin.com/in/aditya-anugrah/",
             "https://steamcommunity.com/id/claraikaa/"
           ],
-          "knowsAbout": ["React", "Next.js", "Node.js", "PHP", "CodeIgniter", "MySQL", "JavaScript", "TypeScript", "Web Development", "REST API", "Kotlin", "Android Development"],
+          "knowsAbout": [
+            "React", "Next.js", "Node.js", "PHP", "CodeIgniter", "MySQL",
+            "JavaScript", "TypeScript", "Web Development", "REST API",
+            "Kotlin", "Android Development",
+            "Jasa Website Semarang", "Jasa Website Palembang",
+            "Web Developer Semarang", "Web Developer Palembang",
+            "Programmer Semarang", "Programmer Palembang"
+          ],
           "worksFor": {
             "@type": "Organization",
-            "name": "PT Catur Bahkti Mandiri"
+            "name": "PT Catur Bahkti Mandiri",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Semarang",
+              "addressRegion": "Jawa Tengah",
+              "addressCountry": "ID"
+            }
           }
         }}
       />
