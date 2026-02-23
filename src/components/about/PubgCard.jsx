@@ -124,7 +124,7 @@ export default function PubgCard() {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-orange-500/15 to-yellow-500/10 border border-orange-500/20 hover:border-orange-500/40 hover:from-orange-500/25 hover:to-yellow-500/15 text-orange-300 hover:text-orange-200 text-[11px] font-mono uppercase tracking-widest transition-all duration-300 group/cta"
           >
-            <span>Lihat Statistik Lengkap di PUBG OP.GG</span>
+            <span>Lihat PUBG OP.GG</span>
             <span className="translate-x-0 group-hover/cta:translate-x-1 transition-transform duration-200">→</span>
           </a>
         </div>
