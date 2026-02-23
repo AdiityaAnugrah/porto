@@ -110,8 +110,8 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 2: MUSIC VIBES (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
+                {/* ---------- BENTO 2: MUSIC VIBES (12 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
@@ -124,12 +124,12 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 3: GAMING PUBG (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
+                {/* ---------- BENTO 3: GAMING PUBG (6 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-6 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎮</span> PUBG STEAM
+                            <span className="text-base sm:text-xl">🎮</span> PUBG Mobile
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
@@ -137,8 +137,8 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 4: GAMING STEAM (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
+                {/* ---------- BENTO 4: GAMING STEAM (6 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-6 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-[#66c0f4]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
