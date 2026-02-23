@@ -129,7 +129,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl">🎮</span> PUBG Mobile
+                            <span className="text-base sm:text-xl">🎮</span> PUBG STEAM
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
