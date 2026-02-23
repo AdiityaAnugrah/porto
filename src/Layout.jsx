@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
@@ -9,6 +9,10 @@ import PageLoader from "./components/common/PageLoader";
 
 const Layout = () => {
   const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col relative text-white bg-black font-sans selection:bg-cyan-500/30 overflow-x-hidden pb-24 md:pb-0">
