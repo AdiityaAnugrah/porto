@@ -101,25 +101,29 @@ const About = () => {
                 </div>
             </section>
 
-            <section>
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <span className="w-8 h-[1px] bg-white/30"></span> Gaming
-                </h2>
-                <p className="text-white/50 text-sm mb-5 leading-relaxed">
-                    When I'm not coding, you'll find me dropping into Erangel. Here's my live PUBG profile.
-                </p>
-                <PubgCard />
-            </section>
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                {/* Gaming Column */}
+                <section>
+                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <span className="w-8 h-[1px] bg-white/30"></span> Gaming
+                    </h2>
+                    <p className="text-white/50 text-sm mb-5 leading-relaxed">
+                        When I'm not coding, you'll find me dropping into Erangel. Here's my live PUBG profile.
+                    </p>
+                    <PubgCard />
+                </section>
 
-            <section>
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                    <span className="w-8 h-[1px] bg-white/30"></span> Now Playing
-                </h2>
-                <p className="text-white/50 text-sm mb-5 leading-relaxed">
-                    Music keeps me in the zone. Here's what I'm listening to right now via Spotify.
-                </p>
-                <SpotifyCard />
-            </section>
+                {/* Music Column */}
+                <section>
+                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <span className="w-8 h-[1px] bg-white/30"></span> Music
+                    </h2>
+                    <p className="text-white/50 text-sm mb-5 leading-relaxed">
+                        Music keeps me in the zone. Here's what I'm listening to right now via Spotify.
+                    </p>
+                    <SpotifyCard />
+                </section>
+            </div>
         </div>
       </div>
     </div>
