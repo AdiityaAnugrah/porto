@@ -1,5 +1,4 @@
 ﻿import React from "react";
-import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";

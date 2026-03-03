@@ -24,7 +24,7 @@ const Footer = () => {
                 <a href="https://www.linkedin.com/in/aditya-anugrah/" aria-label="Connect on LinkedIn" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-xl">
                     <FaLinkedin />
                 </a>
-                <a href="https://www.instagram.com/adityaanugrah" aria-label="Follow on Instagram" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-xl">
+                <a href="https://www.instagram.com/adiityaanugrah/" aria-label="Follow on Instagram" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-xl">
                     <FaInstagram />
                 </a>
             </div>

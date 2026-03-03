@@ -42,7 +42,7 @@ const Home = () => {
       "sameAs": [
         "https://github.com/adiityaanugrah",
         "https://www.linkedin.com/in/aditya-anugrah/",
-        "https://www.instagram.com/adityaanugrah"
+        "https://www.instagram.com/adiityaanugrah/"
       ],
       "image": "https://adityaanugrah.me/assets/me-sunset.jpg",
       "worksFor": {
