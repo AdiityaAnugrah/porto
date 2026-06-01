@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { motion } from "framer-motion";
 import { FaRegComments, FaCode, FaRocket } from "react-icons/fa";
@@ -33,9 +32,6 @@ const steps = [
 const Workflow = () => {
   return (
     <section className="py-24 px-6 relative overflow-hidden">
-        {/* Background Gradients */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-cyan-500/5 rounded-full blur-[100px] pointer-events-none" />
-
         <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">
@@ -55,7 +51,7 @@ const Workflow = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.2, duration: 0.6 }}
-                        className={`p-8 rounded-3xl border ${step.border} bg-white/5 backdrop-blur-sm hover:translate-y-[-5px] transition-transform duration-300 relative group`}
+                    className={`p-8 rounded-3xl border ${step.border} bg-white/[0.045] backdrop-blur-sm hover:bg-white/[0.075] hover:translate-y-[-5px] transition-all duration-300 relative group`}
                     >
                         <div className={`w-14 h-14 rounded-2xl ${step.bg} ${step.color} flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform`}>
                             <step.icon />

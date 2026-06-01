@@ -6,11 +6,38 @@
 */
 @theme {
   /* Colors */
-  --color-dark-bg: #030303;
-  --color-dark-surface: #0a0a0a;
-  --color-neon-primary: #00f0ff;
-  --color-neon-secondary: #7000ff;
-  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-dark-bg: #090806;
+  --color-dark-surface: #12100c;
+  --color-neon-primary: #c9a968;
+  --color-neon-secondary: #8c7a58;
+  --color-glass-border: rgba(233, 224, 205, 0.1);
+
+  --color-cyan-50: #f6f1e6;
+  --color-cyan-100: #eadfc9;
+  --color-cyan-200: #d9c493;
+  --color-cyan-300: #c9a968;
+  --color-cyan-400: #b98f45;
+  --color-cyan-500: #9b7435;
+  --color-cyan-600: #7d5e2f;
+  --color-cyan-900: #302716;
+  --color-blue-400: #aeb6a1;
+  --color-blue-500: #8e9a7a;
+  --color-blue-600: #697358;
+  --color-purple-300: #d1c0a4;
+  --color-purple-400: #b49b73;
+  --color-purple-500: #8f7350;
+  --color-purple-600: #6f573c;
+  --color-pink-300: #d8b29f;
+  --color-pink-400: #c08c73;
+  --color-pink-500: #93614e;
+  --color-orange-300: #d2a06e;
+  --color-orange-400: #b87943;
+  --color-orange-500: #875734;
+  --color-yellow-500: #c9a968;
+  --color-green-300: #b8c0a3;
+  --color-green-400: #94a17e;
+  --color-green-500: #6f7d5c;
+  --color-emerald-500: #6f7d5c;
 
   /* Fonts */
   --font-display: "Space Grotesk", sans-serif;
@@ -35,15 +62,17 @@
 :root {
   color-scheme: dark;
   --bg-color: var(--color-dark-bg);
-  --text-color: #ededed;
+  --text-color: #eee8dc;
 }
 
 body {
   margin: 0;
-  background-color: var(--bg-color);
+  background:
+    radial-gradient(circle at 50% -20%, rgba(201, 169, 104, 0.08), transparent 34rem),
+    linear-gradient(180deg, #090806 0%, #0d0b08 48%, #090806 100%);
   color: var(--text-color);
   font-family: var(--font-body);
-  @apply text-xs md:text-base selection:bg-cyan-500/30 selection:text-cyan-200 antialiased overflow-x-hidden;
+  @apply text-xs md:text-base selection:bg-cyan-500/30 selection:text-cyan-100 antialiased overflow-x-hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -73,11 +102,11 @@ html.lenis, html.lenis body {
 
 /* Utilities */
 .glass-panel {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-white/[0.045] backdrop-blur-xl border border-white/10 shadow-2xl;
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-purple-300;
 }
 
 /* Hide Scrollbar globally */

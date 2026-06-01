@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";

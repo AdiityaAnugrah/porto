@@ -12,12 +12,6 @@ const MAP_COLORS = [
   "from-rose-500/20 to-pink-500/10 border-rose-500/20",
 ];
 
-/* Shorten UUID to a readable Match ID */
-const shortId = (id) => id.split("-")[0].toUpperCase();
-
-/* Simulate "X hours ago" labels */
-const AGO_LABELS = ["1h ago", "3h ago", "5h ago", "Yesterday", "2d ago", "3d ago", "4d ago", "5d ago", "6d ago", "7d ago"];
-
 export default function PubgCard() {
   const [data, setData] = useState(null);
   const [err, setErr] = useState(null);
@@ -66,8 +60,6 @@ export default function PubgCard() {
       </div>
     );
   }
-
-  const matches = (data.recentMatchIds ?? []).slice(0, 5);
 
   return (
     <div className="relative group">

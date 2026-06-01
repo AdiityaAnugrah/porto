@@ -19,7 +19,6 @@ const toAbsUrl = (pathOrUrl = "") => {
   if (!pathOrUrl) return SITE_URL;
   try {
     // Sudah absolute
-    // eslint-disable-next-line no-new
     new URL(pathOrUrl);
     return pathOrUrl;
   } catch {

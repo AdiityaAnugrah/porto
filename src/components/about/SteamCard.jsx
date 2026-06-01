@@ -84,20 +84,20 @@ const SteamCard = () => {
   return (
     <motion.div
       whileHover={{ scale: 0.98 }}
-      className="group relative bg-[#171a21]/80 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-[#2a475e]/50 overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-500 hover:border-[#66c0f4]/50 h-full"
+      className="group relative bg-[#14120e]/85 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-[#3a3327]/70 overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-500 hover:border-cyan-300/35 h-full"
     >
       {/* Background Steam Pattern/Glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#66c0f4]/10 via-[#2a475e]/5 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none transition-all duration-700 group-hover:from-[#66c0f4]/20" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent pointer-events-none" />
       
       {/* Header section: Icon & Link */}
       <div className="flex justify-between items-start mb-6 relative z-10 w-full">
         <div className="flex items-center space-x-3">
-            <div className="bg-[#1b2838] p-3 rounded-2xl shadow-inner border border-white/5">
-                 <FaSteamSymbol className="text-3xl text-[#66c0f4] drop-shadow-[0_0_8px_rgba(102,192,244,0.5)]" />
+            <div className="bg-[#1d1912] p-3 rounded-2xl shadow-inner border border-white/5">
+                 <FaSteamSymbol className="text-3xl text-cyan-300" />
             </div>
             <div>
                  <h2 className="text-white/80 font-display font-semibold tracking-wide text-sm uppercase">Profil Gaming</h2>
-                 <p className="text-[#66c0f4] text-xs font-mono font-medium tracking-wider">STEAM COMMUNITY</p>
+                 <p className="text-cyan-300 text-xs font-mono font-medium tracking-wider">STEAM COMMUNITY</p>
             </div>
         </div>
         
@@ -115,7 +115,7 @@ const SteamCard = () => {
         {/* Avatar with Status Ring */}
         <div className="relative shrink-0">
           <a href={steamData.profileUrl !== '#' ? steamData.profileUrl : undefined} target="_blank" rel="noreferrer" className="block">
-              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 ${getStatusBorder(steamData.state)} p-[2px] bg-[#1b2838] transition-colors duration-500`}>
+              <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 ${getStatusBorder(steamData.state)} p-[2px] bg-[#1d1912] transition-colors duration-500`}>
                  <img 
                    src={steamData.avatarUrl} 
                    alt={steamData.username} 
@@ -124,14 +124,14 @@ const SteamCard = () => {
               </div>
           </a>
           {/* Status Dot */}
-          <span className={`absolute -bottom-1 -right-1 w-5 h-5 border-2 border-[#171a21] rounded-full ${getStatusColor(steamData.state)} shadow-lg transition-colors duration-500`} />
+          <span className={`absolute -bottom-1 -right-1 w-5 h-5 border-2 border-[#14120e] rounded-full ${getStatusColor(steamData.state)} shadow-lg transition-colors duration-500`} />
         </div>
 
         {/* User Details */}
         <div className="flex-grow min-w-0">
           <div className="flex flex-col">
               <a href={steamData.profileUrl !== '#' ? steamData.profileUrl : undefined} target="_blank" rel="noreferrer" className="block truncate">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white truncate group-hover:text-[#66c0f4] transition-colors duration-300">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white truncate group-hover:text-cyan-300 transition-colors duration-300">
                     {steamData.username}
                   </h3>
               </a>

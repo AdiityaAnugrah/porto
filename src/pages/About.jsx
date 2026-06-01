@@ -93,7 +93,7 @@ const About = () => {
           className="space-y-8 sticky top-24"
         >
             <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/12 to-purple-500/12 rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
                 
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel relative border border-white/10 group-hover:border-white/20 transition-colors">
                     <LazyImage 
@@ -125,7 +125,7 @@ const About = () => {
         >
                 {/* Intro Header */}
             <motion.section variants={itemVariants} className="relative">
-                <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 blur-2xl rounded-full opacity-50 pointer-events-none" />
+                <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/8 to-transparent blur-2xl opacity-40 pointer-events-none" />
 
                 {/* H1 â€” SATU, SEO-rich, sebut profesi + lokasi */}
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-2 tracking-tight relative z-10 leading-tight">
@@ -207,7 +207,7 @@ const About = () => {
                 
                 {/* ---------- BENTO 1: TECH STACK (12 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col sm:flex-row sm:items-center gap-6">
-                    <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-300/30 to-transparent pointer-events-none" />
                     <div className="flex-shrink-0">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3">
                             <span className="w-2 h-2 rounded-full bg-purple-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
@@ -227,7 +227,7 @@ const About = () => {
 
                 {/* ---------- BENTO 2: MUSIC VIBES (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
                             <span className="text-base sm:text-xl"></span> Music Flow
@@ -254,7 +254,7 @@ const About = () => {
 
                 {/* ---------- BENTO 4: GAMING STEAM (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-tl from-[#66c0f4]/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-tl from-cyan-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
                             <span className="text-base sm:text-xl"></span> Steam Profile
@@ -267,7 +267,7 @@ const About = () => {
 
                 {/* ---------- BENTO 5: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-cyan-500/5 blur-3xl rounded-full transition-transform duration-700 group-hover:scale-150 pointer-events-none" />
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
                         Perjalanan Karier

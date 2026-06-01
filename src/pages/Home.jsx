@@ -212,27 +212,25 @@ const Home = () => {
 
       {/* Giant CTA - Bottom Conversion Engine */}
       <section className="py-32 px-6 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-cyan-900/10 pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[400px] bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(238,232,220,0.04)_1px,transparent_1px)] bg-[size:100%_48px] pointer-events-none" />
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
-            <span className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-sm font-mono text-cyan-400 mb-6 inline-block uppercase tracking-widest backdrop-blur-md">
+            <span className="px-4 py-1.5 rounded-full border border-cyan-300/20 bg-white/5 text-[10px] md:text-sm font-mono text-cyan-200 mb-6 inline-block uppercase tracking-widest backdrop-blur-md">
                 Tersedia untuk proyek baru
             </span>
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-display tracking-tight leading-tight mb-8">
-                Mari Bangun <br/>Sesuatu yang <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Luar Biasa.</span>
+                Mari Bangun <br/>Sesuatu yang <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-purple-300">Luar Biasa.</span>
             </h2>
             <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12">
                 Punya ide yang ingin diwujudkan? Mari diskusikan proyek Anda dan lihat bagaimana kami bisa membantu bisnis Anda berkembang.
             </p>
             
             <div className="flex justify-center">
-                 <Link to="/contact" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-cyan-50 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:scale-105 active:scale-95 duration-300 overflow-hidden">
+                 <Link to="/contact" className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-cyan-100 text-black rounded-full font-bold text-lg hover:bg-white transition-all shadow-[0_18px_50px_rgba(0,0,0,0.35)] hover:scale-105 active:scale-95 duration-300 overflow-hidden">
                     <span className="relative z-10">Mulai Proyek</span>
                     <FaArrowRight className="relative z-10 group-hover:translate-x-1 transition-transform" />
                     {/* Hover Glow Background inside Button */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-100 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-white to-cyan-100 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
             </div>
         </div>

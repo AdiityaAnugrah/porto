@@ -29,7 +29,6 @@ self.addEventListener('activate', (event) => {
 // Fetch Strategy: Hybrid
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
 
   // Strategy 1: Cache First for Fonts & Images (Static)
   if (request.destination === 'font' || request.destination === 'image') {

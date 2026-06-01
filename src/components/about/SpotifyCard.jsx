@@ -52,8 +52,8 @@ export default function SpotifyCard() {
   // Jika tidak ada data atau tidak ada lagu sama sekali
   if (tracks.length === 0) {
     return (
-      <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/10 group hover:border-[#1DB954]/30 transition-colors duration-300">
-        <div className="w-12 h-12 rounded-full bg-[#1DB954]/10 flex items-center justify-center text-[#1DB954] text-xl flex-shrink-0">
+      <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/10 group hover:border-[#94a17e]/30 transition-colors duration-300">
+        <div className="w-12 h-12 rounded-full bg-[#94a17e]/10 flex items-center justify-center text-[#94a17e] text-xl flex-shrink-0">
           <FaSpotify />
         </div>
         <div>
@@ -77,9 +77,9 @@ export default function SpotifyCard() {
         rel="noopener noreferrer"
         className="block relative group flex-shrink-0"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1DB954]/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#94a17e]/10 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-        <div className="glass-panel rounded-2xl p-4 sm:p-5 flex items-center gap-4 border border-white/10 group-hover:border-[#1DB954]/40 transition-colors duration-300 relative overflow-hidden">
+        <div className="glass-panel rounded-2xl p-4 sm:p-5 flex items-center gap-4 border border-white/10 group-hover:border-[#94a17e]/40 transition-colors duration-300 relative overflow-hidden">
           
           <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shadow-lg shadow-black/50 flex-shrink-0 border border-white/10">
             <img
@@ -90,22 +90,22 @@ export default function SpotifyCard() {
             {/* Overlay animasi batang lagu, menyala terus jika isPlaying true, atau muncul saat di-hover jika hanya history */}
             <div className={`absolute inset-0 bg-black/40 flex items-center justify-center transition-opacity duration-300 backdrop-blur-[2px] ${mainTrack.isPlaying ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
               <div className="flex items-end justify-center gap-[3px] h-4">
-                <span className="w-[3px] bg-[#1DB954] rounded-full animate-[soundBar_1s_infinite_ease-in-out_alternate]" style={{ animationDelay: '0ms' }} />
-                <span className="w-[3px] bg-[#1DB954] rounded-full animate-[soundBar_0.8s_infinite_ease-in-out_alternate]" style={{ animationDelay: '200ms' }} />
-                <span className="w-[3px] bg-[#1DB954] rounded-full animate-[soundBar_1.2s_infinite_ease-in-out_alternate]" style={{ animationDelay: '400ms' }} />
-                <span className="w-[3px] bg-[#1DB954] rounded-full animate-[soundBar_0.9s_infinite_ease-in-out_alternate]" style={{ animationDelay: '100ms' }} />
+                <span className="w-[3px] bg-[#94a17e] rounded-full animate-[soundBar_1s_infinite_ease-in-out_alternate]" style={{ animationDelay: '0ms' }} />
+                <span className="w-[3px] bg-[#94a17e] rounded-full animate-[soundBar_0.8s_infinite_ease-in-out_alternate]" style={{ animationDelay: '200ms' }} />
+                <span className="w-[3px] bg-[#94a17e] rounded-full animate-[soundBar_1.2s_infinite_ease-in-out_alternate]" style={{ animationDelay: '400ms' }} />
+                <span className="w-[3px] bg-[#94a17e] rounded-full animate-[soundBar_0.9s_infinite_ease-in-out_alternate]" style={{ animationDelay: '100ms' }} />
               </div>
             </div>
           </div>
 
           <div className="flex-1 min-w-0 flex flex-col justify-center">
             <div className="flex items-center gap-2 mb-1">
-              <FaSpotify className={`text-[#1DB954] text-xs sm:text-sm ${mainTrack.isPlaying ? 'animate-pulse' : ''}`} />
-              <span className="text-[10px] text-[#1DB954] font-mono uppercase tracking-widest font-bold">
+              <FaSpotify className={`text-[#94a17e] text-xs sm:text-sm ${mainTrack.isPlaying ? 'animate-pulse' : ''}`} />
+              <span className="text-[10px] text-[#94a17e] font-mono uppercase tracking-widest font-bold">
                 {mainTrack.isPlaying ? 'Now Playing' : 'Recently Played'}
               </span>
             </div>
-            <h3 className="text-sm sm:text-base font-bold text-white truncate leading-tight group-hover:text-[#1DB954] transition-colors">
+            <h3 className="text-sm sm:text-base font-bold text-white truncate leading-tight group-hover:text-[#94a17e] transition-colors">
               {mainTrack.title}
             </h3>
             <p className="text-xs sm:text-sm text-white/50 truncate mt-0.5">
@@ -134,7 +134,7 @@ export default function SpotifyCard() {
                 <div className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0 relative border border-white/5">
                   <img src={track.albumImageUrl} alt="album" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
-                      <FaSpotify className="text-[#1DB954] text-[10px]" />
+                      <FaSpotify className="text-[#94a17e] text-[10px]" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0 flex items-center justify-between gap-2">

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { motion } from "framer-motion";
 import { FaArrowRight, FaWhatsapp } from "react-icons/fa";
@@ -6,10 +5,10 @@ import { FaArrowRight, FaWhatsapp } from "react-icons/fa";
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 pt-20">
-      {/* Background Aurora */}
+      {/* Background texture */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-cyan-500/10 rounded-full blur-[80px] md:blur-[150px] mix-blend-screen animate-blob will-change-transform" style={{ transform: 'translate3d(0,0,0)' }} />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-purple-500/10 rounded-full blur-[80px] md:blur-[150px] mix-blend-screen animate-blob animation-delay-2000 will-change-transform" style={{ transform: 'translate3d(0,0,0)' }} />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(238,232,220,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(238,232,220,0.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-40" />
+        <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-cyan-900/25 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto text-center">
@@ -20,7 +19,7 @@ const Hero = () => {
            transition={{ duration: 0.8 }}
            className="mb-4"
         >
-            <span className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-sm font-mono text-cyan-300 backdrop-blur-md">
+            <span className="px-4 py-1.5 rounded-full border border-cyan-300/20 bg-white/5 text-[10px] md:text-sm font-mono text-cyan-200 backdrop-blur-md">
               Web Developer & Consultant • Indonesia
             </span>
         </motion.div>
@@ -33,7 +32,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           Membangun <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-cyan-300 to-purple-300">
             Solusi Digital.
           </span>
         </motion.h1>
@@ -54,10 +53,10 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a href="/projects" aria-label="View My Work Projects" className="btn-primary px-8 py-4 bg-white text-black rounded-full font-bold flex items-center gap-2 hover:bg-cyan-50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]">
+          <a href="/projects" aria-label="View My Work Projects" className="btn-primary px-8 py-4 bg-cyan-100 text-black rounded-full font-bold flex items-center gap-2 hover:bg-white transition-colors shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
             Lihat Karya <FaArrowRight />
           </a>
-          <a href="/contact" aria-label="Contact for Project Discussion" className="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 transition-colors flex items-center gap-2 backdrop-blur-sm">
+          <a href="/contact" aria-label="Contact for Project Discussion" className="px-8 py-4 rounded-full border border-cyan-300/20 hover:bg-white/10 transition-colors flex items-center gap-2 backdrop-blur-sm">
              <FaWhatsapp className="text-green-400 text-xl" /> Diskusi Proyek
           </a>
         </motion.div>

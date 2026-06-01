@@ -5,9 +5,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-white/5 bg-black py-12 px-6 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-cyan-500/10 rounded-full blur-[128px] pointer-events-none" />
+    <footer className="relative border-t border-white/5 bg-[#070605] py-12 px-6 overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 relative z-10 mb-12">
         
