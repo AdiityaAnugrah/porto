@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
-import { FaDownload, FaEnvelope, FaExternalLinkAlt, FaGithub, FaHeart, FaLinkedin, FaServer, FaShieldAlt } from "react-icons/fa";
+import { FaDownload, FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin, FaServer, FaShieldAlt } from "react-icons/fa";
 import PubgCard from "../components/about/PubgCard";
 import SpotifyCard from "../components/about/SpotifyCard";
 import SteamCard from "../components/about/SteamCard";
@@ -249,11 +249,11 @@ const About = () => {
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                     <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Server</p>
-                                    <p className="text-sm font-bold text-white">Paper 1.20.1</p>
+                                    <p className="text-sm font-bold text-white">Paper 1.21.11</p>
                                 </div>
                                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                                     <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Access</p>
-                                    <p className="text-sm font-bold text-white">Whitelist Aktif</p>
+                                    <p className="text-sm font-bold text-white">Public Survival</p>
                                 </div>
                             </div>
                         </div>
@@ -262,11 +262,11 @@ const About = () => {
                             <div>
                                 <div className="flex items-center gap-2 text-green-200 mb-3">
                                     <FaShieldAlt aria-hidden="true" />
-                                    <span className="text-xs font-mono uppercase tracking-widest">Fair Support</span>
+                                    <span className="text-xs font-mono uppercase tracking-widest">Server Operations</span>
                                 </div>
-                                <h3 className="text-xl font-bold font-display mb-2">Dukung Biaya Server</h3>
+                                <h3 className="text-xl font-bold font-display mb-2">Mini lab operasional</h3>
                                 <p className="text-white/55 text-sm leading-relaxed">
-                                    Donasi bersifat sukarela untuk VPS, domain, dan maintenance. Tidak ada item, rank, atau benefit khusus donor.
+                                    Server ini saya pakai sebagai ruang praktik nyata untuk deployment, Apache reverse proxy, service PM2, DNS, SSL, backup, dan monitoring ringan.
                                 </p>
                             </div>
 
@@ -280,12 +280,10 @@ const About = () => {
                                     Kunjungi Server Page <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
                                 </a>
                                 <a
-                                    href="https://saweria.co/Adityaanugrah"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-rose-300/25 bg-rose-500/10 text-rose-100 font-bold hover:bg-rose-500/15 hover:border-rose-300/40 transition-colors"
+                                    href="/projects"
+                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-cyan-300/25 bg-cyan-500/10 text-cyan-100 font-bold hover:bg-cyan-500/15 hover:border-cyan-300/40 transition-colors"
                                 >
-                                    <FaHeart className="text-rose-300" aria-hidden="true" /> Donasi via Saweria
+                                    Lihat Project <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
                                 </a>
                             </div>
                         </div>
