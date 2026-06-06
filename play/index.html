@@ -3,25 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Aditya Minecraft Server, server survival Paper 1.21.x untuk komunitas Indonesia.">
-  <meta property="og:title" content="Aditya Minecraft Server">
-  <meta property="og:description" content="Join survival server di play.adityaanugrah.me. Support TLauncher, login/register, dan proteksi dasar.">
-  <meta property="og:image" content="https://adityaanugrah.me/assets/aa-mark-primary.png">
+  <meta name="description" content="Minecraft Server survival Paper 1.21.x untuk komunitas Indonesia. Bisa Java Edition dan TLauncher.">
+  <meta property="og:title" content="Minecraft Server">
+  <meta property="og:description" content="Join survival server di play.adityaanugrah.me. Public, login wajib, dan support TLauncher.">
   <meta property="og:url" content="https://play.adityaanugrah.me/">
-  <title>Aditya Minecraft Server</title>
+  <title>Minecraft Server</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #070a0d;
-      --surface: #0d1319;
-      --surface-2: #111b22;
-      --line: rgba(255, 255, 255, 0.1);
-      --text: #f2f7f3;
-      --muted: #9aa8a1;
-      --green: #8bdc65;
-      --cyan: #8bd8ff;
-      --gold: #e7bf72;
-      --danger: #ff7d6e;
+      --bg: #080b0d;
+      --panel: #11171a;
+      --panel-strong: #172126;
+      --line: rgba(255, 255, 255, 0.12);
+      --line-strong: rgba(255, 255, 255, 0.2);
+      --text: #f4f7f2;
+      --muted: #a8b3aa;
+      --soft: #d7e4d6;
+      --green: #82d85f;
+      --green-dark: #224d2b;
+      --blue: #8bcfff;
+      --gold: #e8c26e;
+      --red: #ff8b76;
       --shadow: rgba(0, 0, 0, 0.42);
     }
 
@@ -38,11 +40,10 @@
       min-height: 100dvh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: var(--bg);
-      background:
+      background-image:
         linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        var(--bg);
-      background-size: 48px 48px, 48px 48px, auto;
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
       color: var(--text);
     }
 
@@ -50,53 +51,74 @@
       color: inherit;
     }
 
-    .page {
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(139, 207, 255, 0.8);
+      outline-offset: 3px;
+    }
+
+    .shell {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 0 36px;
+      padding: 24px 0 36px;
     }
 
     .topbar {
+      min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 44px;
+      gap: 18px;
+      margin-bottom: 28px;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      min-width: 0;
+      color: var(--text);
       text-decoration: none;
     }
 
-    .brand img {
-      width: 38px;
-      height: 38px;
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
       border-radius: 8px;
-      border: 1px solid var(--line);
-      background: #0c1116;
+      background:
+        linear-gradient(180deg, #315b35 0 50%, #5a3b25 50% 100%);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.04em;
     }
 
     .brand span {
+      display: block;
       font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
       white-space: nowrap;
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       color: var(--muted);
       font-size: 13px;
+      font-weight: 750;
     }
 
     .nav a {
-      min-height: 40px;
+      min-height: 42px;
       display: inline-flex;
       align-items: center;
       padding: 0 12px;
@@ -111,61 +133,62 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
-      gap: 28px;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+      gap: 24px;
       align-items: stretch;
-      min-height: calc(100dvh - 160px);
+      min-height: calc(100dvh - 126px);
     }
 
-    .hero-copy {
+    .intro {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 32px 0 60px;
+      min-height: 560px;
+      padding: 28px 0 54px;
     }
 
-    .eyebrow {
+    .status-pill {
+      width: fit-content;
+      min-height: 36px;
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      width: fit-content;
-      min-height: 34px;
+      gap: 10px;
       padding: 0 12px;
-      border: 1px solid rgba(139, 220, 101, 0.28);
+      border: 1px solid rgba(130, 216, 95, 0.34);
       border-radius: 999px;
-      background: rgba(139, 220, 101, 0.08);
-      color: #c8f7b6;
+      background: rgba(130, 216, 95, 0.1);
+      color: #d1ffc4;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .dot {
+    .status-light {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 18px rgba(139, 220, 101, 0.8);
+      box-shadow: 0 0 0 5px rgba(130, 216, 95, 0.12);
     }
 
     h1 {
-      max-width: 780px;
-      margin: 24px 0 20px;
-      font-size: clamp(44px, 7vw, 84px);
-      line-height: 0.96;
-      letter-spacing: -0.03em;
+      max-width: 720px;
+      margin: 22px 0 18px;
+      font-size: clamp(48px, 7.4vw, 92px);
+      line-height: 0.94;
+      letter-spacing: 0;
     }
 
     .lead {
       max-width: 650px;
       margin: 0;
       color: var(--muted);
-      font-size: clamp(16px, 2vw, 19px);
+      font-size: clamp(16px, 2vw, 20px);
       line-height: 1.7;
     }
 
-    .actions {
+    .quick-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -173,17 +196,17 @@
     }
 
     .button {
-      min-height: 48px;
+      min-height: 50px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 10px;
       padding: 0 18px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      font-weight: 850;
+      font-weight: 900;
       text-decoration: none;
-      transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
     }
 
     .button:hover {
@@ -193,7 +216,7 @@
     .button.primary {
       border-color: var(--green);
       background: var(--green);
-      color: #081007;
+      color: #061106;
     }
 
     .button.secondary {
@@ -201,203 +224,250 @@
       color: var(--text);
     }
 
-    .server-panel {
+    .server-card {
       align-self: center;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: linear-gradient(180deg, rgba(17, 27, 34, 0.94), rgba(8, 12, 16, 0.94));
-      box-shadow: 0 28px 90px var(--shadow);
+      background: rgba(17, 23, 26, 0.94);
+      box-shadow: 0 28px 88px var(--shadow);
       overflow: hidden;
     }
 
-    .panel-visual {
-      min-height: 168px;
+    .world-art {
+      min-height: 178px;
       position: relative;
+      overflow: hidden;
       background:
-        linear-gradient(180deg, rgba(139, 216, 255, 0.18) 0 38%, transparent 38%),
-        linear-gradient(90deg, transparent 0 8%, rgba(255, 255, 255, 0.08) 8% 10%, transparent 10% 24%, rgba(255, 255, 255, 0.08) 24% 26%, transparent 26% 100%),
-        linear-gradient(180deg, #13283a 0 42%, #365c35 42% 56%, #5b4028 56% 100%);
+        linear-gradient(180deg, #142638 0 45%, #264b36 45% 59%, #5c3c26 59% 100%);
     }
 
-    .panel-visual:before,
-    .panel-visual:after {
+    .world-art::before,
+    .world-art::after {
       content: "";
       position: absolute;
-      bottom: 38px;
-      width: 86px;
-      height: 86px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      inset: auto auto 0 0;
+      width: 100%;
+      height: 96px;
       background:
-        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-        #2a5b3b;
-      background-size: 22px 22px;
+        linear-gradient(90deg, transparent 0 7%, rgba(255, 255, 255, 0.1) 7% 9%, transparent 9% 23%, rgba(255, 255, 255, 0.1) 23% 25%, transparent 25% 100%),
+        linear-gradient(180deg, transparent 0 38%, rgba(255, 255, 255, 0.09) 38% 40%, transparent 40% 100%);
+      background-size: 100% 100%, 48px 48px;
+      opacity: 0.9;
     }
 
-    .panel-visual:before {
-      left: 42px;
-      transform: rotate(-4deg);
+    .world-art::after {
+      width: 120px;
+      height: 88px;
+      left: auto;
+      right: 34px;
+      bottom: 18px;
+      background:
+        linear-gradient(180deg, #79c956 0 18%, #416a38 18% 62%, #2f4c30 62% 100%);
+      box-shadow:
+        -82px 28px 0 -28px #416a38,
+        -124px 42px 0 -36px #79c956,
+        42px 32px 0 -26px #416a38;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      opacity: 1;
     }
 
-    .panel-visual:after {
-      right: 48px;
-      width: 72px;
-      height: 72px;
-      background-color: #66492f;
-      transform: rotate(5deg);
-    }
-
-    .panel-body {
+    .card-body {
       padding: 22px;
     }
 
     .label {
-      color: var(--gold);
+      margin-bottom: 8px;
+      color: var(--blue);
       font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.12em;
+      font-weight: 950;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     .address-row {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 10px;
-      margin: 12px 0 18px;
-      padding: 12px;
-      border: 1px solid rgba(139, 216, 255, 0.2);
-      border-radius: 8px;
-      background: #070b0f;
+      margin-bottom: 18px;
     }
 
     code {
-      align-self: center;
-      color: #c7f7b9;
-      font-size: clamp(18px, 3vw, 27px);
-      font-weight: 900;
-      word-break: break-word;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      overflow-wrap: anywhere;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0 14px;
+      background: #080d10;
+      color: #c7ffb9;
+      font: 850 16px/1.4 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
     button {
-      min-height: 44px;
-      border: 0;
+      min-height: 50px;
+      border: 1px solid var(--green);
       border-radius: 8px;
-      padding: 0 14px;
-      background: #213140;
-      color: var(--text);
-      cursor: pointer;
+      padding: 0 16px;
+      background: var(--green);
+      color: #061106;
       font: inherit;
-      font-weight: 850;
+      font-weight: 950;
+      cursor: pointer;
     }
 
     button:hover {
-      background: #2b4155;
+      background: #9aed75;
     }
 
-    .stats {
+    .facts {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .stat {
-      min-height: 76px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 13px;
-      background: rgba(255, 255, 255, 0.055);
-    }
-
-    .stat b {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    .section {
-      padding: 70px 0 0;
-    }
-
-    .section h2 {
-      margin: 0 0 18px;
-      font-size: clamp(28px, 4vw, 44px);
-      letter-spacing: -0.02em;
-    }
-
-    .steps,
-    .plugins {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .step,
-    .plugin {
+    .fact {
+      min-height: 82px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 20px;
+      padding: 13px;
       background: rgba(255, 255, 255, 0.045);
     }
 
-    .step small,
-    .plugin small {
+    .fact b {
       display: block;
-      margin-bottom: 10px;
-      color: var(--cyan);
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--soft);
+      font-size: 13px;
     }
 
-    .step h3,
-    .plugin h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
+    .fact span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
     }
 
-    .step p,
-    .plugin p,
-    .notice p {
+    .section {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 440px;
       margin: 0;
       color: var(--muted);
       line-height: 1.6;
     }
 
-    .notice {
-      margin-top: 16px;
-      border: 1px solid rgba(231, 191, 114, 0.3);
-      border-radius: 8px;
-      padding: 18px;
-      background: rgba(231, 191, 114, 0.075);
+    .steps,
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
-    .notice strong {
-      color: #ffe0a3;
+    .tile {
+      min-height: 180px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      background: rgba(17, 23, 26, 0.86);
+    }
+
+    .tile small {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tile h3 {
+      margin: 0 0 9px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .tile p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .command-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .note {
+      margin-top: 14px;
+      border: 1px solid rgba(232, 194, 110, 0.35);
+      border-radius: 8px;
+      padding: 18px;
+      background: rgba(232, 194, 110, 0.08);
+      color: #ffe2a2;
+      line-height: 1.6;
+    }
+
+    .support {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      margin-top: 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      background: var(--panel-strong);
+    }
+
+    .support h2 {
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    .support p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     footer {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
-      margin-top: 80px;
-      padding-top: 22px;
+      gap: 18px;
+      margin-top: 52px;
+      padding-top: 20px;
       border-top: 1px solid var(--line);
-      color: #738178;
+      color: #758278;
       font-size: 13px;
     }
 
-    @media (max-width: 860px) {
-      .topbar {
-        margin-bottom: 26px;
-      }
-
+    @media (max-width: 900px) {
       .nav {
         display: none;
       }
@@ -407,24 +477,33 @@
         min-height: auto;
       }
 
-      .hero-copy {
-        padding: 20px 0 0;
+      .intro {
+        min-height: auto;
+        padding: 24px 0 0;
+      }
+
+      .server-card {
+        align-self: auto;
+      }
+
+      .section-head,
+      .support,
+      footer {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: start;
       }
 
       .steps,
-      .plugins {
+      .features {
         grid-template-columns: 1fr;
-      }
-
-      footer {
-        flex-direction: column;
       }
     }
 
-    @media (max-width: 520px) {
-      .page {
+    @media (max-width: 560px) {
+      .shell {
         width: min(100% - 24px, 1180px);
-        padding-top: 18px;
+        padding-top: 16px;
       }
 
       .brand span {
@@ -432,12 +511,20 @@
       }
 
       .address-row,
-      .stats {
+      .command-box,
+      .facts {
         grid-template-columns: 1fr;
       }
 
+      .quick-actions,
+      .quick-actions .button,
+      .support .button,
       button {
         width: 100%;
+      }
+
+      h1 {
+        font-size: clamp(42px, 14vw, 64px);
       }
     }
 
@@ -450,114 +537,163 @@
   </style>
 </head>
 <body>
-  <main class="page">
+  <main class="shell">
     <header class="topbar">
-      <a class="brand" href="https://adityaanugrah.me" aria-label="Buka website Aditya Anugrah">
-        <img src="https://adityaanugrah.me/assets/aa-mark-primary.png" alt="Logo Aditya Anugrah">
-        <span>Aditya Minecraft</span>
+      <a class="brand" href="#top" aria-label="Minecraft Server">
+        <span class="mark" aria-hidden="true">MS</span>
+        <span>Minecraft Server</span>
       </a>
       <nav class="nav" aria-label="Navigasi">
         <a href="#cara-main">Cara Main</a>
+        <a href="#login">Login</a>
         <a href="#fitur">Fitur</a>
         <a href="https://saweria.co/Adityaanugrah">Support</a>
       </nav>
     </header>
 
-    <section class="hero" aria-labelledby="title">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Survival Server Indonesia</div>
-        <h1 id="title">Main survival santai bareng komunitas.</h1>
-        <p class="lead">Server Paper 1.21.x untuk pemain Java Edition, termasuk TLauncher. Masuk lewat alamat server, daftar password di dalam game, lalu mulai eksplorasi.</p>
-        <div class="actions">
-          <a class="button primary" href="#cara-main">Lihat Cara Main</a>
-          <a class="button secondary" href="https://saweria.co/Adityaanugrah">Support Server</a>
+    <section class="hero" id="top" aria-labelledby="title">
+      <div class="intro">
+        <div class="status-pill"><span class="status-light" aria-hidden="true"></span> Public Survival Indonesia</div>
+        <h1 id="title">Minecraft Server</h1>
+        <p class="lead">Server survival Paper 1.21.x untuk pemain Java Edition dan TLauncher. Masuk, register password, lalu main bareng di dunia survival public.</p>
+        <div class="quick-actions">
+          <a class="button primary" href="#cara-main">Mulai Main</a>
+          <a class="button secondary" href="#login">Lihat Command Login</a>
         </div>
       </div>
 
-      <aside class="server-panel" aria-label="Informasi server">
-        <div class="panel-visual" aria-hidden="true"></div>
-        <div class="panel-body">
-          <div class="label">Server Address</div>
+      <aside class="server-card" aria-label="Informasi server">
+        <div class="world-art" aria-hidden="true"></div>
+        <div class="card-body">
+          <div class="label">Alamat Server</div>
           <div class="address-row">
-            <code id="server-address">play.adityaanugrah.me</code>
+            <code>play.adityaanugrah.me</code>
             <button type="button" data-copy="play.adityaanugrah.me">Copy</button>
           </div>
-          <div class="stats">
-            <div class="stat"><b>Versi</b><span>Paper 1.21.x</span></div>
-            <div class="stat"><b>Akses</b><span>Public, login wajib</span></div>
-            <div class="stat"><b>Mode</b><span>Survival</span></div>
-            <div class="stat"><b>Slot</b><span>10 pemain</span></div>
+          <div class="facts">
+            <div class="fact"><b>Versi</b><span>Paper 1.21.x</span></div>
+            <div class="fact"><b>Akses</b><span>Public, login wajib</span></div>
+            <div class="fact"><b>Mode</b><span>Survival</span></div>
+            <div class="fact"><b>Slot</b><span>10 pemain</span></div>
           </div>
         </div>
       </aside>
     </section>
 
     <section class="section" id="cara-main">
-      <h2>Cara Main</h2>
+      <div class="section-head">
+        <h2>Cara Main</h2>
+        <p>Ikuti tiga langkah ini. Cocok untuk pemain baru yang belum pernah masuk server public.</p>
+      </div>
       <div class="steps">
-        <article class="step">
+        <article class="tile">
           <small>Langkah 01</small>
           <h3>Tambah server</h3>
-          <p>Buka Multiplayer, tambah server baru, lalu isi alamat dengan play.adityaanugrah.me.</p>
+          <p>Buka Multiplayer, pilih Add Server, lalu isi alamat dengan play.adityaanugrah.me.</p>
         </article>
-        <article class="step">
+        <article class="tile">
           <small>Langkah 02</small>
-          <h3>Daftar akun</h3>
-          <p>Pemain baru ketik /register password. Ganti password dengan kata sandi kamu sendiri.</p>
+          <h3>Masuk server</h3>
+          <p>Pakai Minecraft Java Edition atau TLauncher. Pastikan versi client masih di keluarga 1.21.x.</p>
         </article>
-        <article class="step">
+        <article class="tile">
           <small>Langkah 03</small>
-          <h3>Login berikutnya</h3>
-          <p>Kalau diminta login, ketik /login password. Jika IP sama, server bisa auto-login sementara.</p>
+          <h3>Register password</h3>
+          <p>Saat pertama masuk, daftarkan password khusus server. Jangan pakai password akun penting.</p>
         </article>
       </div>
-      <div class="notice">
-        <p><strong>Catatan:</strong> jangan pakai password akun penting. Gunakan password khusus untuk server Minecraft ini.</p>
+    </section>
+
+    <section class="section" id="login">
+      <div class="section-head">
+        <h2>Command Login</h2>
+        <p>Command ini diketik di chat Minecraft. Tombol copy membantu pemain awam agar tidak salah format.</p>
       </div>
+      <div class="steps">
+        <article class="tile">
+          <small>Pemain Baru</small>
+          <h3>Daftar akun</h3>
+          <p>Ganti password123 dengan password kamu sendiri.</p>
+          <div class="command-box">
+            <code>/register password123 password123</code>
+            <button type="button" data-copy="/register password123 password123">Copy</button>
+          </div>
+        </article>
+        <article class="tile">
+          <small>Sudah Daftar</small>
+          <h3>Login ulang</h3>
+          <p>Pakai password yang sama dengan waktu daftar.</p>
+          <div class="command-box">
+            <code>/login password123</code>
+            <button type="button" data-copy="/login password123">Copy</button>
+          </div>
+        </article>
+        <article class="tile">
+          <small>Ingat</small>
+          <h3>Jaga username</h3>
+          <p>Karena server public dan support TLauncher, login/register wajib untuk melindungi nama pemain.</p>
+        </article>
+      </div>
+      <div class="note">Jika kamu login dari koneksi yang sama, server bisa mengingat sesi sementara. Kalau tetap diminta login, cukup pakai command login di atas.</div>
     </section>
 
     <section class="section" id="fitur">
-      <h2>Fitur Server</h2>
-      <div class="plugins">
-        <article class="plugin">
-          <small>Auth</small>
-          <h3>Login Indonesia</h3>
-          <p>AuthMe aktif supaya username pemain lebih aman di mode public.</p>
+      <div class="section-head">
+        <h2>Fitur Server</h2>
+        <p>Plugin inti dipilih supaya server tetap mudah dimasuki, tapi masih punya proteksi dasar.</p>
+      </div>
+      <div class="features">
+        <article class="tile">
+          <small>AuthMe</small>
+          <h3>Login untuk public</h3>
+          <p>Username pemain lebih aman walaupun server menerima pemain TLauncher.</p>
         </article>
-        <article class="plugin">
-          <small>Security</small>
-          <h3>Anti-cheat & rollback</h3>
-          <p>GrimAC dan CoreProtect membantu memantau cheat serta memulihkan grief.</p>
-        </article>
-        <article class="plugin">
-          <small>Compatibility</small>
+        <article class="tile">
+          <small>ViaVersion</small>
           <h3>Multi versi 1.21.x</h3>
-          <p>ViaVersion dan ViaBackwards aktif untuk memudahkan pemain beda versi.</p>
+          <p>Memudahkan pemain masuk dengan variasi client yang masih kompatibel.</p>
+        </article>
+        <article class="tile">
+          <small>Proteksi</small>
+          <h3>Anti-cheat dan rollback</h3>
+          <p>GrimAC dan CoreProtect membantu mengurangi cheat serta memeriksa perubahan blok.</p>
         </article>
       </div>
     </section>
 
+    <section class="support" aria-labelledby="support-title">
+      <div>
+        <h2 id="support-title">Support server</h2>
+        <p>Support bersifat sukarela untuk biaya VPS, domain, dan maintenance. Tidak menjual rank, item, atau benefit pay-to-win.</p>
+      </div>
+      <a class="button primary" href="https://saweria.co/Adityaanugrah">Support</a>
+    </section>
+
     <footer>
-      <span>Aditya Minecraft Server</span>
-      <span>Support bersifat sukarela untuk VPS, domain, dan maintenance.</span>
+      <span>Minecraft Server</span>
+      <span>play.adityaanugrah.me</span>
     </footer>
   </main>
 
   <script>
-    const copyButton = document.querySelector("[data-copy]");
-    if (copyButton) {
-      copyButton.addEventListener("click", async () => {
+    const copyButtons = document.querySelectorAll("[data-copy]");
+
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const originalText = button.textContent;
+
         try {
-          await navigator.clipboard.writeText(copyButton.dataset.copy);
-          copyButton.textContent = "Copied";
-          window.setTimeout(() => {
-            copyButton.textContent = "Copy";
-          }, 1600);
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = "Copied";
         } catch {
-          copyButton.textContent = "Copy manual";
+          button.textContent = "Copy manual";
         }
+
+        window.setTimeout(() => {
+          button.textContent = originalText;
+        }, 1600);
       });
-    }
+    });
   </script>
 </body>
 </html>
