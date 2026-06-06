@@ -168,8 +168,30 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(232, 194, 110, 0.12);
+    }
+
+    .status-pill.is-online {
+      border-color: rgba(130, 216, 95, 0.34);
+      background: rgba(130, 216, 95, 0.1);
+      color: #d1ffc4;
+    }
+
+    .status-pill.is-online .status-light {
       background: var(--green);
       box-shadow: 0 0 0 5px rgba(130, 216, 95, 0.12);
+    }
+
+    .status-pill.is-offline {
+      border-color: rgba(255, 139, 118, 0.38);
+      background: rgba(255, 139, 118, 0.1);
+      color: #ffd7cf;
+    }
+
+    .status-pill.is-offline .status-light {
+      background: var(--red);
+      box-shadow: 0 0 0 5px rgba(255, 139, 118, 0.13);
     }
 
     h1 {
@@ -369,6 +391,115 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.45;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .status-tile {
+      min-height: 156px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: rgba(17, 23, 26, 0.9);
+    }
+
+    .status-tile small {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status-tile strong {
+      display: block;
+      min-height: 42px;
+      margin-bottom: 8px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+    }
+
+    .status-tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .player-meter {
+      height: 8px;
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .player-meter span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 240ms ease;
+    }
+
+    .online-board {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1.18fr);
+      gap: 18px;
+      align-items: start;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      background: rgba(17, 23, 26, 0.72);
+    }
+
+    .online-board h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .online-board p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .player-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 42px;
+      align-content: start;
+    }
+
+    .player-chip {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 12px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .status-footnote {
+      margin: 14px 0 0;
+      color: #758278;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     .section {
@@ -681,7 +812,12 @@
 
       .steps,
       .features,
+      .status-grid,
       .support-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .online-board {
         grid-template-columns: 1fr;
       }
     }
@@ -747,6 +883,7 @@
         <span>Minecraft Server</span>
       </a>
       <nav class="nav" aria-label="Navigasi">
+        <a href="#status">Status</a>
         <a href="#cara-main">Cara Main</a>
         <a href="#akses">Akses</a>
         <a href="#fitur">Fitur</a>
@@ -756,12 +893,15 @@
 
     <section class="hero" id="top" aria-labelledby="title">
       <div class="intro">
-        <div class="status-pill"><span class="status-light" aria-hidden="true"></span> Public Survival Indonesia</div>
+        <div class="status-pill is-loading" id="server-status-pill">
+          <span class="status-light" aria-hidden="true"></span>
+          <span id="server-status-label">Memuat status server</span>
+        </div>
         <h1 id="title">Minecraft Server</h1>
         <p class="lead">Server survival Paper 1.21.x untuk pemain Java Edition dan TLauncher. Masuk langsung, lalu main bareng di dunia survival public.</p>
         <div class="quick-actions">
           <a class="button primary" href="#cara-main">Mulai Main</a>
-          <a class="button secondary" href="#akses">Cek Akses</a>
+          <a class="button secondary" href="#status">Cek Status</a>
         </div>
       </div>
 
@@ -774,13 +914,53 @@
             <button type="button" data-copy="play.adityaanugrah.me">Copy</button>
           </div>
           <div class="facts">
-            <div class="fact"><b>Versi</b><span>Paper 1.21.x</span></div>
+            <div class="fact"><b>Versi</b><span id="server-version">Memuat...</span></div>
             <div class="fact"><b>Akses</b><span>Public, langsung masuk</span></div>
             <div class="fact"><b>Mode</b><span>Survival</span></div>
-            <div class="fact"><b>Slot</b><span>10 pemain</span></div>
+            <div class="fact"><b>Slot</b><span id="server-slots">Memuat...</span></div>
           </div>
         </div>
       </aside>
+    </section>
+
+    <section class="section" id="status">
+      <div class="section-head">
+        <h2>Status Live</h2>
+        <p>Data ringan dari status API publik. Tidak memakai render map, jadi tidak membebani VPS Minecraft.</p>
+      </div>
+      <div class="status-grid">
+        <article class="status-tile">
+          <small>Kondisi</small>
+          <strong id="status-state">Memuat</strong>
+          <span id="status-message">Menghubungi status server...</span>
+        </article>
+        <article class="status-tile">
+          <small>Player Online</small>
+          <strong id="status-players">0 / 10</strong>
+          <span id="player-capacity">Kapasitas server</span>
+          <div class="player-meter" aria-hidden="true"><span id="player-meter-fill"></span></div>
+        </article>
+        <article class="status-tile">
+          <small>Versi</small>
+          <strong id="status-version">1.21.x</strong>
+          <span id="status-software">Paper server</span>
+        </article>
+        <article class="status-tile">
+          <small>MOTD</small>
+          <strong id="status-motd">Aditya Minecraft Server</strong>
+          <span>Alamat utama: play.adityaanugrah.me</span>
+        </article>
+      </div>
+      <div class="online-board">
+        <div>
+          <h3>Player yang sedang online</h3>
+          <p id="player-summary">Nama player akan muncul kalau server/API mengekspos daftar player.</p>
+        </div>
+        <div class="player-list" id="player-list" aria-live="polite">
+          <span class="player-chip">Memuat...</span>
+        </div>
+      </div>
+      <p class="status-footnote" id="status-refresh-note">Status otomatis diperbarui setiap 5 menit.</p>
     </section>
 
     <section class="section" id="cara-main">
@@ -982,6 +1162,126 @@
     const supportOpenButtons = document.querySelectorAll("[data-support-open]");
     const supportCloseButtons = document.querySelectorAll("[data-support-close]");
     let lastFocusedElement = null;
+    const statusEndpoint = "https://api.mcsrvstat.us/3/194.233.90.4:25565";
+    const statusPill = document.getElementById("server-status-pill");
+    const statusLabel = document.getElementById("server-status-label");
+    const statusState = document.getElementById("status-state");
+    const statusMessage = document.getElementById("status-message");
+    const statusPlayers = document.getElementById("status-players");
+    const playerCapacity = document.getElementById("player-capacity");
+    const playerMeterFill = document.getElementById("player-meter-fill");
+    const statusVersion = document.getElementById("status-version");
+    const statusSoftware = document.getElementById("status-software");
+    const statusMotd = document.getElementById("status-motd");
+    const statusRefreshNote = document.getElementById("status-refresh-note");
+    const serverVersion = document.getElementById("server-version");
+    const serverSlots = document.getElementById("server-slots");
+    const playerSummary = document.getElementById("player-summary");
+    const playerList = document.getElementById("player-list");
+
+    const setStatusMode = (mode, label) => {
+      statusPill.classList.remove("is-loading", "is-online", "is-offline");
+      statusPill.classList.add(mode);
+      statusLabel.textContent = label;
+    };
+
+    const getMotd = (data) => {
+      const motd = data?.motd?.clean;
+
+      if (Array.isArray(motd) && motd.length > 0) {
+        return motd.join(" ");
+      }
+
+      return "Aditya Minecraft Server";
+    };
+
+    const renderPlayerList = (players) => {
+      const list = Array.isArray(players?.list) ? players.list : [];
+      playerList.textContent = "";
+
+      if (list.length === 0) {
+        const chip = document.createElement("span");
+        chip.className = "player-chip";
+        chip.textContent = players?.online > 0 ? "Nama player tidak diekspos" : "Belum ada player online";
+        playerList.append(chip);
+        return;
+      }
+
+      list.slice(0, 12).forEach((player) => {
+        const chip = document.createElement("span");
+        chip.className = "player-chip";
+        chip.textContent = player.name || "Player";
+        playerList.append(chip);
+      });
+
+      if (list.length > 12) {
+        const chip = document.createElement("span");
+        chip.className = "player-chip";
+        chip.textContent = `+${list.length - 12} lagi`;
+        playerList.append(chip);
+      }
+    };
+
+    const updateStatus = (data) => {
+      const online = Boolean(data?.online);
+      const players = data?.players || {};
+      const onlinePlayers = Number(players.online || 0);
+      const maxPlayers = Number(players.max || 0);
+      const version = data?.version || data?.protocol?.name || "1.21.x";
+      const software = data?.software ? `${data.software} server` : "Paper server";
+      const motd = getMotd(data);
+      const capacity = maxPlayers > 0 ? Math.min((onlinePlayers / maxPlayers) * 100, 100) : 0;
+
+      if (online) {
+        setStatusMode("is-online", "Server online");
+        statusState.textContent = "Online";
+        statusMessage.textContent = "Siap menerima player Java Edition.";
+      } else {
+        setStatusMode("is-offline", "Server offline");
+        statusState.textContent = "Offline";
+        statusMessage.textContent = "Server sedang restart atau tidak bisa diping.";
+      }
+
+      statusPlayers.textContent = maxPlayers > 0 ? `${onlinePlayers} / ${maxPlayers}` : `${onlinePlayers} online`;
+      playerCapacity.textContent = maxPlayers > 0 ? `${maxPlayers} slot tersedia` : "Kapasitas belum terbaca";
+      playerMeterFill.style.width = `${capacity}%`;
+      statusVersion.textContent = version;
+      statusSoftware.textContent = software;
+      statusMotd.textContent = motd;
+      serverVersion.textContent = version;
+      serverSlots.textContent = maxPlayers > 0 ? `${maxPlayers} pemain` : "Slot belum terbaca";
+      playerSummary.textContent = onlinePlayers > 0
+        ? `${onlinePlayers} player sedang online.`
+        : "Belum ada player online saat ini.";
+      renderPlayerList(players);
+
+      if (data?.debug?.cacheexpire) {
+        const nextRefresh = new Date(data.debug.cacheexpire * 1000).toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        statusRefreshNote.textContent = `Status API di-cache sampai sekitar ${nextRefresh}. Halaman ini refresh otomatis setiap 5 menit.`;
+      }
+    };
+
+    const loadServerStatus = async () => {
+      try {
+        const response = await fetch(statusEndpoint, { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error("Status API gagal diakses");
+        }
+
+        const data = await response.json();
+        updateStatus(data);
+      } catch {
+        setStatusMode("is-offline", "Status belum terbaca");
+        statusState.textContent = "Tidak terbaca";
+        statusMessage.textContent = "API status sedang tidak bisa diakses.";
+        playerSummary.textContent = "Coba refresh halaman beberapa saat lagi.";
+        playerList.innerHTML = '<span class="player-chip">Status gagal dimuat</span>';
+      }
+    };
 
     copyButtons.forEach((button) => {
       button.addEventListener("click", async () => {
@@ -1034,6 +1334,9 @@
         closeSupportModal();
       }
     });
+
+    loadServerStatus();
+    window.setInterval(loadServerStatus, 300000);
   </script>
 </body>
 </html>
