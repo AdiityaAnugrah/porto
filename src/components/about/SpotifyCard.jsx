@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaExclamationTriangle, FaSpotify } from "react-icons/fa";
+import { FaSpotify } from "react-icons/fa";
 import { apiUrl } from "../../lib/api";
 
 const API_URL = apiUrl("/spotify/now-playing");
@@ -68,16 +68,13 @@ export default function SpotifyCard() {
 
   if (error) {
     return (
-      <div className="glass-panel rounded-2xl p-5 flex items-start gap-4 border border-yellow-500/20 group hover:border-[#94a17e]/30 transition-colors duration-300">
-        <div className="w-12 h-12 rounded-full bg-yellow-500/10 flex items-center justify-center text-yellow-300 text-lg flex-shrink-0">
-          <FaExclamationTriangle aria-hidden="true" />
+      <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/10 group hover:border-[#94a17e]/30 transition-colors duration-300">
+        <div className="w-12 h-12 rounded-full bg-[#94a17e]/10 flex items-center justify-center text-[#94a17e] text-xl flex-shrink-0">
+          <FaSpotify aria-hidden="true" />
         </div>
         <div>
-          <h3 className="text-sm font-bold text-white">Spotify tidak bisa dimuat</h3>
-          <p className="text-xs text-white/45 leading-relaxed mt-1">
-            Backend musik sedang tidak merespons. Card ini tetap aman dan tidak mengganggu halaman.
-          </p>
-          <p className="text-[10px] text-white/25 mt-2 font-mono">{error}</p>
+          <h3 className="text-sm font-bold text-white">Spotify sedang offline</h3>
+          <p className="text-xs text-white/40">Aktivitas musik belum tersedia.</p>
         </div>
       </div>
     );

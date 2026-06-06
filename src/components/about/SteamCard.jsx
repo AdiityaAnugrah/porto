@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaExclamationTriangle, FaSteamSymbol } from "react-icons/fa";
+import { FaSteamSymbol } from "react-icons/fa";
 import { apiUrl } from "../../lib/api";
 
 const API_URL = apiUrl("/steam/profile");
@@ -82,7 +82,6 @@ const getStatusText = (state) => {
 const SteamCard = () => {
   const [steamData, setSteamData] = useState(FALLBACK_STEAM_DATA);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -99,10 +98,9 @@ const SteamCard = () => {
         if (!active) return;
 
         setSteamData({ ...FALLBACK_STEAM_DATA, ...data });
-        setError("");
-      } catch (err) {
+      } catch {
         if (!active) return;
-        setError(err.name === "AbortError" ? "Steam API timeout" : err.message);
+        setSteamData(FALLBACK_STEAM_DATA);
       } finally {
         window.clearTimeout(timeoutId);
         if (active) setIsLoading(false);
@@ -204,12 +202,6 @@ const SteamCard = () => {
         </div>
       </div>
 
-      {error && !isLoading && (
-        <div className="relative z-10 mt-5 flex items-start gap-2 rounded-xl border border-yellow-500/20 bg-yellow-500/10 px-3 py-2 text-[11px] text-yellow-100/80">
-          <FaExclamationTriangle className="mt-0.5 flex-shrink-0 text-yellow-300" aria-hidden="true" />
-          <span>Data Steam sedang memakai fallback. {error}</span>
-        </div>
-      )}
     </motion.div>
   );
 };
