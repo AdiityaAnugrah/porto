@@ -69,6 +69,8 @@ git status --short
 git pull origin main
 npm install
 npm run build
+cp .htaccess dist/.htaccess
+systemctl reload apache2
 ```
 
 SPA route fallback penting:
@@ -231,18 +233,48 @@ systemctl cat minecraft
 ## Minecraft Info Page
 
 - Domain: `https://play.adityaanugrah.me`
-- Path: `/var/www/play.adityaanugrah.me`
-- Type: static HTML
+- Repo path: `/var/www/adityaanugrah.me/play`
+- Apache document root should be `/var/www/adityaanugrah.me/play`
+- Source in repo: `play/index.html`
+- Type: static HTML tracked in Git
 - SSL: Let's Encrypt
 - Donation link: `https://saweria.co/Adityaanugrah`
 - Current page includes a donate button/support link
 - Keep donation wording as voluntary support for VPS/domain/maintenance
 - Do not sell rank, items, or pay-to-win benefits
+- Apache vhost templates in repo:
+  - `server/apache-play.adityaanugrah.me.conf`
+  - `server/apache-play.adityaanugrah.me-le-ssl.conf`
+
+Deploy/update:
+
+```bash
+cd /var/www/adityaanugrah.me
+git pull origin main
+systemctl reload apache2
+```
+
+First-time Apache setup or migration from the old manual path:
+
+```bash
+cp /var/www/adityaanugrah.me/server/apache-play.adityaanugrah.me.conf /etc/apache2/sites-available/play.adityaanugrah.me.conf
+cp /var/www/adityaanugrah.me/server/apache-play.adityaanugrah.me-le-ssl.conf /etc/apache2/sites-available/play.adityaanugrah.me-le-ssl.conf
+a2ensite play.adityaanugrah.me.conf
+a2ensite play.adityaanugrah.me-le-ssl.conf
+apache2ctl configtest
+systemctl reload apache2
+```
+
+Run certbot only if the certificate does not exist yet:
+
+```bash
+certbot --apache -d play.adityaanugrah.me --redirect
+```
 
 Backup before editing:
 
 ```bash
-cp /var/www/play.adityaanugrah.me/index.html /var/www/play.adityaanugrah.me/index.html.bak
+cp /var/www/adityaanugrah.me/play/index.html /var/www/adityaanugrah.me/play/index.html.bak
 ```
 
 Test:
@@ -263,7 +295,6 @@ Website and API:
 
 ```bash
 tar -czf /root/server-backup/www-adityaanugrah.tar.gz /var/www/adityaanugrah.me
-tar -czf /root/server-backup/www-play.tar.gz /var/www/play.adityaanugrah.me
 tar -czf /root/server-backup/aditya-api.tar.gz /opt/aditya-api
 ```
 
@@ -328,7 +359,7 @@ scp root@194.233.90.4:/root/server-backup-YYYY-MM-DD.tar.gz .
 2. Secure SSH and root access.
 3. Install Apache, MariaDB, Node.js 24 LTS, PM2, firewalld, certbot.
 4. Do not enable UFW.
-5. Restore `/var/www/adityaanugrah.me`, `/var/www/play.adityaanugrah.me`, `/opt/aditya-api`, `/opt/minecraft`.
+5. Restore `/var/www/adityaanugrah.me`, `/opt/aditya-api`, `/opt/minecraft`.
 6. Restore Apache vhosts or recreate them.
 7. Reissue Let's Encrypt certs if restoring `/etc/letsencrypt` is not appropriate.
 8. Restore PM2 app:

@@ -33,6 +33,23 @@ npm run build
 
 Hasilnya ada di folder `dist/`. Upload isi folder tersebut ke `public_html`.
 
+## Deploy Di VPS
+
+Website utama dan halaman Minecraft sekarang sama-sama dikelola dari repo ini.
+
+```bash
+cd /var/www/adityaanugrah.me
+git pull origin main
+npm install
+npm run build
+cp .htaccess dist/.htaccess
+systemctl reload apache2
+```
+
+- Domain utama `adityaanugrah.me` serve dari `dist/`.
+- Subdomain `play.adityaanugrah.me` serve dari folder `play/`.
+- Config Apache contoh ada di `server/apache-play.adityaanugrah.me.conf` dan `server/apache-play.adityaanugrah.me-le-ssl.conf`.
+
 ## Konfigurasi Email (Wajib!)
 
 Agar form kontak berfungsi, Anda perlu mengatur **EmailJS Keys** di file `src/pages/Contact.jsx`.
@@ -44,6 +61,7 @@ Lihat panduan lengkap di: [EMAILJS_GUIDE.md](./EMAILJS_GUIDE.md).
 - `src/pages`: Halaman utama (Home, Contact, NotFound).
 - `src/data`: Data JSON untuk Projects & Stack (gampang diedit).
 - `public/assets`: Tempat simpan gambar/logo.
+- `play`: Halaman static untuk `play.adityaanugrah.me`.
 
 ---
 Dikembangkan oleh **Aditya Anugrah**.
