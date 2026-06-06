@@ -60,6 +60,9 @@ Dokumen ini untuk mempercepat sesi berikutnya dan sebagai catatan kalau VPS perl
 - Build output/live path: `/var/www/adityaanugrah.me/dist`
 - Apache serve dari folder `dist`
 - SSL: Let's Encrypt
+- About page profile image source: `public/assets/me-sunset.jpeg`
+- Old About image variants `public/assets/me-sunset.jpg` and `public/assets/me-sunset.webp` were removed.
+- About page should not show donation/support CTAs. Donation/support belongs on the Minecraft info page only.
 
 Deploy/update:
 
@@ -176,20 +179,28 @@ pm2 logs aditya-api
 
 ## Minecraft Server
 
-- Software: Paper 1.20.1
+- Software: Paper 1.21.11
 - Path: `/opt/minecraft`
 - systemd service: `minecraft`
 - Linux user: `minecraft` non-root
 - Auto-start: enabled
-- Java heap: `-Xms2G -Xmx2G`
-- JVM flags: Aikar flags
+- Java heap: currently `-Xms3G -Xmx3G`
 - Mode: `offline-mode=true`
-- Whitelist: active
+- Whitelist: not required for public access
 - Operator: `Kusuo0`
 - Plugins:
+  - AuthMe
+  - CoreProtect
+  - GrimAC
+  - LuckPerms
+  - SkinsRestorer
+  - WorldEdit
+  - WorldGuard
   - ViaVersion
   - ViaBackwards
+  - ClearLag
 - Client access: `play.adityaanugrah.me`, default port `25565`
+- MOTD: `Minecraft Server`
 
 Performance/anti-lag settings:
 
@@ -198,6 +209,12 @@ Performance/anti-lag settings:
 - `max-players=10`
 - entity activation range lowered
 - `nerf-spawner-mobs=true`
+- ClearLag auto-removal enabled every `900` seconds / 15 minutes.
+- BlueMap was tested and removed because map rendering was too heavy for this VPS.
+- Server query enabled in `/opt/minecraft/server.properties`:
+  - `enable-query=true`
+  - `query.port=25565`
+  - `hide-online-players=false`
 
 Useful commands:
 
@@ -242,6 +259,9 @@ systemctl cat minecraft
 - Current page includes a donate button/support link
 - Keep donation wording as voluntary support for VPS/domain/maintenance
 - Do not sell rank, items, or pay-to-win benefits
+- Page includes lightweight third-party Minecraft status data instead of BlueMap/Dynmap.
+- Do not re-enable live map rendering unless server capacity is upgraded.
+- Keep `play.adityaanugrah.me` DNS only/gray cloud so Minecraft TCP `25565` works.
 - Apache vhost templates in repo:
   - `server/apache-play.adityaanugrah.me.conf`
   - `server/apache-play.adityaanugrah.me-le-ssl.conf`
