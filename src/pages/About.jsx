@@ -41,7 +41,7 @@ const About = () => {
             "adiityaanugrah"
           ],
           "url": "https://adityaanugrah.me/about",
-          "image": "https://adityaanugrah.me/assets/me-sunset.webp",
+          "image": "https://adityaanugrah.me/assets/me-sunset.jpeg",
           "jobTitle": "Full-Stack Web Developer",
           "description": "Full-Stack Web Developer berbasis di Semarang dan Palembang, Indonesia. Spesialisasi React, Next.js, Node.js, PHP, CodeIgniter, dan MySQL untuk website, REST API, dashboard, dan sistem bisnis kustom.",
           "email": "adityaanugrah494@gmail.com",
@@ -97,7 +97,7 @@ const About = () => {
                 
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel relative border border-white/10 group-hover:border-white/20 transition-colors">
                     <LazyImage 
-                        src="/assets/me-sunset.webp" 
+                        src="/assets/me-sunset.jpeg"
                         alt="Aditya Anugrah"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
@@ -220,68 +220,19 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 2: PROJECT SURFACE + WORKFLOW (12 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500">
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
-                    <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-                        <div className="lg:w-64 flex-shrink-0">
-                            <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3 mb-3">
-                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                                Scope
-                            </p>
-                            <h2 className="text-2xl sm:text-3xl font-bold font-display text-white leading-tight">Ruang kerja project</h2>
-                            <p className="mt-3 text-white/50 text-sm leading-relaxed">
-                                Saya mengerjakan banyak hal paralel: client work, eksperimen produk, otomasi kecil, API, server, dan iterasi cepat bersama AI.
-                            </p>
+                {/* ---------- BENTO 2: PROJECT MODES (12 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {[
+                        ["01", "Client Delivery", "Membangun kebutuhan bisnis yang jelas: company profile, katalog, dashboard, form operasional, API, dan halaman campaign."],
+                        ["02", "Internal Tools", "Merapikan workflow kecil yang sering berulang: endpoint helper, automation, admin panel, integrasi data, dan deployment checklist."],
+                        ["03", "Experimental Builds", "Mencoba ide baru bersama AI: eksplorasi UI, micro product, game/server utility, copywriting, dan prototype cepat."]
+                    ].map(([number, title, desc]) => (
+                        <div key={number} className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-white/20 transition-colors duration-500">
+                            <span className="text-[10px] font-mono text-white/35 tracking-widest">{number}</span>
+                            <h3 className="mt-4 text-lg font-bold text-white">{title}</h3>
+                            <p className="mt-2 text-white/50 text-sm leading-relaxed">{desc}</p>
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
-                            <div className="space-y-4">
-                                <h3 className="text-sm font-bold text-cyan-300 uppercase tracking-widest font-mono">Project Surface</h3>
-                                {[
-                                    ["Client Work", "Website, dashboard, form bisnis, landing page, dan sistem internal yang mengikuti kebutuhan tiap project."],
-                                    ["Personal Systems", "Portfolio API, status server, eksperimen UI, dan integrasi data kecil yang bisa dipakai ulang."],
-                                    ["AI-assisted Builds", "Banyak iterasi cepat untuk desain, copy, debugging, deployment, dan perapihan fitur bersama AI."]
-                                ].map(([title, desc]) => (
-                                    <div key={title} className="border-t border-white/10 pt-4">
-                                        <p className="text-white font-bold text-sm">{title}</p>
-                                        <p className="text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="space-y-4">
-                                <h3 className="text-sm font-bold text-purple-300 uppercase tracking-widest font-mono">Cara Kerja</h3>
-                                {[
-                                    ["01", "Pahami scope", "Mulai dari tujuan, data, user flow, dan batasan teknis."],
-                                    ["02", "Bangun bertahap", "Prioritas ke fitur inti, lalu polish UI dan integrasi."],
-                                    ["03", "Deploy dan pantau", "Cek build, API, SSL, cache, dan error setelah live."]
-                                ].map(([step, title, desc]) => (
-                                    <div key={step} className="grid grid-cols-[36px_1fr] gap-3 border-t border-white/10 pt-4">
-                                        <span className="text-[10px] font-mono text-purple-300">{step}</span>
-                                        <span>
-                                            <span className="block text-white font-bold text-sm">{title}</span>
-                                            <span className="block text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</span>
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="space-y-4">
-                                <h3 className="text-sm font-bold text-green-300 uppercase tracking-widest font-mono">Systems Maintained</h3>
-                                {[
-                                    ["Web Infrastructure", "Apache, DNS, SSL, domain, subdomain, cache, dan route fallback untuk beberapa halaman."],
-                                    ["Backend Services", "Node.js service, PM2 process, API integration, credential handling, dan endpoint publik."],
-                                    ["Game + Community Ops", "Paper server, plugin, status website, firewall, dan keputusan performa yang tidak membebani VPS."]
-                                ].map(([title, desc]) => (
-                                    <div key={title} className="border-t border-white/10 pt-4">
-                                        <p className="text-white font-bold text-sm">{title}</p>
-                                        <p className="text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </motion.div>
 
                 {/* ---------- BENTO 3: MINECRAFT SERVER (12 cols) ---------- */}
