@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
-import { FaDownload, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaDownload, FaEnvelope, FaExternalLinkAlt, FaGithub, FaHeart, FaLinkedin, FaServer, FaShieldAlt } from "react-icons/fa";
 import PubgCard from "../components/about/PubgCard";
 import SpotifyCard from "../components/about/SpotifyCard";
 import SteamCard from "../components/about/SteamCard";
@@ -220,7 +220,79 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 2: MUSIC VIBES (4 cols) ---------- */}
+                {/* ---------- BENTO 2: MINECRAFT SERVER (12 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel rounded-3xl relative group overflow-hidden border border-white/10 hover:border-green-400/30 transition-colors duration-500">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-green-300/30 to-transparent pointer-events-none" />
+                    <div className="absolute -right-24 -top-24 w-64 h-64 bg-green-500/10 rounded-full blur-3xl opacity-70 pointer-events-none" />
+                    <div className="absolute -left-24 bottom-0 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl opacity-50 pointer-events-none" />
+
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 p-6 sm:p-8">
+                        <div>
+                            <div className="flex items-center gap-3 mb-5">
+                                <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-400/20 flex items-center justify-center text-green-300 shadow-lg shadow-green-500/10">
+                                    <FaServer aria-hidden="true" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-mono uppercase tracking-widest text-green-300">Community Server</p>
+                                    <h2 className="text-2xl sm:text-3xl font-bold font-display text-white">Minecraft Server</h2>
+                                </div>
+                            </div>
+
+                            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl">
+                                Saya juga mengelola server Minecraft kecil untuk komunitas: tempat main santai, survival, dan bangun bareng tanpa sistem pay-to-win. Server berjalan di VPS yang sama dengan beberapa website, jadi maintenance dan performanya saya pantau langsung.
+                            </p>
+
+                            <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Address</p>
+                                    <p className="text-sm font-bold text-white truncate">play.adityaanugrah.me</p>
+                                </div>
+                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Server</p>
+                                    <p className="text-sm font-bold text-white">Paper 1.20.1</p>
+                                </div>
+                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Access</p>
+                                    <p className="text-sm font-bold text-white">Whitelist Aktif</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="rounded-3xl border border-green-400/20 bg-gradient-to-br from-green-500/10 to-cyan-500/5 p-5 flex flex-col justify-between">
+                            <div>
+                                <div className="flex items-center gap-2 text-green-200 mb-3">
+                                    <FaShieldAlt aria-hidden="true" />
+                                    <span className="text-xs font-mono uppercase tracking-widest">Fair Support</span>
+                                </div>
+                                <h3 className="text-xl font-bold font-display mb-2">Dukung Biaya Server</h3>
+                                <p className="text-white/55 text-sm leading-relaxed">
+                                    Donasi bersifat sukarela untuk VPS, domain, dan maintenance. Tidak ada item, rank, atau benefit khusus donor.
+                                </p>
+                            </div>
+
+                            <div className="mt-6 flex flex-col sm:flex-row lg:flex-col gap-3">
+                                <a
+                                    href="https://play.adityaanugrah.me"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold hover:bg-green-50 transition-colors"
+                                >
+                                    Kunjungi Server Page <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
+                                </a>
+                                <a
+                                    href="https://saweria.co/Adityaanugrah"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-rose-300/25 bg-rose-500/10 text-rose-100 font-bold hover:bg-rose-500/15 hover:border-rose-300/40 transition-colors"
+                                >
+                                    <FaHeart className="text-rose-300" aria-hidden="true" /> Donasi via Saweria
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* ---------- BENTO 3: MUSIC VIBES (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -234,7 +306,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 3: GAMING PUBG (4 cols) ---------- */}
+                {/* ---------- BENTO 4: GAMING PUBG (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -247,7 +319,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 4: GAMING STEAM (4 cols) ---------- */}
+                {/* ---------- BENTO 5: GAMING STEAM (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-cyan-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -260,7 +332,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 5: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
+                {/* ---------- BENTO 6: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
