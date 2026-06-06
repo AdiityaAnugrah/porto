@@ -25,11 +25,11 @@ const About = () => {
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO 
-        title="Aditya Anugrah â€“ Web Developer Semarang & Palembang"
-        description="Aditya Anugrah adalah Full-Stack Web Developer & Software Engineer dari Semarang dan Palembang dengan 3+ tahun pengalaman. Ahli React, Next.js, Node.js, PHP, dan MySQL. Tersedia untuk jasa website, REST API, dan sistem bisnis di seluruh Indonesia."
+        title="Aditya Anugrah - Web Developer Semarang & Palembang"
+        description="Aditya Anugrah adalah Full-Stack Web Developer dari Semarang dan Palembang dengan pengalaman membangun website, REST API, dashboard bisnis, dan aplikasi kustom untuk klien Indonesia."
         path="/about"
         type="profile"
-        imageAlt="Aditya Anugrah â€“ Web Developer Semarang & Palembang"
+        imageAlt="Aditya Anugrah - Web Developer Semarang & Palembang"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
@@ -43,7 +43,7 @@ const About = () => {
           "url": "https://adityaanugrah.me/about",
           "image": "https://adityaanugrah.me/assets/me-sunset.webp",
           "jobTitle": "Full-Stack Web Developer",
-          "description": "Full-Stack Web Developer & Software Engineer berbasis di Semarang dan Palembang, Indonesia. Spesialisasi React, Next.js, Node.js, PHP, CodeIgniter, MySQL. Tersedia untuk proyek web developer Semarang, web developer Palembang, dan seluruh Indonesia.",
+          "description": "Full-Stack Web Developer berbasis di Semarang dan Palembang, Indonesia. Spesialisasi React, Next.js, Node.js, PHP, CodeIgniter, dan MySQL untuk website, REST API, dashboard, dan sistem bisnis kustom.",
           "email": "adityaanugrah494@gmail.com",
           "nationality": "Indonesian",
           "homeLocation": [
@@ -85,12 +85,12 @@ const About = () => {
       />
 
       <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
-        {/* Sidebar / Image (Animasi masuk dari kiri) */}
+        {/* Sidebar / Image */}
         <motion.div 
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="space-y-8 sticky top-24"
+          className="space-y-8 md:sticky md:top-24"
         >
             <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/12 to-purple-500/12 rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
@@ -110,14 +110,14 @@ const About = () => {
                     <FaDownload /> Download CV
                 </a>
                 <div className="flex justify-center gap-6 text-2xl text-white/50">
-                     <a href="https://github.com/adiityaanugrah" className="hover:text-white transition-colors"><FaGithub /></a>
-                     <a href="https://www.linkedin.com/in/aditya-anugrah/" className="hover:text-white transition-colors"><FaLinkedin /></a>
-                     <a href="mailto:adityaanugrah494@gmail.com" className="hover:text-white transition-colors"><FaEnvelope /></a>
+                     <a href="https://github.com/adiityaanugrah" target="_blank" rel="noopener noreferrer" aria-label="GitHub Aditya Anugrah" className="hover:text-white transition-colors"><FaGithub /></a>
+                     <a href="https://www.linkedin.com/in/aditya-anugrah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Aditya Anugrah" className="hover:text-white transition-colors"><FaLinkedin /></a>
+                     <a href="mailto:adityaanugrah494@gmail.com" aria-label="Email Aditya Anugrah" className="hover:text-white transition-colors"><FaEnvelope /></a>
                 </div>
             </div>
         </motion.div>
 
-        {/* Content Area - hanya Intro di sini */}
+        {/* Content Area */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -127,58 +127,53 @@ const About = () => {
             <motion.section variants={itemVariants} className="relative">
                 <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/8 to-transparent blur-2xl opacity-40 pointer-events-none" />
 
-                {/* H1 â€” SATU, SEO-rich, sebut profesi + lokasi */}
+                {/* Single SEO-friendly H1 with profession and location. */}
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-2 tracking-tight relative z-10 leading-tight">
-                    Aditya Anugrah <span className="sr-only">â€”</span><br />
+                    Aditya Anugrah <span className="sr-only">-</span><br />
                     <span className="text-gradient text-4xl md:text-5xl lg:text-6xl">Full-Stack Web Developer</span>
                 </h1>
                 <p className="text-white/40 font-mono text-sm uppercase tracking-widest mb-6 relative z-10">
                     Semarang &amp; Palembang, Indonesia
                 </p>
 
-                {/* ===== BIO CONTENT (SEO-friendly, 300+ kata) ===== */}
+                {/* Bio content */}
                 <div className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
 
-                    {/* Paragraf 1 â€” Perkenalan + lokasi + profesi */}
                     <p>
                         Saya <strong className="text-white">Aditya Anugrah</strong>, seorang{" "}
                         <strong className="text-white">Full-Stack Web Developer</strong> berbasis di{" "}
-                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia, dengan pengalaman lebih dari 3 tahun membangun produk digital mulai dari backend skala perusahaan hingga antarmuka frontend yang halus. Perjalanan saya dimulai dari rasa ingin tahu bagaimana internet bekerja, yang dengan cepat berubah menjadi karier membangun solusi digital yang bermakna.
+                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia. Saya membangun produk digital dari sisi frontend sampai backend: website company profile, e-commerce, dashboard operasional, REST API, dan sistem internal yang dipakai tim setiap hari.
                     </p>
 
-                    {/* H2 â€” Keahlian Teknis */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
                         Keahlian &amp; Teknologi
                     </h2>
                     <p>
-                        Saya berspesialisasi dalam ekosistem JavaScript modern â€”{" "}
+                        Stack utama saya berada di ekosistem JavaScript modern:{" "}
                         <span className="text-cyan-400">React</span>,{" "}
                         <span className="text-cyan-400">Next.js</span>, dan{" "}
-                        <span className="text-cyan-400">Node.js</span> â€” serta fondasi server-side yang kuat menggunakan{" "}
+                        <span className="text-cyan-400">Node.js</span>. Untuk backend dan sistem bisnis, saya juga terbiasa dengan{" "}
                         <span className="text-purple-400">PHP / CodeIgniter</span> dan{" "}
-                        <span className="text-purple-400">MySQL</span>. Saya telah membangun berbagai jenis sistem: REST API high-traffic, WebSocket real-time, hingga aplikasi mobile Android menggunakan Kotlin.
+                        <span className="text-purple-400">MySQL</span>. Saya memilih teknologi berdasarkan kebutuhan proyek: performa, keamanan, kemudahan maintenance, dan target bisnis yang ingin dicapai.
                     </p>
 
-                    {/* H2 â€” Pengalaman */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
                         Pengalaman sebagai Full-Stack Developer
                     </h2>
                     <p>
-                        Selama lebih dari 3 tahun, saya membantu UMKM, startup, dan perusahaan dalam merancang solusi digital yang cepat, aman, dan <em>scalable</em>. Saya terbiasa mengerjakan proyek secara end-to-end â€” dari perencanaan arsitektur, pengembangan, hingga deployment. Fokus saya adalah <span className="text-cyan-400">clean code</span>, <span className="text-purple-400">performansi</span>, dan <span className="text-pink-400">user experience</span>.
+                        Dalam beberapa tahun terakhir, saya membantu UMKM, startup, dan perusahaan merancang solusi digital yang cepat, aman, dan mudah dikembangkan. Saya terbiasa bekerja end-to-end: memahami kebutuhan, menyusun alur sistem, membuat UI, mengembangkan API, mengelola database, sampai deployment. Fokus saya adalah <span className="text-cyan-400">kode yang rapi</span>, <span className="text-purple-400">performa stabil</span>, dan <span className="text-pink-400">pengalaman pengguna yang jelas</span>.
                     </p>
 
-                    {/* H2 â€” Lokasi & Jangkauan */}
                     <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-pink-500 inline-block" />
                         Web Developer Semarang &amp; Palembang
                     </h2>
                     <p>
-                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya melayani klien dari seluruh Indonesia secara <em>remote</em> maupun tatap muka. Setiap proyek saya tangani dengan profesionalisme penuh â€” dari konsultasi kebutuhan awal hingga serah terima produk akhir.
+                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya menangani proyek dari berbagai kota di Indonesia secara remote maupun tatap muka. Setiap proyek dimulai dari diskusi kebutuhan yang konkret, agar solusi yang dibuat tidak hanya terlihat bagus, tetapi benar-benar membantu operasional dan pertumbuhan bisnis.
                     </p>
 
-                    {/* Internal Links */}
                     <p className="text-white/50 text-sm border-t border-white/10 pt-4">
                         Lihat hasil kerja saya di{" "}
                         <a href="/projects" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-medium">
@@ -230,7 +225,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl"></span> Music Flow
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400/70" aria-hidden="true" /> Music Flow
                         </h2>
                     </div>
                     {/* Mengisi sisa flex */}
@@ -244,7 +239,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl"></span> PUBG STEAM
+                            <span className="w-1.5 h-1.5 rounded-full bg-orange-400/70" aria-hidden="true" /> PUBG Steam
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
@@ -257,7 +252,7 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-tl from-cyan-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
                         <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="text-base sm:text-xl"></span> Steam Profile
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-300/70" aria-hidden="true" /> Steam Profile
                         </h2>
                     </div>
                     <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
