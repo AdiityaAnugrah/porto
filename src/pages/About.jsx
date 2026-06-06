@@ -220,7 +220,71 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 2: MINECRAFT SERVER (12 cols) ---------- */}
+                {/* ---------- BENTO 2: CURRENT FOCUS + WORKFLOW (12 cols) ---------- */}
+                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500">
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
+                    <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                        <div className="lg:w-64 flex-shrink-0">
+                            <p className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3 mb-3">
+                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                                Now
+                            </p>
+                            <h2 className="text-2xl sm:text-3xl font-bold font-display text-white leading-tight">Yang sedang saya bangun</h2>
+                            <p className="mt-3 text-white/50 text-sm leading-relaxed">
+                                Fokus saya sekarang ada di produk web yang stabil, API kecil yang berguna, dan operasional server yang rapi.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold text-cyan-300 uppercase tracking-widest font-mono">Current Builds</h3>
+                                {[
+                                    ["Portfolio API", "Spotify, Steam, PUBG, dan endpoint kecil untuk data profil real-time."],
+                                    ["Minecraft Status", "Halaman server ringan tanpa render map berat, memakai API status publik."],
+                                    ["Client Systems", "Dashboard, REST API, dan alur bisnis yang mudah dirawat."]
+                                ].map(([title, desc]) => (
+                                    <div key={title} className="border-t border-white/10 pt-4">
+                                        <p className="text-white font-bold text-sm">{title}</p>
+                                        <p className="text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold text-purple-300 uppercase tracking-widest font-mono">Cara Kerja</h3>
+                                {[
+                                    ["01", "Pahami scope", "Mulai dari tujuan, data, user flow, dan batasan teknis."],
+                                    ["02", "Bangun bertahap", "Prioritas ke fitur inti, lalu polish UI dan integrasi."],
+                                    ["03", "Deploy dan pantau", "Cek build, API, SSL, cache, dan error setelah live."]
+                                ].map(([step, title, desc]) => (
+                                    <div key={step} className="grid grid-cols-[36px_1fr] gap-3 border-t border-white/10 pt-4">
+                                        <span className="text-[10px] font-mono text-purple-300">{step}</span>
+                                        <span>
+                                            <span className="block text-white font-bold text-sm">{title}</span>
+                                            <span className="block text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</span>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="space-y-4">
+                                <h3 className="text-sm font-bold text-green-300 uppercase tracking-widest font-mono">Systems Maintained</h3>
+                                {[
+                                    ["Apache + SSL", "Virtual host, reverse proxy, dan Let's Encrypt untuk domain utama dan subdomain."],
+                                    ["PM2 API Service", "Node.js backend untuk data publik portfolio dan integrasi API eksternal."],
+                                    ["Paper Server", "Minecraft survival public dengan plugin inti, clear lag, dan status website."]
+                                ].map(([title, desc]) => (
+                                    <div key={title} className="border-t border-white/10 pt-4">
+                                        <p className="text-white font-bold text-sm">{title}</p>
+                                        <p className="text-white/50 text-xs sm:text-sm leading-relaxed mt-1">{desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* ---------- BENTO 3: MINECRAFT SERVER (12 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 glass-panel rounded-3xl relative group overflow-hidden border border-white/10 hover:border-green-400/30 transition-colors duration-500">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-green-300/30 to-transparent pointer-events-none" />
                     <div className="absolute -right-24 -top-24 w-64 h-64 bg-green-500/10 rounded-full blur-3xl opacity-70 pointer-events-none" />
@@ -290,7 +354,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 3: MUSIC VIBES (4 cols) ---------- */}
+                {/* ---------- BENTO 4: MUSIC VIBES (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -304,7 +368,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 4: GAMING PUBG (4 cols) ---------- */}
+                {/* ---------- BENTO 5: GAMING PUBG (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -317,7 +381,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 5: GAMING STEAM (4 cols) ---------- */}
+                {/* ---------- BENTO 6: GAMING STEAM (4 cols) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
                     <div className="absolute inset-0 bg-gradient-to-tl from-cyan-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     <div className="mb-4 pl-3">
@@ -330,7 +394,7 @@ const About = () => {
                     </div>
                 </motion.div>
 
-                {/* ---------- BENTO 6: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
+                {/* ---------- BENTO 7: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
                 <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
                     <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
