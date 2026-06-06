@@ -537,8 +537,23 @@
       gap: 14px;
     }
 
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
     .tile {
       min-height: 180px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      background: rgba(17, 23, 26, 0.86);
+    }
+
+    .rule-card,
+    .info-item {
+      min-height: 188px;
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 20px;
@@ -560,13 +575,33 @@
       text-transform: uppercase;
     }
 
-    .tile h3 {
+    .rule-card small,
+    .info-item small {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tile h3,
+    .rule-card h3,
+    .info-item h3 {
       margin: 0 0 9px;
       font-size: 18px;
       line-height: 1.25;
     }
 
-    .tile p {
+    .tile p,
+    .rule-card p,
+    .info-item p {
       margin: 0;
       color: var(--muted);
       line-height: 1.6;
@@ -577,6 +612,43 @@
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 10px;
       margin-top: 14px;
+    }
+
+    .command-panel {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: rgba(17, 23, 26, 0.82);
+    }
+
+    .command-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      min-height: 66px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .command-row code {
+      margin: 0;
+    }
+
+    .command-row span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
     .note {
@@ -813,11 +885,14 @@
       .steps,
       .features,
       .status-grid,
+      .rules-grid,
+      .info-grid,
       .support-grid {
         grid-template-columns: 1fr;
       }
 
-      .online-board {
+      .online-board,
+      .command-row {
         grid-template-columns: 1fr;
       }
     }
@@ -885,6 +960,9 @@
       <nav class="nav" aria-label="Navigasi">
         <a href="#status">Status</a>
         <a href="#cara-main">Cara Main</a>
+        <a href="#rules">Rules</a>
+        <a href="#commands">Command</a>
+        <a href="#info">Info</a>
         <a href="#akses">Akses</a>
         <a href="#fitur">Fitur</a>
         <a href="#support" data-support-open>Support</a>
@@ -1016,6 +1094,57 @@
       <div class="note">Kalau server penuh atau sedang restart, tunggu sebentar lalu coba masuk lagi.</div>
     </section>
 
+    <section class="section" id="rules">
+      <div class="section-head">
+        <h2>Rules Server</h2>
+        <p>Aturan dibuat supaya survival tetap nyaman, adil, dan tidak merusak progress player lain.</p>
+      </div>
+      <div class="rules-grid">
+        <article class="rule-card">
+          <small>01</small>
+          <h3>Anti cheat dan exploit</h3>
+          <p>Dilarang memakai cheat, xray, macro abuse, duping, atau memanfaatkan bug untuk keuntungan pribadi.</p>
+        </article>
+        <article class="rule-card">
+          <small>02</small>
+          <h3>Jaga build player</h3>
+          <p>Jangan grief, steal, atau merusak area player lain tanpa izin. Laporan bisa dicek dengan CoreProtect.</p>
+        </article>
+        <article class="rule-card">
+          <small>03</small>
+          <h3>Chat tetap aman</h3>
+          <p>Dilarang spam, toxic berlebihan, SARA, doxing, atau mengganggu player baru yang sedang belajar.</p>
+        </article>
+        <article class="rule-card">
+          <small>04</small>
+          <h3>Laporkan masalah</h3>
+          <p>Kalau menemukan bug, kehilangan item, atau grief, hubungi admin dengan waktu kejadian dan koordinat.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="commands">
+      <div class="section-head">
+        <h2>Command Penting</h2>
+        <p>Command khusus seperti home, teleport, ekonomi, dan shop akan ditampilkan setelah fiturnya benar-benar aktif.</p>
+      </div>
+      <div class="command-panel">
+        <div class="command-row">
+          <code>/help</code>
+          <span>Lihat bantuan command yang tersedia di server.</span>
+        </div>
+        <div class="command-row">
+          <code>/msg &lt;player&gt; &lt;pesan&gt;</code>
+          <span>Kirim pesan pribadi ke player lain jika command chat tersedia.</span>
+        </div>
+        <div class="command-row">
+          <code>/tell &lt;player&gt; &lt;pesan&gt;</code>
+          <span>Alternatif vanilla untuk mengirim pesan langsung ke player.</span>
+        </div>
+      </div>
+      <div class="note">Command teleport seperti /spawn, /tpa, /sethome, dan /home belum ditampilkan sebagai fitur aktif agar tidak membingungkan player.</div>
+    </section>
+
     <section class="section" id="fitur">
       <div class="section-head">
         <h2>Fitur Server</h2>
@@ -1036,6 +1165,35 @@
           <small>Proteksi</small>
           <h3>Anti-cheat dan rollback</h3>
           <p>GrimAC dan CoreProtect membantu mengurangi cheat serta memeriksa perubahan blok.</p>
+        </article>
+        <article class="tile">
+          <small>Performa</small>
+          <h3>Clear lag otomatis</h3>
+          <p>Item di tanah dibersihkan berkala untuk menjaga TPS tanpa memakai render map berat.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="info">
+      <div class="section-head">
+        <h2>Info Server</h2>
+        <p>Tempat pengumuman singkat untuk maintenance, update, dan kebijakan world survival.</p>
+      </div>
+      <div class="info-grid">
+        <article class="info-item">
+          <small>Pengumuman</small>
+          <h3>Status normal</h3>
+          <p>Belum ada maintenance besar. Jika ada restart atau update versi, info akan ditulis di bagian ini.</p>
+        </article>
+        <article class="info-item">
+          <small>Backup</small>
+          <h3>Rollback tersedia</h3>
+          <p>CoreProtect membantu cek perubahan blok dan rollback kasus grief berdasarkan laporan yang jelas.</p>
+        </article>
+        <article class="info-item">
+          <small>World</small>
+          <h3>Belum ada jadwal wipe</h3>
+          <p>World survival tidak direncanakan reset rutin. Perubahan besar akan diumumkan lebih dulu.</p>
         </article>
       </div>
     </section>
