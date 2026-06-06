@@ -224,6 +224,30 @@
       color: var(--text);
     }
 
+    .button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .button.love-button {
+      border-color: rgba(255, 139, 118, 0.8);
+      background:
+        linear-gradient(135deg, #ff8b76 0%, #e8c26e 100%);
+      color: #1d0a05;
+      box-shadow: 0 16px 40px rgba(255, 139, 118, 0.22);
+    }
+
+    .button.love-button:hover {
+      background:
+        linear-gradient(135deg, #ffa08f 0%, #f5d487 100%);
+    }
+
+    .button.love-button .heart-icon {
+      fill: currentColor;
+      stroke: currentColor;
+    }
+
     .server-card {
       align-self: center;
       border: 1px solid var(--line);
@@ -456,6 +480,167 @@
       line-height: 1.6;
     }
 
+    .support-modal[hidden] {
+      display: none;
+    }
+
+    .support-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .support-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(10px);
+    }
+
+    .support-dialog {
+      position: relative;
+      width: min(780px, 100%);
+      max-height: min(760px, calc(100dvh - 40px));
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(23, 33, 38, 0.98), rgba(12, 17, 20, 0.98));
+      box-shadow: 0 32px 100px rgba(0, 0, 0, 0.72);
+    }
+
+    .support-dialog-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 22px 22px 0;
+    }
+
+    .support-dialog h2 {
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    .support-dialog p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .support-close {
+      width: 46px;
+      min-width: 46px;
+      min-height: 46px;
+      padding: 0;
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+    }
+
+    .support-close:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .support-close svg {
+      width: 19px;
+      height: 19px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 20px 22px 22px;
+    }
+
+    .support-method {
+      min-height: 156px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .support-method:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.075);
+    }
+
+    .method-top {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .method-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--green);
+    }
+
+    .method-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .method-title {
+      display: block;
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1.25;
+    }
+
+    .method-desc {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .method-action {
+      display: inline-flex;
+      width: fit-content;
+      min-height: 34px;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #ffe2a2;
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .support-footnote {
+      margin: 0 22px 22px;
+      border: 1px solid rgba(232, 194, 110, 0.28);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: rgba(232, 194, 110, 0.07);
+      color: #ffe2a2;
+      line-height: 1.55;
+    }
+
     footer {
       display: flex;
       justify-content: space-between;
@@ -495,7 +680,8 @@
       }
 
       .steps,
-      .features {
+      .features,
+      .support-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -519,8 +705,25 @@
       .quick-actions,
       .quick-actions .button,
       .support .button,
+      .support-dialog .button,
       button {
         width: 100%;
+      }
+
+      .support-dialog-head {
+        padding: 18px 18px 0;
+      }
+
+      .support-close {
+        width: 46px;
+      }
+
+      .support-grid {
+        padding: 18px;
+      }
+
+      .support-footnote {
+        margin: 0 18px 18px;
       }
 
       h1 {
@@ -547,7 +750,7 @@
         <a href="#cara-main">Cara Main</a>
         <a href="#akses">Akses</a>
         <a href="#fitur">Fitur</a>
-        <a href="https://saweria.co/Adityaanugrah">Support</a>
+        <a href="#support" data-support-open>Support</a>
       </nav>
     </header>
 
@@ -662,7 +865,12 @@
         <h2 id="support-title">Support server</h2>
         <p>Support bersifat sukarela untuk biaya VPS, domain, dan maintenance. Tidak menjual rank, item, atau benefit pay-to-win.</p>
       </div>
-      <a class="button primary" href="https://saweria.co/Adityaanugrah">Support</a>
+      <button class="button love-button" type="button" data-support-open aria-haspopup="dialog">
+        <svg class="heart-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 0 1 12 6.2a5 5 0 0 1 7.5 6.4Z" />
+        </svg>
+        Support
+      </button>
     </section>
 
     <footer>
@@ -671,8 +879,109 @@
     </footer>
   </main>
 
+  <div class="support-modal" id="support-modal" hidden aria-hidden="true">
+    <div class="support-backdrop" data-support-close></div>
+    <section class="support-dialog" role="dialog" aria-modal="true" aria-labelledby="support-modal-title" tabindex="-1">
+      <div class="support-dialog-head">
+        <div>
+          <h2 id="support-modal-title">Pilih cara support</h2>
+          <p>Semua support bersifat sukarela untuk biaya VPS, domain, maintenance, dan plugin server.</p>
+        </div>
+        <button class="support-close" type="button" data-support-close aria-label="Tutup popup support">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="support-grid">
+        <a class="support-method" href="https://saweria.co/Adityaanugrah" target="_blank" rel="noopener noreferrer">
+          <div class="method-top">
+            <span class="method-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 0 1 12 6.2a5 5 0 0 1 7.5 6.4Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <span class="method-title">Saweria</span>
+              <span class="method-desc">Platform lokal, cepat untuk support kecil maupun rutin.</span>
+            </span>
+          </div>
+          <span class="method-action">Buka Saweria</span>
+        </a>
+
+        <a class="support-method" href="https://bagibagi.co/aditya10" target="_blank" rel="noopener noreferrer">
+          <div class="method-top">
+            <span class="method-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 8h16v12H4V8Zm2-4h12v4H6V4Zm4 6v8m4-8v8M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <span class="method-title">BagiBagi</span>
+              <span class="method-desc">Alternatif support lokal lewat halaman BagiBagi.</span>
+            </span>
+          </div>
+          <span class="method-action">Buka BagiBagi</span>
+        </a>
+
+        <a class="support-method" href="https://wa.me/6281379430432?text=Halo%20Aditya,%20saya%20mau%20support%20Minecraft%20server%20via%20QRIS." target="_blank" rel="noopener noreferrer">
+          <div class="method-top">
+            <span class="method-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm10 0h2v2h-2v-2Zm4 0h2v2h-2v-2Zm-4 4h2v3h-2v-3Zm4 2h2v1h-2v-1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <span class="method-title">QRIS</span>
+              <span class="method-desc">Minta QRIS lewat WhatsApp untuk transfer langsung.</span>
+            </span>
+          </div>
+          <span class="method-action">Minta QRIS</span>
+        </a>
+
+        <a class="support-method" href="mailto:admin@adityaanugrah.me?subject=Support%20Minecraft%20server%20via%20PayPal&body=Halo%20Aditya,%20saya%20mau%20support%20Minecraft%20server%20via%20PayPal.">
+          <div class="method-top">
+            <span class="method-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M6 7h10a4 4 0 0 1 0 8h-5l-1 5H6l3-16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <span class="method-title">PayPal</span>
+              <span class="method-desc">Kirim request PayPal, nanti link pembayaran bisa dibalas lewat email.</span>
+            </span>
+          </div>
+          <span class="method-action">Request PayPal</span>
+        </a>
+
+        <a class="support-method" href="https://wa.me/6281379430432?text=Halo%20Aditya,%20saya%20mau%20support%20Minecraft%20server." target="_blank" rel="noopener noreferrer">
+          <div class="method-top">
+            <span class="method-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 5h14v10H8l-3 3V5Zm4 4h6M9 12h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span>
+              <span class="method-title">Kontak admin</span>
+              <span class="method-desc">Untuk metode lain, konfirmasi nominal, atau tanya biaya server.</span>
+            </span>
+          </div>
+          <span class="method-action">Chat WhatsApp</span>
+        </a>
+      </div>
+
+      <p class="support-footnote">Support tidak memberi rank, item, whitelist prioritas, atau benefit pay-to-win. Ini murni bantu operasional server.</p>
+    </section>
+  </div>
+
   <script>
     const copyButtons = document.querySelectorAll("[data-copy]");
+    const supportModal = document.getElementById("support-modal");
+    const supportDialog = supportModal.querySelector(".support-dialog");
+    const supportOpenButtons = document.querySelectorAll("[data-support-open]");
+    const supportCloseButtons = document.querySelectorAll("[data-support-close]");
+    let lastFocusedElement = null;
 
     copyButtons.forEach((button) => {
       button.addEventListener("click", async () => {
@@ -689,6 +998,41 @@
           button.textContent = originalText;
         }, 1600);
       });
+    });
+
+    const openSupportModal = () => {
+      lastFocusedElement = document.activeElement;
+      supportModal.hidden = false;
+      supportModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      supportDialog.focus();
+    };
+
+    const closeSupportModal = () => {
+      supportModal.hidden = true;
+      supportModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    };
+
+    supportOpenButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        openSupportModal();
+      });
+    });
+
+    supportCloseButtons.forEach((button) => {
+      button.addEventListener("click", closeSupportModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !supportModal.hidden) {
+        closeSupportModal();
+      }
     });
   </script>
 </body>
