@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
@@ -8,7 +9,7 @@ const Footer = () => {
     <footer className="relative border-t border-white/5 bg-[#070605] py-12 px-6 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8 relative z-10 mb-12">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-8 relative z-10 mb-12">
         
         <div className="md:col-span-2">
             <h3 className="text-2xl font-display font-bold text-white mb-4">Aditya Anugrah</h3>
@@ -36,6 +37,22 @@ const Footer = () => {
                 <li>Pembuatan Aplikasi</li>
                 <li>Pembuatan Landing Page</li>
                 <li>Optimasi SEO</li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 className="text-white font-bold mb-4">Legal</h4>
+            <ul className="space-y-2 text-sm text-white/50" aria-label="Legal pages">
+                <li>
+                    <Link to="/privacy" className="hover:text-cyan-400 transition-colors">
+                        Privacy Policy
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/terms" className="hover:text-cyan-400 transition-colors">
+                        Terms of Service
+                    </Link>
+                </li>
             </ul>
         </div>
 

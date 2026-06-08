@@ -177,6 +177,122 @@ pm2 status
 pm2 logs aditya-api
 ```
 
+## MyCloud / 9Drive
+
+- Domain target: `https://mycloud.adityaanugrah.me`
+- Upstream project: `https://github.com/zenhosta/9drive`
+- Purpose: private Google Drive storage gateway/dashboard
+- Stack: React + Vite frontend, Express + TypeScript backend, Prisma, MariaDB/MySQL
+- Recommended server path: `/var/www/mycloud.adityaanugrah.me`
+- Frontend live path: `/var/www/mycloud.adityaanugrah.me/frontend/dist`
+- Backend listen: `127.0.0.1:4000`
+- Public API path: `https://mycloud.adityaanugrah.me/api`
+- PM2 app name: `mycloud-9drive`
+- Database: dedicated MariaDB database/user `9drive`
+- Apache serves frontend and reverse proxies `/api/` to `http://127.0.0.1:4000/`
+- Config templates in this repo:
+  - `server/apache-mycloud.adityaanugrah.me.conf`
+  - `server/apache-mycloud.adityaanugrah.me-le-ssl.conf`
+  - `server/ecosystem.9drive.config.cjs`
+  - `server/mycloud-backend.env.example`
+  - `server/mycloud-frontend.env.example`
+  - `server/mycloud-deploy-guide.md`
+  - `server/mycloud-bind-localhost.patch`
+
+Cloudflare DNS:
+
+- `mycloud.adityaanugrah.me`
+  - A record to `194.233.90.4`
+  - Use DNS only/gray cloud if uploads larger than Cloudflare's proxied upload limit are needed
+  - Proxied/orange cloud is acceptable only if upload size stays within the current Cloudflare plan limit
+
+Required backend env shape:
+
+```env
+DATABASE_URL="mysql://9drive:CHANGE_THIS_DB_PASSWORD@127.0.0.1:3306/9drive"
+APP_PORT=4000
+FRONTEND_URL="https://mycloud.adityaanugrah.me"
+JWT_ACCESS_SECRET="CHANGE_THIS_RANDOM_SECRET_AT_LEAST_32_CHARS"
+TOKEN_ENCRYPTION_KEY="CHANGE_THIS_RANDOM_SECRET_AT_LEAST_32_CHARS"
+ACCESS_TOKEN_TTL_SECONDS=900
+REFRESH_TOKEN_TTL_DAYS=30
+MAX_UPLOAD_BYTES=5368709120
+RECAPTCHA_SECRET_KEY=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+GOOGLE_REDIRECT_URI="https://mycloud.adityaanugrah.me/api/connected-accounts/google/callback"
+```
+
+Required frontend env:
+
+```env
+VITE_API_URL=https://mycloud.adityaanugrah.me/api
+VITE_RECAPTCHA_SITE_KEY=
+```
+
+Google Cloud OAuth setup:
+
+- Enable Google Drive API
+- Add OAuth scopes:
+  - `https://www.googleapis.com/auth/drive`
+  - `https://www.googleapis.com/auth/userinfo.email`
+  - `https://www.googleapis.com/auth/userinfo.profile`
+- Authorized JavaScript origin:
+  - `https://mycloud.adityaanugrah.me`
+- Authorized redirect URIs:
+  - `https://mycloud.adityaanugrah.me/api/connected-accounts/google/callback`
+  - `https://mycloud.adityaanugrah.me/api/auth/google/callback`
+
+Deploy outline:
+
+```bash
+cd /var/www
+git clone https://github.com/zenhosta/9drive.git mycloud.adityaanugrah.me
+cd /var/www/mycloud.adityaanugrah.me
+git apply /var/www/adityaanugrah.me/server/mycloud-bind-localhost.patch
+git config user.name "Server Deploy"
+git config user.email "root@adityaanugrah.me"
+git add backend/src/server.ts
+git commit -m "Bind backend to localhost"
+
+cd backend
+nano .env
+npm install
+npm run build
+npx prisma migrate deploy
+npm run seed:google-config
+cp /var/www/adityaanugrah.me/server/ecosystem.9drive.config.cjs ecosystem.config.cjs
+pm2 start ecosystem.config.cjs
+pm2 save
+
+cd ../frontend
+nano .env
+npm install
+npm run build
+
+a2enmod proxy proxy_http headers rewrite ssl
+cp /var/www/adityaanugrah.me/server/apache-mycloud.adityaanugrah.me.conf /etc/apache2/sites-available/mycloud.adityaanugrah.me.conf
+a2ensite mycloud.adityaanugrah.me.conf
+apache2ctl configtest
+systemctl reload apache2
+certbot --apache -d mycloud.adityaanugrah.me --redirect
+```
+
+Test:
+
+```bash
+curl -I https://mycloud.adityaanugrah.me/
+curl https://mycloud.adityaanugrah.me/api/health
+pm2 status
+pm2 logs mycloud-9drive
+```
+
+Security notes:
+
+- Do not commit backend `.env`, Google OAuth secrets, JWT secret, token encryption key, or database password.
+- Google Drive tokens are stored encrypted in MariaDB by 9Drive.
+- Keep registration controlled if the app is private. Consider Cloudflare Access, Apache auth, or app-level registration restrictions before exposing it broadly.
+
 ## Minecraft Server
 
 - Software: Paper 1.21.11

@@ -34,6 +34,8 @@ const Contact = lazy(() => import("./pages/Contact.jsx"));
 const CV = lazy(() => import("./pages/CV.jsx"));
 const Blog = lazy(() => import("./pages/Blog.jsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
+const Privacy = lazy(() => import("./pages/Privacy.jsx"));
+const Terms = lazy(() => import("./pages/Terms.jsx"));
 
 
 createRoot(document.getElementById("root")).render(
@@ -60,6 +62,10 @@ createRoot(document.getElementById("root")).render(
 
           {/* Contact */}
           <Route path="contact" element={<Contact />} />
+
+          {/* Legal */}
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="terms" element={<Terms />} />
 
           {/* Blog */}
           <Route path="blog">
