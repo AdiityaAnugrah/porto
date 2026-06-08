@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
-import { FaDatabase, FaGoogleDrive, FaLock, FaTrashAlt, FaUserShield } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaServer, FaUserShield } from "react-icons/fa";
 
 const lastUpdated = "June 8, 2026";
 
@@ -9,64 +9,60 @@ const sections = [
   {
     title: "Information We Collect",
     body: [
-      "When you use MyCloud, we may collect account information such as your name, email address, profile picture, and login method.",
-      "If you connect Google Drive, the app stores encrypted OAuth tokens so the service can create, list, upload, preview, rename, and delete files you manage through MyCloud.",
-      "Operational data such as file names, folder names, MIME types, file sizes, upload status, storage quota, timestamps, and audit records may be stored in the MyCloud database.",
+      "When you contact Aditya Anugrah through this website, we may receive the information you choose to send, such as your name, email address, phone number, company name, project details, and message content.",
+      "Basic technical information such as browser type, device information, pages visited, timestamps, and security logs may be processed by the hosting provider or website infrastructure.",
     ],
   },
   {
-    title: "How Google Drive Data Is Used",
+    title: "How Information Is Used",
     body: [
-      "MyCloud uses Google Drive access only to provide the cloud file management features requested by the signed-in user.",
-      "Files are stored in the connected Google Drive account. MyCloud keeps metadata in its own database so the dashboard can show files, folders, storage accounts, sharing records, and upload history.",
-      "Google user data is not sold, used for advertising, or shared with unrelated third parties.",
+      "Contact details and project information are used to reply to inquiries, prepare estimates, discuss collaboration, provide support, and maintain business records.",
+      "Technical logs are used for security monitoring, troubleshooting, abuse prevention, and keeping the website available.",
     ],
   },
   {
-    title: "Storage And Security",
+    title: "Sharing",
     body: [
-      "Google OAuth refresh tokens and access tokens are encrypted before being stored in the database.",
-      "Database access is limited to the server environment. Public traffic reaches the backend through HTTPS and the configured API proxy.",
-      "No system can be guaranteed perfectly secure, but reasonable technical controls are used to reduce unauthorized access risk.",
+      "Personal information is not sold.",
+      "Information may be shared only when needed to operate the website, respond to your request, comply with law, prevent abuse, or work with trusted service providers involved in hosting, email delivery, analytics, or security.",
     ],
   },
   {
-    title: "Google API Limited Use",
+    title: "Security And Retention",
     body: [
-      "MyCloud's use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.",
-      "Google user data is used only for user-facing file management features and is not used to build advertising profiles or train generalized AI models.",
+      "Reasonable technical and organizational measures are used to protect information from unauthorized access, loss, misuse, or alteration.",
+      "Messages and business records may be retained as long as needed for communication, accounting, security, legal compliance, and legitimate business purposes.",
     ],
   },
   {
-    title: "Data Retention And Deletion",
+    title: "Your Choices",
     body: [
-      "Account, token, file metadata, upload, and audit records may be retained while the account is active and as needed for service operation, security, debugging, and legal compliance.",
-      "You may revoke Google access at any time from your Google Account permissions page.",
-      "You may request deletion of your MyCloud account data by contacting the operator at admin@adityaanugrah.me.",
+      "You may request correction or deletion of personal information you have provided, subject to legal, security, and business record requirements.",
+      "You can avoid sending personal data through the contact form by contacting only with the information you are comfortable sharing.",
     ],
   },
 ];
 
 const highlights = [
   {
-    icon: FaGoogleDrive,
-    title: "Google Drive Access",
-    text: "Used only to operate MyCloud file management features.",
+    icon: FaEnvelope,
+    title: "Contact Data",
+    text: "Used to reply to inquiries and discuss project work.",
   },
   {
-    icon: FaLock,
-    title: "Encrypted Tokens",
-    text: "OAuth tokens are encrypted before database storage.",
+    icon: FaServer,
+    title: "Server Logs",
+    text: "Used for security, diagnostics, and uptime monitoring.",
   },
   {
     icon: FaUserShield,
     title: "No Data Sale",
-    text: "Google user data is not sold or used for advertising.",
+    text: "Personal information is not sold.",
   },
   {
-    icon: FaTrashAlt,
-    title: "Deletion Requests",
-    text: "Users can request account data deletion by email.",
+    icon: FaLock,
+    title: "Reasonable Controls",
+    text: "Security controls are used to reduce unauthorized access risk.",
   },
 ];
 
@@ -75,7 +71,7 @@ export default function Privacy() {
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO
         title="Privacy Policy | Aditya Anugrah"
-        description="Privacy Policy for Aditya Anugrah services, including MyCloud Google Drive integration and OAuth data handling."
+        description="Privacy Policy for the Aditya Anugrah website, contact forms, server logs, and project inquiries."
         path="/privacy"
         type="website"
         jsonLd={{
@@ -99,8 +95,7 @@ export default function Privacy() {
           Privacy <span className="text-gradient">Policy</span>
         </h1>
         <p className="mt-5 max-w-3xl text-white/60 leading-relaxed">
-          This policy explains how Aditya Anugrah and the MyCloud service handle account data,
-          Google Drive access, stored metadata, and deletion requests.
+          This policy explains how information submitted through this website is handled.
         </p>
         <p className="mt-4 text-sm text-white/35">Last updated: {lastUpdated}</p>
       </header>
@@ -116,21 +111,6 @@ export default function Privacy() {
       </section>
 
       <div className="glass-panel rounded-3xl p-6 md:p-10">
-        <div className="mb-8 flex items-start gap-4 rounded-2xl border border-cyan-300/15 bg-cyan-300/5 p-5">
-          <FaDatabase className="mt-1 shrink-0 text-xl text-cyan-300" aria-hidden="true" />
-          <p className="text-sm md:text-base leading-relaxed text-white/65">
-            MyCloud is a file management service hosted at{" "}
-            <a
-              href="https://mycloud.adityaanugrah.me"
-              className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4"
-            >
-              mycloud.adityaanugrah.me
-            </a>
-            . It connects to user-authorized Google Drive accounts and performs file actions
-            only after user authentication and consent.
-          </p>
-        </div>
-
         <div className="space-y-9">
           {sections.map((section) => (
             <section key={section.title}>
@@ -149,7 +129,7 @@ export default function Privacy() {
         <section className="mt-10 border-t border-white/10 pt-8">
           <h2 className="text-xl md:text-2xl font-bold text-white">Contact</h2>
           <p className="mt-4 text-sm md:text-base leading-relaxed text-white/60">
-            For privacy requests, account deletion, or questions about data handling, contact{" "}
+            For privacy requests or questions about data handling, contact{" "}
             <a
               href="mailto:admin@adityaanugrah.me"
               className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4"

@@ -1,58 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
-import { FaCloudUploadAlt, FaExclamationTriangle, FaFileContract, FaShieldAlt } from "react-icons/fa";
+import { FaExclamationTriangle, FaFileContract, FaHandshake, FaShieldAlt } from "react-icons/fa";
 
 const lastUpdated = "June 8, 2026";
 
 const sections = [
   {
-    title: "Use Of The Service",
+    title: "Website Use",
     body: [
-      "MyCloud is provided as a web-based file management interface for user-authorized Google Drive accounts.",
-      "You are responsible for the files you upload, store, share, rename, delete, or otherwise manage through the service.",
-      "You must not use the service for malware, phishing, illegal content, copyright infringement, spam, abuse, or activity that disrupts the server or other users.",
+      "This website provides information about Aditya Anugrah, portfolio work, articles, contact options, and professional services.",
+      "You may not use this website for spam, phishing, illegal activity, attempted intrusion, automated abuse, scraping that disrupts service, or activity that harms the website or other users.",
     ],
   },
   {
-    title: "Google Drive Connection",
+    title: "Project Inquiries",
     body: [
-      "To use Google Drive storage features, you must authorize the application through Google's OAuth flow.",
-      "The service may request Google Drive permissions needed to create, list, upload, preview, rename, and delete files through MyCloud.",
-      "You can revoke access from your Google Account permissions page at any time.",
+      "Submitting a contact form or message does not create a client relationship, contract, service commitment, or guarantee of availability.",
+      "Project scope, timeline, pricing, ownership, support, and payment terms must be agreed separately in writing before work begins.",
     ],
   },
   {
-    title: "Account Responsibility",
+    title: "Content And Intellectual Property",
     body: [
-      "You are responsible for keeping your account credentials safe and for all activity performed from your account.",
-      "If you believe your account is compromised, revoke Google access and contact the operator as soon as possible.",
-      "The operator may restrict, suspend, or remove accounts that appear abusive, risky, or harmful to the service.",
+      "Website text, design, images, code, and portfolio materials are owned by their respective owners and may not be copied or reused without permission except where allowed by law.",
+      "Portfolio entries may reference client or project work for demonstration purposes. Trademarks and third-party assets remain the property of their owners.",
     ],
   },
   {
     title: "Availability And Changes",
     body: [
-      "The service is provided on an as-is and as-available basis. Uptime, storage performance, and third-party API availability are not guaranteed.",
-      "Features may change as the service is maintained, upgraded, or adjusted for security, capacity, legal, or Google API policy reasons.",
-      "The service depends on Google APIs, Google Drive, server infrastructure, DNS, SSL certificates, and network providers that are outside full operator control.",
+      "The website is provided on an as-is and as-available basis. Uptime, accuracy, compatibility, and uninterrupted access are not guaranteed.",
+      "Content, features, pages, and policies may be changed, removed, or updated as needed for maintenance, security, legal, or business reasons.",
     ],
   },
   {
     title: "Liability",
     body: [
-      "To the maximum extent permitted by applicable law, the operator is not liable for indirect, incidental, consequential, or special damages related to use of the service.",
-      "You should keep your own backups of important files. Do not rely on MyCloud as the only copy of critical data.",
-      "Nothing in these terms limits rights that cannot be limited under applicable law.",
+      "To the maximum extent permitted by applicable law, Aditya Anugrah is not liable for indirect, incidental, consequential, special, or business losses related to website use.",
+      "Nothing in these terms limits rights or responsibilities that cannot be limited under applicable law.",
     ],
   },
 ];
 
 const cards = [
   {
-    icon: FaCloudUploadAlt,
-    title: "User Managed Files",
-    text: "You control the files you upload and manage through connected Google Drive accounts.",
+    icon: FaHandshake,
+    title: "Separate Agreements",
+    text: "Client work requires written scope, pricing, and timeline approval.",
   },
   {
     icon: FaShieldAlt,
@@ -61,8 +56,8 @@ const cards = [
   },
   {
     icon: FaExclamationTriangle,
-    title: "No Sole Backup",
-    text: "Keep separate backups for important data and business-critical files.",
+    title: "No Guarantee",
+    text: "Website access and content are provided as available.",
   },
 ];
 
@@ -71,7 +66,7 @@ export default function Terms() {
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO
         title="Terms of Service | Aditya Anugrah"
-        description="Terms of Service for Aditya Anugrah services, including MyCloud Google Drive file management."
+        description="Terms of Service for using the Aditya Anugrah website and submitting project inquiries."
         path="/terms"
         type="website"
         jsonLd={{
@@ -95,8 +90,7 @@ export default function Terms() {
           Terms of <span className="text-gradient">Service</span>
         </h1>
         <p className="mt-5 max-w-3xl text-white/60 leading-relaxed">
-          These terms govern use of Aditya Anugrah services, including the MyCloud file
-          management service hosted at mycloud.adityaanugrah.me.
+          These terms govern use of the Aditya Anugrah website and contact channels.
         </p>
         <p className="mt-4 text-sm text-white/35">Last updated: {lastUpdated}</p>
       </header>
@@ -115,8 +109,8 @@ export default function Terms() {
         <div className="mb-8 flex items-start gap-4 rounded-2xl border border-cyan-300/15 bg-cyan-300/5 p-5">
           <FaFileContract className="mt-1 shrink-0 text-xl text-cyan-300" aria-hidden="true" />
           <p className="text-sm md:text-base leading-relaxed text-white/65">
-            By accessing or using MyCloud, you agree to these terms. If you do not agree,
-            do not use the service or connect your Google Drive account.
+            By accessing or using this website, you agree to these terms. If you do not agree,
+            do not use the website.
           </p>
         </div>
 
