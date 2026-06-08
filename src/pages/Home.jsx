@@ -89,6 +89,19 @@ const Home = () => {
       "sameAs": [
         "https://www.linkedin.com/in/aditya-anugrah/"
       ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "https://mycloud.adityaanugrah.me/#app",
+      "name": "Aditya Files",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "url": "https://mycloud.adityaanugrah.me",
+      "description": "Aditya Files is a web file management app by Aditya Anugrah that lets users connect Google Drive to upload, organize, preview, share, and manage their own files.",
+      "creator": {
+        "@id": "https://adityaanugrah.me/#person"
+      }
     }
   ];
 
@@ -105,6 +118,71 @@ const Home = () => {
       <ClientLogos />
       <Services />
       <Workflow />
+
+      {/* OAuth App Purpose Section */}
+      <section id="aditya-files" className="py-20 px-6 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-[1fr_0.85fr] gap-8 items-stretch">
+          <div className="glass-panel rounded-2xl border border-cyan-300/10 p-8 md:p-10">
+            <span className="px-3 py-1 rounded-full border border-cyan-300/20 bg-cyan-300/10 text-[10px] font-mono text-cyan-200 uppercase tracking-widest">
+              Google Drive OAuth Application
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold font-display mt-6 mb-5">
+              Aditya Files
+            </h2>
+            <p className="text-white/60 text-lg leading-relaxed max-w-3xl">
+              Aditya Files is a web file management app available at
+              {" "}
+              <a href="https://mycloud.adityaanugrah.me" className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4">
+                mycloud.adityaanugrah.me
+              </a>
+              . It lets signed-in users connect their own Google Drive account to
+              upload, organize, preview, share, and manage their files from a
+              personal dashboard.
+            </p>
+            <p className="text-white/50 leading-relaxed max-w-3xl mt-4">
+              Google Drive access is used only to perform file actions requested
+              by the user. OAuth tokens are stored securely by the application
+              backend, and user data is not sold or used for advertising.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 mt-8">
+              <a
+                href="https://mycloud.adityaanugrah.me"
+                className="inline-flex items-center justify-center gap-3 px-5 py-3 bg-cyan-100 text-black rounded-full font-bold hover:bg-white transition-colors"
+              >
+                Open Aditya Files
+                <FaArrowRight />
+              </a>
+              <Link
+                to="/privacy"
+                className="inline-flex items-center justify-center gap-3 px-5 py-3 border border-white/10 text-white rounded-full font-bold hover:border-cyan-300/40 hover:text-cyan-200 transition-colors"
+              >
+                Privacy Policy
+                <FaArrowRight />
+              </Link>
+              <Link
+                to="/terms"
+                className="inline-flex items-center justify-center gap-3 px-5 py-3 border border-white/10 text-white rounded-full font-bold hover:border-cyan-300/40 hover:text-cyan-200 transition-colors"
+              >
+                Terms
+                <FaArrowRight />
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            {[
+              ["Purpose", "Personal file management for users who choose to connect Google Drive."],
+              ["Requested Access", "View and manage Drive files so the app can upload, organize, preview, and share files."],
+              ["User Control", "Users can revoke access from their Google Account permissions at any time."],
+            ].map(([title, description]) => (
+              <div key={title} className="rounded-2xl border border-white/5 bg-white/[0.03] p-6">
+                <h3 className="text-white font-bold mb-2">{title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Featured Projects Section */}
       <section id="projects" className="py-20 px-6 max-w-7xl mx-auto">
