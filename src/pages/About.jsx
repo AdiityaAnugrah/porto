@@ -247,9 +247,9 @@ const fadeIn = {
 };
 
 const SectionHeader = ({ label, title }) => (
-  <div className="mb-8">
+  <div className="mb-6 md:mb-8">
     <p className="mb-3 text-xs font-semibold uppercase text-cyan-200/70">{label}</p>
-    <h2 className="max-w-3xl text-3xl font-bold leading-tight text-white md:text-5xl">{title}</h2>
+    <h2 className="max-w-3xl text-2xl font-bold leading-tight text-white sm:text-3xl md:text-5xl">{title}</h2>
   </div>
 );
 
@@ -263,7 +263,7 @@ const About = () => {
   );
 
   return (
-    <div className="pb-28">
+    <div className="pb-20 md:pb-28">
       <SEO
         title={t.seoTitle}
         description={t.seoDescription}
@@ -307,36 +307,36 @@ const About = () => {
         }}
       />
 
-      <section className="relative overflow-hidden px-6 pt-28">
+      <section className="relative overflow-hidden px-4 pt-24 sm:px-6 md:pt-28">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/30 to-transparent" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(238,232,220,0.035)_1px,transparent_1px)] bg-[size:100%_56px] opacity-45" />
         </div>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-12">
           <motion.aside
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:sticky lg:top-24"
+            className="order-2 lg:sticky lg:top-24 lg:order-1"
           >
-            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045]">
-              <div className="aspect-[4/5] overflow-hidden">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] md:rounded-3xl">
+              <div className="aspect-[16/11] overflow-hidden sm:aspect-[4/3] lg:aspect-[4/5]">
                 <LazyImage
                   src={profileImage}
                   alt="Aditya Anugrah"
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-white">Aditya Anugrah</h2>
+              <div className="p-5 md:p-6">
+                <h2 className="text-xl font-bold text-white md:text-2xl">Aditya Anugrah</h2>
                 <div className="mt-2 flex items-center gap-2 text-sm text-white/50">
                   <MapPin size={16} aria-hidden="true" />
                   {t.location}
                 </div>
-                <p className="mt-5 text-sm leading-7 text-white/58">{t.profileNote}</p>
+                <p className="mt-4 text-sm leading-7 text-white/58 md:mt-5">{t.profileNote}</p>
 
-                <div className="mt-6 grid gap-3">
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                   <a
                     href="https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview"
                     target="_blank"
@@ -355,7 +355,7 @@ const About = () => {
                   </Link>
                 </div>
 
-                <div className="mt-6 flex justify-center gap-5 text-xl text-white/48">
+                <div className="mt-5 flex justify-center gap-5 text-xl text-white/48 md:mt-6">
                   <a href="https://github.com/adiityaanugrah" target="_blank" rel="noopener noreferrer" aria-label="GitHub Aditya Anugrah" className="transition-colors hover:text-white">
                     <FaGithub />
                   </a>
@@ -367,26 +367,26 @@ const About = () => {
             </div>
           </motion.aside>
 
-          <motion.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.08 } } }}>
-            <motion.div variants={fadeIn} className="mb-12">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100 backdrop-blur">
+          <motion.div className="order-1 lg:order-2" initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.08 } } }}>
+            <motion.div variants={fadeIn} className="mb-10 md:mb-12">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-3.5 py-2 text-sm text-cyan-100 backdrop-blur md:mb-6">
                 <Sparkles size={16} aria-hidden="true" />
                 {t.badge}
               </div>
-              <h1 className="max-w-4xl text-4xl font-bold leading-[1.07] text-white md:text-6xl">
+              <h1 className="max-w-4xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl">
                 {t.title}
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/66 md:text-lg">{t.intro}</p>
             </motion.div>
 
-            <motion.section variants={fadeIn} className="mb-16">
+            <motion.section variants={fadeIn} className="mb-12 md:mb-16">
               <SectionHeader label={t.principlesLabel} title={t.principlesTitle} />
               <div className="grid gap-4 md:grid-cols-3">
                 {t.principles.map(([title, body], index) => {
                   const Icon = principleIcons[index];
                   return (
-                    <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-6">
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-300/10 text-cyan-200">
+                    <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 md:p-6">
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-300/10 text-cyan-200 md:mb-5 md:h-12 md:w-12">
                         <Icon size={22} aria-hidden="true" />
                       </div>
                       <h3 className="text-lg font-bold text-white">{title}</h3>
@@ -400,15 +400,15 @@ const About = () => {
         </div>
       </section>
 
-      <section className="px-6 py-20">
+      <section className="px-4 py-12 sm:px-6 md:py-20">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex items-center gap-3 text-cyan-200/75">
+          <div className="mb-6 flex items-center gap-3 text-cyan-200/75 md:mb-8">
             <BriefcaseBusiness size={20} aria-hidden="true" />
             <p className="text-xs font-semibold uppercase">{t.capabilityLabel}</p>
           </div>
-          <div className="grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 md:rounded-3xl lg:grid-cols-3">
             {t.capabilities.map(([title, body]) => (
-              <div key={title} className="bg-[#0d0b08] p-6">
+              <div key={title} className="bg-[#0d0b08] p-5 md:p-6">
                 <h3 className="text-lg font-bold text-white">{title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
               </div>
@@ -417,12 +417,12 @@ const About = () => {
         </div>
       </section>
 
-      <section className="px-6 py-20">
+      <section className="px-4 py-12 sm:px-6 md:py-20">
         <div className="mx-auto max-w-7xl">
           <SectionHeader label={t.processLabel} title={t.processTitle} />
           <div className="grid gap-4 lg:grid-cols-4">
             {t.process.map(([number, title, body]) => (
-              <div key={number} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+              <div key={number} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-6">
                 <p className="text-sm font-bold text-cyan-200">{number}</p>
                 <h3 className="mt-5 text-xl font-bold text-white">{title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
@@ -432,9 +432,9 @@ const About = () => {
         </div>
       </section>
 
-      <section className="px-6 py-20">
+      <section className="px-4 py-12 sm:px-6 md:py-20">
         <div className="mx-auto grid max-w-7xl gap-5">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 md:rounded-3xl md:p-8">
             <p className="mb-5 text-xs font-semibold uppercase text-white/42">{t.stackLabel}</p>
             <div className="flex flex-wrap gap-2">
               {stack.map((tech) => (
@@ -447,7 +447,7 @@ const About = () => {
 
           <div className="grid gap-5 md:grid-cols-3">
             {t.projectModes.map(([title, body], index) => (
-              <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.045] p-6">
+              <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 md:rounded-3xl md:p-6">
                 <span className="text-xs font-bold text-cyan-200">0{index + 1}</span>
                 <h3 className="mt-4 text-lg font-bold text-white">{title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
@@ -455,17 +455,17 @@ const About = () => {
             ))}
           </div>
 
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] p-5 md:rounded-3xl md:p-8">
             <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-green-500/10 blur-3xl" />
             <div className="relative grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
               <div>
                 <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500/10 text-green-200">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-green-500/10 text-green-200 md:h-12 md:w-12">
                     <Server size={23} aria-hidden="true" />
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase text-green-200/80">{t.minecraftLabel}</p>
-                    <h2 className="text-3xl font-bold text-white">{t.minecraftTitle}</h2>
+                    <h2 className="text-2xl font-bold text-white md:text-3xl">{t.minecraftTitle}</h2>
                   </div>
                 </div>
                 <p className="max-w-2xl text-sm leading-7 text-white/58 md:text-base">{t.minecraftBody}</p>
@@ -493,7 +493,7 @@ const About = () => {
 
           <div>
             <p className="mb-5 text-xs font-semibold uppercase text-white/42">{t.personalLabel}</p>
-            <div className="grid gap-5 lg:grid-cols-3">
+            <div className="grid gap-4 lg:grid-cols-3 lg:gap-5">
               <div>
                 <p className="mb-3 text-xs font-semibold uppercase text-green-200/70">{t.musicLabel}</p>
                 <SpotifyCard />
@@ -511,14 +511,14 @@ const About = () => {
         </div>
       </section>
 
-      <section className="px-6 py-20">
-        <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
-          <p className="mb-8 text-xs font-semibold uppercase text-cyan-200/70">{t.careerLabel}</p>
-          <div className="grid gap-x-12 gap-y-9 border-l border-white/10 pl-6 md:grid-cols-2">
+      <section className="px-4 py-12 sm:px-6 md:py-20">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-white/10 bg-white/[0.045] p-5 md:rounded-3xl md:p-8">
+          <p className="mb-7 text-xs font-semibold uppercase text-cyan-200/70 md:mb-8">{t.careerLabel}</p>
+          <div className="grid gap-x-12 gap-y-8 border-l border-white/10 pl-5 md:grid-cols-2 md:gap-y-9 md:pl-6">
             {t.career.map(([role, company, period, body]) => (
               <div key={`${role}-${company}`} className="relative">
-                <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full border-2 border-[#0a0a0a] bg-cyan-300" />
-                <h3 className="text-lg font-bold text-white">{role}</h3>
+                <span className="absolute -left-[26px] top-1 h-3 w-3 rounded-full border-2 border-[#0a0a0a] bg-cyan-300 md:-left-[31px]" />
+                <h3 className="text-base font-bold text-white md:text-lg">{role}</h3>
                 <p className="mt-1 text-xs font-semibold text-cyan-200/70">{company} - {period}</p>
                 <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
               </div>
@@ -527,9 +527,9 @@ const About = () => {
         </div>
       </section>
 
-      <section className="px-6 pt-14">
+      <section className="px-4 pt-10 sm:px-6 md:pt-14">
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-black leading-tight text-white md:text-6xl">{t.ctaTitle}</h2>
+          <h2 className="text-3xl font-black leading-tight text-white md:text-6xl">{t.ctaTitle}</h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/58 md:text-lg">{t.ctaBody}</p>
           <div className="mt-10 flex justify-center">
             <Link
