@@ -1,204 +1,80 @@
 {
   "categories": [
     {
-      "id": "business-templates",
-      "name": "Business Templates",
-      "description": "Template siap pakai untuk operasional UMKM dan bisnis digital.",
-      "active": true,
-      "createdAt": "2026-06-09T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z"
-    },
-    {
-      "id": "website-kits",
-      "name": "Website Kits",
-      "description": "Starter kit frontend dan aset pendukung untuk halaman web.",
+      "id": "ai-tools",
+      "name": "AI Tools",
+      "description": "Produk dan bantuan aktivasi untuk kebutuhan AI harian.",
       "active": true,
       "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z"
+      "updatedAt": "2026-06-10T10:30:00.000Z"
     },
     {
-      "id": "marketing-assets",
-      "name": "Marketing Assets",
-      "description": "Dokumen dan kalender konten untuk kebutuhan promosi online.",
+      "id": "developer-tools",
+      "name": "Developer Tools",
+      "description": "Produk dan bantuan setup untuk kebutuhan developer dan pelajar teknologi.",
       "active": true,
       "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z"
-    },
-    {
-      "id": "ai-developer-tools",
-      "name": "AI & Developer Tools",
-      "description": "Paket panduan, template, dan workflow untuk produktivitas AI serta developer.",
-      "active": true,
-      "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z"
+      "updatedAt": "2026-06-10T10:30:00.000Z"
     }
   ],
   "products": [
     {
-      "id": "template-invoice-quotation-umkm",
-      "name": "Template Invoice & Quotation UMKM",
-      "summary": "Paket file invoice, quotation, dan receipt yang bisa diedit untuk transaksi bisnis kecil.",
-      "description": "Isi paket: template invoice, quotation, receipt, dan delivery note dalam format Google Sheets dan XLSX.\nCocok untuk jasa, toko online, reseller, dan UMKM yang butuh dokumen transaksi rapi tanpa membuat dari nol.\nPembeli mendapat panduan penggunaan singkat, contoh data, kolom pajak/diskon, dan area logo bisnis.\nLisensi: dapat digunakan untuk satu bisnis milik pembeli, tidak untuk dijual ulang sebagai template.",
-      "price": 25000,
-      "image": "brand/icon-256.png",
-      "categoryId": "business-templates",
-      "warrantyHours": 24,
-      "active": true,
-      "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
-      "stock": [
-        {
-          "id": "invoice-stock-1",
-          "content": "Template Invoice & Quotation UMKM | Download: https://adityaanugrah.me/store | Panduan dikirim setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        },
-        {
-          "id": "invoice-stock-2",
-          "content": "Template Invoice & Quotation UMKM | Download: https://adityaanugrah.me/store | Panduan dikirim setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "notion-finance-tracker-umkm",
-      "name": "Notion Finance Tracker UMKM",
-      "summary": "Template Notion untuk mencatat pemasukan, pengeluaran, hutang, piutang, dan ringkasan kas.",
-      "description": "Isi paket: link duplikasi Notion, struktur database transaksi, kategori biaya, ringkasan bulanan, dan panduan setup.\nDirancang untuk pemilik usaha kecil yang ingin memantau arus kas tanpa software akuntansi yang rumit.\nFitur utama: dashboard saldo, filter transaksi, status piutang, status hutang, dan catatan invoice.\nLisensi: penggunaan personal atau internal bisnis, tidak termasuk konsultasi akuntansi atau perpajakan.",
-      "price": 35000,
-      "image": "brand/icon-256.png",
-      "categoryId": "business-templates",
-      "warrantyHours": 24,
-      "active": true,
-      "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
-      "stock": [
-        {
-          "id": "notion-finance-stock-1",
-          "content": "Notion Finance Tracker UMKM | Duplicate link akan tersedia di file pengiriman | Garansi akses 24 jam",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        },
-        {
-          "id": "notion-finance-stock-2",
-          "content": "Notion Finance Tracker UMKM | Duplicate link akan tersedia di file pengiriman | Garansi akses 24 jam",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "landing-page-copywire-kit",
-      "name": "Landing Page Copywire Kit",
-      "summary": "Template struktur landing page, copywriting, dan wireframe untuk promosi produk atau jasa.",
-      "description": "Isi paket: struktur hero, benefit, social proof, pricing, FAQ, CTA, dan checklist sebelum publish.\nCocok untuk pemilik jasa, kreator produk digital, dan bisnis lokal yang ingin membuat halaman promosi lebih cepat.\nFormat file: PDF panduan, DOCX copy template, dan Figma wireframe sederhana.\nLisensi: boleh dipakai untuk proyek sendiri atau klien, tidak boleh dijual ulang sebagai paket template.",
-      "price": 49000,
-      "image": "brand/icon-256.png",
-      "categoryId": "website-kits",
-      "warrantyHours": 24,
-      "active": true,
-      "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
-      "stock": [
-        {
-          "id": "landing-kit-stock-1",
-          "content": "Landing Page Copywire Kit | File PDF/DOCX/Figma dikirim melalui link download setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        },
-        {
-          "id": "landing-kit-stock-2",
-          "content": "Landing Page Copywire Kit | File PDF/DOCX/Figma dikirim melalui link download setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "content-calendar-30-hari",
-      "name": "Content Calendar 30 Hari",
-      "summary": "Kalender ide konten 30 hari untuk Instagram, TikTok, dan promosi bisnis online.",
-      "description": "Isi paket: kalender 30 hari, prompt caption, ide hook video pendek, dan checklist publikasi.\nDibuat untuk bisnis jasa, toko online, personal brand, dan UMKM yang ingin posting lebih konsisten.\nFormat file: Google Sheets, XLSX, dan PDF ringkasan strategi konten.\nLisensi: digunakan untuk satu brand atau bisnis pembeli, tidak untuk redistribusi massal.",
+      "id": "chatgpt-30k",
+      "name": "ChatGPT 30 Hari",
+      "summary": "Paket akses ChatGPT untuk kebutuhan belajar, kerja, riset, penulisan, dan produktivitas harian.",
+      "description": "Produk yang diterima: akses ChatGPT 30 hari sesuai stok yang tersedia.\nSetelah pembayaran berhasil, admin akan mengirim detail akses dan panduan penggunaan ke email atau WhatsApp pembeli.\nCocok untuk pelajar, mahasiswa, kreator, admin bisnis, dan pengguna yang ingin memakai ChatGPT untuk pekerjaan harian.\nGaransi: bantuan kendala login selama 24 jam setelah detail akses dikirim.\nCatatan: gunakan layanan sesuai ketentuan platform terkait. Produk diproses manual oleh admin setelah pembayaran.",
       "price": 30000,
-      "image": "brand/icon-256.png",
-      "categoryId": "marketing-assets",
+      "image": "https://adityaanugrah.me/assets/store/chatgpt-30k.svg",
+      "categoryId": "ai-tools",
       "warrantyHours": 24,
       "active": true,
       "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
+      "updatedAt": "2026-06-10T10:30:00.000Z",
       "stock": [
         {
-          "id": "calendar-stock-1",
-          "content": "Content Calendar 30 Hari | Google Sheets/XLSX/PDF | Link download aktif setelah pembayaran",
+          "id": "chatgpt-30k-stock-1",
+          "content": "ChatGPT 30 Hari | Admin akan mengirim detail akses ke email/WhatsApp pembeli setelah pembayaran terkonfirmasi | Garansi bantuan login 24 jam",
           "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
+          "createdAt": "2026-06-10T10:30:00.000Z"
         },
         {
-          "id": "calendar-stock-2",
-          "content": "Content Calendar 30 Hari | Google Sheets/XLSX/PDF | Link download aktif setelah pembayaran",
+          "id": "chatgpt-30k-stock-2",
+          "content": "ChatGPT 30 Hari | Admin akan mengirim detail akses ke email/WhatsApp pembeli setelah pembayaran terkonfirmasi | Garansi bantuan login 24 jam",
           "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
+          "createdAt": "2026-06-10T10:30:00.000Z"
+        },
+        {
+          "id": "chatgpt-30k-stock-3",
+          "content": "ChatGPT 30 Hari | Admin akan mengirim detail akses ke email/WhatsApp pembeli setelah pembayaran terkonfirmasi | Garansi bantuan login 24 jam",
+          "usedBy": null,
+          "createdAt": "2026-06-10T10:30:00.000Z"
         }
       ]
     },
     {
-      "id": "chatgpt-productivity-pack",
-      "name": "ChatGPT Productivity Pack",
-      "summary": "Paket prompt, workflow, dan panduan penggunaan ChatGPT untuk kerja harian, konten, dan bisnis kecil.",
-      "description": "Isi paket: 75+ prompt siap pakai, template workflow riset, ide konten, ringkasan dokumen, customer support, dan planning bisnis.\nCocok untuk pelajar, kreator, admin bisnis, dan UMKM yang ingin memakai ChatGPT dengan hasil lebih terstruktur.\nFormat file: TXT/PDF berisi prompt, contoh penggunaan, dan checklist adaptasi prompt.\nCatatan: produk ini bukan akun ChatGPT, bukan subscription ChatGPT Plus, dan tidak menjual akses ke layanan OpenAI.",
-      "price": 30000,
-      "image": "brand/icon-256.png",
-      "categoryId": "ai-developer-tools",
-      "warrantyHours": 24,
-      "active": true,
-      "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
-      "stock": [
-        {
-          "id": "chatgpt-pack-stock-1",
-          "content": "ChatGPT Productivity Pack | File TXT/PDF prompt dan workflow dikirim melalui link download setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        },
-        {
-          "id": "chatgpt-pack-stock-2",
-          "content": "ChatGPT Productivity Pack | File TXT/PDF prompt dan workflow dikirim melalui link download setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        },
-        {
-          "id": "chatgpt-pack-stock-3",
-          "content": "ChatGPT Productivity Pack | File TXT/PDF prompt dan workflow dikirim melalui link download setelah pembayaran",
-          "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "id": "github-student-developer-pack-guide",
-      "name": "GitHub Student Developer Pack Guide",
-      "summary": "Panduan persiapan pengajuan GitHub Student Developer Pack untuk mahasiswa/pelajar yang memenuhi syarat.",
-      "description": "Isi paket: checklist dokumen, contoh format email kampus, panduan verifikasi profil GitHub, Git/GitHub starter checklist, dan langkah pengajuan resmi.\nCocok untuk pelajar atau mahasiswa yang ingin memahami proses pengajuan secara rapi sebelum submit ke GitHub Education.\nFormat file: PDF panduan, TXT checklist, dan template catatan persiapan.\nCatatan: produk ini bukan akun GitHub Student, bukan penjualan benefit GitHub Student Developer Pack, dan tidak menjamin approval dari GitHub.",
+      "id": "github-student-150k",
+      "name": "GitHub Student Developer Pack",
+      "summary": "Bantuan persiapan dan pengajuan GitHub Student Developer Pack untuk pelajar atau mahasiswa.",
+      "description": "Produk yang diterima: bantuan persiapan pengajuan GitHub Student Developer Pack melalui jalur resmi GitHub Education.\nIsi layanan: checklist dokumen, pengecekan profil GitHub, panduan email kampus/kartu pelajar, dan pendampingan langkah submit.\nCocok untuk pelajar atau mahasiswa yang ingin mengajukan GitHub Student dengan data yang lebih rapi.\nGaransi: revisi panduan dan bantuan kendala pengajuan selama 24 jam setelah instruksi dikirim.\nCatatan penting: produk ini bukan penjualan akun, bukan penjualan benefit GitHub, dan approval tetap mengikuti keputusan GitHub Education.",
       "price": 150000,
-      "image": "brand/icon-256.png",
-      "categoryId": "ai-developer-tools",
+      "image": "https://adityaanugrah.me/assets/store/github-student-150k.svg",
+      "categoryId": "developer-tools",
       "warrantyHours": 24,
       "active": true,
       "createdAt": "2026-06-10T00:00:00.000Z",
-      "updatedAt": "2026-06-10T00:00:00.000Z",
+      "updatedAt": "2026-06-10T10:30:00.000Z",
       "stock": [
         {
-          "id": "github-student-guide-stock-1",
-          "content": "GitHub Student Developer Pack Guide | PDF panduan dan checklist persiapan dikirim melalui link download setelah pembayaran",
+          "id": "github-student-150k-stock-1",
+          "content": "GitHub Student Developer Pack | Admin akan menghubungi pembeli untuk checklist dokumen dan pendampingan pengajuan resmi | Approval mengikuti GitHub Education",
           "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
+          "createdAt": "2026-06-10T10:30:00.000Z"
         },
         {
-          "id": "github-student-guide-stock-2",
-          "content": "GitHub Student Developer Pack Guide | PDF panduan dan checklist persiapan dikirim melalui link download setelah pembayaran",
+          "id": "github-student-150k-stock-2",
+          "content": "GitHub Student Developer Pack | Admin akan menghubungi pembeli untuk checklist dokumen dan pendampingan pengajuan resmi | Approval mengikuti GitHub Education",
           "usedBy": null,
-          "createdAt": "2026-06-10T00:00:00.000Z"
+          "createdAt": "2026-06-10T10:30:00.000Z"
         }
       ]
     }

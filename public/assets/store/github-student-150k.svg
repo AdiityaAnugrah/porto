@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub Student 150K product card</title>
+  <desc id="desc">Dark premium product artwork for GitHub Student Developer Pack assistance.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#090806"/>
+      <stop offset="0.5" stop-color="#161826"/>
+      <stop offset="1" stop-color="#0d0b08"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eadfc9"/>
+      <stop offset="1" stop-color="#8ca7ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="990" cy="150" r="275" fill="#8ca7ff" opacity="0.09"/>
+  <circle cx="170" cy="735" r="310" fill="#eadfc9" opacity="0.06"/>
+  <path d="M0 674c210-82 379-83 568-25 189 59 355 73 632-51v302H0Z" fill="#000" opacity="0.22"/>
+  <g filter="url(#shadow)">
+    <rect x="145" y="135" width="910" height="630" rx="46" fill="#101116" stroke="#eadfc9" stroke-opacity="0.18"/>
+    <rect x="195" y="190" width="810" height="92" rx="26" fill="#ffffff" opacity="0.055"/>
+    <circle cx="238" cy="236" r="13" fill="#8ca7ff"/>
+    <circle cx="278" cy="236" r="13" fill="#eadfc9" opacity="0.75"/>
+    <circle cx="318" cy="236" r="13" fill="#c9a968"/>
+    <text x="195" y="374" fill="#f8f4ea" font-family="Inter, Arial, sans-serif" font-size="70" font-weight="800">GitHub Student</text>
+    <text x="198" y="446" fill="#aabaff" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700">Developer Pack Assistance</text>
+    <text x="198" y="520" fill="#d8d0c2" opacity="0.72" font-family="Inter, Arial, sans-serif" font-size="30">Checklist dokumen</text>
+    <text x="198" y="567" fill="#d8d0c2" opacity="0.72" font-family="Inter, Arial, sans-serif" font-size="30">Bantuan pengajuan resmi</text>
+    <rect x="198" y="635" width="300" height="64" rx="32" fill="url(#accent)"/>
+    <text x="238" y="677" fill="#101116" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="800">Rp150.000</text>
+    <g transform="translate(700 350)">
+      <rect x="0" y="0" width="250" height="250" rx="48" fill="#fff" opacity="0.08" stroke="#aabaff" stroke-opacity="0.32"/>
+      <path d="M125 48c-47 0-85 38-85 85 0 38 25 70 59 81 4 1 6-2 6-5v-23c-24 5-29-10-29-10-4-10-10-13-10-13-8-5 1-5 1-5 9 1 14 10 14 10 8 14 22 10 27 8 1-6 3-10 6-12-19-2-39-10-39-42 0-9 3-17 9-23-1-2-4-11 1-23 0 0 8-2 24 9 7-2 15-3 23-3s16 1 23 3c16-11 24-9 24-9 5 12 2 21 1 23 6 6 9 14 9 23 0 33-20 40-39 42 3 3 6 8 6 17v30c0 3 2 6 7 5 34-11 58-43 58-81 0-47-38-85-85-85Z" fill="#f8f4ea"/>
+    </g>
+  </g>
+</svg>
