@@ -1220,30 +1220,35 @@ async function getSpotifyAccessToken() {
 }
 
 async function getSpotifyTracks() {
-  const accessToken = await getSpotifyAccessToken();
-  const headers = { Authorization: `Bearer ${accessToken}` };
-  const tracks = [];
+  try {
+    const accessToken = await getSpotifyAccessToken();
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const tracks = [];
 
-  const current = await requestJson("https://api.spotify.com/v1/me/player/currently-playing", {
-    headers,
-  }).catch((error) => {
-    if (error.status === 404) return { data: null };
-    throw error;
-  });
+    const current = await requestJson("https://api.spotify.com/v1/me/player/currently-playing", {
+      headers,
+    }).catch((error) => {
+      if (error.status === 404) return { data: null };
+      throw error;
+    });
 
-  const currentTrack = mapSpotifyCurrentTrack(current.data);
-  if (currentTrack) tracks.push(currentTrack);
+    const currentTrack = mapSpotifyCurrentTrack(current.data);
+    if (currentTrack) tracks.push(currentTrack);
 
-  const { data: recentData } = await requestJson("https://api.spotify.com/v1/me/player/recently-played?limit=5", {
-    headers,
-  });
+    const { data: recentData } = await requestJson("https://api.spotify.com/v1/me/player/recently-played?limit=5", {
+      headers,
+    });
 
-  const recentTracks = (recentData?.items || [])
-    .map(mapSpotifyRecentTrack)
-    .filter(Boolean)
-    .filter((track) => !tracks.some((existing) => existing.songUrl === track.songUrl));
+    const recentTracks = (recentData?.items || [])
+      .map(mapSpotifyRecentTrack)
+      .filter(Boolean)
+      .filter((track) => !tracks.some((existing) => existing.songUrl === track.songUrl));
 
-  return tracks.concat(recentTracks).slice(0, 5);
+    return tracks.concat(recentTracks).slice(0, 5);
+  } catch (error) {
+    console.warn(`[spotify] ${error.message}`);
+    return [];
+  }
 }
 
 function mapSpotifyCurrentTrack(data) {
@@ -1295,6 +1300,7 @@ async function getSteamProfile() {
   }
 
   const state = player.gameextrainfo ? "In-Game" : mapSteamState(player.personastate);
+  const gameMedia = player.gameid ? await getSteamGameMedia(player.gameid).catch(() => null) : null;
 
   return {
     username: displayNameOverride || player.personaname || "Steam User",
@@ -1303,8 +1309,28 @@ async function getSteamProfile() {
     avatarUrl: avatarUrlOverride || player.avatarfull || player.avatarmedium || "",
     gameName: player.gameextrainfo || null,
     gameId: player.gameid || null,
+    gameArtUrl: gameMedia?.gameArtUrl || "",
+    gameLogoUrl: gameMedia?.gameLogoUrl || "",
+    gameStoreUrl: gameMedia?.gameStoreUrl || "",
     profileUrl: profileUrlOverride || player.profileurl || `https://steamcommunity.com/profiles/${steamId}`,
     countryCode: player.loccountrycode || "",
+  };
+}
+
+async function getSteamGameMedia(gameId) {
+  const url = new URL("https://store.steampowered.com/api/appdetails");
+  url.searchParams.set("appids", String(gameId));
+  url.searchParams.set("l", "en");
+
+  const { data } = await requestJson(url);
+  const app = data?.[String(gameId)];
+  if (!app?.success) return null;
+
+  const game = app.data || {};
+  return {
+    gameArtUrl: game.header_image || game.capsule_imagev5 || game.capsule_image || "",
+    gameLogoUrl: game.capsule_imagev5 || game.capsule_image || game.header_image || "",
+    gameStoreUrl: `https://store.steampowered.com/app/${gameId}`,
   };
 }
 

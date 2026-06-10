@@ -12,6 +12,9 @@ const FALLBACK_STEAM_DATA = {
   avatarUrl: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
   gameName: null,
   gameId: null,
+  gameArtUrl: "",
+  gameLogoUrl: "",
+  gameStoreUrl: "",
   profileUrl: "https://steamcommunity.com/",
   countryCode: "",
 };
@@ -153,7 +156,7 @@ const SteamCard = () => {
             href={steamData.profileUrl}
             target="_blank"
             rel="noreferrer"
-            aria-label="Buka profil Steam Aditya"
+            aria-label="Buka profil Steam pribadi"
             className="block"
           >
             <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden border-2 ${getStatusBorder(steamData.state)} p-[2px] bg-[#1d1912] transition-colors duration-500`}>
@@ -188,24 +191,59 @@ const SteamCard = () => {
               <span className={`text-xs sm:text-sm font-semibold tracking-wide ${isLoading ? "text-white/40" : getStatusText(steamData.state)} transition-colors duration-500`}>
                 {statusLabel}
               </span>
-
-              {steamData.state === "In-Game" && steamData.gameName && (
-                <>
-                  <span className="w-1 h-1 rounded-full bg-white/30" aria-hidden="true" />
-                  <span className="text-green-400/80 text-xs sm:text-sm truncate font-medium" title={steamData.gameName}>
-                    {steamData.gameName}
-                  </span>
-                </>
-              )}
             </div>
           </div>
         </div>
       </div>
 
-      {!isLoading && !steamData.gameName && (
-        <p className="relative z-10 mt-4 text-xs leading-6 text-white/38">
-          Menampilkan status akun pribadi. Nama game hanya muncul saat akun sedang bermain.
-        </p>
+      {steamData.state === "In-Game" && steamData.gameName && (
+        <div className="relative z-10 mt-1 rounded-2xl border border-green-300/15 bg-green-300/[0.06] p-3 sm:p-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-black/35">
+              {steamData.gameLogoUrl ? (
+                <img
+                  src={steamData.gameLogoUrl}
+                  alt={`${steamData.gameName} cover`}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-green-300">
+                  <FaSteamSymbol aria-hidden="true" />
+                </div>
+              )}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-green-200/70">
+                Sedang bermain
+              </p>
+              <p className="mt-1 truncate text-sm font-bold text-white sm:text-base" title={steamData.gameName}>
+                {steamData.gameName}
+              </p>
+            </div>
+
+            {steamData.gameStoreUrl && (
+              <a
+                href={steamData.gameStoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-green-300/20 bg-green-300/10 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-green-100 transition-colors hover:bg-green-300/15"
+              >
+                Store
+              </a>
+            )}
+          </div>
+
+          {steamData.gameArtUrl && (
+            <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
+              <img
+                src={steamData.gameArtUrl}
+                alt={`${steamData.gameName} art`}
+                className="h-28 w-full object-cover sm:h-32"
+              />
+            </div>
+          )}
+        </div>
       )}
 
     </motion.div>

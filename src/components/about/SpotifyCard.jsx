@@ -8,7 +8,7 @@ const REQUEST_TIMEOUT = 8000;
 export default function SpotifyCard() {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -35,7 +35,7 @@ export default function SpotifyCard() {
       })
       .catch((err) => {
         if (!active) return;
-        setError(err.name === "AbortError" ? "Spotify API timeout" : err.message);
+        setError("");
         setTracks([]);
       })
       .finally(() => {
@@ -66,20 +66,6 @@ export default function SpotifyCard() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/10 group hover:border-[#94a17e]/30 transition-colors duration-300">
-        <div className="w-12 h-12 rounded-full bg-[#94a17e]/10 flex items-center justify-center text-[#94a17e] text-xl flex-shrink-0">
-          <FaSpotify aria-hidden="true" />
-        </div>
-        <div>
-          <h3 className="text-sm font-bold text-white">Spotify sedang offline</h3>
-          <p className="text-xs text-white/40">Aktivitas musik belum tersedia.</p>
-        </div>
-      </div>
-    );
-  }
-
   if (tracks.length === 0) {
     return (
       <div className="glass-panel rounded-2xl p-5 flex items-center gap-4 border border-white/10 group hover:border-[#94a17e]/30 transition-colors duration-300">
@@ -87,8 +73,8 @@ export default function SpotifyCard() {
           <FaSpotify aria-hidden="true" />
         </div>
         <div>
-          <h3 className="text-sm font-bold text-white">Tidak Sedang Memutar</h3>
-          <p className="text-xs text-white/40">Spotify sedang offline.</p>
+          <h3 className="text-sm font-bold text-white">Aktivitas musik belum tersedia</h3>
+          <p className="text-xs text-white/40">Data Spotify disembunyikan saat tidak ada sinyal yang valid.</p>
         </div>
       </div>
     );
