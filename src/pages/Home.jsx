@@ -365,7 +365,7 @@ const Home = () => {
               </Link>
             }
           />
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 md:gap-8">
             {featuredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}

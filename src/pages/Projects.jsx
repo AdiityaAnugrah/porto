@@ -127,7 +127,7 @@ const Projects = () => {
             <p className="mt-2 max-w-sm text-sm leading-6 text-white/50">{t.emptyBody}</p>
           </div>
         ) : (
-          <motion.div layout className="grid grid-cols-1 gap-7 md:grid-cols-2">
+          <motion.div layout className="grid grid-cols-2 gap-3 sm:gap-5 md:gap-7">
             <AnimatePresence>
               {filteredProjects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />
