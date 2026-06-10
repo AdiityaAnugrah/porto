@@ -1,144 +1,171 @@
-import React, { useMemo, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaCalendarAlt, FaArrowLeft, FaClock, FaTag } from "react-icons/fa";
+import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Tag } from "lucide-react";
 import { posts } from "../data/posts";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
+import { r2Image } from "../lib/media";
+import { usePreferredLanguage } from "../lib/usePreferredLanguage";
+
+const copy = {
+  id: {
+    back: "Kembali ke Blog",
+    readTime: "5 menit baca",
+    notFound: "Artikel tidak ditemukan",
+    authorBody: "Saya menulis catatan praktis tentang web, sistem bisnis, dan produk digital.",
+    discuss: "Diskusi project",
+    related: "Artikel terkait",
+  },
+  en: {
+    back: "Back to Blog",
+    readTime: "5 min read",
+    notFound: "Article not found",
+    authorBody: "I write practical notes about web, business systems, and digital products.",
+    discuss: "Discuss a project",
+    related: "Related articles",
+  },
+};
 
 export default function BlogDetail() {
+  const { language } = usePreferredLanguage();
+  const t = copy[language] || copy.en;
   const { id } = useParams();
   const navigate = useNavigate();
-  const post = useMemo(() => posts.find(p => p.id === id), [id]);
-  
-  // Track Read Progress
+  const post = useMemo(() => posts.find((item) => item.id === id), [id]);
+  const authorMark = r2Image("brand/aa-mark-primary.png", "/assets/aa-mark-primary.png");
+
   useEffect(() => {
     let triggered = false;
     const handleScroll = () => {
-      if (triggered) return;
-      const h = document.documentElement, 
-            b = document.body,
-            st = 'scrollTop',
-            sh = 'scrollHeight';
-      const percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
-      
+      if (triggered || !post) return;
+      const root = document.documentElement;
+      const body = document.body;
+      const scrollTop = root.scrollTop || body.scrollTop;
+      const scrollHeight = (root.scrollHeight || body.scrollHeight) - root.clientHeight;
+      const percent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
       if (percent > 75) {
         triggered = true;
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', 'blog_read_complete', {
-            'event_category': 'Engagement',
-            'event_label': post?.title,
-            'value': 75
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "blog_read_complete", {
+            event_category: "Engagement",
+            event_label: post.title,
+            value: 75,
           });
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [post]);
 
-  // Logic Artikel Terkait: Cari kategori yang sama, maksimal 2 artikel
   const relatedPosts = useMemo(() => {
-    return posts
-      .filter(p => p.category === post?.category && p.id !== post?.id)
-      .slice(0, 2);
+    if (!post) return [];
+    return posts.filter((item) => item.category === post.category && item.id !== post.id).slice(0, 2);
   }, [post]);
 
   if (!post) {
     return (
-      <div className="min-h-screen pt-40 px-6 text-center">
-        <h1 className="text-4xl font-bold mb-4">Artikel Tidak Ditemukan</h1>
-        <Link to="/blog" className="text-cyan-400 hover:underline">Kembali ke Blog</Link>
+      <div className="min-h-screen px-4 pt-40 text-center sm:px-6">
+        <h1 className="mb-4 text-4xl font-bold text-white">{t.notFound}</h1>
+        <Link to="/blog" className="text-cyan-300 hover:text-cyan-200">
+          {t.back}
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto min-h-screen">
-      <SEO 
-        title={`${post.title} | Blog Aditya Anugrah`}
-        description={post.excerpt}
-        image={post.image}
-      />
+    <div className="min-h-screen px-4 pb-24 pt-24 sm:px-6 md:pb-32 md:pt-28">
+      <SEO title={`${post.title} | Blog Aditya Anugrah`} description={post.excerpt} image={post.image} />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.45 }}
+        className="mx-auto max-w-4xl"
       >
-        {/* Header */}
-        <div className="mb-12">
-            <button 
-                onClick={() => navigate('/blog')}
-                className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-8 group"
-            >
-                <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" /> Kembali ke Blog
-            </button>
+        <button
+          type="button"
+          onClick={() => navigate("/blog")}
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-white/52 transition-colors hover:text-white"
+        >
+          <ArrowLeft size={16} aria-hidden="true" />
+          {t.back}
+        </button>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs text-white/50 mb-6 font-mono">
-                <span className="flex items-center gap-1 uppercase tracking-tighter bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded border border-cyan-500/20">
-                    <FaTag className="text-xs" /> {post.category}
-                </span>
-                <span className="flex items-center gap-1"><FaCalendarAlt /> {new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                <span className="flex items-center gap-1"><FaClock /> 5 min read</span>
+        <header>
+          <div className="mb-5 flex flex-wrap items-center gap-3 text-xs text-white/48">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 font-semibold uppercase text-cyan-100">
+              <Tag size={13} aria-hidden="true" />
+              {post.category}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarDays size={14} aria-hidden="true" />
+              {new Date(post.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Clock3 size={14} aria-hidden="true" />
+              {t.readTime}
+            </span>
+          </div>
+
+          <h1 className="text-3xl font-bold leading-tight text-white md:text-5xl">{post.title}</h1>
+          <p className="mt-5 max-w-3xl text-base leading-8 text-white/62 md:text-lg">{post.excerpt}</p>
+
+          <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04]">
+            <div className="aspect-video">
+              <LazyImage src={post.image} alt={post.title} />
             </div>
+          </div>
+        </header>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] mb-8 text-white">
-                {post.title}
-            </h1>
-
-            <div className="rounded-2xl overflow-hidden border border-white/10 aspect-video mb-12 shadow-2xl">
-                <LazyImage src={post.image} alt={post.title} />
-            </div>
-        </div>
-
-        {/* Content */}
-        <article className="prose prose-invert prose-cyan max-w-none">
-            <div className="text-white/80 leading-[1.8] text-lg md:text-xl whitespace-pre-wrap font-sans tracking-wide">
-                {post.content}
-            </div>
+        <article className="mt-10 rounded-3xl border border-white/10 bg-white/[0.035] p-5 md:p-8">
+          <div className="whitespace-pre-wrap text-base leading-8 text-white/76 md:text-lg">
+            {post.content}
+          </div>
         </article>
 
-        {/* Author Footer */}
-        <div className="mt-20 pt-10 border-t border-white/10">
-            <div className="bg-white/5 rounded-3xl p-8 flex flex-col md:flex-row items-center gap-8 text-center md:text-left transition-all hover:bg-white/10 border border-white/10 group">
-                <div className="relative">
-                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-cyan-500/50 shrink-0 relative z-10">
-                        <img src="/assets/aa-mark-primary.png" alt="Aditya Anugrah" className="w-full h-full object-contain" />
-                    </div>
-                    <div className="absolute inset-0 bg-cyan-500/30 blur-2xl rounded-full scale-75 group-hover:scale-110 transition-transform" />
-                </div>
-                <div>
-                    <h4 className="font-bold text-xl mb-1 text-white">Aditya Anugrah</h4>
-                    <p className="text-white/60 text-base mb-4 max-w-md">Web Developer & Business Consultant yang berfokus pada efisiensi sistem dan transformasi digital UMKM.</p>
-                    <Link to="/contact" className="inline-flex items-center gap-2 text-cyan-400 font-bold hover:text-cyan-300 transition-colors">
-                        Mari berdiskusi proyek Anda &rarr;
-                    </Link>
-                </div>
+        <section className="mt-12 rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center">
+            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl border border-cyan-300/20 bg-black/30">
+              <img src={authorMark} alt="Aditya Anugrah" className="h-full w-full object-contain" />
             </div>
-        </div>
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-white">Aditya Anugrah</h2>
+              <p className="mt-2 text-sm leading-6 text-white/58">{t.authorBody}</p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-100 px-5 font-bold text-black transition-colors hover:bg-white"
+            >
+              {t.discuss}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
 
-        {/* Related Posts */}
         {relatedPosts.length > 0 && (
-            <div className="mt-20">
-                <h3 className="text-2xl font-bold mb-8 font-display">Artikel <span className="text-gradient">Terkait</span></h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {relatedPosts.map(rp => (
-                        <Link 
-                            key={rp.id} 
-                            to={`/blog/${rp.id}`}
-                            className="group p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-all block"
-                        >
-                            <div className="text-xs text-cyan-400 font-bold mb-2 uppercase tracking-widest">{rp.category}</div>
-                            <h4 className="font-bold group-hover:text-cyan-400 transition-colors line-clamp-2 mb-2">{rp.title}</h4>
-                            <div className="text-xs text-white/40 flex items-center gap-1">
-                                <FaCalendarAlt /> {new Date(rp.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+          <section className="mt-12">
+            <h2 className="mb-5 text-2xl font-bold text-white">{t.related}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {relatedPosts.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/blog/${item.id}`}
+                  className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 transition-colors hover:border-cyan-300/30 hover:bg-white/[0.065]"
+                >
+                  <p className="text-xs font-semibold uppercase text-cyan-200/70">{item.category}</p>
+                  <h3 className="mt-3 line-clamp-2 text-lg font-bold leading-snug text-white">{item.title}</h3>
+                  <p className="mt-3 text-xs text-white/42">
+                    {new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                  </p>
+                </Link>
+              ))}
             </div>
+          </section>
         )}
       </motion.div>
     </div>

@@ -21,6 +21,7 @@ import {
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { apiUrl } from "../lib/api";
+import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const formatRupiah = (value) =>
   new Intl.NumberFormat("id-ID", {
@@ -37,7 +38,92 @@ const splitDescription = (value) =>
 
 const normalizeText = (value) => String(value || "").toLowerCase();
 
+const storeCopy = {
+  id: {
+    seoTitle: "Store | Aditya Anugrah",
+    seoDescription: "Produk digital pilihan untuk template, panduan, dan workflow siap pakai.",
+    badge: "Produk digital siap kirim",
+    title: "Digital store untuk template, panduan, dan workflow siap pakai.",
+    body: "Pilih produk, cek detail isi paket, bayar dengan QRIS, lalu terima file digital melalui email dan halaman order.",
+    stats: {
+      active: "Produk aktif",
+      stock: "Stok tersedia",
+      payment: "Metode bayar",
+    },
+    loading: "Memuat katalog",
+    all: "Semua",
+    search: "Cari produk",
+    emptyTitle: "Produk tidak ditemukan",
+    emptyBody: "Ubah kata kunci atau pilih kategori lain untuk melihat katalog yang tersedia.",
+    delivery: "Email dan halaman order",
+    warranty: "Garansi",
+    price: "Harga",
+    stockLabel: "Stok",
+    digital: "Digital",
+    productCategory: "Produk Digital",
+    deliveryAuto: "Otomatis",
+    detail: "Detail produk",
+    name: "Nama",
+    recipient: "Nama penerima",
+    email: "Email pengiriman",
+    phone: "WhatsApp",
+    optional: "Opsional",
+    quantity: "Quantity",
+    quantityHelp: "Maksimal sesuai stok",
+    decrease: "Kurangi quantity",
+    increase: "Tambah quantity",
+    total: "Total pembayaran",
+    creating: "Membuat invoice",
+    pay: "Bayar QRIS",
+    noProduct: "Belum ada produk aktif.",
+    item: "item",
+    hour: "jam",
+  },
+  en: {
+    seoTitle: "Store | Aditya Anugrah",
+    seoDescription: "Selected digital products for ready-to-use templates, guides, and workflows.",
+    badge: "Ready-to-send digital products",
+    title: "Digital store for templates, guides, and ready-to-use workflows.",
+    body: "Choose a product, review the package details, pay with QRIS, then receive the digital file by email and order page.",
+    stats: {
+      active: "Active products",
+      stock: "Available stock",
+      payment: "Payment method",
+    },
+    loading: "Loading catalog",
+    all: "All",
+    search: "Search products",
+    emptyTitle: "No products found",
+    emptyBody: "Change the keyword or choose another category to see available products.",
+    delivery: "Email and order page",
+    warranty: "Warranty",
+    price: "Price",
+    stockLabel: "Stock",
+    digital: "Digital",
+    productCategory: "Digital Product",
+    deliveryAuto: "Automatic",
+    detail: "Product details",
+    name: "Name",
+    recipient: "Recipient name",
+    email: "Delivery email",
+    phone: "WhatsApp",
+    optional: "Optional",
+    quantity: "Quantity",
+    quantityHelp: "Limited by available stock",
+    decrease: "Decrease quantity",
+    increase: "Increase quantity",
+    total: "Payment total",
+    creating: "Creating invoice",
+    pay: "Pay with QRIS",
+    noProduct: "No active products yet.",
+    item: "item",
+    hour: "hour",
+  },
+};
+
 export default function Store() {
+  const { language } = usePreferredLanguage();
+  const t = storeCopy[language] || storeCopy.en;
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -152,8 +238,8 @@ export default function Store() {
   return (
     <div className="min-h-screen px-4 pb-32 pt-24 sm:px-6">
       <SEO
-        title="Store | Aditya Anugrah"
-        description="Produk digital pilihan dengan pembayaran QRIS dan pengiriman otomatis ke email."
+        title={t.seoTitle}
+        description={t.seoDescription}
         path="/store"
       />
 
@@ -162,13 +248,13 @@ export default function Store() {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
               <BadgeCheck size={16} aria-hidden="true" />
-              Produk digital siap kirim
+              {t.badge}
             </div>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
-              Digital Store untuk template, panduan, dan workflow siap pakai.
+              {t.title}
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-white/62 md:text-lg">
-              Pilih produk, cek detail isi paket, bayar dengan QRIS, lalu terima file digital melalui email dan halaman order.
+              {t.body}
             </p>
           </div>
 
@@ -188,9 +274,9 @@ export default function Store() {
 
         <section className="grid gap-4 py-6 md:grid-cols-3">
           {[
-            ["Produk aktif", productCount],
-            ["Stok tersedia", availableCount],
-            ["Metode bayar", "QRIS"],
+            [t.stats.active, productCount],
+            [t.stats.stock, availableCount],
+            [t.stats.payment, "QRIS"],
           ].map(([label, value]) => (
             <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4">
               <p className="text-sm text-white/45">{label}</p>
@@ -202,7 +288,7 @@ export default function Store() {
         {loading ? (
           <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] text-white/65">
             <Loader2 className="mr-3 animate-spin" size={20} aria-hidden="true" />
-            Memuat katalog
+            {t.loading}
           </div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
@@ -218,7 +304,7 @@ export default function Store() {
                         : "text-white/62 hover:bg-white/8 hover:text-white"
                     }`}
                   >
-                    Semua
+                    {t.all}
                   </button>
                   {categories.map((category) => (
                     <button
@@ -237,7 +323,7 @@ export default function Store() {
                 </div>
 
                 <label className="relative block">
-                  <span className="sr-only">Cari produk</span>
+                    <span className="sr-only">{t.search}</span>
                   <Search
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/38"
                     size={18}
@@ -246,7 +332,7 @@ export default function Store() {
                   <input
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
-                    placeholder="Cari produk"
+                    placeholder={t.search}
                     className="min-h-14 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-11 text-base text-white outline-none transition-colors placeholder:text-white/35 focus:border-cyan-200/55"
                   />
                 </label>
@@ -255,9 +341,9 @@ export default function Store() {
               {filteredProducts.length === 0 ? (
                 <div className="flex min-h-[260px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-center">
                   <PackageOpen className="text-white/30" size={38} aria-hidden="true" />
-                  <h2 className="mt-4 text-xl font-bold text-white">Produk tidak ditemukan</h2>
+                  <h2 className="mt-4 text-xl font-bold text-white">{t.emptyTitle}</h2>
                   <p className="mt-2 max-w-sm text-sm leading-6 text-white/50">
-                    Ubah kata kunci atau pilih kategori lain untuk melihat katalog yang tersedia.
+                    {t.emptyBody}
                   </p>
                 </div>
               ) : (
@@ -287,7 +373,7 @@ export default function Store() {
                             </div>
                           )}
                           <div className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
-                            {category?.name || "Digital"}
+                            {category?.name || t.digital}
                           </div>
                           {active && (
                             <div className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-cyan-100 text-black">
@@ -303,23 +389,23 @@ export default function Store() {
                           <div className="mt-5 grid gap-2 text-sm text-white/52">
                             <span className="inline-flex items-center gap-2">
                               <Download size={16} className="text-cyan-200" aria-hidden="true" />
-                              Email dan halaman order
+                              {t.delivery}
                             </span>
                             <span className="inline-flex items-center gap-2">
                               <ShieldCheck size={16} className="text-cyan-200" aria-hidden="true" />
-                              Garansi {product.warrantyHours || 24} jam
+                              {t.warranty} {product.warrantyHours || 24} {t.hour}
                             </span>
                           </div>
 
                           <div className="mt-auto flex items-end justify-between gap-3 pt-5">
                             <div>
-                              <p className="text-xs text-white/38">Harga</p>
+                              <p className="text-xs text-white/38">{t.price}</p>
                               <p className="text-xl font-bold text-cyan-100">{formatRupiah(product.price)}</p>
                             </div>
                             <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
                               stock > 0 ? "bg-emerald-400/12 text-emerald-200" : "bg-red-400/12 text-red-200"
                             }`}>
-                              Stok {stock}
+                              {t.stockLabel} {stock}
                             </span>
                           </div>
                         </div>
@@ -335,16 +421,16 @@ export default function Store() {
                 {selected ? (
                   <>
                     <div className="border-b border-white/10 p-6">
-                      <p className="text-sm font-semibold text-cyan-200">{selectedCategory?.name || "Produk Digital"}</p>
+                      <p className="text-sm font-semibold text-cyan-200">{selectedCategory?.name || t.productCategory}</p>
                       <h2 className="mt-2 text-2xl font-bold leading-tight text-white">{selected.name}</h2>
                       <p className="mt-3 text-sm leading-6 text-white/58">{selected.summary}</p>
 
                       <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
                         {[
-                          ["Harga", formatRupiah(selected.price)],
-                          ["Stok", `${selected.stock} item`],
-                          ["Kirim", "Otomatis"],
-                          ["Garansi", `${selected.warrantyHours || 24} jam`],
+                          [t.price, formatRupiah(selected.price)],
+                          [t.stockLabel, `${selected.stock} ${t.item}`],
+                          [t.delivery, t.deliveryAuto],
+                          [t.warranty, `${selected.warrantyHours || 24} ${t.hour}`],
                         ].map(([label, value]) => (
                           <div key={label} className="bg-[#0d0b08] p-4">
                             <p className="text-xs text-white/40">{label}</p>
@@ -358,7 +444,7 @@ export default function Store() {
                       <div className="border-b border-white/10 p-6">
                         <div className="mb-4 flex items-center gap-2 text-sm font-bold text-white">
                           <FileText size={18} className="text-cyan-200" aria-hidden="true" />
-                          Detail produk
+                          {t.detail}
                         </div>
                         <div className="space-y-3 text-sm leading-6 text-white/58">
                           {selectedDescription.map((line) => (
@@ -371,19 +457,19 @@ export default function Store() {
                     <form onSubmit={checkout} className="p-6">
                       <div className="space-y-4">
                         <label className="block">
-                          <span className="mb-2 block text-sm font-semibold text-white/78">Nama</span>
+                          <span className="mb-2 block text-sm font-semibold text-white/78">{t.name}</span>
                           <input
                             required
                             autoComplete="name"
                             value={form.name}
                             onChange={(event) => setForm({ ...form, name: event.target.value })}
-                            placeholder="Nama penerima"
+                            placeholder={t.recipient}
                             className="min-h-12 w-full rounded-xl border border-white/10 bg-white/[0.055] px-4 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
                           />
                         </label>
 
                         <label className="block">
-                          <span className="mb-2 block text-sm font-semibold text-white/78">Email pengiriman</span>
+                          <span className="mb-2 block text-sm font-semibold text-white/78">{t.email}</span>
                           <input
                             required
                             type="email"
@@ -396,28 +482,28 @@ export default function Store() {
                         </label>
 
                         <label className="block">
-                          <span className="mb-2 block text-sm font-semibold text-white/78">WhatsApp</span>
+                          <span className="mb-2 block text-sm font-semibold text-white/78">{t.phone}</span>
                           <input
                             type="tel"
                             autoComplete="tel"
                             value={form.phone}
                             onChange={(event) => setForm({ ...form, phone: event.target.value })}
-                            placeholder="Opsional"
+                            placeholder={t.optional}
                             className="min-h-12 w-full rounded-xl border border-white/10 bg-white/[0.055] px-4 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
                           />
                         </label>
 
                         <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                           <div>
-                            <p className="text-sm font-semibold text-white">Quantity</p>
-                            <p className="mt-1 text-xs text-white/42">Maksimal sesuai stok</p>
+                            <p className="text-sm font-semibold text-white">{t.quantity}</p>
+                            <p className="mt-1 text-xs text-white/42">{t.quantityHelp}</p>
                           </div>
                           <div className="flex items-center rounded-xl border border-white/10 bg-black/25">
                             <button
                               type="button"
                               onClick={() => updateQuantity(Number(form.quantity || 1) - 1)}
                               className="flex h-11 w-11 items-center justify-center text-white/70 transition-colors hover:text-white"
-                              aria-label="Kurangi quantity"
+                              aria-label={t.decrease}
                             >
                               <Minus size={16} aria-hidden="true" />
                             </button>
@@ -434,7 +520,7 @@ export default function Store() {
                               type="button"
                               onClick={() => updateQuantity(Number(form.quantity || 1) + 1)}
                               className="flex h-11 w-11 items-center justify-center text-white/70 transition-colors hover:text-white"
-                              aria-label="Tambah quantity"
+                              aria-label={t.increase}
                             >
                               <Plus size={16} aria-hidden="true" />
                             </button>
@@ -451,7 +537,7 @@ export default function Store() {
 
                       <div className="mt-6 border-t border-white/10 pt-5">
                         <div className="mb-4 flex items-center justify-between">
-                          <span className="text-sm text-white/50">Total pembayaran</span>
+                          <span className="text-sm text-white/50">{t.total}</span>
                           <span className="text-2xl font-bold text-cyan-100">{formatRupiah(selectedTotal)}</span>
                         </div>
                         <button
@@ -462,11 +548,11 @@ export default function Store() {
                           {checkingOut ? (
                             <>
                               <Loader2 className="animate-spin" size={18} aria-hidden="true" />
-                              Membuat invoice
+                              {t.creating}
                             </>
                           ) : (
                             <>
-                              Bayar QRIS
+                              {t.pay}
                               <ArrowRight size={18} aria-hidden="true" />
                             </>
                           )}
@@ -475,7 +561,7 @@ export default function Store() {
                     </form>
                   </>
                 ) : (
-                  <div className="p-6 text-white/55">Belum ada produk aktif.</div>
+                  <div className="p-6 text-white/55">{t.noProduct}</div>
                 )}
               </div>
 

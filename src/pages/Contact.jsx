@@ -1,183 +1,227 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { Mail, MessageCircle, Send, ShieldCheck } from "lucide-react";
 import SEO from "../components/SEO";
-import { FaPaperPlane, FaWhatsapp, FaEnvelope } from "react-icons/fa";
-import FAQ from "../components/contact/FAQ";
+import { usePreferredLanguage } from "../lib/usePreferredLanguage";
+
+const copy = {
+  id: {
+    seoTitle: "Contact | Aditya Anugrah",
+    seoDescription:
+      "Hubungi Aditya Anugrah untuk website bisnis, dashboard, API, integrasi, dan produk digital.",
+    badge: "Contact",
+    title: "Ceritakan kebutuhan website atau sistem yang ingin kamu bangun.",
+    body:
+      "Kirim konteks singkat: jenis bisnis, tujuan utama, fitur yang dibutuhkan, dan timeline. Saya akan balas dengan arah pengerjaan yang paling masuk akal.",
+    directTitle: "Kontak langsung",
+    directBody: "Untuk kebutuhan cepat, WhatsApp biasanya paling efisien.",
+    email: "Email",
+    whatsapp: "WhatsApp",
+    formTitle: "Project inquiry",
+    name: "Nama",
+    emailLabel: "Email",
+    message: "Kebutuhan project",
+    namePlaceholder: "Nama kamu",
+    emailPlaceholder: "email@example.com",
+    messagePlaceholder: "Contoh: butuh company profile, katalog produk, dashboard admin, atau integrasi pembayaran.",
+    sending: "Mengirim...",
+    send: "Kirim inquiry",
+    successTitle: "Inquiry terkirim",
+    successBody: "Terima kasih. Saya akan balas melalui email secepatnya.",
+    error: "Pesan gagal dikirim. Coba lagi atau hubungi via WhatsApp.",
+    points: [
+      "Website company profile dan landing page",
+      "Dashboard internal dan workflow bisnis",
+      "API, payment gateway, email, storage, analytics",
+    ],
+  },
+  en: {
+    seoTitle: "Contact | Aditya Anugrah",
+    seoDescription:
+      "Contact Aditya Anugrah for business websites, dashboards, APIs, integrations, and digital products.",
+    badge: "Contact",
+    title: "Tell me what website or system you want to build.",
+    body:
+      "Send a short context: business type, main goal, required features, and timeline. I will respond with the most practical direction.",
+    directTitle: "Direct contact",
+    directBody: "For quick needs, WhatsApp is usually the most efficient channel.",
+    email: "Email",
+    whatsapp: "WhatsApp",
+    formTitle: "Project inquiry",
+    name: "Name",
+    emailLabel: "Email",
+    message: "Project needs",
+    namePlaceholder: "Your name",
+    emailPlaceholder: "email@example.com",
+    messagePlaceholder: "Example: company profile, product catalog, admin dashboard, or payment integration.",
+    sending: "Sending...",
+    send: "Send inquiry",
+    successTitle: "Inquiry sent",
+    successBody: "Thank you. I will reply by email as soon as possible.",
+    error: "Message failed. Try again or contact me through WhatsApp.",
+    points: [
+      "Company profiles and landing pages",
+      "Internal dashboards and business workflows",
+      "APIs, payment gateways, email, storage, analytics",
+    ],
+  },
+};
 
 const Contact = () => {
+  const { language } = usePreferredLanguage();
+  const t = copy[language] || copy.en;
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
-  // EmailJS Configuration
-  // 1. Create account at https://www.emailjs.com/
-  // 2. Add Email Service (Gmail) -> Get Service ID
-  // 3. Add Email Template -> Get Template ID
-  // 4. Account > API Keys -> Get Public Key
-  const SERVICE_ID = "service_vr0p9hi"; 
+  const SERVICE_ID = "service_vr0p9hi";
   const TEMPLATE_ID = "template_dv924xl";
   const PUBLIC_KEY = "sIWIuNBhbXcJPGjrE";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Check if keys are still placeholders (just in case)
-    if (SERVICE_ID === "YOUR_SERVICE_ID") {
-        alert("EmailJS configuration missing.");
-        return;
-    }
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setStatus("sending");
-    
-        try {
-            await emailjs.send(
-                SERVICE_ID, 
-                TEMPLATE_ID, 
-                {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    message: formData.message,
-                    to_name: "Aditya Anugrah",
-                }, 
-                PUBLIC_KEY
-            );
 
-            // Track Conversion
-            if (typeof window.gtag === 'function') {
-                window.gtag('event', 'generate_lead', {
-                    'event_category': 'Contact',
-                    'event_label': 'Contact Form Success'
-                });
-            }
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_name: "Aditya Anugrah",
+        },
+        PUBLIC_KEY
+      );
 
-            setStatus("success");
-            setFormData({ name: "", email: "", message: "" });
-            setTimeout(() => setStatus(""), 5000);
-        } catch (error) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", {
+          event_category: "Contact",
+          event_label: "Contact Form Success",
+        });
+      }
 
-        console.error("EmailJS Error:", error);
-        setStatus("error");
-        setTimeout(() => setStatus(""), 5000);
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus(""), 5000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus(""), 5000);
     }
   };
 
   return (
-    <div className="pt-24 pb-32 px-6 max-w-4xl mx-auto min-h-screen flex flex-col justify-center">
-      <SEO 
-        title="Contact | Aditya Anugrah" 
-        description="Get in touch with Aditya Anugrah for collaborations or inquiries."
-      />
+    <div className="min-h-screen px-4 pb-24 pt-24 sm:px-6 md:pb-32 md:pt-28">
+      <SEO title={t.seoTitle} description={t.seoDescription} path="/contact" />
 
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold font-display mb-4">
-            Mari bekerja <span className="text-gradient">bersama.</span>
-        </h1>
-        <p className="text-white/60 text-lg">
-            Ada proyek yang ingin dibuat? Saya selalu terbuka untuk mendiskusikan ide baru.
-        </p>
-      </div>
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <section>
+          <div className="mb-5 inline-flex rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100">
+            {t.badge}
+          </div>
+          <h1 className="max-w-3xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl">
+            {t.title}
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-white/62 md:text-lg">{t.body}</p>
 
-      <div className="grid md:grid-cols-2 gap-12 glass-panel p-6 md:p-12 rounded-3xl relative overflow-hidden">
-        {/* Glow */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/20 rounded-full blur-[100px] pointer-events-none" />
+          <div className="mt-8 grid gap-3">
+            {t.points.map((point) => (
+              <div key={point} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <ShieldCheck className="mt-0.5 shrink-0 text-cyan-200" size={18} aria-hidden="true" />
+                <p className="text-sm leading-6 text-white/68">{point}</p>
+              </div>
+            ))}
+          </div>
 
-        <div className="space-y-8">
-            <div>
-                <h3 className="text-xl font-bold mb-2">Kontak Saya</h3>
-                <p className="text-white/50 mb-6">Jangan ragu untuk menghubungi saya.</p>
-                
-                <div className="space-y-4">
-                    <a href="mailto:admin@adityaanugrah.me" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-                            <FaEnvelope />
-                        </div>
-                        <div>
-                            <div className="text-xs text-white/40 uppercase tracking-widest">Email</div>
-                            <div className="font-mono">admin@adityaanugrah.me</div>
-                        </div>
-                    </a>
-                    <a href="https://wa.me/6281379430432" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                        <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-400">
-                            <FaWhatsapp />
-                        </div>
-                        <div>
-                            <div className="text-xs text-white/40 uppercase tracking-widest">WhatsApp</div>
-                            <div className="font-mono">+62 813 7943 0432</div>
-                        </div>
-                    </a>
+          <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.045] p-5">
+            <h2 className="text-xl font-bold text-white">{t.directTitle}</h2>
+            <p className="mt-2 text-sm leading-6 text-white/55">{t.directBody}</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <a href="mailto:admin@adityaanugrah.me" className="flex min-h-14 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.045] px-4 transition-colors hover:bg-white/[0.07]">
+                <Mail className="text-cyan-200" size={20} aria-hidden="true" />
+                <div>
+                  <p className="text-xs text-white/38">{t.email}</p>
+                  <p className="text-sm font-bold text-white">admin@adityaanugrah.me</p>
                 </div>
+              </a>
+              <a href="https://wa.me/6281379430432" target="_blank" rel="noopener noreferrer" className="flex min-h-14 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.045] px-4 transition-colors hover:bg-white/[0.07]">
+                <MessageCircle className="text-green-300" size={20} aria-hidden="true" />
+                <div>
+                  <p className="text-xs text-white/38">{t.whatsapp}</p>
+                  <p className="text-sm font-bold text-white">+62 813 7943 0432</p>
+                </div>
+              </a>
             </div>
-        </div>
+          </div>
+        </section>
 
-        <div className="relative min-h-[400px]">
-            {status === "success" ? (
-                <div 
-                    className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-6 h-full"
-                >
-                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center text-green-400 text-3xl animate-bounce">
-                        <FaPaperPlane />
-                    </div>
-                    <div>
-                        <h3 className="text-2xl font-bold font-display mb-2">Pesan Terkirim!</h3>
-                        <p className="text-white/60 max-w-xs mx-auto">
-                            Terima kasih telah menghubungi saya, {formData.name}. Saya akan segera menghubungi Anda dalam 24 jam.
-                        </p>
-                    </div>
-                    <button 
-                        onClick={() => setStatus("")}
-                        className="text-sm text-cyan-400 font-bold hover:text-cyan-300 transition-colors"
-                    >
-                        Kirim pesan lain
-                    </button>
+        <section className="rounded-3xl border border-white/10 bg-[#0d0b08]/92 p-5 shadow-2xl shadow-black/25 md:p-7">
+          <h2 className="text-2xl font-bold text-white">{t.formTitle}</h2>
+
+          {status === "success" ? (
+            <div className="mt-6 rounded-2xl border border-emerald-300/20 bg-emerald-400/10 p-5">
+              <h3 className="text-lg font-bold text-emerald-100">{t.successTitle}</h3>
+              <p className="mt-2 text-sm leading-6 text-emerald-100/70">{t.successBody}</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+              <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-white/78">{t.name}</span>
+                <input
+                  type="text"
+                  required
+                  autoComplete="name"
+                  className="min-h-12 w-full rounded-xl border border-white/10 bg-white/[0.055] px-4 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
+                  placeholder={t.namePlaceholder}
+                  value={formData.name}
+                  onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-white/78">{t.emailLabel}</span>
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className="min-h-12 w-full rounded-xl border border-white/10 bg-white/[0.055] px-4 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
+                  placeholder={t.emailPlaceholder}
+                  value={formData.email}
+                  onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-semibold text-white/78">{t.message}</span>
+                <textarea
+                  required
+                  rows="6"
+                  className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.055] px-4 py-3 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
+                  placeholder={t.messagePlaceholder}
+                  value={formData.message}
+                  onChange={(event) => setFormData({ ...formData, message: event.target.value })}
+                />
+              </label>
+
+              {status === "error" && (
+                <div className="rounded-2xl border border-red-300/20 bg-red-400/10 p-4 text-sm leading-6 text-red-100">
+                  {t.error}
                 </div>
-            ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-1">
-                        <label className="text-sm font-bold ml-1">Nama</label>
-                        <input 
-                            type="text" 
-                            required
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors"
-                            placeholder="John Doe"
-                            value={formData.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        />
-                    </div>
-                    <div className="space-y-1">
-                        <label className="text-sm font-bold ml-1">Email</label>
-                        <input 
-                            type="email" 
-                            required
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors"
-                            placeholder="john@example.com"
-                            value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        />
-                    </div>
-                    <div className="space-y-1">
-                        <label className="text-sm font-bold ml-1">Pesan</label>
-                        <textarea 
-                            required
-                            rows="4"
-                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
-                            placeholder="Project details..."
-                            value={formData.message}
-                            onChange={(e) => setFormData({...formData, message: e.target.value})}
-                        />
-                    </div>
-                    
-                    <button 
-                        type="submit" 
-                        disabled={status === "sending"}
-                        className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-white hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
-                    >
-                        {status === "sending" ? "Mengirim..." : <><FaPaperPlane /> Kirim Pesan</>}
-                    </button>
-                </form>
-            )}
-        </div>
-      </div>
+              )}
 
-      <FAQ />
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-cyan-100 px-5 text-base font-bold text-black transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {status === "sending" ? t.sending : t.send}
+                <Send size={17} aria-hidden="true" />
+              </button>
+            </form>
+          )}
+        </section>
+      </div>
     </div>
   );
 };

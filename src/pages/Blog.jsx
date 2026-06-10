@@ -1,80 +1,96 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaCalendarAlt, FaArrowRight } from "react-icons/fa";
+import { ArrowRight, CalendarDays, FileText } from "lucide-react";
 import { posts } from "../data/posts";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
+import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
-const BlogCard = ({ post, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
+const copy = {
+  id: {
+    seoTitle: "Blog | Aditya Anugrah",
+    seoDescription:
+      "Catatan singkat tentang web development, sistem bisnis, produk digital, dan proses membangun website yang lebih rapi.",
+    badge: "Notes",
+    title: "Catatan tentang web, sistem bisnis, dan produk digital.",
+    body:
+      "Tulisan ini menjadi pendukung portfolio: pendek, praktis, dan berhubungan dengan cara saya membangun produk digital.",
+    read: "Baca artikel",
+  },
+  en: {
+    seoTitle: "Blog | Aditya Anugrah",
+    seoDescription:
+      "Short notes about web development, business systems, digital products, and building cleaner websites.",
+    badge: "Notes",
+    title: "Notes about web, business systems, and digital products.",
+    body:
+      "These posts support the portfolio: concise, practical, and connected to how I build digital products.",
+    read: "Read article",
+  },
+};
+
+const BlogCard = ({ post, index, readLabel }) => (
+  <motion.article
+    initial={{ opacity: 0, y: 18 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-colors"
+    transition={{ duration: 0.45, delay: index * 0.05 }}
+    className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] transition-colors hover:border-cyan-300/30 hover:bg-white/[0.065]"
   >
     <Link to={`/blog/${post.id}`} className="block">
       <div className="aspect-video overflow-hidden">
-        <LazyImage 
-          src={post.image} 
-          alt={post.title} 
-          className="group-hover:scale-105 transition-transform duration-500"
-        />
+        <LazyImage src={post.image} alt={post.title} className="transition-transform duration-500 group-hover:scale-105" />
       </div>
-      <div className="p-6">
-        <div className="flex items-center gap-4 text-xs text-white/50 mb-3">
-          <span className="px-2 py-1 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider font-bold">
+      <div className="p-5">
+        <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-white/45">
+          <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 font-semibold uppercase text-cyan-100">
             {post.category}
           </span>
-          <span className="flex items-center gap-1">
-            <FaCalendarAlt /> {new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+          <span className="inline-flex items-center gap-1.5">
+            <CalendarDays size={14} aria-hidden="true" />
+            {new Date(post.date).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
           </span>
         </div>
-        <h2 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors line-clamp-2">
+        <h2 className="line-clamp-2 text-xl font-bold leading-snug text-white transition-colors group-hover:text-cyan-100">
           {post.title}
         </h2>
-        <p className="text-white/60 text-sm mb-4 line-clamp-3">
-          {post.excerpt}
-        </p>
-        <span className="inline-flex items-center gap-2 text-white font-bold group-hover:gap-3 transition-all">
-          Baca Selengkapnya <FaArrowRight className="text-cyan-400" />
+        <p className="mt-3 line-clamp-3 text-sm leading-7 text-white/55">{post.excerpt}</p>
+        <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-cyan-200">
+          {readLabel}
+          <ArrowRight size={16} aria-hidden="true" />
         </span>
       </div>
     </Link>
-  </motion.div>
+  </motion.article>
 );
 
 export default function Blog() {
+  const { language } = usePreferredLanguage();
+  const t = copy[language] || copy.en;
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return (
-    <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
-      <SEO 
-        title="Blog & Insights | Aditya Anugrah"
-        description="Artikel seputar strategi bisnis, pengembangan software, dan optimasi digital untuk UMKM dan Profesional."
-      />
+    <div className="min-h-screen px-4 pb-24 pt-24 sm:px-6 md:pb-32 md:pt-28">
+      <SEO title={t.seoTitle} description={t.seoDescription} path="/blog" />
 
-      <div className="text-center mb-16">
-        <motion.h1 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-bold font-display mb-4"
-        >
-          Blog & <span className="text-gradient">Insights</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-white/60 max-w-2xl mx-auto"
-        >
-          Berbagi pemikiran tentang teknologi, efisiensi bisnis, dan cara membangun produk digital yang berdampak nyata.
-        </motion.p>
-      </div>
+      <div className="mx-auto max-w-7xl">
+        <header className="mb-10 border-b border-white/10 pb-8">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100">
+            <FileText size={16} aria-hidden="true" />
+            {t.badge}
+          </div>
+          <h1 className="max-w-4xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl">
+            {t.title}
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-white/62 md:text-lg">{t.body}</p>
+        </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[...posts].reverse().map((post, index) => (
-          <BlogCard key={post.id} post={post} index={index} />
-        ))}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {sortedPosts.map((post, index) => (
+            <BlogCard key={post.id} post={post} index={index} readLabel={t.read} />
+          ))}
+        </div>
       </div>
     </div>
   );
