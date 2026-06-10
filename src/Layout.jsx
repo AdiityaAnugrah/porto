@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import WhatsAppCTA from "./components/WhatsAppCTA";
 import MouseGlow from "./components/common/MouseGlow";
 import PageLoader from "./components/common/PageLoader";
+import VisitorCounter from "./components/VisitorCounter";
 
 const Layout = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const Layout = () => {
         </main>
 
         <Footer />
+        <VisitorCounter />
         <WhatsAppCTA />
     </div>
   );
