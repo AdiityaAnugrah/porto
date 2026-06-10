@@ -54,6 +54,10 @@ const server = http.createServer(async (req, res) => {
       return handleAnalyticsView(req, res);
     }
 
+    if (url.pathname === "/visitor/context") {
+      return sendJson(res, 200, visitorContext(req));
+    }
+
     if (req.method !== "GET") {
       return sendJson(res, 405, { error: "Method not allowed" });
     }
@@ -257,7 +261,7 @@ async function handleStoreRequest(req, res, url) {
 async function handleAnalyticsView(req, res) {
   if (req.method === "GET") {
     const analytics = readAnalytics();
-    return sendJson(res, 200, publicAnalytics(analytics));
+    return sendJson(res, 200, { ...publicAnalytics(analytics), ...visitorContext(req) });
   }
 
   if (req.method !== "POST") {
@@ -287,7 +291,7 @@ async function handleAnalyticsView(req, res) {
   }
 
   writeAnalytics(analytics);
-  return sendJson(res, 200, publicAnalytics(analytics));
+  return sendJson(res, 200, { ...publicAnalytics(analytics), ...visitorContext(req) });
 }
 
 async function createStoreOrder(body) {
@@ -755,6 +759,20 @@ function publicAnalytics(analytics) {
     totalViews: Number(analytics.totalViews || 0),
     uniqueVisitors: Object.keys(analytics.visitors || {}).length,
   };
+}
+
+function visitorContext(req) {
+  const countryCode = [
+    req.headers["cf-ipcountry"],
+    req.headers["x-vercel-ip-country"],
+    req.headers["cloudfront-viewer-country"],
+    req.headers["x-country-code"],
+    req.headers["x-appengine-country"],
+  ]
+    .map((value) => String(value || "").trim().toUpperCase())
+    .find((value) => /^[A-Z]{2}$/.test(value)) || null;
+
+  return { countryCode };
 }
 
 function ensureSeedCatalog(store) {
