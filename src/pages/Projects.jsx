@@ -78,38 +78,38 @@ const Projects = () => {
       <SEO title={t.seoTitle} description={t.seoDescription} path="/projects" />
 
       <div className="mx-auto max-w-7xl">
-        <header className="grid gap-8 border-b border-white/10 pb-8 lg:grid-cols-[1fr_360px] lg:items-end">
+        <header className="grid gap-6 border-b border-white/10 pb-6 sm:gap-8 sm:pb-8 lg:grid-cols-[1fr_360px] lg:items-end">
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100">
-              <BriefcaseBusiness size={16} aria-hidden="true" />
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-3 py-1.5 text-xs text-cyan-100 sm:mb-5 sm:px-4 sm:py-2 sm:text-sm">
+              <BriefcaseBusiness size={14} aria-hidden="true" />
               {t.badge}
             </div>
-            <h1 className="max-w-4xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl">
+            <h1 className="max-w-4xl text-2xl font-bold leading-snug text-white sm:text-4xl sm:leading-tight md:text-6xl">
               {t.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/62 md:text-lg">{t.body}</p>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/62 sm:mt-5 sm:text-base md:text-lg md:leading-8">{t.body}</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {t.proof.map(([label, value]) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-                <p className="text-xs text-white/38">{label}</p>
-                <p className="mt-2 text-sm font-bold leading-snug text-white">{value}</p>
+              <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-3 sm:p-4">
+                <p className="text-[10px] text-white/38 sm:text-xs">{label}</p>
+                <p className="mt-1.5 text-xs font-bold leading-snug text-white sm:mt-2 sm:text-sm">{value}</p>
               </div>
             ))}
           </div>
         </header>
 
-        <div className="my-8 flex gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.035] p-2">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white/45">
-            <Filter size={18} aria-hidden="true" />
+        <div className="my-6 flex gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.035] p-1.5 sm:my-8 sm:p-2">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white/45 sm:h-11 sm:w-11">
+            <Filter size={16} aria-hidden="true" />
           </div>
           {categories.map((category) => (
             <button
               key={category}
               type="button"
               onClick={() => setActiveCategory(category)}
-              className={`min-h-11 shrink-0 rounded-xl px-4 text-sm font-semibold transition-colors ${
+              className={`min-h-10 shrink-0 rounded-xl px-3 text-xs font-semibold transition-colors sm:min-h-11 sm:px-4 sm:text-sm ${
                 activeCategory === category
                   ? "bg-cyan-100 text-black"
                   : "text-white/62 hover:bg-white/[0.08] hover:text-white"
