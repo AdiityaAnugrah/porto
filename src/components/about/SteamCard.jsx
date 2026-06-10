@@ -127,7 +127,7 @@ const SteamCard = () => {
 
   return (
     <motion.div
-      whileHover={{ scale: 0.98 }}
+      whileHover={{ scale: 0.995 }}
       className="group relative bg-[#14120e]/85 backdrop-blur-md rounded-3xl p-6 md:p-8 border border-[#3a3327]/70 overflow-hidden flex flex-col justify-between min-h-[220px] transition-all duration-500 hover:border-cyan-300/35 h-full"
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent pointer-events-none" />
@@ -197,52 +197,86 @@ const SteamCard = () => {
       </div>
 
       {steamData.state === "In-Game" && steamData.gameName && (
-        <div className="relative z-10 mt-1 rounded-2xl border border-green-300/15 bg-green-300/[0.06] p-3 sm:p-4">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <div className="relative h-12 w-20 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-black/35">
-              {steamData.gameLogoUrl ? (
-                <img
-                  src={steamData.gameLogoUrl}
-                  alt={`${steamData.gameName} cover`}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-green-300">
-                  <FaSteamSymbol aria-hidden="true" />
-                </div>
-              )}
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-green-200/70">
-                Sedang bermain
-              </p>
-              <p className="mt-1 truncate text-sm font-bold text-white sm:text-base" title={steamData.gameName}>
-                {steamData.gameName}
-              </p>
-            </div>
-
-            {steamData.gameStoreUrl && (
-              <a
-                href={steamData.gameStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-green-300/20 bg-green-300/10 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-green-100 transition-colors hover:bg-green-300/15"
-              >
-                Store
-              </a>
-            )}
-          </div>
-
-          {steamData.gameArtUrl && (
-            <div className="mt-3 overflow-hidden rounded-xl border border-white/10">
+        <div className="relative z-10 mt-2 overflow-hidden rounded-3xl border border-green-300/15 bg-black/35">
+          <div className="relative isolate">
+            {steamData.gameArtUrl ? (
               <img
                 src={steamData.gameArtUrl}
                 alt={`${steamData.gameName} art`}
-                className="h-28 w-full object-cover sm:h-32"
+                className="h-32 w-full object-cover sm:h-36"
               />
+            ) : (
+              <div className="flex h-32 w-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(74,222,128,0.18),_rgba(0,0,0,0.35)_70%)] sm:h-36">
+                <FaSteamSymbol className="text-4xl text-green-200/70" aria-hidden="true" />
+              </div>
+            )}
+
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/35 to-transparent" />
+
+            <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-green-300/20 bg-black/45 px-3 py-1 backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.75)]" aria-hidden="true" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-green-100">Live</span>
             </div>
-          )}
+
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+              <div className="flex items-end justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-green-200/75">
+                    Sedang bermain
+                  </p>
+                  <p className="mt-1 truncate text-base font-bold text-white sm:text-lg" title={steamData.gameName}>
+                    {steamData.gameName}
+                  </p>
+                  <p className="mt-1 text-[11px] leading-5 text-white/60 sm:text-xs">
+                    Game aktif di profil Steam pribadi kamu.
+                  </p>
+                </div>
+
+                {steamData.gameStoreUrl && (
+                  <a
+                    href={steamData.gameStoreUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-green-300/20 bg-white/10 px-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-white/15"
+                  >
+                    Store
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 border-t border-white/10 bg-black/25">
+            <div className="flex items-center gap-3 px-4 py-3 sm:px-5">
+              <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-black/35">
+                {steamData.gameLogoUrl ? (
+                  <img
+                    src={steamData.gameLogoUrl}
+                    alt={`${steamData.gameName} logo`}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-green-300">
+                    <FaSteamSymbol aria-hidden="true" />
+                  </div>
+                )}
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">Status</p>
+                <p className="truncate text-sm font-bold text-white">{steamData.state}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 border-l border-white/10 px-4 py-3 sm:px-5">
+              <div className="min-w-0">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">App ID</p>
+                <p className="truncate font-mono text-sm text-white/90">{steamData.gameId || "-"}</p>
+              </div>
+              <span className="inline-flex items-center rounded-full border border-green-300/15 bg-green-300/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-green-100">
+                Steam
+              </span>
+            </div>
+          </div>
         </div>
       )}
 
