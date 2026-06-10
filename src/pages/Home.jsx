@@ -21,6 +21,7 @@ import SEO from "../components/SEO";
 import { projects } from "../data/projects";
 import { posts } from "../data/posts";
 import { imageUrl, r2Image } from "../lib/media";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const content = {
@@ -183,6 +184,7 @@ const SectionHeading = ({ eyebrow, title, body, action }) => (
 
 const Home = () => {
   const { language } = usePreferredLanguage();
+  const toLocalized = useLocalizedPath();
   const t = content[language] || content.en;
   const featuredProjects = [...projects].sort((a, b) => b.year - a.year).slice(0, 4);
   const latestPosts = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
@@ -264,14 +266,14 @@ const Home = () => {
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
-                to="/contact"
+                to={toLocalized("/contact")}
                 className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-7 font-bold text-black transition-colors hover:bg-white"
               >
                 {t.primaryCta}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link
-                to="/projects"
+                to={toLocalized("/projects")}
                 className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-7 font-bold text-white transition-colors hover:bg-white/[0.08]"
               >
                 {t.secondaryCta}
@@ -359,7 +361,7 @@ const Home = () => {
             title={t.workTitle}
             body={t.workBody}
             action={
-              <Link to="/projects" className="inline-flex items-center gap-2 text-sm font-bold uppercase text-cyan-200 hover:text-white">
+              <Link to={toLocalized("/projects")} className="inline-flex items-center gap-2 text-sm font-bold uppercase text-cyan-200 hover:text-white">
                 {t.allWork}
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
@@ -383,7 +385,7 @@ const Home = () => {
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white/58 md:text-base">{t.storeBody}</p>
           </div>
           <Link
-            to="/store"
+            to={toLocalized("/store")}
             className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-cyan-100 px-7 font-bold text-black transition-colors hover:bg-white"
           >
             {t.storeCta}
@@ -398,7 +400,7 @@ const Home = () => {
             eyebrow={t.articlesLabel}
             title={t.articlesTitle}
             action={
-              <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-bold uppercase text-cyan-200 hover:text-white">
+              <Link to={toLocalized("/blog")} className="inline-flex items-center gap-2 text-sm font-bold uppercase text-cyan-200 hover:text-white">
                 {t.allArticles}
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
@@ -407,7 +409,7 @@ const Home = () => {
           <div className="grid gap-6 md:grid-cols-3">
             {latestPosts.map((post) => (
               <Link
-                to={`/blog/${post.id}`}
+                to={toLocalized(`/blog/${post.id}`)}
                 key={post.id}
                 className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] transition-colors hover:border-cyan-300/30 hover:bg-white/[0.065]"
               >
@@ -455,7 +457,7 @@ const Home = () => {
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/58 md:text-lg">{t.ctaBody}</p>
           <div className="mt-10 flex justify-center">
             <Link
-              to="/contact"
+              to={toLocalized("/contact")}
               className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-8 font-bold text-black transition-colors hover:bg-white"
             >
               {t.ctaButton}

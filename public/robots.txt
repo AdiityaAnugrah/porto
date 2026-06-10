@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /id/store/admin
+Disallow: /en/store/admin
+Disallow: /id/store/order/
+Disallow: /en/store/order/
 
 Sitemap: https://adityaanugrah.me/sitemap.xml

@@ -6,6 +6,7 @@ import { posts } from "../data/posts";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { r2Image } from "../lib/media";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const copy = {
@@ -29,6 +30,7 @@ const copy = {
 
 export default function BlogDetail() {
   const { language } = usePreferredLanguage();
+  const toLocalized = useLocalizedPath();
   const t = copy[language] || copy.en;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ export default function BlogDetail() {
     return (
       <div className="min-h-screen px-4 pt-40 text-center sm:px-6">
         <h1 className="mb-4 text-4xl font-bold text-white">{t.notFound}</h1>
-        <Link to="/blog" className="text-cyan-300 hover:text-cyan-200">
+        <Link to={toLocalized("/blog")} className="text-cyan-300 hover:text-cyan-200">
           {t.back}
         </Link>
       </div>
@@ -89,7 +91,7 @@ export default function BlogDetail() {
       >
         <button
           type="button"
-          onClick={() => navigate("/blog")}
+          onClick={() => navigate(toLocalized("/blog"))}
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-white/52 transition-colors hover:text-white"
         >
           <ArrowLeft size={16} aria-hidden="true" />
@@ -138,7 +140,7 @@ export default function BlogDetail() {
               <p className="mt-2 text-sm leading-6 text-white/58">{t.authorBody}</p>
             </div>
             <Link
-              to="/contact"
+              to={toLocalized("/contact")}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-100 px-5 font-bold text-black transition-colors hover:bg-white"
             >
               {t.discuss}
@@ -154,7 +156,7 @@ export default function BlogDetail() {
               {relatedPosts.map((item) => (
                 <Link
                   key={item.id}
-                  to={`/blog/${item.id}`}
+                  to={toLocalized(`/blog/${item.id}`)}
                   className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 transition-colors hover:border-cyan-300/30 hover:bg-white/[0.065]"
                 >
                   <p className="text-xs font-semibold uppercase text-cyan-200/70">{item.category}</p>

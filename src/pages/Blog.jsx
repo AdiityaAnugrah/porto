@@ -5,6 +5,7 @@ import { ArrowRight, CalendarDays, FileText } from "lucide-react";
 import { posts } from "../data/posts";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const copy = {
@@ -30,7 +31,10 @@ const copy = {
   },
 };
 
-const BlogCard = ({ post, index, readLabel }) => (
+const BlogCard = ({ post, index, readLabel }) => {
+  const toLocalized = useLocalizedPath();
+
+  return (
   <motion.article
     initial={{ opacity: 0, y: 18 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +42,7 @@ const BlogCard = ({ post, index, readLabel }) => (
     transition={{ duration: 0.45, delay: index * 0.05 }}
     className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] transition-colors hover:border-cyan-300/30 hover:bg-white/[0.065]"
   >
-    <Link to={`/blog/${post.id}`} className="block">
+    <Link to={toLocalized(`/blog/${post.id}`)} className="block">
       <div className="aspect-video overflow-hidden">
         <LazyImage src={post.image} alt={post.title} className="transition-transform duration-500 group-hover:scale-105" />
       </div>
@@ -63,7 +67,8 @@ const BlogCard = ({ post, index, readLabel }) => (
       </div>
     </Link>
   </motion.article>
-);
+  );
+};
 
 export default function Blog() {
   const { language } = usePreferredLanguage();

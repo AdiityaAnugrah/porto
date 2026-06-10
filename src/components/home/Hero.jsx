@@ -1,8 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaArrowRight, FaWhatsapp } from "react-icons/fa";
+import { useLocalizedPath } from "../../lib/i18n";
 
 const Hero = () => {
+  const toLocalized = useLocalizedPath();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 pt-20">
       {/* Background texture */}
@@ -53,12 +57,12 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a href="/projects" aria-label="View My Work Projects" className="btn-primary px-8 py-4 bg-cyan-100 text-black rounded-full font-bold flex items-center gap-2 hover:bg-white transition-colors shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
+          <Link to={toLocalized("/projects")} aria-label="View My Work Projects" className="btn-primary px-8 py-4 bg-cyan-100 text-black rounded-full font-bold flex items-center gap-2 hover:bg-white transition-colors shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
             Lihat Karya <FaArrowRight />
-          </a>
-          <a href="/contact" aria-label="Contact for Project Discussion" className="px-8 py-4 rounded-full border border-cyan-300/20 hover:bg-white/10 transition-colors flex items-center gap-2 backdrop-blur-sm">
+          </Link>
+          <Link to={toLocalized("/contact")} aria-label="Contact for Project Discussion" className="px-8 py-4 rounded-full border border-cyan-300/20 hover:bg-white/10 transition-colors flex items-center gap-2 backdrop-blur-sm">
              <FaWhatsapp className="text-green-400 text-xl" /> Diskusi Proyek
-          </a>
+          </Link>
         </motion.div>
       </div>
 

@@ -22,6 +22,7 @@ import PubgCard from "../components/about/PubgCard";
 import SpotifyCard from "../components/about/SpotifyCard";
 import SteamCard from "../components/about/SteamCard";
 import { r2Image } from "../lib/media";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const text = {
@@ -167,6 +168,7 @@ const SectionHeader = ({ label, title }) => (
 
 const About = () => {
   const { language } = usePreferredLanguage();
+  const toLocalized = useLocalizedPath();
   const t = text[language] || text.en;
   const profileImage = r2Image("profile/me-sunset.jpeg", "/assets/me-sunset.jpeg");
   const profileImageAbsolute = r2Image(
@@ -224,7 +226,7 @@ const About = () => {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  to="/contact"
+                  to={toLocalized("/contact")}
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-100 px-6 font-bold text-black transition-colors hover:bg-white"
                 >
                   {t.contact}
@@ -415,7 +417,7 @@ const About = () => {
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/58">{t.ctaBody}</p>
           <div className="mt-8 flex justify-center">
             <Link
-              to="/contact"
+              to={toLocalized("/contact")}
               className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-8 font-bold text-black transition-colors hover:bg-white"
             >
               {t.ctaButton}

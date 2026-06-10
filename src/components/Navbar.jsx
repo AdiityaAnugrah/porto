@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaHome, FaUser, FaCode, FaEnvelope, FaBookOpen, FaShoppingBag } from "react-icons/fa";
+import { stripLocaleFromPath, useLocalizedPath } from "../lib/i18n";
 
 const navItems = [
   { path: "/", label: "Home", icon: FaHome },
@@ -14,17 +15,19 @@ const navItems = [
 
 const Navbar = () => {
   const location = useLocation();
+  const toLocalized = useLocalizedPath();
+  const activePath = stripLocaleFromPath(location.pathname);
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-lg">
       <nav aria-label="Main Navigation" className="rounded-full px-3 sm:px-5 py-3 flex justify-between items-center sm:gap-2 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
+          const isActive = activePath === item.path || (item.path !== '/' && activePath.startsWith(item.path));
           
           return (
             <Link 
-              key={item.path} 
-              to={item.path}
+              key={item.path}
+              to={toLocalized(item.path)}
               aria-label={`Navigate to ${item.label}`}
               className="relative px-3 sm:px-4 py-2 flex flex-col items-center justify-center group"
             >

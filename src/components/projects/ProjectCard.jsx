@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import LazyImage from "../common/LazyImage";
+import { useLocalizedPath } from "../../lib/i18n";
 
 const getDisplayTitle = (title) => title.replace(/\s(?:\u2014|\u00e2|\u00c3).*/, "");
 
 const ProjectCard = ({ project, index }) => {
   const displayTitle = getDisplayTitle(project.title);
+  const toLocalized = useLocalizedPath();
 
   return (
     <motion.div
@@ -17,7 +19,7 @@ const ProjectCard = ({ project, index }) => {
       transition={{ duration: 0.45, delay: Math.min(index * 0.06, 0.24) }}
       className="group relative overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.045] transition-colors hover:bg-white/[0.075] sm:rounded-3xl sm:border-0 glass-panel"
     >
-      <Link to={`/projects/item/${project.id}`} className="block h-full">
+      <Link to={toLocalized(`/projects/item/${project.id}`)} className="block h-full">
         <div className="relative aspect-[0.86] w-full overflow-hidden sm:aspect-video">
           <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/25 to-transparent opacity-80 transition-opacity group-hover:opacity-65 sm:from-black/80 sm:opacity-60 sm:group-hover:opacity-40" />
           <LazyImage

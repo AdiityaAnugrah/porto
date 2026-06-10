@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ProjectCard from "../components/projects/ProjectCard";
 import SEO from "../components/SEO";
 import { projects } from "../data/projects";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const copy = {
@@ -64,6 +65,7 @@ const categories = ["All", "Web Apps", "Mobile Apps", "Landing Pages"];
 
 const Projects = () => {
   const { language } = usePreferredLanguage();
+  const toLocalized = useLocalizedPath();
   const t = copy[language] || copy.en;
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -141,7 +143,7 @@ const Projects = () => {
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/58">{t.ctaBody}</p>
           <div className="mt-8 flex justify-center">
             <Link
-              to="/contact"
+              to={toLocalized("/contact")}
               className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-8 font-bold text-black transition-colors hover:bg-white"
             >
               {t.ctaButton}

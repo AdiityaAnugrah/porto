@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
+import { useLocalizedPath } from "../lib/i18n";
 
 const NotFound = () => {
+  const toLocalized = useLocalizedPath();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden text-center px-6">
       <SEO title="Page Not Found | Aditya Anugrah" />
@@ -18,7 +21,7 @@ const NotFound = () => {
       </p>
 
       <Link 
-        to="/" 
+        to={toLocalized("/")}
         className="px-8 py-3 rounded-full bg-cyan-500 text-white font-bold hover:bg-cyan-400 transition-all hover:scale-105 flex items-center gap-2"
       >
         <span>Back to Home</span>

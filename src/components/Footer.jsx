@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import { useLocalizedPath } from "../lib/i18n";
 
 const primaryLinks = [
   { to: "/", label: "Home" },
@@ -20,6 +21,7 @@ const serviceLinks = [
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const toLocalized = useLocalizedPath();
 
   return (
     <footer className="relative border-t border-white/5 bg-[#070605] px-6 pt-12 pb-32 md:pb-12 overflow-hidden">
@@ -51,7 +53,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-white/50" aria-label="Main footer menu">
                 {primaryLinks.map((item) => (
                     <li key={item.to}>
-                        <Link to={item.to} className="hover:text-cyan-400 transition-colors">
+                        <Link to={toLocalized(item.to)} className="hover:text-cyan-400 transition-colors">
                             {item.label}
                         </Link>
                     </li>
@@ -64,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-white/50" aria-label="Service pages">
                 {serviceLinks.map((item) => (
                     <li key={item.to}>
-                        <Link to={item.to} className="hover:text-cyan-400 transition-colors">
+                        <Link to={toLocalized(item.to)} className="hover:text-cyan-400 transition-colors">
                             {item.label}
                         </Link>
                     </li>
@@ -76,12 +78,12 @@ const Footer = () => {
             <h4 className="text-white font-bold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-white/50" aria-label="Legal pages">
                 <li>
-                    <Link to="/privacy" className="hover:text-cyan-400 transition-colors">
+                    <Link to={toLocalized("/privacy")} className="hover:text-cyan-400 transition-colors">
                         Privacy Policy
                     </Link>
                 </li>
                 <li>
-                    <Link to="/terms" className="hover:text-cyan-400 transition-colors">
+                    <Link to={toLocalized("/terms")} className="hover:text-cyan-400 transition-colors">
                         Terms of Service
                     </Link>
                 </li>

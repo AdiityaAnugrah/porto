@@ -1,5 +1,8 @@
 // src/components/SEO.jsx
 import { useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
+import { imageUrl } from "../lib/media";
+import { localeToOgLocale, localizedPath, stripLocaleFromPath, useActiveLocale } from "../lib/i18n";
 
 /* ========= Helpers ========= */
 
@@ -79,6 +82,15 @@ const setCanonical = (href, id) =>
       }, { href, "data-seo": id })
     : null;
 
+const setAlternate = (hreflang, href, id) =>
+  href
+    ? upsert(`link[rel="alternate"][hreflang="${hreflang}"][data-seo="${id}"]`, () => {
+        const l = document.createElement("link");
+        l.setAttribute("rel", "alternate");
+        return l;
+      }, { hreflang, href, "data-seo": id })
+    : null;
+
 const setJsonLd = (json, id) =>
   json
     ? upsert(
@@ -141,9 +153,14 @@ export default function SEO({
   jsonLd,
   siteName = SITE_NAME,
   titleTemplate,
-  locale = "id_ID",
+  locale,
   twitter,
 }) {
+  const activeLocale = useActiveLocale();
+  const location = useLocation();
+  const pagePath = path || stripLocaleFromPath(location.pathname);
+  const normalizedLocale = locale || localeToOgLocale(activeLocale);
+
   // Handle both single object and array for Knowledge Graph
   const memoLd = useMemo(() => {
     if (!jsonLd) return null;
@@ -155,6 +172,7 @@ export default function SEO({
 
     const id = "seo-managed"; // penanda untuk cleanup
     const prevTitle = document.title;
+    const prevLang = document.documentElement.getAttribute("lang");
 
     // Title
     const fullTitle = title
@@ -166,8 +184,8 @@ export default function SEO({
     document.title = fullTitle;
 
     // Canonical / URL / Image absolute
-    const canonical = toAbsUrl(path);
-    const ogImage = toAbsUrl(image);
+    const canonical = toAbsUrl(localizedPath(pagePath, activeLocale));
+    const ogImage = toAbsUrl(imageUrl(image));
 
     // Robots
     const robotsNorm = normalizeRobots(robots);
@@ -185,6 +203,10 @@ export default function SEO({
 
     // ====== Canonical ======
     setCanonical(canonical, id);
+    setAlternate("id", toAbsUrl(localizedPath(pagePath, "id")), id);
+    setAlternate("en", toAbsUrl(localizedPath(pagePath, "en")), id);
+    setAlternate("x-default", toAbsUrl(localizedPath(pagePath, "en")), id);
+    document.documentElement.setAttribute("lang", activeLocale);
 
     // ====== Open Graph ======
     setMetaByProp("og:type", type, id);
@@ -192,7 +214,8 @@ export default function SEO({
     setMetaByProp("og:description", clamp(description, 200), id);
     setMetaByProp("og:url", canonical, id);
     setMetaByProp("og:site_name", siteName, id);
-    setMetaByProp("og:locale", locale, id);
+    setMetaByProp("og:locale", normalizedLocale, id);
+    setMetaByProp("og:locale:alternate", activeLocale === "id" ? "en_US" : "id_ID", id);
     setMetaByProp("og:image", ogImage, id);
     setMetaByProp("og:image:secure_url", ogImage, id);
     setMetaByProp("og:image:alt", imageAlt || title || siteName, id);
@@ -215,20 +238,23 @@ export default function SEO({
     // Cleanup saat unmount/route change
     return () => {
       document.title = prevTitle;
+      if (prevLang) document.documentElement.setAttribute("lang", prevLang);
+      else document.documentElement.removeAttribute("lang");
       const nodes = document.head?.querySelectorAll(`[data-seo="${id}"]`);
       nodes?.forEach((n) => n.parentNode?.removeChild(n));
     };
   }, [
     title,
     description,
-    path,
+    pagePath,
+    activeLocale,
     type,
     image,
     imageAlt,
     robots,
     siteName,
     titleTemplate,
-    locale,
+    normalizedLocale,
     twitter?.site,
     twitter?.creator,
     memoLd,

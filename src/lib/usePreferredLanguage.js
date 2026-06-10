@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { apiUrl } from "./api";
+import { getLocaleFromPath } from "./i18n";
 
-const detectLocalLanguage = () => {
+export const detectLocalLanguage = () => {
   if (typeof window === "undefined") return "en";
 
   const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
@@ -14,9 +16,14 @@ const detectLocalLanguage = () => {
 };
 
 export const usePreferredLanguage = () => {
-  const [language, setLanguage] = useState(detectLocalLanguage);
+  const location = useLocation();
+  const routeLocale = getLocaleFromPath(location.pathname);
+  const [detectedLanguage, setDetectedLanguage] = useState(detectLocalLanguage);
+  const language = routeLocale || detectedLanguage;
 
   useEffect(() => {
+    if (routeLocale) return undefined;
+
     let active = true;
 
     fetch(apiUrl("/visitor/context"))
@@ -26,14 +33,14 @@ export const usePreferredLanguage = () => {
       })
       .then((data) => {
         if (!active || !data.countryCode) return;
-        setLanguage(data.countryCode === "ID" ? "id" : "en");
+        setDetectedLanguage(data.countryCode === "ID" ? "id" : "en");
       })
       .catch(() => {});
 
     return () => {
       active = false;
     };
-  }, []);
+  }, [routeLocale]);
 
   return useMemo(() => ({ language, isIndonesian: language === "id" }), [language]);
 };

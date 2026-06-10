@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { FaDownload, FaExternalLinkAlt, FaQrcode, FaSpinner } from "react-icons/fa";
 import SEO from "../components/SEO";
 import { API_BASE_URL, apiUrl } from "../lib/api";
+import { useLocalizedPath } from "../lib/i18n";
 
 const formatRupiah = (value) =>
   new Intl.NumberFormat("id-ID", {
@@ -14,6 +15,7 @@ const formatRupiah = (value) =>
 export default function StoreOrder() {
   const { ref } = useParams();
   const location = useLocation();
+  const toLocalized = useLocalizedPath();
   const [order, setOrder] = useState(location.state?.order || null);
   const [payment, setPayment] = useState(location.state?.payment || null);
   const [loading, setLoading] = useState(!location.state?.order);
@@ -40,7 +42,11 @@ export default function StoreOrder() {
 
   return (
     <div className="pt-24 pb-32 px-6 max-w-4xl mx-auto min-h-screen">
-      <SEO title="Status Order | Store" description="Status pembayaran dan download produk digital." />
+      <SEO
+        title="Status Order | Store"
+        description="Status pembayaran dan download produk digital."
+        robots="noindex,nofollow"
+      />
 
       <div className="glass-panel rounded-3xl p-6 md:p-10">
         <p className="mb-4 text-xs font-mono uppercase tracking-[0.24em] text-cyan-300/80">
@@ -107,7 +113,7 @@ export default function StoreOrder() {
         ) : (
           <div>
             <h1 className="text-3xl font-bold">Order tidak ditemukan</h1>
-            <Link to="/store" className="mt-5 inline-block text-cyan-300">
+            <Link to={toLocalized("/store")} className="mt-5 inline-block text-cyan-300">
               Kembali ke store
             </Link>
           </div>

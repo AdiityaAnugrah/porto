@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { projects } from "../data/projects";
 import SEO from "../components/SEO";
+import { useLocalizedPath } from "../lib/i18n";
 
 const Chip = ({ children }) => (
   <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-white/70">
@@ -39,6 +40,7 @@ const Section = ({ title, children }) => {
 export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const toLocalized = useLocalizedPath();
 
   const project = useMemo(() => projects.find((p) => p.id === id), [id]);
 
@@ -54,7 +56,7 @@ export default function ProjectDetail() {
     return (
       <div className="min-h-screen pt-32 pb-20 px-6 text-center">
          <h1 className="text-4xl font-bold mb-4">Proyek Tidak Ditemukan</h1>
-         <Link to="/projects" className="text-cyan-400 hover:text-cyan-300">Kembali ke Proyek</Link>
+         <Link to={toLocalized("/projects")} className="text-cyan-400 hover:text-cyan-300">Kembali ke Proyek</Link>
       </div>
     );
   }
@@ -183,7 +185,7 @@ export default function ProjectDetail() {
        {/* Navigation Footer */}
        <div className="mt-20 flex justify-between pt-8 border-t border-white/10">
             {prev ? (
-                <Link to={`/projects/item/${prev.id}`} className="group text-left">
+                <Link to={toLocalized(`/projects/item/${prev.id}`)} className="group text-left">
                     <div className="text-xs text-white/40 mb-1 group-hover:text-cyan-400 transition-colors">Previous Project</div>
                     <div className="text-lg font-bold flex items-center gap-2">
                         <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" /> {prev.title}
@@ -192,7 +194,7 @@ export default function ProjectDetail() {
             ) : <div />}
             
             {next && (
-                <Link to={`/projects/item/${next.id}`} className="group text-right">
+                <Link to={toLocalized(`/projects/item/${next.id}`)} className="group text-right">
                     <div className="text-xs text-white/40 mb-1 group-hover:text-cyan-400 transition-colors">Next Project</div>
                     <div className="text-lg font-bold flex items-center gap-2">
                         {next.title} <FaArrowRight className="group-hover:translate-x-1 transition-transform" />

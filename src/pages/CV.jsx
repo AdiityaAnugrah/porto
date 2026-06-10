@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { FaArrowLeft, FaExpand, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
+import { useLocalizedPath } from "../lib/i18n";
 
 const DRIVE_FILE_ID = "1M66SJlH_9zlT4EePbq-VrYYxctgjua9M";
 const PREVIEW_URL = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/preview`;
@@ -10,6 +11,7 @@ const VIEW_URL = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/view?usp=shar
 export default function CV() {
   const [loaded, setLoaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const toLocalized = useLocalizedPath();
 
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
@@ -20,7 +22,7 @@ export default function CV() {
 
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div>
-            <Link to="/about" className="text-white/50 hover:text-white flex items-center gap-2 mb-2 transition-colors">
+            <Link to={toLocalized("/about")} className="text-white/50 hover:text-white flex items-center gap-2 mb-2 transition-colors">
                 <FaArrowLeft /> Kembali ke Tentang Saya 
             </Link>
             <h1 className="text-3xl font-bold font-display">Curriculum Vitae</h1>

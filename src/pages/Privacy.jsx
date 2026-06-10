@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { FaEnvelope, FaLock, FaServer, FaUserShield } from "react-icons/fa";
+import { useLocalizedPath } from "../lib/i18n";
 
 const lastUpdated = "June 8, 2026";
 
@@ -67,6 +68,8 @@ const highlights = [
 ];
 
 export default function Privacy() {
+  const toLocalized = useLocalizedPath();
+
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO
@@ -140,7 +143,7 @@ export default function Privacy() {
           </p>
           <p className="mt-4 text-sm text-white/45">
             See also the{" "}
-            <Link to="/terms" className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4">
+            <Link to={toLocalized("/terms")} className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4">
               Terms of Service
             </Link>
             .

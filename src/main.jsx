@@ -23,6 +23,8 @@ if (typeof window !== "undefined") {
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout.jsx";
 import PageLoader from "./components/common/PageLoader.jsx";
+import LocaleGate from "./components/LocaleGate.jsx";
+import LocaleRedirect from "./components/LocaleRedirect.jsx";
 
 // Lazy Load Pages for Performance
 const Home = lazy(() => import("./pages/Home.jsx"));
@@ -46,6 +48,34 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<Layout />}>
+          {/* Legacy URLs redirect to the preferred localized URL. */}
+          <Route index element={<LocaleRedirect to="/" />} />
+          <Route path="about" element={<LocaleRedirect to="/about" />} />
+          <Route path="cv" element={<LocaleRedirect to="/cv" />} />
+          <Route path="contact" element={<LocaleRedirect to="/contact" />} />
+          <Route path="privacy" element={<LocaleRedirect to="/privacy" />} />
+          <Route path="terms" element={<LocaleRedirect to="/terms" />} />
+
+          <Route path="projects">
+              <Route index element={<LocaleRedirect to="/projects" />} />
+              <Route path="web" element={<LocaleRedirect to="/projects/web" />} />
+              <Route path="mobile" element={<LocaleRedirect to="/projects/mobile" />} />
+              <Route path="landing" element={<LocaleRedirect to="/projects/landing" />} />
+              <Route path="item/:id" element={<LocaleRedirect to={null} />} />
+          </Route>
+
+          <Route path="store">
+              <Route index element={<LocaleRedirect to="/store" />} />
+              <Route path="order/:ref" element={<LocaleRedirect to={null} />} />
+              <Route path="admin" element={<LocaleRedirect to="/store/admin" />} />
+          </Route>
+
+          <Route path="blog">
+              <Route index element={<LocaleRedirect to="/blog" />} />
+              <Route path=":id" element={<LocaleRedirect to={null} />} />
+          </Route>
+
+          <Route path=":locale" element={<LocaleGate />}>
           {/* Home */}
           <Route index element={<Home />} />
 
@@ -81,6 +111,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="blog">
               <Route index element={<Blog />} />
               <Route path=":id" element={<BlogDetail />} />
+          </Route>
           </Route>
 
           {/* 404 */}

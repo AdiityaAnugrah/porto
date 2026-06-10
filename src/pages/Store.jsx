@@ -21,6 +21,7 @@ import {
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
 import { apiUrl } from "../lib/api";
+import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const formatRupiah = (value) =>
@@ -125,6 +126,7 @@ export default function Store() {
   const { language } = usePreferredLanguage();
   const t = storeCopy[language] || storeCopy.en;
   const navigate = useNavigate();
+  const toLocalized = useLocalizedPath();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("all");
@@ -227,7 +229,7 @@ export default function Store() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Checkout gagal");
-      navigate(`/store/order/${data.order.merchantRef}`, { state: data });
+      navigate(toLocalized(`/store/order/${data.order.merchantRef}`), { state: data });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -578,7 +580,7 @@ export default function Store() {
                 ))}
               </div>
 
-              <Link to="/store/admin" className="mt-5 inline-block text-xs text-white/25 hover:text-white/55">
+              <Link to={toLocalized("/store/admin")} className="mt-5 inline-block text-xs text-white/25 hover:text-white/55">
                 Admin
               </Link>
             </aside>

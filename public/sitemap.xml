@@ -1,84 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!-- Homepage - highest priority -->
   <url>
-    <loc>https://adityaanugrah.me/</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://adityaanugrah.me/id</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://adityaanugrah.me/en</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en" />
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- About - key personal branding page (same priority as projects) -->
   <url>
-    <loc>https://adityaanugrah.me/about</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://adityaanugrah.me/id/about</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/about" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://adityaanugrah.me/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/about" />
+    <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Projects listing -->
   <url>
-    <loc>https://adityaanugrah.me/projects</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://adityaanugrah.me/id/projects</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://adityaanugrah.me/en/projects</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects" />
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Blog listing -->
   <url>
-    <loc>https://adityaanugrah.me/blog</loc>
-    <lastmod>2026-02-23</lastmod>
+    <loc>https://adityaanugrah.me/id/store</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/store" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/store" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/store" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://adityaanugrah.me/en/store</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/store" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/store" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/store" />
+    <lastmod>2026-06-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Blog articles -->
   <url>
-    <loc>https://adityaanugrah.me/blog/optimasi-sistem-bisnis-2026</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://adityaanugrah.me/id/blog</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://adityaanugrah.me/en/blog</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://adityaanugrah.me/id/contact</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/contact" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://adityaanugrah.me/blog/react-vs-nextjs-company-profile</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://adityaanugrah.me/blog/whatsapp-bot-backend-integrasi</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://adityaanugrah.me/blog/api-security-praktek-terbaik</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
+    <loc>https://adityaanugrah.me/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/contact" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Contact -->
-  <url>
-    <loc>https://adityaanugrah.me/contact</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/ilenafurniture</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/ilenafurniture" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/ilenafurniture" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/ilenafurniture" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/ilenafurniture</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/ilenafurniture" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/ilenafurniture" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/ilenafurniture" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/titanium-group</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/titanium-group" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/titanium-group" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/titanium-group" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/titanium-group</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/titanium-group" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/titanium-group" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/titanium-group" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/absensi-site</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/absensi-site" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/absensi-site" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/absensi-site" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/absensi-site</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/absensi-site" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/absensi-site" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/absensi-site" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/BLCC</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/BLCC" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/BLCC" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/BLCC" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/BLCC</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/BLCC" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/BLCC" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/BLCC" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/cargomate</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/cargomate" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/cargomate" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/cargomate" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/cargomate</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/cargomate" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/cargomate" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/cargomate" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/Lunarea%20Furniture</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/Lunarea%20Furniture" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/Lunarea%20Furniture" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/Lunarea%20Furniture" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/Lunarea%20Furniture</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/Lunarea%20Furniture" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/Lunarea%20Furniture" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/Lunarea%20Furniture" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/service-app</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/service-app" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/service-app" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/service-app" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/service-app</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/service-app" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/service-app" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/service-app" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/SikamTrip</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/SikamTrip" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/SikamTrip" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/SikamTrip" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/SikamTrip</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/SikamTrip" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/SikamTrip" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/SikamTrip" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/id/projects/item/dsinematix.id</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/dsinematix.id" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/dsinematix.id" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/dsinematix.id" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://adityaanugrah.me/en/projects/item/dsinematix.id</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/projects/item/dsinematix.id" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/projects/item/dsinematix.id" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/projects/item/dsinematix.id" /><lastmod>2026-06-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <!-- Legal pages -->
-  <url>
-    <loc>https://adityaanugrah.me/privacy</loc>
-    <lastmod>2026-06-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://adityaanugrah.me/terms</loc>
-    <lastmod>2026-06-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
+  <url><loc>https://adityaanugrah.me/id/blog/optimasi-sistem-bisnis-2026</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/optimasi-sistem-bisnis-2026" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/optimasi-sistem-bisnis-2026" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/optimasi-sistem-bisnis-2026" /><lastmod>2026-02-15</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/optimasi-sistem-bisnis-2026</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/optimasi-sistem-bisnis-2026" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/optimasi-sistem-bisnis-2026" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/optimasi-sistem-bisnis-2026" /><lastmod>2026-02-15</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/id/blog/manfaat-website-modern-umkm</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/manfaat-website-modern-umkm" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/manfaat-website-modern-umkm" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/manfaat-website-modern-umkm" /><lastmod>2026-02-10</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/manfaat-website-modern-umkm</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/manfaat-website-modern-umkm" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/manfaat-website-modern-umkm" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/manfaat-website-modern-umkm" /><lastmod>2026-02-10</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/id/blog/di-balik-layar-load-time-1-7s</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/di-balik-layar-load-time-1-7s" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/di-balik-layar-load-time-1-7s" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/di-balik-layar-load-time-1-7s" /><lastmod>2026-02-16</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/di-balik-layar-load-time-1-7s</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/di-balik-layar-load-time-1-7s" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/di-balik-layar-load-time-1-7s" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/di-balik-layar-load-time-1-7s" /><lastmod>2026-02-16</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/id/blog/react-vs-nextjs-company-profile</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/react-vs-nextjs-company-profile" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/react-vs-nextjs-company-profile" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/react-vs-nextjs-company-profile" /><lastmod>2026-02-18</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/react-vs-nextjs-company-profile</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/react-vs-nextjs-company-profile" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/react-vs-nextjs-company-profile" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/react-vs-nextjs-company-profile" /><lastmod>2026-02-18</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/id/blog/otomatisasi-laporan-whatsapp-bot</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/otomatisasi-laporan-whatsapp-bot" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/otomatisasi-laporan-whatsapp-bot" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/otomatisasi-laporan-whatsapp-bot" /><lastmod>2026-02-20</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/otomatisasi-laporan-whatsapp-bot</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/otomatisasi-laporan-whatsapp-bot" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/otomatisasi-laporan-whatsapp-bot" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/otomatisasi-laporan-whatsapp-bot" /><lastmod>2026-02-20</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/id/blog/api-security-praktek-terbaik</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/api-security-praktek-terbaik" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/api-security-praktek-terbaik" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/api-security-praktek-terbaik" /><lastmod>2026-02-22</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://adityaanugrah.me/en/blog/api-security-praktek-terbaik</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/blog/api-security-praktek-terbaik" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/blog/api-security-praktek-terbaik" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/blog/api-security-praktek-terbaik" /><lastmod>2026-02-22</lastmod><changefreq>yearly</changefreq><priority>0.65</priority></url>
 
+  <url><loc>https://adityaanugrah.me/id/privacy</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/privacy" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/privacy" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/privacy" /><lastmod>2026-06-10</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://adityaanugrah.me/en/privacy</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/privacy" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/privacy" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/privacy" /><lastmod>2026-06-10</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://adityaanugrah.me/id/terms</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/terms" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/terms" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/terms" /><lastmod>2026-06-10</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://adityaanugrah.me/en/terms</loc><xhtml:link rel="alternate" hreflang="id" href="https://adityaanugrah.me/id/terms" /><xhtml:link rel="alternate" hreflang="en" href="https://adityaanugrah.me/en/terms" /><xhtml:link rel="alternate" hreflang="x-default" href="https://adityaanugrah.me/en/terms" /><lastmod>2026-06-10</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>

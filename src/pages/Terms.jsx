@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { FaExclamationTriangle, FaFileContract, FaHandshake, FaShieldAlt } from "react-icons/fa";
+import { useLocalizedPath } from "../lib/i18n";
 
 const lastUpdated = "June 8, 2026";
 
@@ -62,6 +63,8 @@ const cards = [
 ];
 
 export default function Terms() {
+  const toLocalized = useLocalizedPath();
+
   return (
     <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
       <SEO
@@ -143,7 +146,7 @@ export default function Terms() {
           </p>
           <p className="mt-4 text-sm text-white/45">
             For data handling details, read the{" "}
-            <Link to="/privacy" className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4">
+            <Link to={toLocalized("/privacy")} className="text-cyan-300 hover:text-cyan-200 underline underline-offset-4">
               Privacy Policy
             </Link>
             .
