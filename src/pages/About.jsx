@@ -15,6 +15,9 @@ import {
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
+import PubgCard from "../components/about/PubgCard";
+import SpotifyCard from "../components/about/SpotifyCard";
+import SteamCard from "../components/about/SteamCard";
 import { r2Image } from "../lib/media";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
@@ -57,6 +60,13 @@ const text = {
       ["Ilena Furniture", "Storefront Next.js, katalog produk, SEO, dan kebutuhan e-commerce."],
       ["Titanium Group", "REST API, dashboard operasional, skema database, dan laporan PDF."],
     ],
+    personalLabel: "Di luar project",
+    personalTitle: "Sedikit sisi personal: musik, PUBG, dan Steam.",
+    personalBody:
+      "Bagian ini tetap saya tampilkan sebagai karakter personal, tapi dibuat ringkas supaya halaman About tidak terasa terlalu panjang.",
+    musicLabel: "Spotify",
+    pubgLabel: "PUBG",
+    steamLabel: "Steam",
     ctaTitle: "Butuh website atau sistem yang lebih rapi?",
     ctaBody: "Kita bisa mulai dari kebutuhan paling penting dulu, lalu buat versi yang siap dipakai.",
     ctaButton: "Mulai diskusi",
@@ -99,6 +109,13 @@ const text = {
       ["Ilena Furniture", "Next.js storefront, product catalog, SEO, and e-commerce requirements."],
       ["Titanium Group", "REST APIs, operational dashboards, database schemas, and PDF reports."],
     ],
+    personalLabel: "Outside projects",
+    personalTitle: "A small personal side: music, PUBG, and Steam.",
+    personalBody:
+      "I keep this section as a personal signal, but it stays compact so the About page remains focused.",
+    musicLabel: "Spotify",
+    pubgLabel: "PUBG",
+    steamLabel: "Steam",
     ctaTitle: "Need a cleaner website or business system?",
     ctaBody: "We can start from the most important requirement, then build a version that is ready to use.",
     ctaButton: "Start a discussion",
@@ -285,6 +302,32 @@ const About = () => {
                 <p className="mt-2 text-sm leading-7 text-white/55">{body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 sm:px-6 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-7 grid gap-4 md:grid-cols-[0.75fr_1.25fr] md:items-end">
+            <SectionHeader label={t.personalLabel} title={t.personalTitle} />
+            <p className="max-w-2xl text-sm leading-7 text-white/55 md:justify-self-end md:text-right">
+              {t.personalBody}
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            <div className="min-w-0">
+              <p className="mb-3 text-xs font-semibold uppercase text-green-200/70">{t.musicLabel}</p>
+              <SpotifyCard />
+            </div>
+            <div className="min-w-0">
+              <p className="mb-3 text-xs font-semibold uppercase text-orange-200/70">{t.pubgLabel}</p>
+              <PubgCard />
+            </div>
+            <div className="min-w-0">
+              <p className="mb-3 text-xs font-semibold uppercase text-cyan-200/70">{t.steamLabel}</p>
+              <SteamCard />
+            </div>
           </div>
         </div>
       </section>
