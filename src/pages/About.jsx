@@ -7,9 +7,12 @@ import {
   CheckCircle2,
   Code2,
   Download,
+  ExternalLink,
+  Gamepad2,
   Mail,
   MapPin,
   Rocket,
+  Server,
   ShieldCheck,
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
@@ -60,10 +63,23 @@ const text = {
       ["Ilena Furniture", "Storefront Next.js, katalog produk, SEO, dan kebutuhan e-commerce."],
       ["Titanium Group", "REST API, dashboard operasional, skema database, dan laporan PDF."],
     ],
-    personalLabel: "Di luar project",
-    personalTitle: "Sedikit sisi personal: musik, PUBG, dan Steam.",
+    personalLabel: "Lab & personal",
+    personalTitle: "Minecraft server, musik, PUBG, dan Steam.",
     personalBody:
-      "Bagian ini tetap saya tampilkan sebagai karakter personal, tapi dibuat ringkas supaya halaman About tidak terasa terlalu panjang.",
+      "Di luar pekerjaan client, saya juga merawat server komunitas dan beberapa aktivitas personal yang masih dekat dengan dunia digital.",
+    minecraftTitle: "Minecraft Server",
+    minecraftBody:
+      "Server survival kecil untuk komunitas. Saya pakai ini juga sebagai ruang praktik deployment, DNS, SSL, service process, dan monitoring ringan.",
+    minecraftSmallLabel: "Community server",
+    minecraftAddress: "play.adityaanugrah.me",
+    minecraftCta: "Kunjungi server",
+    minecraftNote:
+      "Server ini jadi bagian dari cara saya tetap eksplorasi hal teknis di luar project komersial.",
+    minecraftFacts: [
+      ["Mode", "Public Survival"],
+      ["Stack", "VPS + Apache"],
+      ["Focus", "Community + Ops"],
+    ],
     musicLabel: "Spotify",
     pubgLabel: "PUBG",
     steamLabel: "Steam",
@@ -109,10 +125,23 @@ const text = {
       ["Ilena Furniture", "Next.js storefront, product catalog, SEO, and e-commerce requirements."],
       ["Titanium Group", "REST APIs, operational dashboards, database schemas, and PDF reports."],
     ],
-    personalLabel: "Outside projects",
-    personalTitle: "A small personal side: music, PUBG, and Steam.",
+    personalLabel: "Lab & personal",
+    personalTitle: "Minecraft server, music, PUBG, and Steam.",
     personalBody:
-      "I keep this section as a personal signal, but it stays compact so the About page remains focused.",
+      "Outside client work, I also maintain a small community server and a few personal activity profiles connected to digital culture.",
+    minecraftTitle: "Minecraft Server",
+    minecraftBody:
+      "A small survival server for the community. I also use it as a practical lab for deployment, DNS, SSL, service processes, and lightweight monitoring.",
+    minecraftSmallLabel: "Community server",
+    minecraftAddress: "play.adityaanugrah.me",
+    minecraftCta: "Visit server",
+    minecraftNote:
+      "This server is part of how I keep exploring technical operations outside commercial projects.",
+    minecraftFacts: [
+      ["Mode", "Public Survival"],
+      ["Stack", "VPS + Apache"],
+      ["Focus", "Community + Ops"],
+    ],
     musicLabel: "Spotify",
     pubgLabel: "PUBG",
     steamLabel: "Steam",
@@ -313,6 +342,54 @@ const About = () => {
             <p className="max-w-2xl text-sm leading-7 text-white/55 md:justify-self-end md:text-right">
               {t.personalBody}
             </p>
+          </div>
+
+          <div className="mb-5 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045]">
+            <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="p-5 md:p-7">
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-500/10 text-green-200">
+                    <Server size={24} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-green-200/75">{t.minecraftSmallLabel}</p>
+                    <h3 className="text-2xl font-bold text-white">{t.minecraftTitle}</h3>
+                  </div>
+                </div>
+
+                <p className="max-w-2xl text-sm leading-7 text-white/58 md:text-base">{t.minecraftBody}</p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {t.minecraftFacts.map(([label, value]) => (
+                    <div key={label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                      <p className="text-xs text-white/35">{label}</p>
+                      <p className="mt-1 text-sm font-bold text-white">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-white/10 bg-[#0d0b08] p-5 md:p-7 lg:border-l lg:border-t-0">
+                <div className="rounded-2xl border border-green-300/15 bg-green-300/[0.055] p-5">
+                  <p className="text-xs font-semibold uppercase text-green-200/70">Server address</p>
+                  <p className="mt-3 break-all text-2xl font-black text-white">{t.minecraftAddress}</p>
+                  <a
+                    href="https://play.adityaanugrah.me"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 font-bold text-black transition-colors hover:bg-green-50"
+                  >
+                    {t.minecraftCta}
+                    <ExternalLink size={16} aria-hidden="true" />
+                  </a>
+                </div>
+
+                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <Gamepad2 className="mt-0.5 shrink-0 text-cyan-200" size={20} aria-hidden="true" />
+                  <p className="text-sm leading-6 text-white/55">{t.minecraftNote}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-3">
