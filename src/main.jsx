@@ -36,6 +36,9 @@ const Blog = lazy(() => import("./pages/Blog.jsx"));
 const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
 const Privacy = lazy(() => import("./pages/Privacy.jsx"));
 const Terms = lazy(() => import("./pages/Terms.jsx"));
+const Store = lazy(() => import("./pages/Store.jsx"));
+const StoreOrder = lazy(() => import("./pages/StoreOrder.jsx"));
+const StoreAdmin = lazy(() => import("./pages/StoreAdmin.jsx"));
 
 
 createRoot(document.getElementById("root")).render(
@@ -62,6 +65,13 @@ createRoot(document.getElementById("root")).render(
 
           {/* Contact */}
           <Route path="contact" element={<Contact />} />
+
+          {/* Store */}
+          <Route path="store">
+              <Route index element={<Store />} />
+              <Route path="order/:ref" element={<StoreOrder />} />
+              <Route path="admin" element={<StoreAdmin />} />
+          </Route>
 
           {/* Legal */}
           <Route path="privacy" element={<Privacy />} />

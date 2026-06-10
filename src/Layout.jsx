@@ -11,8 +11,15 @@ const Layout = () => {
   const location = useLocation();
 
   useEffect(() => {
+    if (location.hash) {
+      window.setTimeout(() => {
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+      return;
+    }
+
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="min-h-screen flex flex-col relative text-white bg-black font-sans selection:bg-cyan-500/30 overflow-x-hidden pb-24 md:pb-0">

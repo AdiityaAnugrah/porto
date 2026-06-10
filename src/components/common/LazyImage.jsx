@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { imageUrl } from "../../lib/media";
 
 /**
  * LazyImage Component
@@ -13,6 +14,7 @@ import { motion } from "framer-motion";
  */
 const LazyImage = ({ src, alt, className = "", ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const resolvedSrc = imageUrl(src);
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
@@ -23,7 +25,7 @@ const LazyImage = ({ src, alt, className = "", ...props }) => {
 
       {/* Actual Image */}
       <motion.img
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         loading="lazy"
         decoding="async"

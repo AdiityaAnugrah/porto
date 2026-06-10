@@ -2,15 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
+const primaryLinks = [
+  { to: "/", label: "Home" },
+  { to: "/store", label: "Digital Store" },
+  { to: "/projects", label: "Portfolio" },
+  { to: "/blog", label: "Blog" },
+  { to: "/contact", label: "Contact" },
+];
+
+const serviceLinks = [
+  { to: "/#services", label: "Pembuatan Website" },
+  { to: "/projects/web", label: "Website Portfolio" },
+  { to: "/projects/mobile", label: "Aplikasi Bisnis" },
+  { to: "/projects/landing", label: "Landing Page" },
+  { to: "/contact", label: "Konsultasi SEO" },
+];
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-white/5 bg-[#070605] py-12 px-6 overflow-hidden">
+    <footer className="relative border-t border-white/5 bg-[#070605] px-6 pt-12 pb-32 md:pb-12 overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-8 relative z-10 mb-12">
-        
+      <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-6 relative z-10 mb-12">
+
         <div className="md:col-span-2">
             <h3 className="text-2xl font-display font-bold text-white mb-4">Aditya Anugrah</h3>
             <p className="text-white/40 text-xs md:text-sm max-w-sm leading-relaxed mb-6">
@@ -31,12 +47,28 @@ const Footer = () => {
         </div>
 
         <div>
+            <h4 className="text-white font-bold mb-4">Menu</h4>
+            <ul className="space-y-2 text-sm text-white/50" aria-label="Main footer menu">
+                {primaryLinks.map((item) => (
+                    <li key={item.to}>
+                        <Link to={item.to} className="hover:text-cyan-400 transition-colors">
+                            {item.label}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+
+        <div>
             <h4 className="text-white font-bold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm text-white/50" aria-label="Expertise area">
-                <li>Pembuatan Website</li>
-                <li>Pembuatan Aplikasi</li>
-                <li>Pembuatan Landing Page</li>
-                <li>Optimasi SEO</li>
+            <ul className="space-y-2 text-sm text-white/50" aria-label="Service pages">
+                {serviceLinks.map((item) => (
+                    <li key={item.to}>
+                        <Link to={item.to} className="hover:text-cyan-400 transition-colors">
+                            {item.label}
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </div>
 
@@ -60,8 +92,8 @@ const Footer = () => {
             <h4 className="text-white font-bold mb-4">Informasi Kontak</h4>
             <ul className="space-y-2 text-sm text-white/50" aria-label="Contact details">
                 <li>
-                    <a href="mailto:admin@adityaanugra.me" aria-label="Send Email" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
-                        <FaEnvelope aria-hidden="true" /> admin@adityaanugra.me
+                    <a href="mailto:admin@adityaanugrah.me" aria-label="Send Email" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                        <FaEnvelope aria-hidden="true" /> admin@adityaanugrah.me
                     </a>
                 </li>
                 <li>
