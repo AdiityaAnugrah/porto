@@ -6,13 +6,13 @@ import { apiUrl } from "../../lib/api";
 const API_URL = apiUrl("/steam/profile");
 const REQUEST_TIMEOUT = 8000;
 const FALLBACK_STEAM_DATA = {
-  username: "Aditya",
+  username: "Steam Profile",
   realName: "",
   state: "Offline",
   avatarUrl: "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
   gameName: null,
   gameId: null,
-  profileUrl: "https://steamcommunity.com/id/claraikaa/",
+  profileUrl: "https://steamcommunity.com/",
   countryCode: "",
 };
 
@@ -135,8 +135,8 @@ const SteamCard = () => {
             <FaSteamSymbol className="text-3xl text-cyan-300" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="text-white/80 font-display font-semibold tracking-wide text-sm uppercase">Profil Gaming</h2>
-            <p className="text-cyan-300 text-xs font-mono font-medium tracking-wider">Steam Community</p>
+            <h2 className="text-white/80 font-display font-semibold tracking-wide text-sm uppercase">Akun Steam Saya</h2>
+            <p className="text-cyan-300 text-xs font-mono font-medium tracking-wider">Profil pribadi dari Steam API</p>
           </div>
         </div>
 
@@ -173,7 +173,7 @@ const SteamCard = () => {
               href={steamData.profileUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label="Buka profil Steam Aditya"
+              aria-label="Buka profil Steam pribadi"
               className="block truncate"
             >
               <h3 className="text-xl sm:text-2xl font-bold text-white truncate group-hover:text-cyan-300 transition-colors duration-300">
@@ -192,7 +192,7 @@ const SteamCard = () => {
               {steamData.state === "In-Game" && steamData.gameName && (
                 <>
                   <span className="w-1 h-1 rounded-full bg-white/30" aria-hidden="true" />
-                  <span className="text-green-400/80 text-xs sm:text-sm truncate font-medium">
+                  <span className="text-green-400/80 text-xs sm:text-sm truncate font-medium" title={steamData.gameName}>
                     {steamData.gameName}
                   </span>
                 </>
@@ -201,6 +201,12 @@ const SteamCard = () => {
           </div>
         </div>
       </div>
+
+      {!isLoading && !steamData.gameName && (
+        <p className="relative z-10 mt-4 text-xs leading-6 text-white/38">
+          Menampilkan status akun pribadi. Nama game hanya muncul saat akun sedang bermain.
+        </p>
+      )}
 
     </motion.div>
   );

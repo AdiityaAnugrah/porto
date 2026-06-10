@@ -1277,6 +1277,10 @@ function mapSpotifyTrack(track, meta) {
 async function getSteamProfile() {
   const apiKey = requireEnv("STEAM_API_KEY");
   const steamId = requireEnv("STEAM_ID");
+  const displayNameOverride = process.env.STEAM_DISPLAY_NAME?.trim();
+  const realNameOverride = process.env.STEAM_REAL_NAME?.trim();
+  const profileUrlOverride = process.env.STEAM_PROFILE_URL?.trim();
+  const avatarUrlOverride = process.env.STEAM_AVATAR_URL?.trim();
   const url = new URL("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/");
   url.searchParams.set("key", apiKey);
   url.searchParams.set("steamids", steamId);
@@ -1293,13 +1297,13 @@ async function getSteamProfile() {
   const state = player.gameextrainfo ? "In-Game" : mapSteamState(player.personastate);
 
   return {
-    username: player.personaname || "Aditya",
-    realName: player.realname || "",
+    username: displayNameOverride || player.personaname || "Steam User",
+    realName: realNameOverride || player.realname || "",
     state,
-    avatarUrl: player.avatarfull || player.avatarmedium || "",
+    avatarUrl: avatarUrlOverride || player.avatarfull || player.avatarmedium || "",
     gameName: player.gameextrainfo || null,
     gameId: player.gameid || null,
-    profileUrl: player.profileurl || "https://steamcommunity.com/id/claraikaa/",
+    profileUrl: profileUrlOverride || player.profileurl || `https://steamcommunity.com/profiles/${steamId}`,
     countryCode: player.loccountrycode || "",
   };
 }
