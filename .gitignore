@@ -21,6 +21,7 @@ deploy-*.sh
 install-api-instrument.sh
 scripts/
 server/store.local.json
+server/analytics.local.json
 
 # Editor directories and files
 .vscode/*

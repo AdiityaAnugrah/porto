@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import VisitorCounter from "./VisitorCounter";
 
 const primaryLinks = [
   { to: "/", label: "Home" },
@@ -110,6 +111,7 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/30">
         <p>&copy; {currentYear} Aditya Anugrah</p>
+        <VisitorCounter />
       </div>
     </footer>
   );

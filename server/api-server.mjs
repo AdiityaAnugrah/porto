@@ -31,6 +31,7 @@ const cache = new Map();
 const adminSessions = new Map();
 const STORE_DATA_FILE = join(__dirname, process.env.STORE_DATA_FILE || "store.local.json");
 const STORE_SEED_FILE = join(__dirname, "store-seed.json");
+const ANALYTICS_DATA_FILE = join(__dirname, process.env.ANALYTICS_DATA_FILE || "analytics.local.json");
 
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
@@ -47,6 +48,10 @@ const server = http.createServer(async (req, res) => {
   try {
     if (url.pathname.startsWith("/store/")) {
       return handleStoreRequest(req, res, url);
+    }
+
+    if (url.pathname === "/analytics/view") {
+      return handleAnalyticsView(req, res);
     }
 
     if (req.method !== "GET") {
@@ -247,6 +252,42 @@ async function handleStoreRequest(req, res, url) {
   }
 
   return sendJson(res, 404, { error: "Not found" });
+}
+
+async function handleAnalyticsView(req, res) {
+  if (req.method === "GET") {
+    const analytics = readAnalytics();
+    return sendJson(res, 200, publicAnalytics(analytics));
+  }
+
+  if (req.method !== "POST") {
+    return sendJson(res, 405, { error: "Method not allowed" });
+  }
+
+  const body = await readJsonBody(req);
+  const visitorId = String(body.visitorId || "").trim();
+  const analytics = readAnalytics();
+  const now = new Date().toISOString();
+
+  analytics.totalViews = Number(analytics.totalViews || 0) + 1;
+  analytics.updatedAt = now;
+
+  if (visitorId) {
+    const key = sha256Hex(visitorId).slice(0, 32);
+    if (!analytics.visitors[key]) {
+      analytics.visitors[key] = {
+        firstSeenAt: now,
+        lastSeenAt: now,
+        views: 1,
+      };
+    } else {
+      analytics.visitors[key].lastSeenAt = now;
+      analytics.visitors[key].views = Number(analytics.visitors[key].views || 0) + 1;
+    }
+  }
+
+  writeAnalytics(analytics);
+  return sendJson(res, 200, publicAnalytics(analytics));
 }
 
 async function createStoreOrder(body) {
@@ -683,6 +724,36 @@ function normalizeStore(store) {
     products: Array.isArray(store.products) ? store.products : [],
     orders: Array.isArray(store.orders) ? store.orders : [],
     deliveries: Array.isArray(store.deliveries) ? store.deliveries : [],
+  };
+}
+
+function readAnalytics() {
+  const fallback = { totalViews: 0, visitors: {}, createdAt: new Date().toISOString(), updatedAt: null };
+  try {
+    return normalizeAnalytics(JSON.parse(readFileSync(ANALYTICS_DATA_FILE, "utf8")));
+  } catch {
+    return fallback;
+  }
+}
+
+function writeAnalytics(analytics) {
+  mkdirSync(dirname(ANALYTICS_DATA_FILE), { recursive: true });
+  writeFileSync(ANALYTICS_DATA_FILE, `${JSON.stringify(normalizeAnalytics(analytics), null, 2)}\n`);
+}
+
+function normalizeAnalytics(analytics) {
+  return {
+    totalViews: Number(analytics.totalViews || 0),
+    visitors: analytics.visitors && typeof analytics.visitors === "object" ? analytics.visitors : {},
+    createdAt: analytics.createdAt || new Date().toISOString(),
+    updatedAt: analytics.updatedAt || null,
+  };
+}
+
+function publicAnalytics(analytics) {
+  return {
+    totalViews: Number(analytics.totalViews || 0),
+    uniqueVisitors: Object.keys(analytics.visitors || {}).length,
   };
 }
 
