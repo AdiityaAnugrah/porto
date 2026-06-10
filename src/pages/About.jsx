@@ -1,431 +1,549 @@
-﻿import React from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  Code2,
+  Compass,
+  Download,
+  ExternalLink,
+  Mail,
+  MapPin,
+  Server,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
-import { FaDownload, FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin, FaServer, FaShieldAlt } from "react-icons/fa";
 import PubgCard from "../components/about/PubgCard";
 import SpotifyCard from "../components/about/SpotifyCard";
 import SteamCard from "../components/about/SteamCard";
+import { r2Image } from "../lib/media";
+import { usePreferredLanguage } from "../lib/usePreferredLanguage";
+
+const pageText = {
+  id: {
+    seoTitle: "Tentang Aditya Anugrah | Full-Stack Web Developer",
+    seoDescription:
+      "Tentang Aditya Anugrah, full-stack web developer yang membangun website, sistem bisnis, dashboard, API, dan produk digital untuk kebutuhan bisnis.",
+    badge: "About the builder",
+    title: "Saya membantu bisnis mengubah kebutuhan digital menjadi produk yang rapi, jelas, dan bisa dipakai.",
+    intro:
+      "Saya Aditya Anugrah, full-stack web developer berbasis di Semarang dan Palembang. Fokus saya ada di website bisnis, dashboard operasional, REST API, storefront, dan produk digital yang dibuat dengan arah bisnis yang jelas.",
+    location: "Semarang & Palembang, Indonesia",
+    cv: "Download CV",
+    contact: "Hubungi saya",
+    profileNote:
+      "Saya bekerja dari strategi, interface, engineering, sampai deploy. Jadi diskusi tidak berhenti di tampilan, tapi sampai alur kerja, performa, SEO dasar, dan maintenance.",
+    principlesLabel: "Cara saya bekerja",
+    principlesTitle: "Pendekatannya business-first, eksekusinya tetap engineering.",
+    principles: [
+      [
+        "Mulai dari konteks bisnis",
+        "Sebelum desain dan coding, saya petakan target user, tujuan halaman, proses internal, dan prioritas fitur.",
+      ],
+      [
+        "Bangun alur yang mudah dipakai",
+        "UI dibuat untuk membantu user mengambil keputusan, bukan sekadar terlihat penuh atau ramai.",
+      ],
+      [
+        "Siapkan pondasi teknis",
+        "Struktur frontend, backend, database, dan integrasi dibuat agar mudah dirawat dan dikembangkan.",
+      ],
+    ],
+    capabilityLabel: "Yang biasa saya bangun",
+    capabilities: [
+      ["Company profile", "Website pengenalan bisnis, layanan, portfolio, dan CTA yang jelas."],
+      ["Landing page", "Halaman campaign yang fokus pada trust, copy, dan konversi."],
+      ["Dashboard", "Panel admin, reporting, inventory, dan workflow internal."],
+      ["API & integration", "Payment gateway, email, storage, analytics, dan layanan pihak ketiga."],
+      ["Digital store", "Katalog produk digital, checkout, status order, dan delivery otomatis."],
+      ["Optimization", "SEO teknis, metadata, performa halaman, dan monitoring ringan."],
+    ],
+    processLabel: "Operating model",
+    processTitle: "Dari discovery sampai launch, alurnya dibuat transparan.",
+    process: [
+      ["01", "Discovery", "Memahami kebutuhan, market, konten, fitur, dan batasan project."],
+      ["02", "Structure", "Menyusun sitemap, user flow, copy direction, dan komponen utama."],
+      ["03", "Build", "Mengembangkan UI, backend, database, integrasi, dan admin workflow."],
+      ["04", "Launch", "Deploy, test, monitor, lalu iterasi berdasarkan kebutuhan nyata."],
+    ],
+    stackLabel: "Tech stack",
+    projectModes: [
+      ["Client delivery", "Company profile, katalog, dashboard, form operasional, API, dan halaman campaign."],
+      ["Internal tools", "Automation kecil, admin panel, integrasi data, deployment checklist, dan helper workflow."],
+      ["Experimental builds", "Eksplorasi UI, micro product, game/server utility, AI workflow, dan prototype cepat."],
+    ],
+    minecraftLabel: "Community server",
+    minecraftTitle: "Minecraft Server",
+    minecraftBody:
+      "Saya juga mengelola server Minecraft kecil untuk komunitas. Ini menjadi lab operasional nyata untuk VPS, Apache reverse proxy, DNS, SSL, backup, service process, dan monitoring ringan.",
+    minecraftCta: "Kunjungi server page",
+    projectsCta: "Lihat project",
+    personalLabel: "Personal signal",
+    musicLabel: "Music flow",
+    pubgLabel: "PUBG Steam",
+    steamLabel: "Steam profile",
+    careerLabel: "Perjalanan karier",
+    career: [
+      [
+        "Full-stack Developer",
+        "Ilena Furniture",
+        "2023 - Sekarang",
+        "Membangun storefront Next.js dengan SSR/ISR, struktur katalog, SEO, dan integrasi kebutuhan e-commerce.",
+      ],
+      [
+        "Web Developer",
+        "PT Catur Bahkti Mandiri Semarang",
+        "2022 - Sekarang",
+        "Mengembangkan aplikasi web berbasis HTML, CSS, PHP, CodeIgniter, database, dan optimasi performa website.",
+      ],
+      [
+        "Backend + UI Developer",
+        "Titanium Group",
+        "2024 - 2025",
+        "Merancang skema database, REST API CodeIgniter 4, dashboard manajemen, dan laporan PDF otomatis.",
+      ],
+      [
+        "Android Development",
+        "Bangkit Academy by Google, GoTo, Traveloka",
+        "2022",
+        "Mengembangkan aplikasi Android menggunakan Kotlin dan Java dalam proyek pembelajaran berbasis tim.",
+      ],
+      [
+        "UI/UX Design",
+        "PT Greatedu Global Mahardika",
+        "2022",
+        "Mempelajari proses desain aplikasi mobile, prototyping, dan prinsip pengalaman pengguna.",
+      ],
+      [
+        "Staff Admin",
+        "Kantor Kesahbandaran Palembang",
+        "2021 - 2022",
+        "Mengelola administrasi, dokumen clearance kapal, dan komunikasi operasional pelabuhan.",
+      ],
+    ],
+    ctaTitle: "Butuh partner untuk membangun website atau sistem bisnis?",
+    ctaBody:
+      "Kita bisa mulai dari diskusi singkat: tujuan bisnis, fitur prioritas, timeline, dan bentuk output yang paling masuk akal.",
+    ctaButton: "Diskusi project",
+  },
+  en: {
+    seoTitle: "About Aditya Anugrah | Full-Stack Web Developer",
+    seoDescription:
+      "About Aditya Anugrah, a full-stack web developer building websites, business systems, dashboards, APIs, and digital products for business needs.",
+    badge: "About the builder",
+    title: "I help businesses turn digital requirements into polished, clear, usable products.",
+    intro:
+      "I am Aditya Anugrah, a full-stack web developer based in Semarang and Palembang, Indonesia. My focus is business websites, operational dashboards, REST APIs, storefronts, and digital products built with a clear business direction.",
+    location: "Semarang & Palembang, Indonesia",
+    cv: "Download CV",
+    contact: "Contact me",
+    profileNote:
+      "I work across strategy, interface, engineering, and deployment. The discussion does not stop at visuals; it also covers workflow, performance, SEO foundations, and maintenance.",
+    principlesLabel: "How I work",
+    principlesTitle: "The approach is business-first, while the execution stays engineering-led.",
+    principles: [
+      [
+        "Start from business context",
+        "Before design and code, I map the target users, page goals, internal processes, and feature priorities.",
+      ],
+      [
+        "Build usable flows",
+        "The interface is designed to help users make decisions, not just to look busy or decorative.",
+      ],
+      [
+        "Prepare technical foundations",
+        "Frontend, backend, database, and integration structure are built to stay maintainable and scalable.",
+      ],
+    ],
+    capabilityLabel: "What I usually build",
+    capabilities: [
+      ["Company profile", "Business websites for services, proof of work, portfolio, and clear CTAs."],
+      ["Landing page", "Campaign pages focused on trust, copy, and conversion."],
+      ["Dashboard", "Admin panels, reporting, inventory, and internal workflows."],
+      ["API & integration", "Payment gateways, email, storage, analytics, and third-party services."],
+      ["Digital store", "Digital product catalogs, checkout, order status, and automatic delivery."],
+      ["Optimization", "Technical SEO, metadata, page performance, and lightweight monitoring."],
+    ],
+    processLabel: "Operating model",
+    processTitle: "From discovery to launch, the workflow stays transparent.",
+    process: [
+      ["01", "Discovery", "Understanding needs, market, content, features, and project constraints."],
+      ["02", "Structure", "Defining sitemap, user flow, copy direction, and core components."],
+      ["03", "Build", "Developing UI, backend, database, integrations, and admin workflows."],
+      ["04", "Launch", "Deploying, testing, monitoring, and iterating based on real needs."],
+    ],
+    stackLabel: "Tech stack",
+    projectModes: [
+      ["Client delivery", "Company profiles, catalogs, dashboards, operational forms, APIs, and campaign pages."],
+      ["Internal tools", "Small automation, admin panels, data integrations, deployment checklists, and workflow helpers."],
+      ["Experimental builds", "UI exploration, micro products, game/server utilities, AI workflows, and fast prototypes."],
+    ],
+    minecraftLabel: "Community server",
+    minecraftTitle: "Minecraft Server",
+    minecraftBody:
+      "I also manage a small Minecraft server for the community. It works as a real operations lab for VPS, Apache reverse proxy, DNS, SSL, backups, service processes, and lightweight monitoring.",
+    minecraftCta: "Visit server page",
+    projectsCta: "View projects",
+    personalLabel: "Personal signal",
+    musicLabel: "Music flow",
+    pubgLabel: "PUBG Steam",
+    steamLabel: "Steam profile",
+    careerLabel: "Career path",
+    career: [
+      [
+        "Full-stack Developer",
+        "Ilena Furniture",
+        "2023 - Present",
+        "Building a Next.js storefront with SSR/ISR, catalog structure, SEO, and e-commerce requirements.",
+      ],
+      [
+        "Web Developer",
+        "PT Catur Bahkti Mandiri Semarang",
+        "2022 - Present",
+        "Developing web applications with HTML, CSS, PHP, CodeIgniter, databases, and website performance optimization.",
+      ],
+      [
+        "Backend + UI Developer",
+        "Titanium Group",
+        "2024 - 2025",
+        "Designing database schemas, CodeIgniter 4 REST APIs, management dashboards, and automatic PDF reports.",
+      ],
+      [
+        "Android Development",
+        "Bangkit Academy by Google, GoTo, Traveloka",
+        "2022",
+        "Developing Android applications with Kotlin and Java in a team-based learning project.",
+      ],
+      [
+        "UI/UX Design",
+        "PT Greatedu Global Mahardika",
+        "2022",
+        "Learning mobile app design processes, prototyping, and user experience principles.",
+      ],
+      [
+        "Staff Admin",
+        "Kantor Kesahbandaran Palembang",
+        "2021 - 2022",
+        "Managing administration, ship clearance documents, and port operational communication.",
+      ],
+    ],
+    ctaTitle: "Need a partner to build a website or business system?",
+    ctaBody:
+      "We can start from a short discussion: business goals, feature priorities, timeline, and the most practical output.",
+    ctaButton: "Discuss a project",
+  },
+};
+
+const stack = ["React", "Next.js", "TypeScript", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Git", "Kotlin"];
+const principleIcons = [Compass, Code2, ShieldCheck];
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+};
+
+const SectionHeader = ({ label, title }) => (
+  <div className="mb-8">
+    <p className="mb-3 text-xs font-semibold uppercase text-cyan-200/70">{label}</p>
+    <h2 className="max-w-3xl text-3xl font-bold leading-tight text-white md:text-5xl">{title}</h2>
+  </div>
+);
 
 const About = () => {
-  // Variabel animasi untuk efek stagger bergelombang
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", bounce: 0.4, duration: 0.8 } }
-  };
+  const { language } = usePreferredLanguage();
+  const t = pageText[language] || pageText.en;
+  const profileImage = r2Image("profile/me-sunset.jpeg", "/assets/me-sunset.jpeg");
+  const profileImageAbsolute = r2Image(
+    "profile/me-sunset.jpeg",
+    "https://adityaanugrah.me/assets/me-sunset.jpeg"
+  );
 
   return (
-    <div className="pt-24 pb-32 px-6 max-w-5xl mx-auto min-h-screen">
-      <SEO 
-        title="Aditya Anugrah - Web Developer Semarang & Palembang"
-        description="Aditya Anugrah adalah Full-Stack Web Developer dari Semarang dan Palembang dengan pengalaman membangun website, REST API, dashboard bisnis, dan aplikasi kustom untuk klien Indonesia."
+    <div className="pb-28">
+      <SEO
+        title={t.seoTitle}
+        description={t.seoDescription}
         path="/about"
         type="profile"
-        imageAlt="Aditya Anugrah - Web Developer Semarang & Palembang"
+        imageAlt="Aditya Anugrah"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Person",
-          "name": "Aditya Anugrah",
-          "alternateName": [
-            "Aditya Anugrah Dev",
-            "Aditya Anugrah web developer",
-            "full stack engineer Aditya Anugrah",
-            "adiityaanugrah"
+          name: "Aditya Anugrah",
+          alternateName: ["Aditya Anugrah Dev", "adiityaanugrah"],
+          url: "https://adityaanugrah.me/about",
+          image: profileImageAbsolute,
+          jobTitle: "Full-Stack Web Developer",
+          description: t.seoDescription,
+          email: "adityaanugrah494@gmail.com",
+          nationality: "Indonesian",
+          homeLocation: [
+            { "@type": "City", name: "Semarang", addressCountry: "ID" },
+            { "@type": "City", name: "Palembang", addressCountry: "ID" },
           ],
-          "url": "https://adityaanugrah.me/about",
-          "image": "https://adityaanugrah.me/assets/me-sunset.jpeg",
-          "jobTitle": "Full-Stack Web Developer",
-          "description": "Full-Stack Web Developer berbasis di Semarang dan Palembang, Indonesia. Spesialisasi React, Next.js, Node.js, PHP, CodeIgniter, dan MySQL untuk website, REST API, dashboard, dan sistem bisnis kustom.",
-          "email": "adityaanugrah494@gmail.com",
-          "nationality": "Indonesian",
-          "homeLocation": [
-            {
-              "@type": "City",
-              "name": "Semarang",
-              "addressCountry": "ID"
-            },
-            {
-              "@type": "City",
-              "name": "Palembang",
-              "addressCountry": "ID"
-            }
-          ],
-          "sameAs": [
+          sameAs: [
             "https://github.com/adiityaanugrah",
             "https://www.linkedin.com/in/aditya-anugrah/",
-            "https://steamcommunity.com/id/claraikaa/"
+            "https://steamcommunity.com/id/claraikaa/",
           ],
-          "knowsAbout": [
-            "React", "Next.js", "Node.js", "PHP", "CodeIgniter", "MySQL",
-            "JavaScript", "TypeScript", "Web Development", "REST API",
-            "Kotlin", "Android Development",
-            "Jasa Website Semarang", "Jasa Website Palembang",
-            "Web Developer Semarang", "Web Developer Palembang",
-            "Programmer Semarang", "Programmer Palembang"
+          knowsAbout: [
+            "React",
+            "Next.js",
+            "Node.js",
+            "PHP",
+            "CodeIgniter",
+            "MySQL",
+            "JavaScript",
+            "TypeScript",
+            "Web Development",
+            "REST API",
+            "Kotlin",
+            "Android Development",
           ],
-          "worksFor": {
-            "@type": "Organization",
-            "name": "PT Catur Bahkti Mandiri",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Semarang",
-              "addressRegion": "Jawa Tengah",
-              "addressCountry": "ID"
-            }
-          }
         }}
       />
 
-      <div className="grid md:grid-cols-[1fr_2fr] gap-12 items-start">
-        {/* Sidebar / Image */}
-        <motion.div 
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="space-y-8 md:sticky md:top-24"
-        >
-            <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/12 to-purple-500/12 rounded-2xl blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
-                
-                <div className="aspect-[3/4] rounded-2xl overflow-hidden glass-panel relative border border-white/10 group-hover:border-white/20 transition-colors">
-                    <LazyImage 
-                        src="/assets/me-sunset.jpeg"
-                        alt="Aditya Anugrah"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+      <section className="relative overflow-hidden px-6 pt-28">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/30 to-transparent" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(238,232,220,0.035)_1px,transparent_1px)] bg-[size:100%_56px] opacity-45" />
+        </div>
+
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <motion.aside
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="lg:sticky lg:top-24"
+          >
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045]">
+              <div className="aspect-[4/5] overflow-hidden">
+                <LazyImage
+                  src={profileImage}
+                  alt="Aditya Anugrah"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h2 className="text-2xl font-bold text-white">Aditya Anugrah</h2>
+                <div className="mt-2 flex items-center gap-2 text-sm text-white/50">
+                  <MapPin size={16} aria-hidden="true" />
+                  {t.location}
                 </div>
+                <p className="mt-5 text-sm leading-7 text-white/58">{t.profileNote}</p>
+
+                <div className="mt-6 grid gap-3">
+                  <a
+                    href="https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-100 px-5 font-bold text-black transition-colors hover:bg-white"
+                  >
+                    <Download size={17} aria-hidden="true" />
+                    {t.cv}
+                  </a>
+                  <Link
+                    to="/contact"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 font-bold text-white transition-colors hover:bg-white/[0.075]"
+                  >
+                    <Mail size={17} aria-hidden="true" />
+                    {t.contact}
+                  </Link>
+                </div>
+
+                <div className="mt-6 flex justify-center gap-5 text-xl text-white/48">
+                  <a href="https://github.com/adiityaanugrah" target="_blank" rel="noopener noreferrer" aria-label="GitHub Aditya Anugrah" className="transition-colors hover:text-white">
+                    <FaGithub />
+                  </a>
+                  <a href="https://www.linkedin.com/in/aditya-anugrah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Aditya Anugrah" className="transition-colors hover:text-white">
+                    <FaLinkedin />
+                  </a>
+                </div>
+              </div>
             </div>
-            
-            <div className="flex flex-col gap-4">
-                <a href="https://drive.google.com/file/d/1M66SJlH_9zlT4EePbq-VrYYxctgjua9M/preview" target="_blank" rel="noopener noreferrer" className="btn-primary w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold bg-white text-black hover:bg-cyan-50 transition-colors">
-                    <FaDownload /> Download CV
-                </a>
-                <div className="flex justify-center gap-6 text-2xl text-white/50">
-                     <a href="https://github.com/adiityaanugrah" target="_blank" rel="noopener noreferrer" aria-label="GitHub Aditya Anugrah" className="hover:text-white transition-colors"><FaGithub /></a>
-                     <a href="https://www.linkedin.com/in/aditya-anugrah/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Aditya Anugrah" className="hover:text-white transition-colors"><FaLinkedin /></a>
-                     <a href="mailto:adityaanugrah494@gmail.com" aria-label="Email Aditya Anugrah" className="hover:text-white transition-colors"><FaEnvelope /></a>
-                </div>
-            </div>
-        </motion.div>
+          </motion.aside>
 
-        {/* Content Area */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-        >
-                {/* Intro Header */}
-            <motion.section variants={itemVariants} className="relative">
-                <div className="absolute -inset-x-6 -inset-y-6 bg-gradient-to-r from-cyan-500/8 to-transparent blur-2xl opacity-40 pointer-events-none" />
+          <motion.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.08 } } }}>
+            <motion.div variants={fadeIn} className="mb-12">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100 backdrop-blur">
+                <Sparkles size={16} aria-hidden="true" />
+                {t.badge}
+              </div>
+              <h1 className="max-w-4xl text-4xl font-bold leading-[1.07] text-white md:text-6xl">
+                {t.title}
+              </h1>
+              <p className="mt-6 max-w-3xl text-base leading-8 text-white/66 md:text-lg">{t.intro}</p>
+            </motion.div>
 
-                {/* Single SEO-friendly H1 with profession and location. */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-2 tracking-tight relative z-10 leading-tight">
-                    Aditya Anugrah <span className="sr-only">-</span><br />
-                    <span className="text-gradient text-4xl md:text-5xl lg:text-6xl">Full-Stack Web Developer</span>
-                </h1>
-                <p className="text-white/40 font-mono text-sm uppercase tracking-widest mb-6 relative z-10">
-                    Semarang &amp; Palembang, Indonesia
-                </p>
-
-                {/* Bio content */}
-                <div className="space-y-5 text-white/70 text-sm md:text-base leading-relaxed max-w-2xl relative z-10">
-
-                    <p>
-                        Saya <strong className="text-white">Aditya Anugrah</strong>, seorang{" "}
-                        <strong className="text-white">Full-Stack Web Developer</strong> berbasis di{" "}
-                        <strong className="text-cyan-400">Semarang dan Palembang</strong>, Indonesia. Saya membangun produk digital dari sisi frontend sampai backend: website company profile, e-commerce, dashboard operasional, REST API, dan sistem internal yang dipakai tim setiap hari.
-                    </p>
-
-                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
-                        Keahlian &amp; Teknologi
-                    </h2>
-                    <p>
-                        Stack utama saya berada di ekosistem JavaScript modern:{" "}
-                        <span className="text-cyan-400">React</span>,{" "}
-                        <span className="text-cyan-400">Next.js</span>, dan{" "}
-                        <span className="text-cyan-400">Node.js</span>. Untuk backend dan sistem bisnis, saya juga terbiasa dengan{" "}
-                        <span className="text-purple-400">PHP / CodeIgniter</span> dan{" "}
-                        <span className="text-purple-400">MySQL</span>. Saya memilih teknologi berdasarkan kebutuhan proyek: performa, keamanan, kemudahan maintenance, dan target bisnis yang ingin dicapai.
-                    </p>
-
-                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
-                        Pengalaman sebagai Full-Stack Developer
-                    </h2>
-                    <p>
-                        Dalam beberapa tahun terakhir, saya membantu UMKM, startup, dan perusahaan merancang solusi digital yang cepat, aman, dan mudah dikembangkan. Saya terbiasa bekerja end-to-end: memahami kebutuhan, menyusun alur sistem, membuat UI, mengembangkan API, mengelola database, sampai deployment. Fokus saya adalah <span className="text-cyan-400">kode yang rapi</span>, <span className="text-purple-400">performa stabil</span>, dan <span className="text-pink-400">pengalaman pengguna yang jelas</span>.
-                    </p>
-
-                    <h2 className="text-base md:text-lg font-bold text-white pt-2 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-pink-500 inline-block" />
-                        Web Developer Semarang &amp; Palembang
-                    </h2>
-                    <p>
-                        Meski berbasis di <strong className="text-white">Semarang</strong> dan <strong className="text-white">Palembang</strong>, saya menangani proyek dari berbagai kota di Indonesia secara remote maupun tatap muka. Setiap proyek dimulai dari diskusi kebutuhan yang konkret, agar solusi yang dibuat tidak hanya terlihat bagus, tetapi benar-benar membantu operasional dan pertumbuhan bisnis.
-                    </p>
-
-                    <p className="text-white/50 text-sm border-t border-white/10 pt-4">
-                        Lihat hasil kerja saya di{" "}
-                        <a href="/projects" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 transition-colors font-medium">
-                            halaman Portfolio Proyek
-                        </a>
-                        {" "}atau{" "}
-                        <a href="/contact" className="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors font-medium">
-                            hubungi saya langsung
-                        </a>
-                        {" "}untuk diskusi proyek. Di luar perkodean saya juga suka bermain game dan mendengarkan musik.
-                    </p>
-                </div>
+            <motion.section variants={fadeIn} className="mb-16">
+              <SectionHeader label={t.principlesLabel} title={t.principlesTitle} />
+              <div className="grid gap-4 md:grid-cols-3">
+                {t.principles.map(([title, body], index) => {
+                  const Icon = principleIcons[index];
+                  return (
+                    <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-6">
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-300/10 text-cyan-200">
+                        <Icon size={22} aria-hidden="true" />
+                      </div>
+                      <h3 className="text-lg font-bold text-white">{title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
+                    </div>
+                  );
+                })}
+              </div>
             </motion.section>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
+      </section>
 
-      {/* ===== FULL-WIDTH BENTO SECTION (below hero) ===== */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-        className="mt-12"
-      >
-            {/* BENTO GRID LAYOUT */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 relative z-10 w-full mb-8">
-                
-                {/* ---------- BENTO 1: TECH STACK (12 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-purple-500/30 transition-colors duration-500 flex flex-col sm:flex-row sm:items-center gap-6">
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-300/30 to-transparent pointer-events-none" />
-                    <div className="flex-shrink-0">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-3">
-                            <span className="w-2 h-2 rounded-full bg-purple-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                            Tech Stack
-                        </h2>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2 text-[10px] sm:text-xs font-mono">
-                        {["JavaScript", "TypeScript", "React", "Next.js", "Tailwind", "Node.js", "PHP", "CodeIgniter", "MySQL", "Git" , "Kotlin"].map(tech => (
-                            <span key={tech} className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all cursor-default relative overflow-hidden group/badge">
-                                <span className="absolute inset-0 bg-white/5 translate-y-full group-hover/badge:translate-y-0 transition-transform" />
-                                <span className="relative z-10">{tech}</span>
-                            </span>
-                        ))}
-                    </div>
-                </motion.div>
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex items-center gap-3 text-cyan-200/75">
+            <BriefcaseBusiness size={20} aria-hidden="true" />
+            <p className="text-xs font-semibold uppercase">{t.capabilityLabel}</p>
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+            {t.capabilities.map(([title, body]) => (
+              <div key={title} className="bg-[#0d0b08] p-6">
+                <h3 className="text-lg font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {/* ---------- BENTO 2: PROJECT MODES (12 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {[
-                        ["01", "Client Delivery", "Membangun kebutuhan bisnis yang jelas: company profile, katalog, dashboard, form operasional, API, dan halaman campaign."],
-                        ["02", "Internal Tools", "Merapikan workflow kecil yang sering berulang: endpoint helper, automation, admin panel, integrasi data, dan deployment checklist."],
-                        ["03", "Experimental Builds", "Mencoba ide baru bersama AI: eksplorasi UI, micro product, game/server utility, copywriting, dan prototype cepat."]
-                    ].map(([number, title, desc]) => (
-                        <div key={number} className="glass-panel p-6 rounded-3xl border border-white/10 hover:border-white/20 transition-colors duration-500">
-                            <span className="text-[10px] font-mono text-white/35 tracking-widest">{number}</span>
-                            <h3 className="mt-4 text-lg font-bold text-white">{title}</h3>
-                            <p className="mt-2 text-white/50 text-sm leading-relaxed">{desc}</p>
-                        </div>
-                    ))}
-                </motion.div>
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader label={t.processLabel} title={t.processTitle} />
+          <div className="grid gap-4 lg:grid-cols-4">
+            {t.process.map(([number, title, body]) => (
+              <div key={number} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6">
+                <p className="text-sm font-bold text-cyan-200">{number}</p>
+                <h3 className="mt-5 text-xl font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                {/* ---------- BENTO 3: MINECRAFT SERVER (12 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel rounded-3xl relative group overflow-hidden border border-white/10 hover:border-green-400/30 transition-colors duration-500">
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-green-300/30 to-transparent pointer-events-none" />
-                    <div className="absolute -right-24 -top-24 w-64 h-64 bg-green-500/10 rounded-full blur-3xl opacity-70 pointer-events-none" />
-                    <div className="absolute -left-24 bottom-0 w-56 h-56 bg-cyan-500/10 rounded-full blur-3xl opacity-50 pointer-events-none" />
-
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 p-6 sm:p-8">
-                        <div>
-                            <div className="flex items-center gap-3 mb-5">
-                                <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-400/20 flex items-center justify-center text-green-300 shadow-lg shadow-green-500/10">
-                                    <FaServer aria-hidden="true" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-mono uppercase tracking-widest text-green-300">Community Server</p>
-                                    <h2 className="text-2xl sm:text-3xl font-bold font-display text-white">Minecraft Server</h2>
-                                </div>
-                            </div>
-
-                            <p className="text-white/60 text-sm sm:text-base leading-relaxed max-w-2xl">
-                                Saya juga mengelola server Minecraft kecil untuk komunitas: tempat main santai, survival, dan bangun bareng tanpa sistem pay-to-win. Server berjalan di VPS yang sama dengan beberapa website, jadi maintenance dan performanya saya pantau langsung.
-                            </p>
-
-                            <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Address</p>
-                                    <p className="text-sm font-bold text-white truncate">play.adityaanugrah.me</p>
-                                </div>
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Server</p>
-                                    <p className="text-sm font-bold text-white">Paper 1.21.11</p>
-                                </div>
-                                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                                    <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest mb-1">Access</p>
-                                    <p className="text-sm font-bold text-white">Public Survival</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="rounded-3xl border border-green-400/20 bg-gradient-to-br from-green-500/10 to-cyan-500/5 p-5 flex flex-col justify-between">
-                            <div>
-                                <div className="flex items-center gap-2 text-green-200 mb-3">
-                                    <FaShieldAlt aria-hidden="true" />
-                                    <span className="text-xs font-mono uppercase tracking-widest">Server Operations</span>
-                                </div>
-                                <h3 className="text-xl font-bold font-display mb-2">Mini lab operasional</h3>
-                                <p className="text-white/55 text-sm leading-relaxed">
-                                    Server ini saya pakai sebagai ruang praktik nyata untuk deployment, Apache reverse proxy, service PM2, DNS, SSL, backup, dan monitoring ringan.
-                                </p>
-                            </div>
-
-                            <div className="mt-6 flex flex-col sm:flex-row lg:flex-col gap-3">
-                                <a
-                                    href="https://play.adityaanugrah.me"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-black font-bold hover:bg-green-50 transition-colors"
-                                >
-                                    Kunjungi Server Page <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
-                                </a>
-                                <a
-                                    href="/projects"
-                                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-cyan-300/25 bg-cyan-500/10 text-cyan-100 font-bold hover:bg-cyan-500/15 hover:border-cyan-300/40 transition-colors"
-                                >
-                                    Lihat Project <FaExternalLinkAlt className="text-xs" aria-hidden="true" />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* ---------- BENTO 4: MUSIC VIBES (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="mb-4 pl-3">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-400/70" aria-hidden="true" /> Music Flow
-                        </h2>
-                    </div>
-                    {/* Mengisi sisa flex */}
-                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01] h-full">
-                        <SpotifyCard />
-                    </div>
-                </motion.div>
-
-                {/* ---------- BENTO 5: GAMING PUBG (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-6 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="mb-4 pl-3">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-orange-400/70" aria-hidden="true" /> PUBG Steam
-                        </h2>
-                    </div>
-                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
-                        <PubgCard />
-                    </div>
-                </motion.div>
-
-                {/* ---------- BENTO 6: GAMING STEAM (4 cols) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 lg:col-span-4 flex flex-col relative group h-full pb-2 md:pb-0">
-                    <div className="absolute inset-0 bg-gradient-to-tl from-cyan-500/5 to-transparent rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-                    <div className="mb-4 pl-3">
-                        <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-300/70" aria-hidden="true" /> Steam Profile
-                        </h2>
-                    </div>
-                    <div className="flex-1 transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.01]">
-                        <SteamCard />
-                    </div>
-                </motion.div>
-
-                {/* ---------- BENTO 7: EXPERIENCE (12 cols, 2 column inner grid) ---------- */}
-                <motion.div variants={itemVariants} className="md:col-span-12 glass-panel p-6 sm:p-8 rounded-3xl relative group overflow-hidden border border-white/10 hover:border-cyan-500/30 transition-colors duration-500 mt-2">
-                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent pointer-events-none" />
-                    <h2 className="text-xs sm:text-sm font-mono uppercase tracking-widest text-white/40 mb-8 flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-cyan-500 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
-                        Perjalanan Karier
-                    </h2>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 border-l border-white/10 pl-6 relative">
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-cyan-300 transition-colors">Full-stack Developer</h3>
-                            <p className="text-cyan-500/70 text-[10px] sm:text-xs font-mono mb-2">Ilena Furniture 2023 - Sekarang</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Membangun storefront Next.js dengan SSR/ISR untuk SEO optimal. Mengintegrasikan kalkulator ongkos kirim dan sistem matriks SKU.
-                            </p>
-                         </div>
-
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-green-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-green-300 transition-colors">Web Developer</h3>
-                            <p className="text-green-500/70 text-[10px] sm:text-xs font-mono mb-2">PT Catur Bahkti Mandiri Semarang 2022 - Sekarang</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Mengembangkan aplikasi web menggunakan HTML, CSS, PHP, dan CodeIgniter. Meningkatkan performa web hingga 30% melalui optimasi kode dan teknik SEO.
-                            </p>
-                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Berkolaborasi dalam tim Agile untuk memastikan pengiriman tepat waktu.</li>
-                                <li>Mengelola database untuk integrasi backend yang akurat.</li>
-                            </ul>
-                         </div>
-    
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-purple-300 transition-colors">Backend + UI Developer</h3>
-                            <p className="text-purple-500/70 text-[10px] sm:text-xs font-mono mb-2">Titanium Group 2024 - 2025</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Merancang skema database dan REST API menggunakan CodeIgniter 4. Mengembangkan dashboard manajemen bengkel dan laporan PDF otomatis.
-                            </p>
-                         </div>
-
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-orange-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-orange-300 transition-colors">Android Development</h3>
-                            <p className="text-orange-500/70 text-[10px] sm:text-xs font-mono mb-2">Bangkit Academy By Google, GoTo, Traveloka Bandung 2022</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Mengembangkan aplikasi Android tingkat menengah menggunakan Kotlin dan Java. 
-                            </p>
-                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Mendapat pengalaman langsung dalam Android lifecycle dan desain UI.</li>
-                                <li>Berkolaborasi dalam proyek tim nyata untuk membangun aplikasi.</li>
-                            </ul>
-                         </div>
-
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-pink-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-pink-300 transition-colors">UI/UX Design</h3>
-                            <p className="text-pink-500/70 text-[10px] sm:text-xs font-mono mb-2">PT. Greatedu Global Mahardika Jakarta 2022</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed mb-2">
-                                Mempelajari prinsip UI/UX dan proses desain aplikasi mobile yang intuitif.
-                            </p>
-                            <ul className="list-disc list-outside ml-4 text-white/50 text-[10px] sm:text-xs space-y-1">
-                                <li>Membuat mockup dan prototipe Android menggunakan software desain.</li>
-                                <li>Berkolaborasi dengan tim untuk meningkatkan elemen UX.</li>
-                            </ul>
-                         </div>
-
-                         <div className="relative group/item">
-                            <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-gray-500 border-2 border-[#0a0a0a] group-hover/item:scale-150 transition-transform" />
-                            <h3 className="text-base sm:text-lg font-bold text-white group-hover/item:text-gray-300 transition-colors">Staff Admin</h3>
-                            <p className="text-gray-500/70 text-[10px] sm:text-xs font-mono mb-2">Kantor Kesahbandaran Palembang 2021 - 2022</p>
-                            <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
-                                Mengelola tugas administrasi, menyiapkan surat clearance kapal, dan berkomunikasi dengan otoritas pelabuhan. Dipercaya menangani dokumen penting operasional pelabuhan.
-                            </p>
-                         </div>
-                    </div>
-                </motion.div>
+      <section className="px-6 py-20">
+        <div className="mx-auto grid max-w-7xl gap-5">
+          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+            <p className="mb-5 text-xs font-semibold uppercase text-white/42">{t.stackLabel}</p>
+            <div className="flex flex-wrap gap-2">
+              {stack.map((tech) => (
+                <span key={tech} className="rounded-xl border border-white/10 bg-white/[0.055] px-3 py-2 text-xs font-semibold text-white/70">
+                  {tech}
+                </span>
+              ))}
             </div>
-      </motion.div>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {t.projectModes.map(([title, body], index) => (
+              <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.045] p-6">
+                <span className="text-xs font-bold text-cyan-200">0{index + 1}</span>
+                <h3 className="mt-4 text-lg font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+            <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-green-500/10 blur-3xl" />
+            <div className="relative grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+              <div>
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500/10 text-green-200">
+                    <Server size={23} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-green-200/80">{t.minecraftLabel}</p>
+                    <h2 className="text-3xl font-bold text-white">{t.minecraftTitle}</h2>
+                  </div>
+                </div>
+                <p className="max-w-2xl text-sm leading-7 text-white/58 md:text-base">{t.minecraftBody}</p>
+              </div>
+              <div className="grid gap-3">
+                <a
+                  href="https://play.adityaanugrah.me"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-5 font-bold text-black transition-colors hover:bg-green-50"
+                >
+                  {t.minecraftCta}
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+                <Link
+                  to="/projects"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-500/10 px-5 font-bold text-cyan-100 transition-colors hover:bg-cyan-500/15"
+                >
+                  {t.projectsCta}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-5 text-xs font-semibold uppercase text-white/42">{t.personalLabel}</p>
+            <div className="grid gap-5 lg:grid-cols-3">
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase text-green-200/70">{t.musicLabel}</p>
+                <SpotifyCard />
+              </div>
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase text-orange-200/70">{t.pubgLabel}</p>
+                <PubgCard />
+              </div>
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase text-cyan-200/70">{t.steamLabel}</p>
+                <SteamCard />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-7xl rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-8">
+          <p className="mb-8 text-xs font-semibold uppercase text-cyan-200/70">{t.careerLabel}</p>
+          <div className="grid gap-x-12 gap-y-9 border-l border-white/10 pl-6 md:grid-cols-2">
+            {t.career.map(([role, company, period, body]) => (
+              <div key={`${role}-${company}`} className="relative">
+                <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full border-2 border-[#0a0a0a] bg-cyan-300" />
+                <h3 className="text-lg font-bold text-white">{role}</h3>
+                <p className="mt-1 text-xs font-semibold text-cyan-200/70">{company} - {period}</p>
+                <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pt-14">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-4xl font-black leading-tight text-white md:text-6xl">{t.ctaTitle}</h2>
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/58 md:text-lg">{t.ctaBody}</p>
+          <div className="mt-10 flex justify-center">
+            <Link
+              to="/contact"
+              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-8 font-bold text-black transition-colors hover:bg-white"
+            >
+              {t.ctaButton}
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
 
 export default About;
-
