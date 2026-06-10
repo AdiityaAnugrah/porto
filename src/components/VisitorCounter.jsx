@@ -62,7 +62,7 @@ const VisitorCounter = () => {
       initial={{ opacity: 0, x: -16, scale: 0.96 }}
       animate={{ opacity: 1, x: 0, scale: 1 }}
       transition={{ delay: 0.6, duration: 0.35, ease: "easeOut" }}
-      className="fixed bottom-24 left-4 z-50 sm:left-6 md:bottom-6"
+      className="fixed bottom-6 left-6 z-50 hidden md:block"
     >
       <div className="group relative overflow-hidden rounded-full border border-cyan-200/20 bg-[#0d0b08]/86 px-4 py-3 text-white shadow-[0_14px_45px_rgba(0,0,0,0.42)] backdrop-blur-xl transition-colors hover:border-cyan-200/35 hover:bg-[#11100d]/92">
         <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent" />

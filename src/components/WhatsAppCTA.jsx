@@ -21,7 +21,7 @@ const WhatsAppCTA = () => {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring" }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-24 right-6 md:bottom-6 z-50 flex items-center gap-2 px-4 py-3 bg-[#25D366] text-white rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_30px_rgba(37,211,102,0.6)] transition-shadow group"
+      className="fixed bottom-6 right-6 z-50 hidden items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white shadow-[0_4px_20px_rgba(37,211,102,0.4)] transition-shadow hover:shadow-[0_6px_30px_rgba(37,211,102,0.6)] md:flex group"
     >
 
       <FaWhatsapp className="text-2xl" />
