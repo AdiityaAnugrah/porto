@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "api": "node server/api-server.mjs",
+    "r2:upload-assets": "node scripts/upload-r2-assets.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

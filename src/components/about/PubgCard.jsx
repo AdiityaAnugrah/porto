@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaExternalLinkAlt, FaGamepad, FaUser } from "react-icons/fa";
+import { Alert, AlertDescription, AlertTitle } from "../ui/8bit-alert";
 import { apiUrl } from "../../lib/api";
 
 const API_URL = apiUrl("/pubg/steam/player/BOKONG_BASAH");
@@ -69,21 +70,21 @@ export default function PubgCard() {
   if (err) {
     return (
       <div className="glass-panel rounded-2xl p-5 border border-orange-500/20 min-h-[220px] flex flex-col justify-between">
-        <div>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-300">
+        <Alert variant="warning">
+          <div className="flex gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-orange-200/25 bg-orange-400/10 text-orange-100">
               <FaGamepad aria-hidden="true" />
             </div>
             <div>
-              <p className="text-[10px] uppercase tracking-widest text-orange-300 font-mono">PUBG Profile</p>
-              <h3 className="text-sm font-bold text-white">Data sementara tidak tersedia</h3>
+              <p className="mb-1 text-[10px] uppercase tracking-widest text-orange-100/70 font-mono">PUBG Profile</p>
+              <AlertTitle>Data sementara tidak tersedia</AlertTitle>
+              <AlertDescription>
+                <p>Statistik PUBG gagal dimuat dari backend. Profil tetap bisa dicek langsung lewat OP.GG.</p>
+                <p className="font-mono text-[10px] text-orange-50/40">{err}</p>
+              </AlertDescription>
             </div>
           </div>
-          <p className="text-white/45 text-xs leading-relaxed mt-4">
-            Statistik PUBG gagal dimuat dari backend. Profil tetap bisa dicek langsung lewat OP.GG.
-          </p>
-          <p className="text-white/25 text-[10px] mt-2 font-mono">{err}</p>
-        </div>
+        </Alert>
         <a
           href={OPGG_URL}
           target="_blank"

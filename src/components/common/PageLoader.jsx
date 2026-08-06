@@ -1,10 +1,13 @@
 import React from "react";
+import TetrisLoading from "../ui/tetris-loader";
 
-const PageLoader = () => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black text-white">
-    <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
-        <p className="text-sm font-mono animate-pulse">Loading...</p>
+const PageLoader = ({ text = "Loading..." }) => (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#090806] px-6 text-white">
+    <div className="relative">
+      <div className="absolute inset-0 -m-8 bg-cyan-300/8 blur-3xl" />
+      <div className="relative rounded-3xl border border-white/10 bg-white/[0.045] p-6 shadow-2xl shadow-black/40">
+        <TetrisLoading size="md" speed="fast" loadingText={text} />
+      </div>
     </div>
   </div>
 );

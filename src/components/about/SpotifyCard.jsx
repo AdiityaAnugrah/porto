@@ -33,7 +33,7 @@ export default function SpotifyCard() {
 
         setError("");
       })
-      .catch((err) => {
+      .catch(() => {
         if (!active) return;
         setError("");
         setTracks([]);

@@ -7,13 +7,13 @@ import {
   CheckCircle2,
   Code2,
   Download,
-  ExternalLink,
   Gamepad2,
   Mail,
   MapPin,
+  Music4,
   Rocket,
-  Server,
   ShieldCheck,
+  MonitorSmartphone,
 } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import SEO from "../components/SEO";
@@ -65,22 +65,10 @@ const text = {
       ["Titanium Group", "REST API, dashboard operasional, skema database, dan laporan PDF."],
     ],
     personalLabel: "Lab & personal",
-    personalTitle: "Minecraft server, musik, PUBG, dan akun Steam.",
+    personalTitle: "Musik, PUBG, dan akun Steam.",
     personalBody:
-      "Di luar pekerjaan client, saya juga merawat server komunitas dan beberapa aktivitas personal yang masih dekat dengan dunia digital.",
-    minecraftTitle: "Minecraft Server",
-    minecraftBody:
-      "Server survival kecil untuk komunitas. Saya pakai ini juga sebagai ruang praktik deployment, DNS, SSL, service process, dan monitoring ringan.",
-    minecraftSmallLabel: "Community server",
-    minecraftAddress: "play.adityaanugrah.me",
-    minecraftCta: "Kunjungi server",
-    minecraftNote:
-      "Server ini jadi bagian dari cara saya tetap eksplorasi hal teknis di luar project komersial.",
-    minecraftFacts: [
-      ["Mode", "Public Survival"],
-      ["Stack", "VPS + Apache"],
-      ["Focus", "Community + Ops"],
-    ],
+      "Di luar pekerjaan client, saya tetap eksplorasi beberapa aktivitas personal yang masih dekat dengan kultur digital dan internet.",
+    personalTags: ["Live activity", "Gaming profile", "Public widgets"],
     musicLabel: "Spotify",
     pubgLabel: "PUBG",
     steamLabel: "Akun Steam",
@@ -127,22 +115,10 @@ const text = {
       ["Titanium Group", "REST APIs, operational dashboards, database schemas, and PDF reports."],
     ],
     personalLabel: "Lab & personal",
-    personalTitle: "Minecraft server, music, PUBG, and a Steam account.",
+    personalTitle: "Music, PUBG, and a Steam account.",
     personalBody:
-      "Outside client work, I also maintain a small community server and a few personal activity profiles connected to digital culture.",
-    minecraftTitle: "Minecraft Server",
-    minecraftBody:
-      "A small survival server for the community. I also use it as a practical lab for deployment, DNS, SSL, service processes, and lightweight monitoring.",
-    minecraftSmallLabel: "Community server",
-    minecraftAddress: "play.adityaanugrah.me",
-    minecraftCta: "Visit server",
-    minecraftNote:
-      "This server is part of how I keep exploring technical operations outside commercial projects.",
-    minecraftFacts: [
-      ["Mode", "Public Survival"],
-      ["Stack", "VPS + Apache"],
-      ["Focus", "Community + Ops"],
-    ],
+      "Outside client work, I still explore a few personal activity profiles that stay close to digital culture and the internet.",
+    personalTags: ["Live activity", "Gaming profile", "Public widgets"],
     musicLabel: "Spotify",
     pubgLabel: "PUBG",
     steamLabel: "Steam account",
@@ -153,6 +129,11 @@ const text = {
 };
 
 const serviceIcons = [BriefcaseBusiness, Rocket, ShieldCheck, Code2];
+const personalCards = [
+  { key: "music", icon: Music4, tone: "text-green-200", bg: "bg-green-300/10" },
+  { key: "pubg", icon: Gamepad2, tone: "text-orange-200", bg: "bg-orange-300/10" },
+  { key: "steam", icon: MonitorSmartphone, tone: "text-cyan-200", bg: "bg-cyan-300/10" },
+];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
@@ -341,72 +322,51 @@ const About = () => {
         <div className="mx-auto max-w-7xl">
           <div className="mb-7 grid gap-4 md:grid-cols-[0.75fr_1.25fr] md:items-end">
             <SectionHeader label={t.personalLabel} title={t.personalTitle} />
-            <p className="max-w-2xl text-sm leading-7 text-white/55 md:justify-self-end md:text-right">
-              {t.personalBody}
-            </p>
-          </div>
-
-          <div className="mb-5 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045]">
-            <div className="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-              <div className="p-5 md:p-7">
-                <div className="mb-5 flex items-center gap-3">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-500/10 text-green-200">
-                    <Server size={24} aria-hidden="true" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase text-green-200/75">{t.minecraftSmallLabel}</p>
-                    <h3 className="text-2xl font-bold text-white">{t.minecraftTitle}</h3>
-                  </div>
-                </div>
-
-                <p className="max-w-2xl text-sm leading-7 text-white/58 md:text-base">{t.minecraftBody}</p>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  {t.minecraftFacts.map(([label, value]) => (
-                    <div key={label} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                      <p className="text-xs text-white/35">{label}</p>
-                      <p className="mt-1 text-sm font-bold text-white">{value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="border-t border-white/10 bg-[#0d0b08] p-5 md:p-7 lg:border-l lg:border-t-0">
-                <div className="rounded-2xl border border-green-300/15 bg-green-300/[0.055] p-5">
-                  <p className="text-xs font-semibold uppercase text-green-200/70">Server address</p>
-                  <p className="mt-3 break-all text-2xl font-black text-white">{t.minecraftAddress}</p>
-                  <a
-                    href="https://play.adityaanugrah.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-white px-5 font-bold text-black transition-colors hover:bg-green-50"
+            <div className="max-w-2xl md:justify-self-end">
+              <p className="text-sm leading-7 text-white/55 md:text-right">{t.personalBody}</p>
+              <div className="mt-4 flex flex-wrap gap-2 md:justify-end">
+                {t.personalTags.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/52"
                   >
-                    {t.minecraftCta}
-                    <ExternalLink size={16} aria-hidden="true" />
-                  </a>
-                </div>
-
-                <div className="mt-4 flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                  <Gamepad2 className="mt-0.5 shrink-0 text-cyan-200" size={20} aria-hidden="true" />
-                  <p className="text-sm leading-6 text-white/55">{t.minecraftNote}</p>
-                </div>
+                    {item}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-3">
-            <div className="min-w-0">
-              <p className="mb-3 text-xs font-semibold uppercase text-green-200/70">{t.musicLabel}</p>
-              <SpotifyCard />
-            </div>
-            <div className="min-w-0">
-              <p className="mb-3 text-xs font-semibold uppercase text-orange-200/70">{t.pubgLabel}</p>
-              <PubgCard />
-            </div>
-            <div className="min-w-0">
-              <p className="mb-3 text-xs font-semibold uppercase text-cyan-200/70">{t.steamLabel}</p>
-              <SteamCard />
-            </div>
+            {personalCards.map(({ key, icon: Icon, tone, bg }) => {
+              const label =
+                key === "music" ? t.musicLabel : key === "pubg" ? t.pubgLabel : t.steamLabel;
+              const Card = key === "music" ? SpotifyCard : key === "pubg" ? PubgCard : SteamCard;
+
+              return (
+                <div
+                  key={key}
+                  className="overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045]"
+                >
+                  <div className="border-b border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-5">
+                    <div className="flex items-center gap-3">
+                      <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${bg} ${tone}`}>
+                        <Icon size={21} aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/38">
+                          Personal signal
+                        </p>
+                        <h3 className={`mt-1 text-lg font-bold ${tone}`}>{label}</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-5">
+                    <Card />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

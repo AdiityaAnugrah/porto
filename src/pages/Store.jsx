@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import SEO from "../components/SEO";
 import LazyImage from "../components/common/LazyImage";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/8bit-alert";
+import TetrisLoading from "../components/ui/tetris-loader";
 import { apiUrl } from "../lib/api";
 import { useLocalizedPath } from "../lib/i18n";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
@@ -69,6 +71,8 @@ const storeCopy = {
     email: "Email pengiriman",
     phone: "WhatsApp",
     optional: "Opsional",
+    note: "Catatan pembelian",
+    notePlaceholder: "Tulis permintaan khusus, username, atau detail kebutuhan pembelian.",
     quantity: "Quantity",
     quantityHelp: "Maksimal sesuai stok",
     decrease: "Kurangi quantity",
@@ -79,6 +83,7 @@ const storeCopy = {
     noProduct: "Belum ada produk aktif.",
     item: "item",
     hour: "jam",
+    manual: "Manual",
   },
   en: {
     seoTitle: "Store | Aditya Anugrah",
@@ -109,6 +114,8 @@ const storeCopy = {
     email: "Delivery email",
     phone: "WhatsApp",
     optional: "Optional",
+    note: "Purchase note",
+    notePlaceholder: "Write a special request, username, or purchase details.",
     quantity: "Quantity",
     quantityHelp: "Limited by available stock",
     decrease: "Decrease quantity",
@@ -119,6 +126,7 @@ const storeCopy = {
     noProduct: "No active products yet.",
     item: "item",
     hour: "hour",
+    manual: "Manual",
   },
 };
 
@@ -132,7 +140,7 @@ export default function Store() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedId, setSelectedId] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [form, setForm] = useState({ name: "", email: "", phone: "", quantity: 1 });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", note: "", quantity: 1 });
   const [loading, setLoading] = useState(true);
   const [checkingOut, setCheckingOut] = useState(false);
   const [error, setError] = useState("");
@@ -168,6 +176,7 @@ export default function Store() {
     () => splitDescription(selected?.description),
     [selected?.description]
   );
+  const isManualFulfillment = selected?.fulfillmentType === "manual_upload";
 
   const filteredProducts = useMemo(() => {
     const query = normalizeText(searchQuery);
@@ -178,9 +187,19 @@ export default function Store() {
     });
   }, [activeCategory, products, searchQuery]);
 
+  useEffect(() => {
+    if (!filteredProducts.length) {
+      setSelectedId("");
+      return;
+    }
+    if (!filteredProducts.some((product) => product.id === selectedId)) {
+      setSelectedId(filteredProducts[0].id);
+    }
+  }, [filteredProducts, selectedId]);
+
   const selectedTotal = selected ? Number(selected.price || 0) * Number(form.quantity || 1) : 0;
   const productCount = products.length;
-  const availableCount = products.filter((product) => Number(product.stock || 0) > 0).length;
+  const availableCount = products.filter((product) => product.fulfillmentType === "manual_upload" || Number(product.stock || 0) > 0).length;
 
   const selectCategory = (categoryId) => {
     setActiveCategory(categoryId);
@@ -195,15 +214,16 @@ export default function Store() {
   };
 
   const selectProduct = (product) => {
+    const maxQuantity = product.fulfillmentType === "manual_upload" ? 20 : Math.max(1, Number(product.stock || 1));
     setSelectedId(product.id);
     setForm((current) => ({
       ...current,
-      quantity: Math.min(Math.max(1, Number(current.quantity || 1)), Math.max(1, Number(product.stock || 1))),
+      quantity: Math.min(Math.max(1, Number(current.quantity || 1)), maxQuantity),
     }));
   };
 
   const updateQuantity = (value) => {
-    const maxStock = Math.max(1, Number(selected?.stock || 1));
+    const maxStock = selected?.fulfillmentType === "manual_upload" ? 20 : Math.max(1, Number(selected?.stock || 1));
     const nextValue = Math.min(maxStock, Math.max(1, Number(value || 1)));
     setForm((current) => ({ ...current, quantity: nextValue }));
   };
@@ -224,14 +244,18 @@ export default function Store() {
           name: form.name,
           email: form.email,
           phone: form.phone,
+          note: form.note,
           quantity: form.quantity,
         }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Checkout gagal");
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.detail || data.error || "Checkout gagal");
       navigate(toLocalized(`/store/order/${data.order.merchantRef}`), { state: data });
     } catch (err) {
-      setError(err.message);
+      const message = err.message === "Failed to fetch"
+        ? "Checkout gagal terhubung ke API. Coba refresh halaman atau ulangi sebentar lagi."
+        : err.message;
+      setError(message);
     } finally {
       setCheckingOut(false);
     }
@@ -267,7 +291,7 @@ export default function Store() {
               [LockKeyhole, "Token"],
             ].map(([Icon, label]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 text-center">
-                <Icon className="mx-auto text-cyan-200" size={22} aria-hidden="true" />
+                {React.createElement(Icon, { className: "mx-auto text-cyan-200", size: 22, "aria-hidden": true })}
                 <p className="mt-3 text-sm font-semibold text-white/70">{label}</p>
               </div>
             ))}
@@ -288,9 +312,8 @@ export default function Store() {
         </section>
 
         {loading ? (
-          <div className="flex min-h-[320px] items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] text-white/65">
-            <Loader2 className="mr-3 animate-spin" size={20} aria-hidden="true" />
-            {t.loading}
+          <div className="flex min-h-[360px] items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-white/65">
+            <TetrisLoading size="sm" speed="fast" loadingText={t.loading} />
           </div>
         ) : (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_420px]">
@@ -405,9 +428,9 @@ export default function Store() {
                               <p className="text-xl font-bold text-cyan-100">{formatRupiah(product.price)}</p>
                             </div>
                             <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
-                              stock > 0 ? "bg-emerald-400/12 text-emerald-200" : "bg-red-400/12 text-red-200"
+                              product.fulfillmentType === "manual_upload" || stock > 0 ? "bg-emerald-400/12 text-emerald-200" : "bg-red-400/12 text-red-200"
                             }`}>
-                              {t.stockLabel} {stock}
+                              {product.fulfillmentType === "manual_upload" ? t.manual : `${t.stockLabel} ${stock}`}
                             </span>
                           </div>
                         </div>
@@ -430,7 +453,7 @@ export default function Store() {
                       <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
                         {[
                           [t.price, formatRupiah(selected.price)],
-                          [t.stockLabel, `${selected.stock} ${t.item}`],
+                          [t.stockLabel, isManualFulfillment ? t.manual : `${selected.stock} ${t.item}`],
                           [t.delivery, t.deliveryAuto],
                           [t.warranty, `${selected.warrantyHours || 24} ${t.hour}`],
                         ].map(([label, value]) => (
@@ -495,6 +518,17 @@ export default function Store() {
                           />
                         </label>
 
+                        <label className="block">
+                          <span className="mb-2 block text-sm font-semibold text-white/78">{t.note}</span>
+                          <textarea
+                            value={form.note || ""}
+                            onChange={(event) => setForm({ ...form, note: event.target.value })}
+                            placeholder={t.notePlaceholder}
+                            rows="3"
+                            className="w-full rounded-xl border border-white/10 bg-white/[0.055] px-4 py-3 text-base text-white outline-none transition-colors placeholder:text-white/32 focus:border-cyan-200/55"
+                          />
+                        </label>
+
                         <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                           <div>
                             <p className="text-sm font-semibold text-white">{t.quantity}</p>
@@ -512,7 +546,7 @@ export default function Store() {
                             <input
                               type="number"
                               min="1"
-                              max={selected.stock}
+                              max={isManualFulfillment ? 20 : selected.stock}
                               value={form.quantity}
                               onChange={(event) => updateQuantity(event.target.value)}
                               className="h-11 w-14 border-x border-white/10 bg-transparent text-center text-base font-bold text-white outline-none"
@@ -531,10 +565,15 @@ export default function Store() {
                       </div>
 
                       {error && (
-                        <div className="mt-4 flex gap-3 rounded-2xl border border-red-300/20 bg-red-400/10 p-4 text-sm leading-6 text-red-100">
-                          <CircleAlert className="mt-0.5 shrink-0" size={18} aria-hidden="true" />
-                          {error}
-                        </div>
+                        <Alert variant="destructive" className="mt-5">
+                          <div className="flex gap-3">
+                            <CircleAlert className="mt-0.5 shrink-0 text-red-100" size={18} aria-hidden="true" />
+                            <div>
+                              <AlertTitle>Checkout gagal</AlertTitle>
+                              <AlertDescription>{error}</AlertDescription>
+                            </div>
+                          </div>
+                        </Alert>
                       )}
 
                       <div className="mt-6 border-t border-white/10 pt-5">
@@ -544,7 +583,7 @@ export default function Store() {
                         </div>
                         <button
                           type="submit"
-                          disabled={checkingOut || Number(selected.stock || 0) <= 0}
+                          disabled={checkingOut || (!isManualFulfillment && Number(selected.stock || 0) <= 0)}
                           className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-cyan-100 px-5 text-base font-bold text-black transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-45"
                         >
                           {checkingOut ? (
@@ -574,15 +613,11 @@ export default function Store() {
                   [Download, "TXT"],
                 ].map(([Icon, label]) => (
                   <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 text-center">
-                    <Icon className="mx-auto text-white/55" size={18} aria-hidden="true" />
+                    {React.createElement(Icon, { className: "mx-auto text-white/55", size: 18, "aria-hidden": true })}
                     <p className="mt-2 text-xs font-semibold text-white/48">{label}</p>
                   </div>
                 ))}
               </div>
-
-              <Link to={toLocalized("/store/admin")} className="mt-5 inline-block text-xs text-white/25 hover:text-white/55">
-                Admin
-              </Link>
             </aside>
           </div>
         )}

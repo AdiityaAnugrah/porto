@@ -7,6 +7,7 @@ import WhatsAppCTA from "./components/WhatsAppCTA";
 import MouseGlow from "./components/common/MouseGlow";
 import PageLoader from "./components/common/PageLoader";
 import VisitorCounter from "./components/VisitorCounter";
+import StoreFloatingCTA from "./components/StoreFloatingCTA";
 
 const Layout = () => {
   const location = useLocation();
@@ -51,6 +52,7 @@ const Layout = () => {
 
         <Footer />
         <VisitorCounter />
+        <StoreFloatingCTA />
         <WhatsAppCTA />
     </div>
   );

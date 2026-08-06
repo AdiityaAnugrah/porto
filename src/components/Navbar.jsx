@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaHome, FaUser, FaCode, FaEnvelope, FaBookOpen, FaShoppingBag } from "react-icons/fa";
+import { FaHome, FaUser, FaCode, FaEnvelope, FaBookOpen, FaShoppingBag, FaFileInvoice } from "react-icons/fa";
 import { stripLocaleFromPath, useLocalizedPath } from "../lib/i18n";
 
 const navItems = [
@@ -9,6 +9,7 @@ const navItems = [
   { path: "/about", label: "About", icon: FaUser },
   { path: "/projects", label: "Work", icon: FaCode },
   { path: "/store", label: "Store", icon: FaShoppingBag },
+  { path: "/invoice", label: "Invoice", icon: FaFileInvoice },
   { path: "/blog", label: "Blog", icon: FaBookOpen },
   { path: "/contact", label: "Contact", icon: FaEnvelope },
 ];

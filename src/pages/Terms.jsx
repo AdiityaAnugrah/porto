@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SEO from "../components/SEO";
 import { FaExclamationTriangle, FaFileContract, FaHandshake, FaShieldAlt } from "react-icons/fa";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/8bit-alert";
 import { useLocalizedPath } from "../lib/i18n";
 
 const lastUpdated = "June 8, 2026";
@@ -109,13 +110,18 @@ export default function Terms() {
       </section>
 
       <div className="glass-panel rounded-3xl p-6 md:p-10">
-        <div className="mb-8 flex items-start gap-4 rounded-2xl border border-cyan-300/15 bg-cyan-300/5 p-5">
-          <FaFileContract className="mt-1 shrink-0 text-xl text-cyan-300" aria-hidden="true" />
-          <p className="text-sm md:text-base leading-relaxed text-white/65">
-            By accessing or using this website, you agree to these terms. If you do not agree,
-            do not use the website.
-          </p>
-        </div>
+        <Alert variant="info" className="mb-9">
+          <div className="flex gap-3">
+            <FaFileContract className="mt-1 shrink-0 text-xl text-cyan-100" aria-hidden="true" />
+            <div>
+              <AlertTitle>Website terms</AlertTitle>
+              <AlertDescription>
+                By accessing or using this website, you agree to these terms. If you do not agree,
+                do not use the website.
+              </AlertDescription>
+            </div>
+          </div>
+        </Alert>
 
         <div className="space-y-9">
           {sections.map((section) => (

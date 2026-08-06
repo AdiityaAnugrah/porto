@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Mail, MessageCircle, Send, ShieldCheck } from "lucide-react";
 import SEO from "../components/SEO";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/8bit-alert";
 import { usePreferredLanguage } from "../lib/usePreferredLanguage";
 
 const copy = {
@@ -160,10 +161,10 @@ const Contact = () => {
           <h2 className="text-2xl font-bold text-white">{t.formTitle}</h2>
 
           {status === "success" ? (
-            <div className="mt-6 rounded-2xl border border-emerald-300/20 bg-emerald-400/10 p-5">
-              <h3 className="text-lg font-bold text-emerald-100">{t.successTitle}</h3>
-              <p className="mt-2 text-sm leading-6 text-emerald-100/70">{t.successBody}</p>
-            </div>
+            <Alert variant="success" className="mt-6">
+              <AlertTitle>{t.successTitle}</AlertTitle>
+              <AlertDescription>{t.successBody}</AlertDescription>
+            </Alert>
           ) : (
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <label className="block">
@@ -205,9 +206,10 @@ const Contact = () => {
               </label>
 
               {status === "error" && (
-                <div className="rounded-2xl border border-red-300/20 bg-red-400/10 p-4 text-sm leading-6 text-red-100">
-                  {t.error}
-                </div>
+                <Alert variant="destructive">
+                  <AlertTitle>{language === "id" ? "Pesan gagal" : "Message failed"}</AlertTitle>
+                  <AlertDescription>{t.error}</AlertDescription>
+                </Alert>
               )}
 
               <button

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, BriefcaseBusiness, Filter, Layers3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/projects/ProjectCard";
+import InteractiveSelector from "../components/ui/interactive-selector";
 import SEO from "../components/SEO";
 import { projects } from "../data/projects";
 import { useLocalizedPath } from "../lib/i18n";
@@ -69,11 +70,13 @@ const Projects = () => {
   const t = copy[language] || copy.en;
   const [activeCategory, setActiveCategory] = useState("All");
 
+  const sortedProjects = useMemo(() => [...projects].sort((a, b) => b.year - a.year), []);
+  const highlightedProjects = useMemo(() => sortedProjects.slice(0, 5), [sortedProjects]);
+
   const filteredProjects = useMemo(() => {
-    const sorted = [...projects].sort((a, b) => b.year - a.year);
-    if (activeCategory === "All") return sorted;
-    return sorted.filter((project) => project.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === "All") return sortedProjects;
+    return sortedProjects.filter((project) => project.category === activeCategory);
+  }, [activeCategory, sortedProjects]);
 
   return (
     <div className="min-h-screen px-4 pb-24 pt-24 sm:px-6 md:pb-32 md:pt-28">
@@ -121,6 +124,8 @@ const Projects = () => {
             </button>
           ))}
         </div>
+
+        <InteractiveSelector projects={highlightedProjects} eyebrow={t.badge} />
 
         {filteredProjects.length === 0 ? (
           <div className="flex min-h-[260px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] p-8 text-center">

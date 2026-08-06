@@ -5,7 +5,7 @@ import "./index.css";
 // Register Service Worker for Instant Subsequent Loads
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(err => {
+    navigator.serviceWorker.register('/sw.js?v=20260626-store-fix').catch(err => {
       console.log('SW registration failed: ', err);
     });
   });
@@ -41,6 +41,7 @@ const Terms = lazy(() => import("./pages/Terms.jsx"));
 const Store = lazy(() => import("./pages/Store.jsx"));
 const StoreOrder = lazy(() => import("./pages/StoreOrder.jsx"));
 const StoreAdmin = lazy(() => import("./pages/StoreAdmin.jsx"));
+const Invoice = lazy(() => import("./pages/Invoice.jsx"));
 
 
 createRoot(document.getElementById("root")).render(
@@ -53,6 +54,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="about" element={<LocaleRedirect to="/about" />} />
           <Route path="cv" element={<LocaleRedirect to="/cv" />} />
           <Route path="contact" element={<LocaleRedirect to="/contact" />} />
+          <Route path="invoice" element={<LocaleRedirect to="/invoice" />} />
           <Route path="privacy" element={<LocaleRedirect to="/privacy" />} />
           <Route path="terms" element={<LocaleRedirect to="/terms" />} />
 
@@ -95,6 +97,7 @@ createRoot(document.getElementById("root")).render(
 
           {/* Contact */}
           <Route path="contact" element={<Contact />} />
+          <Route path="invoice" element={<Invoice />} />
 
           {/* Store */}
           <Route path="store">
