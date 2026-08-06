@@ -1465,113 +1465,130 @@ function buildInvoicePdf(invoice) {
   const isPaid = invoice.paymentStatus === "paid";
   const statusLabel = isPaid ? "LUNAS" : "BELUM LUNAS";
   const ops = [];
-  const page = { width: 595, height: 842, margin: 42 };
 
   const color = {
+    ink: [17, 24, 39],
     navy: [15, 23, 42],
     slate: [51, 65, 85],
     muted: [100, 116, 139],
     line: [226, 232, 240],
-    soft: [248, 250, 252],
+    table: [248, 250, 252],
+    panel: [241, 245, 249],
     gold: [201, 169, 104],
-    green: [22, 101, 52],
+    green: [21, 128, 61],
     greenBg: [220, 252, 231],
-    amber: [146, 64, 14],
+    amber: [180, 83, 9],
     amberBg: [254, 243, 199],
     white: [255, 255, 255],
   };
 
-  pdfRect(ops, 0, 760, page.width, 82, color.navy);
-  pdfRect(ops, 0, 754, page.width, 6, color.gold);
-  pdfTextAt(ops, 42, 804, "INVOICE", 28, "F2", color.white);
-  pdfTextAt(ops, 44, 783, invoice.invoiceNumber, 11, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 392, 805, "TOTAL TAGIHAN", 9, "F2", [203, 213, 225]);
-  pdfTextAt(ops, 553, 781, money(invoice.total, invoice.currency), 18, "F2", color.white, "right");
-
   const badgeColor = isPaid ? color.green : color.amber;
   const badgeBg = isPaid ? color.greenBg : color.amberBg;
-  pdfRect(ops, 426, 716, 127, 30, badgeBg);
-  pdfTextAt(ops, 489.5, 726, statusLabel, 11, "F2", badgeColor, "center");
 
-  pdfTextAt(ops, 42, 724, "DITERBITKAN OLEH", 9, "F2", color.muted);
-  pdfTextAt(ops, 42, 704, invoice.sender.name, 15, "F2", color.navy);
-  let senderY = 688;
+  // Page frame + clean brand header.
+  pdfRect(ops, 0, 772, 595, 70, color.navy);
+  pdfRect(ops, 0, 768, 595, 4, color.gold);
+  pdfTextAt(ops, 44, 812, "INVOICE", 24, "F2", color.white);
+  pdfTextAt(ops, 45, 792, invoice.invoiceNumber, 10, "F1", [203, 213, 225]);
+  pdfTextAt(ops, 552, 814, "TOTAL", 9, "F2", [203, 213, 225], "right");
+  pdfTextAt(ops, 552, 790, money(invoice.total, invoice.currency), 18, "F2", color.white, "right");
+
+  // Status pill / paid mark.
+  pdfRect(ops, 437, 728, 115, 28, badgeBg);
+  pdfTextAt(ops, 494.5, 738, statusLabel, 10, "F2", badgeColor, "center");
+
+  // Sender and recipient blocks.
+  pdfTextAt(ops, 44, 724, "DARI", 8, "F2", color.muted);
+  pdfTextAt(ops, 44, 705, invoice.sender.name, 14, "F2", color.ink);
+  let sy = 688;
   for (const line of [invoice.sender.email, invoice.sender.phone, invoice.sender.address].filter(Boolean)) {
     for (const part of wrapPdfText(line, 42).slice(0, 2)) {
-      pdfTextAt(ops, 42, senderY, part, 9, "F1", color.slate);
-      senderY -= 13;
+      pdfTextAt(ops, 44, sy, part, 9, "F1", color.slate);
+      sy -= 12;
     }
   }
 
-  pdfTextAt(ops, 318, 724, "DITAGIHKAN KEPADA", 9, "F2", color.muted);
-  pdfTextAt(ops, 318, 704, invoice.recipient.name, 15, "F2", color.navy);
-  let billY = 688;
+  pdfTextAt(ops, 318, 724, "UNTUK", 8, "F2", color.muted);
+  pdfTextAt(ops, 318, 705, invoice.recipient.name, 14, "F2", color.ink);
+  let by = 688;
   for (const line of [invoice.recipient.company, invoice.recipient.email, invoice.recipient.address].filter(Boolean)) {
     for (const part of wrapPdfText(line, 38).slice(0, 2)) {
-      pdfTextAt(ops, 318, billY, part, 9, "F1", color.slate);
-      billY -= 13;
+      pdfTextAt(ops, 318, by, part, 9, "F1", color.slate);
+      by -= 12;
     }
   }
 
-  pdfLine(ops, 42, 642, 553, 642, color.line, 1);
-  pdfTextAt(ops, 42, 622, "Tanggal Invoice", 9, "F2", color.muted);
-  pdfTextAt(ops, 42, 604, invoice.issueDate, 12, "F2", color.navy);
-  pdfTextAt(ops, 205, 622, "Jatuh Tempo", 9, "F2", color.muted);
-  pdfTextAt(ops, 205, 604, invoice.dueDate || "-", 12, "F2", color.navy);
-  pdfTextAt(ops, 368, 622, "Status", 9, "F2", color.muted);
-  pdfTextAt(ops, 368, 604, statusLabel, 12, "F2", badgeColor);
+  // Invoice metadata strip.
+  pdfLine(ops, 44, 638, 552, 638, color.line, 1);
+  const meta = [
+    [44, "Tanggal Invoice", invoice.issueDate],
+    [210, "Jatuh Tempo", invoice.dueDate || "-"],
+    [376, "Status", statusLabel],
+  ];
+  for (const [x, label, value] of meta) {
+    pdfTextAt(ops, x, 616, label, 8, "F2", color.muted);
+    pdfTextAt(ops, x, 598, value, 11, "F2", label === "Status" ? badgeColor : color.ink);
+  }
 
-  const tableTop = 566;
-  pdfRect(ops, 42, tableTop, 511, 34, color.navy);
-  pdfTextAt(ops, 58, tableTop + 12, "DESKRIPSI", 9, "F2", color.white);
-  pdfTextAt(ops, 348, tableTop + 12, "QTY", 9, "F2", color.white, "center");
-  pdfTextAt(ops, 438, tableTop + 12, "HARGA", 9, "F2", color.white, "right");
-  pdfTextAt(ops, 535, tableTop + 12, "JUMLAH", 9, "F2", color.white, "right");
+  // Items table.
+  const tableTop = 562;
+  pdfRect(ops, 44, tableTop, 508, 32, color.navy);
+  pdfTextAt(ops, 60, tableTop + 11, "DESKRIPSI", 8, "F2", color.white);
+  pdfTextAt(ops, 338, tableTop + 11, "QTY", 8, "F2", color.white, "center");
+  pdfTextAt(ops, 430, tableTop + 11, "HARGA", 8, "F2", color.white, "right");
+  pdfTextAt(ops, 534, tableTop + 11, "JUMLAH", 8, "F2", color.white, "right");
 
-  let y = tableTop - 26;
-  invoice.items.slice(0, 8).forEach((item, index) => {
-    const descLines = wrapPdfText(item.description, 44).slice(0, 2);
-    const rowHeight = Math.max(38, 20 + descLines.length * 12);
-    if (index % 2 === 0) pdfRect(ops, 42, y - rowHeight + 14, 511, rowHeight, color.soft);
-    pdfTextAt(ops, 58, y, descLines[0] || "-", 10, "F2", color.navy);
-    if (descLines[1]) pdfTextAt(ops, 58, y - 13, descLines[1], 9, "F1", color.muted);
-    pdfTextAt(ops, 348, y, String(item.quantity), 10, "F1", color.slate, "center");
-    pdfTextAt(ops, 438, y, money(item.unitPrice, invoice.currency), 10, "F1", color.slate, "right");
-    pdfTextAt(ops, 535, y, money(item.amount, invoice.currency), 10, "F2", color.navy, "right");
-    pdfLine(ops, 42, y - rowHeight + 12, 553, y - rowHeight + 12, color.line, 0.6);
+  let y = tableTop - 28;
+  invoice.items.slice(0, 7).forEach((item, index) => {
+    const descLines = wrapPdfText(item.description, 43).slice(0, 2);
+    const rowHeight = descLines.length > 1 ? 50 : 42;
+    pdfRect(ops, 44, y - rowHeight + 16, 508, rowHeight, index % 2 === 0 ? color.table : color.white);
+    pdfTextAt(ops, 60, y, descLines[0] || "-", 9.5, "F2", color.ink);
+    if (descLines[1]) pdfTextAt(ops, 60, y - 13, descLines[1], 8.5, "F1", color.muted);
+    pdfTextAt(ops, 338, y, String(item.quantity), 9.5, "F1", color.slate, "center");
+    pdfTextAt(ops, 430, y, money(item.unitPrice, invoice.currency), 9.5, "F1", color.slate, "right");
+    pdfTextAt(ops, 534, y, money(item.amount, invoice.currency), 9.5, "F2", color.ink, "right");
+    pdfLine(ops, 44, y - rowHeight + 16, 552, y - rowHeight + 16, color.line, 0.5);
     y -= rowHeight;
   });
 
-  const totalsY = Math.max(178, y - 12);
-  pdfRect(ops, 342, totalsY - 6, 211, 122, color.navy);
-  pdfTextAt(ops, 362, totalsY + 88, "Subtotal", 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 535, totalsY + 88, money(invoice.subtotal, invoice.currency), 10, "F1", color.white, "right");
-  pdfTextAt(ops, 362, totalsY + 64, "Diskon", 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 535, totalsY + 64, money(invoice.discount, invoice.currency), 10, "F1", color.white, "right");
-  pdfTextAt(ops, 362, totalsY + 40, `Pajak (${invoice.taxRate || 0}%)`, 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 535, totalsY + 40, money(invoice.tax, invoice.currency), 10, "F1", color.white, "right");
-  pdfLine(ops, 362, totalsY + 24, 535, totalsY + 24, [71, 85, 105], 1);
-  pdfTextAt(ops, 362, totalsY + 4, "TOTAL", 13, "F2", color.white);
-  pdfTextAt(ops, 535, totalsY + 4, money(invoice.total, invoice.currency), 13, "F2", color.white, "right");
+  // Below-table section calculated from actual row count, preventing overlap.
+  const belowTop = Math.min(y - 18, 352);
+  const summaryBottom = Math.max(92, belowTop - 132);
 
-  pdfTextAt(ops, 42, totalsY + 96, "CATATAN", 9, "F2", color.muted);
-  let noteY = totalsY + 76;
-  for (const part of wrapPdfText(invoice.notes, 48).slice(0, 5)) {
-    pdfTextAt(ops, 42, noteY, part, 9, "F1", color.slate);
-    noteY -= 13;
+  // Notes/payment card on the left.
+  pdfTextAt(ops, 44, belowTop, "CATATAN", 8, "F2", color.muted);
+  let noteY = belowTop - 18;
+  for (const part of wrapPdfText(invoice.notes, 47).slice(0, 4)) {
+    pdfTextAt(ops, 44, noteY, part, 8.5, "F1", color.slate);
+    noteY -= 12;
   }
   if (invoice.paymentInfo) {
-    pdfTextAt(ops, 42, noteY - 10, "DETAIL PEMBAYARAN", 9, "F2", color.muted);
-    noteY -= 30;
-    for (const part of wrapPdfText(invoice.paymentInfo, 48).slice(0, 5)) {
-      pdfTextAt(ops, 42, noteY, part, 9, "F1", color.slate);
-      noteY -= 13;
+    noteY -= 8;
+    pdfTextAt(ops, 44, noteY, "DETAIL PEMBAYARAN", 8, "F2", color.muted);
+    noteY -= 18;
+    for (const part of wrapPdfText(invoice.paymentInfo, 47).slice(0, 4)) {
+      pdfTextAt(ops, 44, noteY, part, 8.5, "F1", color.slate);
+      noteY -= 12;
     }
   }
 
-  pdfLine(ops, 42, 54, 553, 54, color.line, 1);
-  pdfTextAt(ops, 42, 34, `Invoice dibuat otomatis oleh ${invoice.sender.name}`, 8, "F1", color.muted);
-  pdfTextAt(ops, 553, 34, "Terima kasih atas kepercayaannya", 8, "F1", color.muted, "right");
+  // Summary card on the right.
+  pdfRect(ops, 333, summaryBottom, 219, 128, color.navy);
+  pdfTextAt(ops, 354, summaryBottom + 101, "Subtotal", 10, "F1", [203, 213, 225]);
+  pdfTextAt(ops, 532, summaryBottom + 101, money(invoice.subtotal, invoice.currency), 10, "F1", color.white, "right");
+  pdfTextAt(ops, 354, summaryBottom + 76, "Diskon", 10, "F1", [203, 213, 225]);
+  pdfTextAt(ops, 532, summaryBottom + 76, money(invoice.discount, invoice.currency), 10, "F1", color.white, "right");
+  pdfTextAt(ops, 354, summaryBottom + 51, `Pajak (${invoice.taxRate || 0}%)`, 10, "F1", [203, 213, 225]);
+  pdfTextAt(ops, 532, summaryBottom + 51, money(invoice.tax, invoice.currency), 10, "F1", color.white, "right");
+  pdfLine(ops, 354, summaryBottom + 34, 532, summaryBottom + 34, [71, 85, 105], 1);
+  pdfTextAt(ops, 354, summaryBottom + 12, "TOTAL", 13, "F2", color.white);
+  pdfTextAt(ops, 532, summaryBottom + 12, money(invoice.total, invoice.currency), 13, "F2", color.white, "right");
+
+
+  pdfLine(ops, 44, 54, 552, 54, color.line, 1);
+  pdfTextAt(ops, 44, 34, `Invoice dibuat otomatis oleh ${invoice.sender.name}`, 8, "F1", color.muted);
+  pdfTextAt(ops, 552, 34, "Terima kasih atas kepercayaannya", 8, "F1", color.muted, "right");
 
   const stream = ops.join("\n");
   const objects = [
@@ -1611,7 +1628,7 @@ function pdfLine(ops, x1, y1, x2, y2, rgb, width = 1) {
 
 function pdfTextAt(ops, x, y, value, size = 10, font = "F1", rgb = [0, 0, 0], align = "left") {
   const text = pdfText(value);
-  const estimatedWidth = text.length * size * 0.52;
+  const estimatedWidth = text.length * size * 0.50;
   const tx = align === "right" ? x - estimatedWidth : align === "center" ? x - estimatedWidth / 2 : x;
   ops.push(`BT ${pdfRgb(rgb)} rg /${font} ${size} Tf ${tx.toFixed(2)} ${y.toFixed(2)} Td (${text}) Tj ET`);
 }
