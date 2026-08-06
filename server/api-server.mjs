@@ -1331,6 +1331,21 @@ function money(value, currency = "IDR") {
   }).format(Number(value || 0));
 }
 
+function formatInvoiceDate(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "-";
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(raw)
+    ? new Date(`${raw}T00:00:00+07:00`)
+    : new Date(raw);
+  if (Number.isNaN(date.getTime())) return raw;
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Jakarta",
+  }).format(date);
+}
+
 function buildInvoiceEmailText(invoice) {
   return [
     `Halo ${invoice.recipient.name},`,
@@ -1353,7 +1368,7 @@ function buildInvoiceEmailText(invoice) {
 function buildInvoiceEmailHtml(invoice) {
   const isPaid = invoice.paymentStatus === "paid";
   const statusLabel = isPaid ? "LUNAS" : "BELUM LUNAS";
-  const statusColor = isPaid ? "#166534" : "#92400e";
+  const statusColor = "#111827";
   const rows = invoice.items
     .map((item, index) => `
       <tr>
@@ -1406,8 +1421,8 @@ function buildInvoiceEmailHtml(invoice) {
 
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 0 26px;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb">
         <tr>
-          <td style="padding:12px 0;color:#6b7280;font-size:12px">Tanggal Invoice<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(invoice.issueDate)}</strong></td>
-          <td style="padding:12px 0;color:#6b7280;font-size:12px">Jatuh Tempo<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(invoice.dueDate || "-")}</strong></td>
+          <td style="padding:12px 0;color:#6b7280;font-size:12px">Tanggal Invoice<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(formatInvoiceDate(invoice.issueDate))}</strong></td>
+          <td style="padding:12px 0;color:#6b7280;font-size:12px">Jatuh Tempo<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(formatInvoiceDate(invoice.dueDate))}</strong></td>
           <td style="padding:12px 0;color:#6b7280;font-size:12px;text-align:right">Status<br><strong style="display:block;margin-top:4px;color:${statusColor};font-size:14px">${statusLabel}</strong></td>
         </tr>
       </table>
@@ -1473,7 +1488,7 @@ function buildInvoicePdf(invoice) {
     green: [21, 128, 61],
     amber: [180, 83, 9],
   };
-  const statusColor = isPaid ? color.green : color.amber;
+  const statusColor = color.ink;
 
   // Minimal professional letterhead, no colored background blocks.
   pdfTextAt(ops, 44, 795, "INVOICE", 26, "F2", color.ink);
@@ -1509,13 +1524,13 @@ function buildInvoicePdf(invoice) {
 
   pdfLine(ops, 44, 636, 552, 636, color.softLine, 1);
   const meta = [
-    [44, "Tanggal Invoice", invoice.issueDate],
-    [210, "Jatuh Tempo", invoice.dueDate || "-"],
+    [44, "Tanggal Invoice", formatInvoiceDate(invoice.issueDate)],
+    [210, "Jatuh Tempo", formatInvoiceDate(invoice.dueDate)],
     [376, "Status", statusLabel],
   ];
   for (const [x, label, value] of meta) {
     pdfTextAt(ops, x, 613, label, 8, "F2", color.muted);
-    pdfTextAt(ops, x, 594, value, 11, "F2", label === "Status" ? statusColor : color.ink);
+    pdfTextAt(ops, x, 594, value, 11, "F2", color.ink);
   }
   pdfLine(ops, 44, 578, 552, 578, color.softLine, 1);
 
