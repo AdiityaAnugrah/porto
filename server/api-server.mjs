@@ -1354,98 +1354,96 @@ function buildInvoiceEmailHtml(invoice) {
   const isPaid = invoice.paymentStatus === "paid";
   const statusLabel = isPaid ? "LUNAS" : "BELUM LUNAS";
   const statusColor = isPaid ? "#166534" : "#92400e";
-  const statusBg = isPaid ? "#dcfce7" : "#fef3c7";
   const rows = invoice.items
     .map((item, index) => `
       <tr>
-        <td style="padding:16px 18px;border-bottom:1px solid #eef2f7;color:#64748b;font-size:13px;vertical-align:top">${index + 1}</td>
-        <td style="padding:16px 18px;border-bottom:1px solid #eef2f7;color:#0f172a;font-size:14px;font-weight:700;line-height:1.5;vertical-align:top">${escapeHtml(item.description)}</td>
-        <td style="padding:16px 18px;border-bottom:1px solid #eef2f7;color:#334155;font-size:14px;text-align:center;vertical-align:top">${item.quantity}</td>
-        <td style="padding:16px 18px;border-bottom:1px solid #eef2f7;color:#334155;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top">${money(item.unitPrice, invoice.currency)}</td>
-        <td style="padding:16px 18px;border-bottom:1px solid #eef2f7;color:#0f172a;font-size:14px;text-align:right;font-weight:800;white-space:nowrap;vertical-align:top">${money(item.amount, invoice.currency)}</td>
+        <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;color:#6b7280;font-size:13px;vertical-align:top;width:34px">${index + 1}</td>
+        <td style="padding:14px 12px 14px 0;border-bottom:1px solid #e5e7eb;color:#111827;font-size:14px;font-weight:600;line-height:1.45;vertical-align:top">${escapeHtml(item.description)}</td>
+        <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;color:#374151;font-size:14px;text-align:center;vertical-align:top;width:56px">${item.quantity}</td>
+        <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;color:#374151;font-size:14px;text-align:right;white-space:nowrap;vertical-align:top;width:118px">${money(item.unitPrice, invoice.currency)}</td>
+        <td style="padding:14px 0;border-bottom:1px solid #e5e7eb;color:#111827;font-size:14px;text-align:right;font-weight:700;white-space:nowrap;vertical-align:top;width:128px">${money(item.amount, invoice.currency)}</td>
       </tr>`)
     .join("");
 
   return `<!doctype html>
 <html>
-  <body style="margin:0;background:#eef2f7;font-family:Inter,Segoe UI,Arial,sans-serif;color:#0f172a">
-    <div style="max-width:760px;margin:0 auto;padding:32px 16px">
-      <div style="border-radius:28px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;box-shadow:0 24px 70px rgba(15,23,42,.12)">
-        <div style="background:#0f172a;padding:34px 34px 30px;color:#ffffff">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
-            <tr>
-              <td style="vertical-align:top">
-                <div style="display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(201,169,104,.16);color:#f8e7bd;font-size:12px;font-weight:800;letter-spacing:.12em">PROFESSIONAL INVOICE</div>
-                <h1 style="margin:18px 0 6px;font-size:32px;line-height:1.1;letter-spacing:-.03em">${escapeHtml(invoice.invoiceNumber)}</h1>
-                <p style="margin:0;color:#cbd5e1;font-size:14px">Diterbitkan oleh ${escapeHtml(invoice.sender.name)}</p>
-              </td>
-              <td align="right" style="vertical-align:top">
-                <div style="display:inline-block;padding:10px 14px;border-radius:999px;background:${statusBg};color:${statusColor};font-size:13px;font-weight:900;letter-spacing:.1em">${statusLabel}</div>
-                <p style="margin:18px 0 0;color:#cbd5e1;font-size:13px">Total tagihan</p>
-                <p style="margin:4px 0 0;color:#ffffff;font-size:28px;font-weight:900;letter-spacing:-.03em">${money(invoice.total, invoice.currency)}</p>
-              </td>
-            </tr>
-          </table>
-        </div>
+  <body style="margin:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:#111827">
+    <div style="max-width:720px;margin:0 auto;padding:34px 24px">
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border-bottom:2px solid #111827;padding-bottom:18px">
+        <tr>
+          <td style="vertical-align:top;padding-bottom:18px">
+            <p style="margin:0;color:#6b7280;font-size:12px;font-weight:700;letter-spacing:.14em">INVOICE</p>
+            <h1 style="margin:8px 0 0;color:#111827;font-size:28px;line-height:1.15;letter-spacing:-.02em">${escapeHtml(invoice.invoiceNumber)}</h1>
+          </td>
+          <td align="right" style="vertical-align:top;padding-bottom:18px">
+            <div style="display:inline-block;border:2px solid ${statusColor};color:${statusColor};padding:7px 14px;font-size:12px;font-weight:800;letter-spacing:.12em">${statusLabel}</div>
+            <p style="margin:14px 0 0;color:#6b7280;font-size:12px;font-weight:700;letter-spacing:.08em">TOTAL</p>
+            <p style="margin:4px 0 0;color:#111827;font-size:24px;font-weight:800">${money(invoice.total, invoice.currency)}</p>
+          </td>
+        </tr>
+      </table>
 
-        <div style="padding:32px 34px">
-          <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.7">Halo <strong>${escapeHtml(invoice.recipient.name)}</strong>, berikut invoice resmi dalam format PDF. Detail ringkasan invoice juga tersedia di email ini untuk memudahkan pengecekan.</p>
+      <p style="margin:24px 0;color:#374151;font-size:15px;line-height:1.65">Halo <strong>${escapeHtml(invoice.recipient.name)}</strong>, terlampir invoice PDF untuk kebutuhan pembayaran dan administrasi. Ringkasan invoice tersedia di bawah ini.</p>
 
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:0 14px;margin:10px 0 22px">
-            <tr>
-              <td style="width:50%;vertical-align:top;padding:18px;border:1px solid #e2e8f0;border-radius:18px;background:#f8fafc">
-                <p style="margin:0 0 8px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:.08em">DITAGIHKAN KEPADA</p>
-                <p style="margin:0;color:#0f172a;font-size:16px;font-weight:900">${escapeHtml(invoice.recipient.name)}</p>
-                ${invoice.recipient.company ? `<p style="margin:4px 0 0;color:#475569;font-size:14px">${escapeHtml(invoice.recipient.company)}</p>` : ""}
-                <p style="margin:4px 0 0;color:#475569;font-size:14px">${escapeHtml(invoice.recipient.email)}</p>
-                ${invoice.recipient.address ? `<p style="margin:4px 0 0;color:#64748b;font-size:13px;line-height:1.5">${escapeHtml(invoice.recipient.address)}</p>` : ""}
-              </td>
-              <td style="width:14px"></td>
-              <td style="width:50%;vertical-align:top;padding:18px;border:1px solid #e2e8f0;border-radius:18px;background:#f8fafc">
-                <p style="margin:0 0 8px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:.08em">DETAIL INVOICE</p>
-                <p style="margin:0;color:#475569;font-size:14px">Tanggal: <strong style="color:#0f172a">${escapeHtml(invoice.issueDate)}</strong></p>
-                ${invoice.dueDate ? `<p style="margin:6px 0 0;color:#475569;font-size:14px">Jatuh tempo: <strong style="color:#0f172a">${escapeHtml(invoice.dueDate)}</strong></p>` : ""}
-                <p style="margin:6px 0 0;color:#475569;font-size:14px">Status: <strong style="color:${statusColor}">${statusLabel}</strong></p>
-              </td>
-            </tr>
-          </table>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 0 26px">
+        <tr>
+          <td style="width:50%;vertical-align:top;padding-right:18px">
+            <p style="margin:0 0 8px;color:#6b7280;font-size:11px;font-weight:800;letter-spacing:.12em">DARI</p>
+            <p style="margin:0;color:#111827;font-size:16px;font-weight:800">${escapeHtml(invoice.sender.name)}</p>
+            ${invoice.sender.email ? `<p style="margin:5px 0 0;color:#374151;font-size:13px">${escapeHtml(invoice.sender.email)}</p>` : ""}
+            ${invoice.sender.phone ? `<p style="margin:4px 0 0;color:#374151;font-size:13px">${escapeHtml(invoice.sender.phone)}</p>` : ""}
+            ${invoice.sender.address ? `<p style="margin:4px 0 0;color:#6b7280;font-size:13px;line-height:1.45">${escapeHtml(invoice.sender.address)}</p>` : ""}
+          </td>
+          <td style="width:50%;vertical-align:top;padding-left:18px;border-left:1px solid #e5e7eb">
+            <p style="margin:0 0 8px;color:#6b7280;font-size:11px;font-weight:800;letter-spacing:.12em">UNTUK</p>
+            <p style="margin:0;color:#111827;font-size:16px;font-weight:800">${escapeHtml(invoice.recipient.name)}</p>
+            ${invoice.recipient.company ? `<p style="margin:5px 0 0;color:#374151;font-size:13px">${escapeHtml(invoice.recipient.company)}</p>` : ""}
+            <p style="margin:4px 0 0;color:#374151;font-size:13px">${escapeHtml(invoice.recipient.email)}</p>
+            ${invoice.recipient.address ? `<p style="margin:4px 0 0;color:#6b7280;font-size:13px;line-height:1.45">${escapeHtml(invoice.recipient.address)}</p>` : ""}
+          </td>
+        </tr>
+      </table>
 
-          <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border:1px solid #e2e8f0;border-radius:18px;overflow:hidden">
-            <thead>
-              <tr style="background:#f1f5f9">
-                <th align="left" style="padding:14px 18px;color:#64748b;font-size:11px;letter-spacing:.08em">NO</th>
-                <th align="left" style="padding:14px 18px;color:#64748b;font-size:11px;letter-spacing:.08em">DESKRIPSI</th>
-                <th align="center" style="padding:14px 18px;color:#64748b;font-size:11px;letter-spacing:.08em">QTY</th>
-                <th align="right" style="padding:14px 18px;color:#64748b;font-size:11px;letter-spacing:.08em">HARGA</th>
-                <th align="right" style="padding:14px 18px;color:#64748b;font-size:11px;letter-spacing:.08em">JUMLAH</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 0 26px;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb">
+        <tr>
+          <td style="padding:12px 0;color:#6b7280;font-size:12px">Tanggal Invoice<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(invoice.issueDate)}</strong></td>
+          <td style="padding:12px 0;color:#6b7280;font-size:12px">Jatuh Tempo<br><strong style="display:block;margin-top:4px;color:#111827;font-size:14px">${escapeHtml(invoice.dueDate || "-")}</strong></td>
+          <td style="padding:12px 0;color:#6b7280;font-size:12px;text-align:right">Status<br><strong style="display:block;margin-top:4px;color:${statusColor};font-size:14px">${statusLabel}</strong></td>
+        </tr>
+      </table>
 
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:24px;border-collapse:collapse">
-            <tr>
-              <td style="vertical-align:top;padding-right:20px">
-                ${invoice.paymentInfo ? `<div style="padding:18px;border-radius:18px;background:#f8fafc;border:1px solid #e2e8f0"><p style="margin:0 0 8px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:.08em">DETAIL PEMBAYARAN</p><p style="margin:0;color:#334155;font-size:14px;line-height:1.6">${escapeHtml(invoice.paymentInfo)}</p></div>` : ""}
-              </td>
-              <td style="width:280px;vertical-align:top">
-                <div style="border-radius:18px;background:#0f172a;color:#fff;padding:20px">
-                  <table width="100%" style="border-collapse:collapse;color:#cbd5e1;font-size:14px">
-                    <tr><td style="padding:4px 0">Subtotal</td><td align="right" style="padding:4px 0">${money(invoice.subtotal, invoice.currency)}</td></tr>
-                    <tr><td style="padding:4px 0">Diskon</td><td align="right" style="padding:4px 0">${money(invoice.discount, invoice.currency)}</td></tr>
-                    <tr><td style="padding:4px 0">Pajak</td><td align="right" style="padding:4px 0">${money(invoice.tax, invoice.currency)}</td></tr>
-                    <tr><td colspan="2" style="border-top:1px solid rgba(255,255,255,.16);padding-top:14px"></td></tr>
-                    <tr><td style="font-size:18px;font-weight:900;color:#fff">TOTAL</td><td align="right" style="font-size:18px;font-weight:900;color:#fff">${money(invoice.total, invoice.currency)}</td></tr>
-                  </table>
-                </div>
-              </td>
-            </tr>
-          </table>
+      <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 0 24px">
+        <thead>
+          <tr>
+            <th align="left" style="padding:0 0 10px;border-bottom:2px solid #111827;color:#111827;font-size:11px;letter-spacing:.1em">NO</th>
+            <th align="left" style="padding:0 12px 10px 0;border-bottom:2px solid #111827;color:#111827;font-size:11px;letter-spacing:.1em">DESKRIPSI</th>
+            <th align="center" style="padding:0 0 10px;border-bottom:2px solid #111827;color:#111827;font-size:11px;letter-spacing:.1em">QTY</th>
+            <th align="right" style="padding:0 0 10px;border-bottom:2px solid #111827;color:#111827;font-size:11px;letter-spacing:.1em">HARGA</th>
+            <th align="right" style="padding:0 0 10px;border-bottom:2px solid #111827;color:#111827;font-size:11px;letter-spacing:.1em">JUMLAH</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
 
-          <div style="margin-top:24px;padding:18px;border-radius:18px;background:#fff7ed;border:1px solid #fed7aa;color:#7c2d12;font-size:14px;line-height:1.6"><strong>Catatan:</strong> ${escapeHtml(invoice.notes)}</div>
-        </div>
-      </div>
-      <p style="margin:18px 0 0;text-align:center;color:#94a3b8;font-size:12px">Email ini dikirim otomatis oleh sistem invoice ${escapeHtml(invoice.sender.name)}.</p>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:20px">
+        <tr>
+          <td style="vertical-align:top;padding-right:30px">
+            ${invoice.paymentInfo ? `<p style="margin:0 0 8px;color:#6b7280;font-size:11px;font-weight:800;letter-spacing:.12em">DETAIL PEMBAYARAN</p><p style="margin:0 0 18px;color:#374151;font-size:13px;line-height:1.55">${escapeHtml(invoice.paymentInfo)}</p>` : ""}
+            <p style="margin:0 0 8px;color:#6b7280;font-size:11px;font-weight:800;letter-spacing:.12em">CATATAN</p>
+            <p style="margin:0;color:#374151;font-size:13px;line-height:1.55">${escapeHtml(invoice.notes)}</p>
+          </td>
+          <td style="width:260px;vertical-align:top">
+            <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;border-top:2px solid #111827;border-bottom:2px solid #111827">
+              <tr><td style="padding:12px 0;color:#6b7280;font-size:13px">Subtotal</td><td align="right" style="padding:12px 0;color:#111827;font-size:13px">${money(invoice.subtotal, invoice.currency)}</td></tr>
+              <tr><td style="padding:6px 0;color:#6b7280;font-size:13px">Diskon</td><td align="right" style="padding:6px 0;color:#111827;font-size:13px">${money(invoice.discount, invoice.currency)}</td></tr>
+              <tr><td style="padding:6px 0 12px;color:#6b7280;font-size:13px">Pajak (${invoice.taxRate || 0}%)</td><td align="right" style="padding:6px 0 12px;color:#111827;font-size:13px">${money(invoice.tax, invoice.currency)}</td></tr>
+              <tr><td style="padding:14px 0;border-top:1px solid #d1d5db;color:#111827;font-size:16px;font-weight:800">TOTAL</td><td align="right" style="padding:14px 0;border-top:1px solid #d1d5db;color:#111827;font-size:16px;font-weight:800">${money(invoice.total, invoice.currency)}</td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:30px 0 0;padding-top:14px;border-top:1px solid #e5e7eb;text-align:center;color:#6b7280;font-size:12px">Email ini dikirim otomatis oleh sistem invoice ${escapeHtml(invoice.sender.name)}.</p>
     </div>
   </body>
 </html>`;
@@ -1468,39 +1466,30 @@ function buildInvoicePdf(invoice) {
 
   const color = {
     ink: [17, 24, 39],
-    navy: [15, 23, 42],
-    slate: [51, 65, 85],
-    muted: [100, 116, 139],
-    line: [226, 232, 240],
-    table: [248, 250, 252],
-    panel: [241, 245, 249],
-    gold: [201, 169, 104],
+    slate: [55, 65, 81],
+    muted: [107, 114, 128],
+    line: [209, 213, 219],
+    softLine: [229, 231, 235],
     green: [21, 128, 61],
-    greenBg: [220, 252, 231],
     amber: [180, 83, 9],
-    amberBg: [254, 243, 199],
-    white: [255, 255, 255],
   };
+  const statusColor = isPaid ? color.green : color.amber;
 
-  const badgeColor = isPaid ? color.green : color.amber;
-  const badgeBg = isPaid ? color.greenBg : color.amberBg;
+  // Minimal professional letterhead, no colored background blocks.
+  pdfTextAt(ops, 44, 795, "INVOICE", 26, "F2", color.ink);
+  pdfTextAt(ops, 44, 773, invoice.invoiceNumber, 10, "F1", color.muted);
+  pdfTextAt(ops, 552, 797, "TOTAL", 8, "F2", color.muted, "right");
+  pdfTextAt(ops, 552, 775, money(invoice.total, invoice.currency), 18, "F2", color.ink, "right");
+  pdfLine(ops, 44, 752, 552, 752, color.ink, 1.4);
 
-  // Page frame + clean brand header.
-  pdfRect(ops, 0, 772, 595, 70, color.navy);
-  pdfRect(ops, 0, 768, 595, 4, color.gold);
-  pdfTextAt(ops, 44, 812, "INVOICE", 24, "F2", color.white);
-  pdfTextAt(ops, 45, 792, invoice.invoiceNumber, 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 552, 814, "TOTAL", 9, "F2", [203, 213, 225], "right");
-  pdfTextAt(ops, 552, 790, money(invoice.total, invoice.currency), 18, "F2", color.white, "right");
+  // Status stamp as outline only.
+  pdfStrokeRect(ops, 438, 708, 114, 30, statusColor, 1.5);
+  pdfTextAt(ops, 495, 718, statusLabel, 10, "F2", statusColor, "center");
 
-  // Status pill / paid mark.
-  pdfRect(ops, 437, 728, 115, 28, badgeBg);
-  pdfTextAt(ops, 494.5, 738, statusLabel, 10, "F2", badgeColor, "center");
-
-  // Sender and recipient blocks.
-  pdfTextAt(ops, 44, 724, "DARI", 8, "F2", color.muted);
-  pdfTextAt(ops, 44, 705, invoice.sender.name, 14, "F2", color.ink);
-  let sy = 688;
+  // Parties.
+  pdfTextAt(ops, 44, 718, "DARI", 8, "F2", color.muted);
+  pdfTextAt(ops, 44, 699, invoice.sender.name, 14, "F2", color.ink);
+  let sy = 682;
   for (const line of [invoice.sender.email, invoice.sender.phone, invoice.sender.address].filter(Boolean)) {
     for (const part of wrapPdfText(line, 42).slice(0, 2)) {
       pdfTextAt(ops, 44, sy, part, 9, "F1", color.slate);
@@ -1508,55 +1497,51 @@ function buildInvoicePdf(invoice) {
     }
   }
 
-  pdfTextAt(ops, 318, 724, "UNTUK", 8, "F2", color.muted);
-  pdfTextAt(ops, 318, 705, invoice.recipient.name, 14, "F2", color.ink);
-  let by = 688;
+  pdfTextAt(ops, 306, 718, "UNTUK", 8, "F2", color.muted);
+  pdfTextAt(ops, 306, 699, invoice.recipient.name, 14, "F2", color.ink);
+  let by = 682;
   for (const line of [invoice.recipient.company, invoice.recipient.email, invoice.recipient.address].filter(Boolean)) {
-    for (const part of wrapPdfText(line, 38).slice(0, 2)) {
-      pdfTextAt(ops, 318, by, part, 9, "F1", color.slate);
+    for (const part of wrapPdfText(line, 39).slice(0, 2)) {
+      pdfTextAt(ops, 306, by, part, 9, "F1", color.slate);
       by -= 12;
     }
   }
 
-  // Invoice metadata strip.
-  pdfLine(ops, 44, 638, 552, 638, color.line, 1);
+  pdfLine(ops, 44, 636, 552, 636, color.softLine, 1);
   const meta = [
     [44, "Tanggal Invoice", invoice.issueDate],
     [210, "Jatuh Tempo", invoice.dueDate || "-"],
     [376, "Status", statusLabel],
   ];
   for (const [x, label, value] of meta) {
-    pdfTextAt(ops, x, 616, label, 8, "F2", color.muted);
-    pdfTextAt(ops, x, 598, value, 11, "F2", label === "Status" ? badgeColor : color.ink);
+    pdfTextAt(ops, x, 613, label, 8, "F2", color.muted);
+    pdfTextAt(ops, x, 594, value, 11, "F2", label === "Status" ? statusColor : color.ink);
   }
+  pdfLine(ops, 44, 578, 552, 578, color.softLine, 1);
 
-  // Items table.
-  const tableTop = 562;
-  pdfRect(ops, 44, tableTop, 508, 32, color.navy);
-  pdfTextAt(ops, 60, tableTop + 11, "DESKRIPSI", 8, "F2", color.white);
-  pdfTextAt(ops, 338, tableTop + 11, "QTY", 8, "F2", color.white, "center");
-  pdfTextAt(ops, 430, tableTop + 11, "HARGA", 8, "F2", color.white, "right");
-  pdfTextAt(ops, 534, tableTop + 11, "JUMLAH", 8, "F2", color.white, "right");
+  // Items table: typography + rules only.
+  const tableTop = 548;
+  pdfTextAt(ops, 44, tableTop, "DESKRIPSI", 8, "F2", color.ink);
+  pdfTextAt(ops, 338, tableTop, "QTY", 8, "F2", color.ink, "center");
+  pdfTextAt(ops, 430, tableTop, "HARGA", 8, "F2", color.ink, "right");
+  pdfTextAt(ops, 552, tableTop, "JUMLAH", 8, "F2", color.ink, "right");
+  pdfLine(ops, 44, tableTop - 11, 552, tableTop - 11, color.ink, 1.2);
 
-  let y = tableTop - 28;
-  invoice.items.slice(0, 7).forEach((item, index) => {
-    const descLines = wrapPdfText(item.description, 43).slice(0, 2);
-    const rowHeight = descLines.length > 1 ? 50 : 42;
-    pdfRect(ops, 44, y - rowHeight + 16, 508, rowHeight, index % 2 === 0 ? color.table : color.white);
-    pdfTextAt(ops, 60, y, descLines[0] || "-", 9.5, "F2", color.ink);
-    if (descLines[1]) pdfTextAt(ops, 60, y - 13, descLines[1], 8.5, "F1", color.muted);
+  let y = tableTop - 34;
+  invoice.items.slice(0, 8).forEach((item) => {
+    const descLines = wrapPdfText(item.description, 45).slice(0, 2);
+    const rowHeight = descLines.length > 1 ? 47 : 37;
+    pdfTextAt(ops, 44, y, descLines[0] || "-", 9.5, "F2", color.ink);
+    if (descLines[1]) pdfTextAt(ops, 44, y - 13, descLines[1], 8.5, "F1", color.muted);
     pdfTextAt(ops, 338, y, String(item.quantity), 9.5, "F1", color.slate, "center");
     pdfTextAt(ops, 430, y, money(item.unitPrice, invoice.currency), 9.5, "F1", color.slate, "right");
-    pdfTextAt(ops, 534, y, money(item.amount, invoice.currency), 9.5, "F2", color.ink, "right");
-    pdfLine(ops, 44, y - rowHeight + 16, 552, y - rowHeight + 16, color.line, 0.5);
+    pdfTextAt(ops, 552, y, money(item.amount, invoice.currency), 9.5, "F2", color.ink, "right");
+    pdfLine(ops, 44, y - rowHeight + 14, 552, y - rowHeight + 14, color.softLine, 0.6);
     y -= rowHeight;
   });
 
-  // Below-table section calculated from actual row count, preventing overlap.
-  const belowTop = Math.min(y - 18, 352);
-  const summaryBottom = Math.max(92, belowTop - 132);
-
-  // Notes/payment card on the left.
+  const belowTop = Math.min(y - 24, 350);
+  const summaryTop = belowTop;
   pdfTextAt(ops, 44, belowTop, "CATATAN", 8, "F2", color.muted);
   let noteY = belowTop - 18;
   for (const part of wrapPdfText(invoice.notes, 47).slice(0, 4)) {
@@ -1573,20 +1558,21 @@ function buildInvoicePdf(invoice) {
     }
   }
 
-  // Summary card on the right.
-  pdfRect(ops, 333, summaryBottom, 219, 128, color.navy);
-  pdfTextAt(ops, 354, summaryBottom + 101, "Subtotal", 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 532, summaryBottom + 101, money(invoice.subtotal, invoice.currency), 10, "F1", color.white, "right");
-  pdfTextAt(ops, 354, summaryBottom + 76, "Diskon", 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 532, summaryBottom + 76, money(invoice.discount, invoice.currency), 10, "F1", color.white, "right");
-  pdfTextAt(ops, 354, summaryBottom + 51, `Pajak (${invoice.taxRate || 0}%)`, 10, "F1", [203, 213, 225]);
-  pdfTextAt(ops, 532, summaryBottom + 51, money(invoice.tax, invoice.currency), 10, "F1", color.white, "right");
-  pdfLine(ops, 354, summaryBottom + 34, 532, summaryBottom + 34, [71, 85, 105], 1);
-  pdfTextAt(ops, 354, summaryBottom + 12, "TOTAL", 13, "F2", color.white);
-  pdfTextAt(ops, 532, summaryBottom + 12, money(invoice.total, invoice.currency), 13, "F2", color.white, "right");
+  // Summary table uses lines only, no filled background.
+  const sx = 334;
+  pdfLine(ops, sx, summaryTop + 8, 552, summaryTop + 8, color.ink, 1.2);
+  pdfTextAt(ops, sx, summaryTop - 15, "Subtotal", 10, "F1", color.slate);
+  pdfTextAt(ops, 552, summaryTop - 15, money(invoice.subtotal, invoice.currency), 10, "F1", color.ink, "right");
+  pdfTextAt(ops, sx, summaryTop - 39, "Diskon", 10, "F1", color.slate);
+  pdfTextAt(ops, 552, summaryTop - 39, money(invoice.discount, invoice.currency), 10, "F1", color.ink, "right");
+  pdfTextAt(ops, sx, summaryTop - 63, `Pajak (${invoice.taxRate || 0}%)`, 10, "F1", color.slate);
+  pdfTextAt(ops, 552, summaryTop - 63, money(invoice.tax, invoice.currency), 10, "F1", color.ink, "right");
+  pdfLine(ops, sx, summaryTop - 82, 552, summaryTop - 82, color.line, 1);
+  pdfTextAt(ops, sx, summaryTop - 108, "TOTAL", 13, "F2", color.ink);
+  pdfTextAt(ops, 552, summaryTop - 108, money(invoice.total, invoice.currency), 13, "F2", color.ink, "right");
+  pdfLine(ops, sx, summaryTop - 123, 552, summaryTop - 123, color.ink, 1.2);
 
-
-  pdfLine(ops, 44, 54, 552, 54, color.line, 1);
+  pdfLine(ops, 44, 54, 552, 54, color.softLine, 1);
   pdfTextAt(ops, 44, 34, `Invoice dibuat otomatis oleh ${invoice.sender.name}`, 8, "F1", color.muted);
   pdfTextAt(ops, 552, 34, "Terima kasih atas kepercayaannya", 8, "F1", color.muted, "right");
 
@@ -1620,6 +1606,10 @@ function pdfRgb(rgb) {
 
 function pdfRect(ops, x, y, width, height, rgb) {
   ops.push(`q ${pdfRgb(rgb)} rg ${x} ${y} ${width} ${height} re f Q`);
+}
+
+function pdfStrokeRect(ops, x, y, width, height, rgb, lineWidth = 1) {
+  ops.push(`q ${pdfRgb(rgb)} RG ${lineWidth} w ${x} ${y} ${width} ${height} re S Q`);
 }
 
 function pdfLine(ops, x1, y1, x2, y2, rgb, width = 1) {
