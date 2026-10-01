@@ -241,40 +241,46 @@ const Home = () => {
     <div className="pb-20">
       <SEO title={t.seoTitle} description={t.seoDescription} jsonLd={jsonLdGraph} type="website" />
 
-      <section className="relative flex min-h-[calc(100dvh-2rem)] items-center overflow-hidden px-6 pb-16 pt-28">
+      <section className="relative flex min-h-[calc(100dvh-2rem)] items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
         <div className="absolute inset-0 pointer-events-none">
           <img
             src={profileImage}
             alt=""
-            className="h-full w-full object-cover opacity-28"
+            className="h-full w-full object-cover opacity-16 mix-blend-luminosity"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#090806_0%,rgba(9,8,6,0.88)_38%,rgba(9,8,6,0.52)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(238,232,220,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(238,232,220,0.045)_1px,transparent_1px)] bg-[size:80px_80px] opacity-35" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#020802_0%,rgba(2,8,2,0.9)_46%,rgba(2,8,2,0.58)_100%)]" />
+          <div className="absolute inset-0 portfolio-grid-bg opacity-80" />
+          <div className="absolute left-[8%] top-[17%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Website</div>
+          <div className="absolute right-[12%] top-[22%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Dashboard</div>
+          <div className="absolute bottom-[24%] left-[16%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] md:block">API Integration</div>
+          <div className="absolute bottom-[19%] right-[18%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] md:block">Digital Store</div>
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="max-w-4xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-white/[0.055] px-4 py-2 text-sm text-cyan-100 backdrop-blur">
+          <div className="max-w-5xl">
+            <div className="mb-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-cyan-300/25 bg-black/35 px-4 py-2 text-sm text-cyan-100 backdrop-blur">
               <Sparkles size={16} aria-hidden="true" />
               {t.eyebrow}
             </div>
-            <h1 className="text-4xl font-bold leading-[1.05] text-white md:text-7xl lg:text-8xl">
-              {t.headline}
+            <h1 className="relative text-[clamp(4rem,16vw,13rem)] font-normal leading-[0.72] tracking-[-0.08em] text-white">
+              <span className="kapakana-font block text-cyan-200 drop-shadow-[0_0_24px_rgba(64,255,30,0.32)]">Portfolio</span>
+              <span className="inter-font block pl-2 text-[.38em] font-semibold tracking-[-0.06em] text-white md:pl-8">Aditya</span>
+              <span className="sr-only">{t.headline}</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/68 md:text-xl">{t.intro}</p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 to={toLocalized("/contact")}
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-100 px-7 font-bold text-black transition-colors hover:bg-white"
+                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-300 px-7 font-bold text-black shadow-[0_0_28px_rgba(64,255,30,0.25)] transition-colors hover:bg-cyan-100"
               >
                 {t.primaryCta}
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
               <Link
                 to={toLocalized("/projects")}
-                className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-7 font-bold text-white transition-colors hover:bg-white/[0.08]"
+                className="retro-chip inline-flex min-h-14 items-center justify-center rounded-full px-7 font-bold transition-colors"
               >
                 {t.secondaryCta}
               </Link>
@@ -283,7 +289,7 @@ const Home = () => {
 
           <div className="mt-14 grid gap-3 md:grid-cols-3">
             {t.metrics.map(([label, value]) => (
-              <div key={label} className="border-l border-cyan-200/25 pl-5">
+              <div key={label} className="retro-window rounded-3xl p-5">
                 <p className="text-xs uppercase text-white/38">{label}</p>
                 <p className="mt-2 text-xl font-bold text-white">{value}</p>
               </div>

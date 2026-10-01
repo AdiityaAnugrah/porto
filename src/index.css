@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+10&family=Kapakana:wght@300..400&display=swap");
 @import "tailwindcss";
 
 /* 
@@ -6,41 +7,41 @@
 */
 @theme {
   /* Colors */
-  --color-dark-bg: #090806;
-  --color-dark-surface: #12100c;
-  --color-neon-primary: #c9a968;
-  --color-neon-secondary: #8c7a58;
-  --color-glass-border: rgba(233, 224, 205, 0.1);
+  --color-dark-bg: #031205;
+  --color-dark-surface: #071a09;
+  --color-neon-primary: #40ff1e;
+  --color-neon-secondary: #24b312;
+  --color-glass-border: rgba(64, 255, 30, 0.18);
 
-  --color-cyan-50: #f6f1e6;
-  --color-cyan-100: #eadfc9;
-  --color-cyan-200: #d9c493;
-  --color-cyan-300: #c9a968;
-  --color-cyan-400: #b98f45;
-  --color-cyan-500: #9b7435;
-  --color-cyan-600: #7d5e2f;
-  --color-cyan-900: #302716;
-  --color-blue-400: #aeb6a1;
-  --color-blue-500: #8e9a7a;
-  --color-blue-600: #697358;
-  --color-purple-300: #d1c0a4;
-  --color-purple-400: #b49b73;
-  --color-purple-500: #8f7350;
-  --color-purple-600: #6f573c;
+  --color-cyan-50: #f3fff0;
+  --color-cyan-100: #ddffd4;
+  --color-cyan-200: #b8ffaa;
+  --color-cyan-300: #88ff71;
+  --color-cyan-400: #40ff1e;
+  --color-cyan-500: #2ee616;
+  --color-cyan-600: #24b312;
+  --color-cyan-900: #093c07;
+  --color-blue-400: #9aff85;
+  --color-blue-500: #40ff1e;
+  --color-blue-600: #24b312;
+  --color-purple-300: #d8ffd1;
+  --color-purple-400: #88ff71;
+  --color-purple-500: #40ff1e;
+  --color-purple-600: #24b312;
   --color-pink-300: #d8b29f;
   --color-pink-400: #c08c73;
   --color-pink-500: #93614e;
   --color-orange-300: #d2a06e;
   --color-orange-400: #b87943;
   --color-orange-500: #875734;
-  --color-yellow-500: #c9a968;
-  --color-green-300: #b8c0a3;
-  --color-green-400: #94a17e;
-  --color-green-500: #6f7d5c;
-  --color-emerald-500: #6f7d5c;
+  --color-yellow-500: #d8ffd1;
+  --color-green-300: #b8ffaa;
+  --color-green-400: #88ff71;
+  --color-green-500: #40ff1e;
+  --color-emerald-500: #40ff1e;
 
   /* Fonts */
-  --font-display: "Space Grotesk", sans-serif;
+  --font-display: "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
 
   /* Animations */
@@ -62,14 +63,15 @@
 :root {
   color-scheme: dark;
   --bg-color: var(--color-dark-bg);
-  --text-color: #eee8dc;
+  --text-color: #f3fff0;
 }
 
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 50% -20%, rgba(201, 169, 104, 0.08), transparent 34rem),
-    linear-gradient(180deg, #090806 0%, #0d0b08 48%, #090806 100%);
+    radial-gradient(circle at 24% 8%, rgba(64, 255, 30, 0.18), transparent 28rem),
+    radial-gradient(circle at 82% 18%, rgba(36, 179, 18, 0.16), transparent 25rem),
+    linear-gradient(180deg, #020802 0%, #061406 48%, #020802 100%);
   color: var(--text-color);
   font-family: var(--font-body);
   @apply text-xs md:text-base selection:bg-cyan-500/30 selection:text-cyan-100 antialiased overflow-x-hidden;
@@ -102,11 +104,84 @@ html.lenis, html.lenis body {
 
 /* Utilities */
 .glass-panel {
-  @apply bg-white/[0.045] backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-black/35 backdrop-blur-xl border border-cyan-400/20 shadow-2xl;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 0 30px rgba(64,255,30,.10),
+    0 22px 70px rgba(0,0,0,.45);
 }
 
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-purple-300;
+}
+
+.kapakana-font { font-family: "Kapakana", cursive; }
+.jersey-font { font-family: "Jersey 10", sans-serif; }
+.inter-font { font-family: "Inter", sans-serif; }
+
+.portfolio-grid-bg {
+  background-image:
+    linear-gradient(rgba(64,255,30,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(64,255,30,.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.25), transparent);
+}
+
+.retro-window {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(64,255,30,.38);
+  background: linear-gradient(180deg, rgba(3,18,5,.72), rgba(2,8,2,.52));
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.05),
+    inset 0 0 42px rgba(64,255,30,.05),
+    0 0 34px rgba(64,255,30,.14),
+    0 24px 80px rgba(0,0,0,.48);
+  backdrop-filter: blur(18px);
+}
+
+.retro-window::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), transparent 34%);
+}
+
+.retro-title {
+  font-family: "Jersey 10", sans-serif;
+  letter-spacing: .03em;
+  color: #88ff71;
+  text-shadow: 0 0 18px rgba(64,255,30,.42);
+}
+
+.retro-chip {
+  min-height: 44px;
+  border: 1px solid rgba(64,255,30,.24);
+  background: rgba(0,0,0,.28);
+  color: rgba(243,255,240,.76);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+.retro-chip:hover {
+  border-color: rgba(136,255,113,.7);
+  color: #f3fff0;
+  background: rgba(64,255,30,.08);
+}
+
+/* Global visual pass: keep existing content/routes, but move every card section to the neon window language. */
+[class*="border-white/10"][class*="bg-white/"],
+[class*="border-white/12"][class*="bg-white/"],
+[class*="border-white/15"][class*="bg-white/"] {
+  border-color: rgba(64,255,30,.18) !important;
+  background-color: rgba(0,0,0,.26) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.035),
+    0 0 28px rgba(64,255,30,.06) !important;
+}
+
+[class*="border-y"][class*="border-white/10"] {
+  border-color: rgba(64,255,30,.14) !important;
 }
 
 /* Hide Scrollbar globally */

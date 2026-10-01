@@ -27,8 +27,11 @@ const Layout = () => {
     <div className="min-h-screen flex flex-col relative text-white bg-black font-sans selection:bg-cyan-500/30 overflow-x-hidden pb-24 md:pb-0">
         <MouseGlow />
         
-        {/* Premium Background Gradient */}
-        <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0a0a0a] to-black opacity-80" />
+        <div className="fixed inset-0 z-0 pointer-events-none bg-[#020802]" />
+        <div className="fixed inset-0 z-0 pointer-events-none portfolio-grid-bg opacity-80" />
+        <div className="fixed -left-32 top-10 z-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-[130px] pointer-events-none" />
+        <div className="fixed -right-24 top-1/3 z-0 h-[30rem] w-[30rem] rounded-full bg-cyan-700/20 blur-[160px] pointer-events-none" />
+        <div className="fixed inset-x-0 bottom-0 z-0 h-56 bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none" />
         
         {/* Navbar is fixed/sticky inside itself, so we just render it */}
         <Navbar />

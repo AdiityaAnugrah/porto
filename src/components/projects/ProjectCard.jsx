@@ -17,7 +17,7 @@ const ProjectCard = ({ project, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.45, delay: Math.min(index * 0.06, 0.24) }}
-      className="group relative overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.045] transition-colors hover:bg-white/[0.075] sm:rounded-3xl sm:border-0 glass-panel"
+      className="group retro-window relative overflow-hidden rounded-[18px] transition-colors sm:rounded-3xl"
     >
       <Link to={toLocalized(`/projects/item/${project.id}`)} className="block h-full">
         <div className="relative aspect-[0.86] w-full overflow-hidden sm:aspect-video">
@@ -29,14 +29,14 @@ const ProjectCard = ({ project, index }) => {
           />
 
           <div className="absolute left-2 top-2 z-20 flex max-w-[calc(100%-1rem)] flex-wrap gap-2 sm:left-4 sm:top-4">
-            <span className="truncate rounded-full border border-white/10 bg-black/55 px-2 py-1 text-[10px] font-bold text-white backdrop-blur-md sm:px-3 sm:text-xs">
+            <span className="truncate rounded-full border border-cyan-300/25 bg-black/55 px-2 py-1 text-[10px] font-bold text-cyan-100 backdrop-blur-md sm:px-3 sm:text-xs">
               {project.category}
             </span>
           </div>
 
           <div className="absolute inset-x-0 bottom-0 z-20 p-3 sm:hidden">
             <p className="mb-1 text-[10px] font-semibold text-cyan-100/75">{project.year}</p>
-            <h3 className="line-clamp-2 text-[13px] font-bold leading-snug text-white font-display">
+            <h3 className="retro-title line-clamp-2 text-[18px] leading-none">
               {displayTitle}
             </h3>
           </div>
@@ -44,7 +44,7 @@ const ProjectCard = ({ project, index }) => {
 
         <div className="relative z-10 hidden p-3 sm:block sm:p-5 md:p-6">
           <div className="mb-2 flex items-start justify-between gap-2">
-            <h3 className="line-clamp-2 text-sm font-bold leading-tight transition-colors group-hover:text-cyan-400 sm:text-xl md:text-2xl font-display">
+            <h3 className="retro-title line-clamp-2 text-2xl leading-none transition-colors group-hover:text-cyan-100 sm:text-3xl md:text-4xl">
               {displayTitle}
             </h3>
             <div className="hidden gap-3 text-white/50 sm:flex">
@@ -79,7 +79,7 @@ const ProjectCard = ({ project, index }) => {
 
           <div className="mt-auto flex flex-wrap gap-2">
             {project.tech.slice(0, 3).map((tech) => (
-              <span key={tech} className="rounded bg-white/5 px-2 py-1 text-xs text-white/45">
+              <span key={tech} className="rounded-full border border-cyan-300/15 bg-cyan-400/5 px-2.5 py-1 text-xs text-white/55">
                 {tech}
               </span>
             ))}
