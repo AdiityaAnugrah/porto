@@ -284,3 +284,44 @@ html.lenis, html.lenis body {
 }
 
 
+
+/* Compact pass: closer to reference proportions */
+.archive-card {
+  border-radius: 1rem;
+  padding: .8rem;
+}
+.archive-row {
+  min-height: 4.45rem;
+  gap: .8rem;
+  border-radius: 1.1rem;
+  padding: .78rem .85rem;
+}
+.archive-row .font-display.text-4xl { font-size: 1.75rem; line-height: 1; }
+.archive-btn {
+  min-height: 40px;
+  padding: .62rem .82rem;
+  font-size: .64rem;
+  letter-spacing: .18em;
+}
+.archive-pill {
+  min-height: 30px;
+  padding: .36rem .58rem;
+  font-size: .66rem;
+}
+.archive-window h2.text-3xl { font-size: 1.55rem; line-height: 1.08; }
+.archive-window h2.sm\:text-5xl { font-size: 1.9rem; }
+.archive-window .text-3xl { font-size: 1.55rem; }
+.archive-window .text-2xl { font-size: 1.3rem; }
+.archive-window .text-xl { font-size: 1.12rem; }
+@media (min-width: 640px) {
+  .archive-window .sm\:text-3xl { font-size: 1.55rem; }
+}
+@media (max-width: 1023px) {
+  .archive-mark { opacity: .42; }
+  .archive-window { max-height: none; min-height: auto; }
+}
+@media (max-width: 640px) {
+  .archive-label { font-size: clamp(1.05rem, 4.2svh, 2.1rem) !important; }
+  .archive-row { align-items: flex-start; border-radius: .95rem; padding: .72rem; }
+  .archive-card { border-radius: .9rem; padding: .75rem; }
+}
