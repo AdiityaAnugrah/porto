@@ -325,3 +325,61 @@ html.lenis, html.lenis body {
   .archive-row { align-items: flex-start; border-radius: .95rem; padding: .72rem; }
   .archive-card { border-radius: .9rem; padding: .75rem; }
 }
+
+/* portfolio-mysis inspired canvas/window pass */
+.archive-stage .archive-card {
+  border-radius: 1.4cqh;
+  padding: 1.6cqh;
+  border-color: rgba(103,232,249,.14);
+  background: rgba(6, 20, 32, .48);
+}
+.archive-stage .archive-row {
+  min-height: 8.5cqh;
+  border-radius: 1.6cqh;
+  padding: 1.4cqh 1.6cqh;
+  gap: 1.6cqh;
+  border-color: rgba(103,232,249,.14);
+  background: rgba(6, 20, 32, .46);
+}
+.archive-stage .archive-row:hover { transform: translateY(-.35cqh); }
+.archive-stage .archive-row .font-display.text-4xl { font-size: 4.8cqh; }
+.archive-stage .archive-btn {
+  min-height: 4.2cqh;
+  border-radius: 999px;
+  padding: 1.1cqh 1.6cqh;
+  font-size: 1.18cqh;
+  letter-spacing: .2em;
+}
+.archive-stage .archive-pill {
+  min-height: 3.4cqh;
+  padding: .7cqh 1.1cqh;
+  font-size: 1.15cqh;
+}
+.archive-stage .archive-window { scrollbar-width: thin; }
+.archive-stage .archive-window p,
+.archive-stage .archive-window li { font-size: 1.75cqh; line-height: 1.65; }
+.archive-stage .archive-window h2,
+.archive-stage .archive-window .text-3xl,
+.archive-stage .archive-window .text-2xl,
+.archive-stage .archive-window .text-xl { font-size: 2.65cqh !important; line-height: 1.05; }
+.archive-stage .archive-window h3,
+.archive-stage .archive-window .text-lg { font-size: 2.1cqh !important; }
+.archive-stage .archive-window .text-sm { font-size: 1.55cqh !important; }
+.archive-stage .archive-window .text-xs,
+.archive-stage .archive-window .text-\[10px\] { font-size: 1.1cqh !important; }
+
+@media (max-aspect-ratio: 4/3) {
+  .portfolio-window {
+    left: 5% !important;
+    right: 5% !important;
+    top: 25% !important;
+    width: 90% !important;
+    height: 62svh !important;
+  }
+  .archive-stage .archive-mark { opacity: .38; }
+}
+@media (max-width: 640px) {
+  .archive-stage .archive-label { font-size: clamp(1rem, 3.4svh, 1.8rem) !important; }
+  .portfolio-window { top: 28% !important; height: 58svh !important; }
+  .archive-stage .archive-window { padding-left: 1rem !important; padding-right: 1rem !important; }
+}
