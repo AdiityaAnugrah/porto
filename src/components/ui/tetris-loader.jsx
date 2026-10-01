@@ -229,7 +229,7 @@ export default function TetrisLoading({
   return (
     <div className={className} aria-live="polite" aria-busy="true">
       <div className="mb-5 flex justify-center">
-        <div className={`border-2 border-cyan-100/70 bg-[#090806] ${config.padding} shadow-[0_18px_45px_rgba(0,0,0,0.35)]`}>
+        <div className={`border-2 border-cyan-100/70 bg-[#050814] ${config.padding} shadow-[0_18px_45px_rgba(0,0,0,0.35)]`}>
           {displayGrid.map((row, rowIndex) => (
             <div key={rowIndex} className="flex">
               {row.map((cell, colIndex) => (

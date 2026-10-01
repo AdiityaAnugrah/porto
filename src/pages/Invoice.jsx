@@ -132,7 +132,7 @@ const Invoice = () => {
         )}
 
         <form onSubmit={submitInvoice} className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="rounded-3xl border border-white/10 bg-[#0d0b08]/92 p-5 shadow-2xl shadow-black/25 md:p-7">
+          <section className="rounded-3xl border border-white/10 bg-[#080b16]/92 p-5 shadow-2xl shadow-black/25 md:p-7">
             <h2 className="text-2xl font-bold text-white">Detail invoice</h2>
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               <Field label="Nomor invoice" value={form.invoiceNumber} onChange={(v) => update("invoiceNumber", v)} required />
@@ -148,8 +148,8 @@ const Invoice = () => {
                   value={form.paymentStatus}
                   onChange={(event) => update("paymentStatus", event.target.value)}
                 >
-                  <option className="bg-[#0d0b08]" value="unpaid">Belum lunas</option>
-                  <option className="bg-[#0d0b08]" value="paid">Lunas</option>
+                  <option className="bg-[#080b16]" value="unpaid">Belum lunas</option>
+                  <option className="bg-[#080b16]" value="paid">Lunas</option>
                 </select>
               </label>
             </div>
@@ -185,7 +185,7 @@ const Invoice = () => {
           </section>
 
           <section className="space-y-6">
-            <div className="rounded-3xl border border-white/10 bg-[#0d0b08]/92 p-5 md:p-7">
+            <div className="rounded-3xl border border-white/10 bg-[#080b16]/92 p-5 md:p-7">
               <h2 className="text-2xl font-bold text-white">Pengirim & klien</h2>
               <div className="mt-6 grid gap-4">
                 <Field label="Token invoice (opsional)" value={form.accessToken} onChange={(v) => update("accessToken", v)} placeholder="Isi jika server memakai INVOICE_ACCESS_TOKEN" />
@@ -200,7 +200,7 @@ const Invoice = () => {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-[#0d0b08]/92 p-5 md:p-7">
+            <div className="rounded-3xl border border-white/10 bg-[#080b16]/92 p-5 md:p-7">
               <h2 className="text-2xl font-bold text-white">Catatan email</h2>
               <div className="mt-6 grid gap-4">
                 <TextArea label="Detail pembayaran" value={form.paymentInfo} onChange={(v) => update("paymentInfo", v)} rows={4} placeholder="Contoh: BCA 123456789 a.n. Aditya Anugrah" />

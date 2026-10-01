@@ -27,7 +27,7 @@ const Layout = () => {
     <div className="min-h-screen flex flex-col relative text-white bg-black font-sans selection:bg-cyan-500/30 overflow-x-hidden pb-24 md:pb-0">
         <MouseGlow />
         
-        <div className="fixed inset-0 z-0 pointer-events-none bg-[#020802]" />
+        <div className="fixed inset-0 z-0 pointer-events-none bg-[#050814]" />
         <div className="fixed inset-0 z-0 pointer-events-none portfolio-grid-bg opacity-80" />
         <div className="fixed -left-32 top-10 z-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-[130px] pointer-events-none" />
         <div className="fixed -right-24 top-1/3 z-0 h-[30rem] w-[30rem] rounded-full bg-cyan-700/20 blur-[160px] pointer-events-none" />

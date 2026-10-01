@@ -5,7 +5,7 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 const variantClasses = {
   default: {
     frame: "bg-[#eee8dc]",
-    body: "bg-[#0d0b08] text-[#eee8dc]",
+    body: "bg-[#080b16] text-[#eee8dc]",
     accent: "text-cyan-100",
     description: "text-white/62",
   },

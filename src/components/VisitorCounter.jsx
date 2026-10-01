@@ -64,12 +64,12 @@ const VisitorCounter = () => {
       transition={{ delay: 0.6, duration: 0.35, ease: "easeOut" }}
       className="fixed bottom-6 left-6 z-50 hidden md:block"
     >
-      <div className="group relative overflow-hidden rounded-full border border-cyan-200/20 bg-[#0d0b08]/86 px-4 py-3 text-white shadow-[0_14px_45px_rgba(0,0,0,0.42)] backdrop-blur-xl transition-colors hover:border-cyan-200/35 hover:bg-[#11100d]/92">
+      <div className="group relative overflow-hidden rounded-full border border-cyan-200/20 bg-[#080b16]/86 px-4 py-3 text-white shadow-[0_14px_45px_rgba(0,0,0,0.42)] backdrop-blur-xl transition-colors hover:border-cyan-200/35 hover:bg-[#11100d]/92">
         <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent" />
         <div className="flex items-center gap-3">
           <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cyan-100 text-black shadow-[0_0_26px_rgba(234,223,201,0.18)]">
             <Eye size={17} aria-hidden="true" />
-            <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-[#0d0b08] bg-emerald-300" />
+            <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-[#080b16] bg-emerald-300" />
           </div>
           <div className="leading-tight">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-100/62">

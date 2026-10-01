@@ -294,7 +294,7 @@ const About = () => {
           <SectionHeader label={t.approachLabel} title={t.approachTitle} />
           <div className="grid gap-4 md:grid-cols-3">
             {t.approach.map(([number, title, body]) => (
-              <div key={number} className="rounded-2xl border border-white/10 bg-[#0d0b08] p-5">
+              <div key={number} className="rounded-2xl border border-white/10 bg-[#080b16] p-5">
                 <p className="text-sm font-bold text-cyan-200">{number}</p>
                 <h3 className="mt-5 text-xl font-bold text-white">{title}</h3>
                 <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>

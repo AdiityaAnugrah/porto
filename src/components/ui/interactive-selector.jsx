@@ -61,7 +61,7 @@ const InteractiveSelector = ({ projects = [], eyebrow = "Project highlights" }) 
   };
 
   return (
-    <section className="mb-10 overflow-hidden rounded-3xl border border-white/10 bg-[#0d0b08]/82 shadow-2xl shadow-black/25">
+    <section className="mb-10 overflow-hidden rounded-3xl border border-white/10 bg-[#080b16]/82 shadow-2xl shadow-black/25">
       <div className="grid gap-0 lg:grid-cols-[0.78fr_1.22fr]">
         <div className="border-b border-white/10 p-5 sm:p-6 lg:border-b-0 lg:border-r lg:p-8">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1.5 text-xs font-semibold text-cyan-100">

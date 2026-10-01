@@ -442,7 +442,7 @@ export default function Store() {
             </main>
 
             <aside className="lg:sticky lg:top-24 lg:self-start">
-              <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#0d0b08]/92 shadow-2xl shadow-black/30 backdrop-blur-xl">
+              <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#080b16]/92 shadow-2xl shadow-black/30 backdrop-blur-xl">
                 {selected ? (
                   <>
                     <div className="border-b border-white/10 p-6">
@@ -457,7 +457,7 @@ export default function Store() {
                           [t.delivery, t.deliveryAuto],
                           [t.warranty, `${selected.warrantyHours || 24} ${t.hour}`],
                         ].map(([label, value]) => (
-                          <div key={label} className="bg-[#0d0b08] p-4">
+                          <div key={label} className="bg-[#080b16] p-4">
                             <p className="text-xs text-white/40">{label}</p>
                             <p className="mt-1 text-sm font-bold text-white">{value}</p>
                           </div>

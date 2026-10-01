@@ -157,7 +157,7 @@ const Contact = () => {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/10 bg-[#0d0b08]/92 p-5 shadow-2xl shadow-black/25 md:p-7">
+        <section className="rounded-3xl border border-white/10 bg-[#080b16]/92 p-5 shadow-2xl shadow-black/25 md:p-7">
           <h2 className="text-2xl font-bold text-white">{t.formTitle}</h2>
 
           {status === "success" ? (

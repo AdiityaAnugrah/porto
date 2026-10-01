@@ -249,7 +249,7 @@ const Home = () => {
             className="h-full w-full object-cover opacity-16 mix-blend-luminosity"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#020802_0%,rgba(2,8,2,0.9)_46%,rgba(2,8,2,0.58)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,#050814_0%,rgba(5,8,20,0.9)_46%,rgba(5,8,20,0.58)_100%)]" />
           <div className="absolute inset-0 portfolio-grid-bg opacity-80" />
           <div className="absolute left-[8%] top-[17%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Website</div>
           <div className="absolute right-[12%] top-[22%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Dashboard</div>
@@ -264,7 +264,7 @@ const Home = () => {
               {t.eyebrow}
             </div>
             <h1 className="relative text-[clamp(4rem,16vw,13rem)] font-normal leading-[0.72] tracking-[-0.08em] text-white">
-              <span className="kapakana-font block text-cyan-200 drop-shadow-[0_0_24px_rgba(64,255,30,0.32)]">Portfolio</span>
+              <span className="kapakana-font block text-cyan-200 drop-shadow-[0_0_24px_rgba(125,211,252,0.32)]">Portfolio</span>
               <span className="inter-font block pl-2 text-[.38em] font-semibold tracking-[-0.06em] text-white md:pl-8">Aditya</span>
               <span className="sr-only">{t.headline}</span>
             </h1>
@@ -273,7 +273,7 @@ const Home = () => {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 to={toLocalized("/contact")}
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-300 px-7 font-bold text-black shadow-[0_0_28px_rgba(64,255,30,0.25)] transition-colors hover:bg-cyan-100"
+                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-300 px-7 font-bold text-black shadow-[0_0_28px_rgba(125,211,252,0.25)] transition-colors hover:bg-cyan-100"
               >
                 {t.primaryCta}
                 <ArrowRight size={18} aria-hidden="true" />
@@ -334,7 +334,7 @@ const Home = () => {
             {t.capabilities.map(([title, body], index) => {
               const Icon = capabilityIcons[index];
               return (
-                <div key={title} className="bg-[#0d0b08] p-6">
+                <div key={title} className="bg-[#080b16] p-6">
                   <Icon className="mb-5 text-cyan-200" size={24} aria-hidden="true" />
                   <h3 className="text-lg font-bold text-white">{title}</h3>
                   <p className="mt-3 text-sm leading-7 text-white/55">{body}</p>

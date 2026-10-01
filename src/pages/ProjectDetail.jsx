@@ -11,13 +11,14 @@ import {
   FaUser,
   FaTools,
   FaClock,
+  FaCheckCircle,
 } from "react-icons/fa";
 import { projects } from "../data/projects";
 import SEO from "../components/SEO";
 import { useLocalizedPath } from "../lib/i18n";
 
 const Chip = ({ children }) => (
-  <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-white/70">
+  <span className="retro-chip inline-flex min-h-9 items-center rounded-full px-3 py-1 text-xs font-semibold">
     {children}
   </span>
 );
@@ -28,12 +29,12 @@ const Section = ({ title, children }) => {
   if (!hasContent) return null;
 
   return (
-    <div className="mb-12">
-      <h2 className="text-xl font-bold font-display text-white mb-4 border-b border-white/10 pb-2">
+    <section className="retro-window mb-8 rounded-3xl p-5 md:p-7">
+      <h2 className="retro-title mb-4 border-b border-cyan-300/15 pb-3 text-3xl">
         {title}
       </h2>
       <div className="text-white/70 leading-relaxed space-y-2">{children}</div>
-    </div>
+    </section>
   );
 };
 
@@ -55,14 +56,14 @@ export default function ProjectDetail() {
   if (!project) {
     return (
       <div className="min-h-screen pt-32 pb-20 px-6 text-center">
-         <h1 className="text-4xl font-bold mb-4">Proyek Tidak Ditemukan</h1>
+         <h1 className="retro-title text-5xl mb-4">Proyek Tidak Ditemukan</h1>
          <Link to={toLocalized("/projects")} className="text-cyan-400 hover:text-cyan-300">Kembali ke Proyek</Link>
       </div>
     );
   }
 
   return (
-    <div className="pt-24 pb-32 px-6 max-w-6xl mx-auto min-h-screen">
+    <div className="pt-24 pb-32 px-4 sm:px-6 max-w-7xl mx-auto min-h-screen">
       <SEO 
         title={`${project.title} | Aditya Anugrah`}
         description={project.summary}
@@ -70,15 +71,15 @@ export default function ProjectDetail() {
       />
 
       {/* Header */}
-      <div className="mb-12">
+      <header className="retro-window mb-10 rounded-[32px] p-5 md:p-8">
         <button 
             onClick={() => navigate(-1)} 
-            className="flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-6"
+            className="retro-chip mb-6 inline-flex min-h-11 items-center gap-2 rounded-full px-4 transition-colors"
         >
             <FaArrowLeft /> Kembali
         </button>
         
-        <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
+        <h1 className="max-w-5xl text-4xl font-semibold leading-tight tracking-[-0.05em] text-white md:text-7xl">
             {project.title}
         </h1>
 
@@ -90,25 +91,25 @@ export default function ProjectDetail() {
         </div>
 
         {/* Links */}
-        <div className="flex gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row">
             {project.links?.live && (
-                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="btn-primary flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-bold hover:bg-cyan-400 transition-colors">
+                <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2 rounded-full bg-cyan-200 px-6 py-3 font-bold text-black transition-colors hover:bg-white">
                     Kunjungi Situs <FaExternalLinkAlt />
                 </a>
             )}
             {project.links?.code && (
-                <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="btn-ghost flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors">
+                <a href={project.links.code} target="_blank" rel="noopener noreferrer" className="retro-chip flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 font-bold transition-colors">
                     Lihat Kode <FaGithub />
                 </a>
             )}
         </div>
-      </div>
+      </header>
 
       {/* Cover Image */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl overflow-hidden mb-16 border border-white/10 shadow-2xl aspect-video bg-white/5"
+        className="retro-window rounded-[32px] overflow-hidden mb-12 aspect-video"
       >
         <LazyImage 
             src={project.cover} 
@@ -140,12 +141,12 @@ export default function ProjectDetail() {
 
             {project.results && (
                 <Section title="Business Impact">
-                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 rounded-xl p-6">
+                    <div className="rounded-2xl border border-cyan-300/15 bg-cyan-300/5 p-5 md:p-6">
                         <ul className="space-y-3">
                             {project.results?.map((r, i) => (
                                 <li key={i} className="flex items-start gap-3">
-                                    <span className="mt-1 text-green-400">✅</span>
-                                    <span className="font-medium text-green-100">{r}</span>
+                                    <FaCheckCircle className="mt-1 shrink-0 text-cyan-200" />
+                                    <span className="font-medium text-cyan-50">{r}</span>
                                 </li>
                             ))}
                         </ul>
@@ -157,7 +158,7 @@ export default function ProjectDetail() {
                  <Section title="Technologies">
                     <div className="flex flex-wrap gap-2">
                         {project.tech.map(t => (
-                            <span key={t} className="flex items-center gap-1 px-3 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm">
+                            <span key={t} className="retro-chip flex min-h-9 items-center gap-1 rounded-full px-3 py-1 text-sm">
                                 <FaTools className="text-xs" /> {t}
                             </span>
                         ))}
@@ -168,9 +169,9 @@ export default function ProjectDetail() {
 
         {/* Sidebar Gallery */}
         <div className="space-y-6">
-            <h3 className="text-xl font-bold font-display mb-4">Gallery</h3>
+            <h3 className="retro-title mb-4 text-3xl">Gallery</h3>
             {project.gallery?.map((img, i) => (
-                <div key={i} className="rounded-xl overflow-hidden border border-white/10 cursor-pointer hover:opacity-80 transition-opacity">
+                <div key={i} className="retro-window rounded-2xl overflow-hidden cursor-pointer transition-opacity hover:opacity-85">
                     <LazyImage 
                         src={img.src}
                         alt={img.alt || "Project Screenshot"}
@@ -183,7 +184,7 @@ export default function ProjectDetail() {
       </div>
 
        {/* Navigation Footer */}
-       <div className="mt-20 flex justify-between pt-8 border-t border-white/10">
+       <div className="mt-16 flex flex-col gap-5 border-t border-cyan-300/15 pt-8 sm:flex-row sm:justify-between">
             {prev ? (
                 <Link to={toLocalized(`/projects/item/${prev.id}`)} className="group text-left">
                     <div className="text-xs text-white/40 mb-1 group-hover:text-cyan-400 transition-colors">Previous Project</div>
