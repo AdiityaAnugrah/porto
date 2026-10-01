@@ -155,6 +155,27 @@ html.lenis, html.lenis body {
   text-shadow: 0 0 18px rgba(125,211,252,.34);
 }
 
+.archive-hero {
+  isolation: isolate;
+}
+
+.archive-label {
+  font-family: "Inter", sans-serif;
+  text-shadow: 0 0 26px rgba(125, 211, 252, .18);
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (max-width: 767px) {
+  .archive-hero {
+    min-height: 100svh;
+  }
+
+  .archive-label {
+    opacity: .48;
+  }
+}
+
 .retro-chip {
   min-height: 44px;
   border: 1px solid rgba(125,211,252,.24);

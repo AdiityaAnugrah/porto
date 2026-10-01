@@ -162,9 +162,20 @@ const stack = [
   { name: "Next.js", icon: SiNextdotjs, color: "text-white" },
   { name: "TypeScript", icon: SiTypescript, color: "text-blue-500" },
   { name: "Tailwind", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "Node.js", icon: FaNodeJs, color: "text-green-500" },
+  { name: "Node.js", icon: FaNodeJs, color: "text-emerald-400" },
   { name: "PHP / CI4", icon: SiCodeigniter, color: "text-orange-500" },
   { name: "MySQL", icon: FaDatabase, color: "text-yellow-500" },
+];
+
+const archiveLabels = [
+  { text: "Website\nDevelopment", to: "/projects/web", className: "left-[7%] top-[13%] text-[clamp(1.7rem,4.8vw,4.8rem)] blur-[1.6px]" },
+  { text: "Business\nSystems", to: "/projects", className: "right-[12%] top-[10%] text-[clamp(1.9rem,5vw,5.6rem)] blur-[1px]" },
+  { text: "Digital\nStore", to: "/store", className: "left-[6%] top-[44%] text-[clamp(1.1rem,2.6vw,3rem)] blur-[3px]" },
+  { text: "Invoice", to: "/invoice", className: "left-[50%] top-[30%] text-[clamp(.95rem,1.9vw,2rem)] blur-[1.4px]" },
+  { text: "About", to: "/about", className: "right-[15%] top-[35%] text-[clamp(1rem,2.1vw,2.4rem)] blur-[.8px]" },
+  { text: "Case\nStudy", to: "/projects", className: "left-[22%] bottom-[17%] text-[clamp(1.2rem,3vw,3.3rem)] blur-[2.6px]" },
+  { text: "Articles", to: "/blog", className: "left-[54%] bottom-[13%] text-[clamp(1.5rem,4vw,4.4rem)] blur-[3.2px]" },
+  { text: "Contact", to: "/contact", className: "right-[7%] bottom-[22%] text-[clamp(1.4rem,3.7vw,4rem)] blur-[2px]" },
 ];
 
 const SectionHeading = ({ eyebrow, title, body, action }) => (
@@ -241,62 +252,62 @@ const Home = () => {
     <div className="pb-20">
       <SEO title={t.seoTitle} description={t.seoDescription} jsonLd={jsonLdGraph} type="website" />
 
-      <section className="relative flex min-h-[calc(100dvh-2rem)] items-center overflow-hidden px-4 pb-16 pt-28 sm:px-6">
+      <section className="archive-hero relative flex min-h-[100svh] items-center justify-center overflow-hidden px-4 pb-10 pt-20 sm:px-6">
         <div className="absolute inset-0 pointer-events-none">
           <img
             src={profileImage}
             alt=""
-            className="h-full w-full object-cover opacity-16 mix-blend-luminosity"
+            className="absolute bottom-[-18%] left-[2%] z-10 hidden h-[98%] w-auto object-contain opacity-32 grayscale mix-blend-luminosity drop-shadow-[0_30px_70px_rgba(0,0,0,.62)] lg:block"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#050814_0%,rgba(5,8,20,0.9)_46%,rgba(5,8,20,0.58)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(125,211,252,0.12),transparent_30rem),linear-gradient(180deg,rgba(5,8,20,.78),#050814_72%)]" />
           <div className="absolute inset-0 portfolio-grid-bg opacity-80" />
-          <div className="absolute left-[8%] top-[17%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Website</div>
-          <div className="absolute right-[12%] top-[22%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] lg:block">Dashboard</div>
-          <div className="absolute bottom-[24%] left-[16%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] md:block">API Integration</div>
-          <div className="absolute bottom-[19%] right-[18%] hidden rounded-full border border-cyan-300/25 bg-black/25 px-5 py-3 text-sm text-cyan-100 blur-[.2px] md:block">Digital Store</div>
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="max-w-5xl">
-            <div className="mb-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-cyan-300/25 bg-black/35 px-4 py-2 text-sm text-cyan-100 backdrop-blur">
-              <Sparkles size={16} aria-hidden="true" />
-              {t.eyebrow}
-            </div>
-            <h1 className="relative text-[clamp(4rem,16vw,13rem)] font-normal leading-[0.72] tracking-[-0.08em] text-white">
-              <span className="kapakana-font block text-cyan-200 drop-shadow-[0_0_24px_rgba(125,211,252,0.32)]">Portfolio</span>
-              <span className="inter-font block pl-2 text-[.38em] font-semibold tracking-[-0.06em] text-white md:pl-8">Aditya</span>
-              <span className="sr-only">{t.headline}</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/68 md:text-xl">{t.intro}</p>
+        {archiveLabels.map((item, index) => (
+          <Link
+            key={`${item.text}-${index}`}
+            to={toLocalized(item.to)}
+            aria-label={item.text.replaceAll("\n", " ")}
+            className={`archive-label absolute z-20 whitespace-pre-line text-left leading-[0.94] tracking-[-0.045em] text-cyan-100/82 transition-all duration-500 hover:scale-[1.035] hover:text-cyan-100 hover:blur-none focus-visible:scale-[1.035] focus-visible:blur-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200/70 ${item.className}`}
+          >
+            {item.text}
+          </Link>
+        ))}
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to={toLocalized("/contact")}
-                className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-cyan-300 px-7 font-bold text-black shadow-[0_0_28px_rgba(125,211,252,0.25)] transition-colors hover:bg-cyan-100"
-              >
-                {t.primaryCta}
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-              <Link
-                to={toLocalized("/projects")}
-                className="retro-chip inline-flex min-h-14 items-center justify-center rounded-full px-7 font-bold transition-colors"
-              >
-                {t.secondaryCta}
-              </Link>
-            </div>
+        <div className="relative z-30 mx-auto aspect-video w-full max-w-7xl [container-type:size]">
+          <div className="absolute left-[22%] top-[29%] flex items-baseline leading-[0.82] text-cyan-100 drop-shadow-[0_0_34px_rgba(125,211,252,.24)]">
+            <span className="kapakana-font text-[28cqw] leading-[0.72]">P</span>
+            <span className="inter-font text-[12cqw] font-normal tracking-[-0.07em]">ort</span>
+            <span className="jersey-font ml-[.35cqw] text-[12cqw] tracking-[0.01em]">folio</span>
           </div>
-
-          <div className="mt-14 grid gap-3 md:grid-cols-3">
-            {t.metrics.map(([label, value]) => (
-              <div key={label} className="retro-window rounded-3xl p-5">
-                <p className="text-xs uppercase text-white/38">{label}</p>
-                <p className="mt-2 text-xl font-bold text-white">{value}</p>
-              </div>
-            ))}
+          <div className="absolute left-[40%] top-[48%] flex items-baseline leading-[0.82] text-white drop-shadow-[0_0_34px_rgba(125,211,252,.20)]">
+            <span className="kapakana-font text-[24cqw] leading-[0.72]">A</span>
+            <span className="inter-font text-[10cqw] font-normal tracking-[-0.07em]">ditya</span>
           </div>
+          <div className="absolute left-[49%] top-[64%] flex items-baseline leading-[0.82] text-white/86">
+            <span className="kapakana-font text-[13cqw] leading-[0.72]">A</span>
+            <span className="inter-font text-[5.6cqw] font-normal tracking-[-0.07em]">nugrah</span>
+          </div>
+        </div>
 
-          <p className="mt-10 text-xs font-semibold uppercase text-white/30">{t.heroNote}</p>
+        <div className="absolute inset-x-4 bottom-7 z-40 mx-auto flex max-w-4xl flex-col items-center gap-4 text-center sm:bottom-8">
+          <p className="max-w-2xl text-sm leading-7 text-white/62 md:text-base">{t.intro}</p>
+          <div className="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+            <Link
+              to={toLocalized("/contact")}
+              className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-cyan-100 px-7 font-bold text-black transition-colors hover:bg-white"
+            >
+              {t.primaryCta}
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <Link
+              to={toLocalized("/projects")}
+              className="retro-chip inline-flex min-h-12 items-center justify-center rounded-full px-7 font-bold transition-colors"
+            >
+              {t.secondaryCta}
+            </Link>
+          </div>
         </div>
       </section>
 
