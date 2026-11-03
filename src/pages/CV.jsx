@@ -1,40 +1,14 @@
-import React from "react";
-import SEO from "../components/SEO";
-import ArchivePage from "../components/archive/ArchivePage";
+import SEO from '../components/SEO';
+import ArchivePage from '../components/archive/ArchivePage';
+import { useActiveLocale } from '../lib/i18n';
 
-const timeline = [
-  ["2026", "Independent developer", "Website, e-commerce, dashboard, dan integrasi bisnis untuk klien UMKM hingga operasional internal."],
-  ["2025", "System builder", "Absensi, stock system, sales flow, internal approval, dan reporting."],
-  ["2024", "Backend + UI", "CodeIgniter/Laravel admin, workflow tracking, PDF export, role access."],
-];
-
-const CV = () => (
-  <>
-    <SEO title="CV | Aditya Anugrah" description="Curriculum Vitae Aditya Anugrah dalam format archive yang ringkas." />
-    <ArchivePage eyebrow="Curriculum vitae" title="CV" subtitle="Ringkasan pengalaman, kemampuan, dan cara kerja dalam format singkat." contentClassName="lg:min-h-[62svh]">
-      <div className="space-y-6">
-        <div className="archive-card">
-          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-200/50">Profile</p>
-          <h2 className="mt-3 text-3xl font-black uppercase text-white">Aditya Anugrah</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-300">Full-stack developer untuk website bisnis, dashboard admin, integrasi produk/stok, dan sistem operasional.</p>
-        </div>
-        <div className="grid gap-3 md:grid-cols-3">
-          {["React / Next.js", "PHP / CI4 / Laravel", "Node / Database / API"].map((skill) => <div key={skill} className="archive-card text-sm font-semibold text-slate-100">{skill}</div>)}
-        </div>
-        <div className="space-y-3">
-          {timeline.map(([year, role, desc]) => (
-            <article key={year} className="archive-card grid gap-3 sm:grid-cols-[90px_1fr]">
-              <p className="font-display text-4xl font-black text-cyan-200/80">{year}</p>
-              <div>
-                <h3 className="text-lg font-bold text-white">{role}</h3>
-                <p className="mt-2 text-sm leading-7 text-slate-300">{desc}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+export default function CV() {
+  const id = useActiveLocale() === 'id';
+  const timeline = [['2026','Independent developer',id?'Website, e-commerce, dashboard, dan integrasi bisnis untuk klien UMKM hingga operasional internal.':'Websites, e-commerce, dashboards, and business integrations for small businesses and internal operations.'],['2025','System builder',id?'Absensi, sistem stok, alur penjualan, persetujuan internal, dan pelaporan.':'Attendance, inventory systems, sales flows, internal approvals, and reporting.'],['2024','Backend + UI',id?'Admin CodeIgniter/Laravel, pelacakan workflow, ekspor PDF, dan hak akses pengguna.':'CodeIgniter/Laravel administration, workflow tracking, PDF exports, and role-based access.']];
+  return <><SEO title="CV | Aditya Anugrah" description="Pengalaman dan kemampuan Aditya Anugrah, full-stack developer."/>
+    <ArchivePage eyebrow="Curriculum vitae" title={id?'Pengalaman & kemampuan.':'Experience & skills.'} subtitle={id?'Ringkasan pekerjaan, teknologi, dan fokus saya sebagai full-stack developer.':'A summary of my work, tools, and focus as a full-stack developer.'}>
+      <div className="cv-layout"><aside className="cv-sidebar"><img className="profile-portrait" src="/assets/me-sunset.jpeg" alt="Aditya Anugrah" width="1005" height="1289"/><h2>Aditya Anugrah</h2><p>Full-stack developer<br/>Semarang, Indonesia</p><a className="text-link" href="mailto:hello@adityaanugrah.me">Email</a><br/><button className="button" onClick={() => window.print()}>{id?'Cetak / simpan PDF':'Print / save PDF'}</button></aside>
+      <div><section className="timeline" aria-label={id?'Pengalaman':'Experience'}>{timeline.map(([year,role,description]) => <article key={year}><time dateTime={year}>{year}</time><div><h3>{role}</h3><p>{description}</p></div></article>)}</section><section className="cv-skills"><h2>{id?'Teknologi yang saya gunakan':'Tools I work with'}</h2><div className="tech-list">{['React','Next.js','CodeIgniter','Laravel','Node.js','MySQL','PostgreSQL','API integration'].map(skill => <span className="tech-tag" key={skill}>{skill}</span>)}</div></section></div></div>
     </ArchivePage>
-  </>
-);
-
-export default CV;
+  </>;
+}

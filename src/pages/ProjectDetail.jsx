@@ -1,47 +1,28 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import SEO from "../components/SEO";
-import ArchivePage from "../components/archive/ArchivePage";
-import { projects } from "../data/projects";
-import { useLocalizedPath } from "../lib/i18n";
+import { Link, useParams } from 'react-router-dom';
+import SEO from '../components/SEO';
+import ArchivePage from '../components/archive/ArchivePage';
+import NotFound from './NotFound';
+import { projects } from '../data/projects';
+import { useActiveLocale, useLocalizedPath } from '../lib/i18n';
+import PortfolioImage from '../components/common/PortfolioImage';
 
-const ProjectDetail = () => {
-  const { id } = useParams();
-  const toLocalized = useLocalizedPath();
-  const project = projects.find((item) => item.id === id) || projects[0];
-
-  return (
-    <>
-      <SEO title={`${project.title} | Project`} description={project.summary} image={project.cover} />
-      <ArchivePage eyebrow={`${project.category} / ${project.year}`} title="Case" subtitle={project.title} backTo="/projects" contentClassName="lg:min-h-[66svh]">
-        <div className="space-y-6">
-          <div className="overflow-hidden rounded-[1.5rem] border border-cyan-100/10 bg-black/30">
-            <img src={project.cover} alt={project.title} className="h-64 w-full object-cover opacity-80" loading="lazy" />
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[ ["Role", project.role], ["Client", project.client], ["Duration", project.duration] ].map(([label, value]) => (
-              <div key={label} className="archive-card"><p className="text-[10px] uppercase tracking-[0.3em] text-cyan-200/45">{label}</p><p className="mt-2 font-bold text-white">{value || "-"}</p></div>
-            ))}
-          </div>
-          <p className="text-base leading-8 text-slate-300">{project.summary}</p>
-          <div className="grid gap-5 md:grid-cols-2">
-            {[ ["Features", project.features], ["Responsibilities", project.responsibilities], ["Challenges", project.challenges], ["Results", project.results] ].map(([title, items]) => (
-              <section key={title} className="archive-card">
-                <h2 className="text-lg font-black uppercase text-white">{title}</h2>
-                <ul className="mt-3 space-y-2 text-sm leading-7 text-slate-300">
-                  {(items || []).map((item) => <li key={item}>— {item}</li>)}
-                </ul>
-              </section>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {(project.tech || []).map((tech) => <span key={tech} className="archive-pill">{tech}</span>)}
-          </div>
-          <Link to={toLocalized("/projects")} className="archive-btn">← Back to archive</Link>
-        </div>
-      </ArchivePage>
-    </>
-  );
-};
-
-export default ProjectDetail;
+export default function ProjectDetail() {
+  const { id: projectId } = useParams();
+  const id = useActiveLocale() === 'id';
+  const to = useLocalizedPath();
+  const project = projects.find(item => item.id === projectId);
+  if (!project) return <NotFound/>;
+  const sections = [[id?'Fitur':'Features',project.features],[id?'Tanggung jawab':'Responsibilities',project.responsibilities],[id?'Tantangan':'Challenges',project.challenges],[id?'Hasil project':'Project results',project.results]];
+  const live = /^https?:\/\//.test(project.links?.live || '') ? project.links.live : null;
+  return <><SEO title={project.title.replace(/—/g,'/')} description={project.summary} image={project.cover}/>
+    <ArchivePage eyebrow={`${project.category} / ${project.year}`} title={project.title.replace(/\s*—\s*/g,' / ')} subtitle={project.summary} backTo="/projects" actions={<>{live && <a className="archive-btn archive-btn-primary" href={live} target="_blank" rel="noreferrer">{id?'Kunjungi website':'Visit website'} <span aria-hidden="true">↗</span></a>}{project.links?.code && <a className="archive-btn" href={project.links.code} target="_blank" rel="noreferrer">Source code</a>}</>}>
+      <PortfolioImage className="article-cover" src={project.cover} alt={project.title} width="1200" height="700" fetchPriority="high"/>
+      <dl className="project-facts">{[[id?'Peran':'Role',project.role],[id?'Klien':'Client',project.client],[id?'Durasi':'Duration',project.duration],[id?'Tim':'Team',project.team]].map(([label,value]) => <div key={label}><dt>{label}</dt><dd>{value || '-'}</dd></div>)}</dl>
+      <div className="prose"><p>{project.summary}</p></div>
+      <div className="detail-sections">{sections.filter(([,items]) => items?.length).map(([label,items]) => <section className="detail-section prose" key={label}><h2>{label}</h2><ul>{items.map(item => <li key={item}>{item}</li>)}</ul></section>)}</div>
+      <div className="tech-list">{project.tech?.map(tech => <span className="tech-tag" key={tech}>{tech}</span>)}</div>
+      {project.gallery?.length > 0 && <div className="detail-gallery">{project.gallery.map(item => <PortfolioImage key={item.src} src={item.src} alt={item.alt || project.title} width="1200" height="800" loading="lazy"/>)}</div>}
+      <div className="page-actions"><Link className="text-link" to={to('/projects')}>{id?'Kembali ke semua karya':'Back to all work'}</Link></div>
+    </ArchivePage>
+  </>;
+}

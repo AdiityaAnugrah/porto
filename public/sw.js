@@ -1,4 +1,4 @@
-const CACHE_NAME = 'porto-speed-v5';
+const CACHE_NAME = 'porto-portfolio-v6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

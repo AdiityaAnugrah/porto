@@ -100,11 +100,11 @@ const setJsonLd = (json, id) =>
           s.type = "application/ld+json";
           return s;
         },
-        { 
-            "data-seo": id, 
+        {
+            "data-seo": id,
             textContent: JSON.stringify(
                 Array.isArray(json) && json.length === 1 ? json[0] : { "@context": "https://schema.org", "@graph": json }
-            ) 
+            )
         }
       )
     : null;
@@ -147,7 +147,7 @@ export default function SEO({
   description,
   path = "",
   type = "website",
-  image = "/assets/og-default.jpg",
+  image = "/assets/me-sunset.jpeg",
   imageAlt,
   robots = "index,follow",
   jsonLd,

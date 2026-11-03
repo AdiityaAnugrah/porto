@@ -1,0 +1,17 @@
+# Aditya portfolio redesign
+
+Reference: https://antislop.ai.id/ (retrieved HTML, CSS, and Open Graph preview).
+Direction: cinematic photographic introduction, compact top navigation, oversized calm typography, then generous readable content. Adapt the composition, not the reference's artwork or product copy.
+Dial: ENERGY 2 / RHYTHM 3 / MOTION 2.
+
+Palette: ink #191518, paper #f7f6f4, white #ffffff, secondary #625b60, warm accent #a23f38. Hero has a burgundy contrast scrim to echo the reference and keep white type readable. Accent marks active navigation, categories and primary actions.
+Type: locally bundled Inter for content; Space Grotesk for developer identity and headings. No remote font dependency.
+Layout: full-width hero; image-led selected work; contrasting profile section; quieter journal list. Interior pages use normal document scrolling and tailored content rather than desktop-window simulation.
+Photo: reuse existing public/assets/me-sunset.avif and JPEG. No invented identity assets, testimonials, client counts or outcome numbers.
+Motion: the original AA mark assembles in 2.05 seconds, then rests. It automatically repeats every 20 seconds only while the mark is visible and the tab is active. It is decorative, with no replay button or hover target. The header and footer show only Aditya Anugrah's name; the hero owns the AA symbol. Content sections reveal once as they enter the viewport, with short staggered timing; the hero photograph drifts slightly with scrolling. Utility forms remain static. Reduced motion disables the repeating logo, reveal and photographic drift; focused content and print output remain visible.
+Sound: original Web Audio synthesis with a quiet crystalline hover tick and a distinct three-note activation cue, inspired by console UI rather than copied PS5 recordings. Important public navigation, project links and primary actions are audible after the first browser gesture. No audio on scroll, decorative logos, or transaction/admin form controls. Hover is rate-limited; touch does not get duplicate hover audio. A single compact mute control remembers the visitor's preference. No music, autoplay audio file, sound library or external download.
+Brand wordmark: the navbar name builds once on initial mount as A, A A, Aditya A, then Aditya Anugrah in 2.55 seconds. An invisible full-name sizer reserves the final width throughout; the accessible link name stays constant. No extra logo, sound, replay button, route-change replay or indefinite loop. Reduced motion shows the complete name immediately.
+Selective audio: hover/focus cues are limited to the primary hero CTA, navbar project CTA and explicitly primary interior links. Brand, navigation menus, language switch, project cards, article links, filters and ordinary text are silent on hover. Activation cues remain only on primary actions, hero actions, project cards, service enquiry links and contact methods. The existing mute preference still applies.
+Navigation: existing destinations only. Native mobile disclosure; language switch preserves path, query and hash.
+Utility screens: retain API contracts and business logic; same top navigation, muted dark surfaces, warm accent, readable inputs and footer.
+Review: removed scattered labels, glowing grid, nested scroll windows and uniformly glass cards. Glass is reserved for top navigation; content surfaces are opaque. Preserve source project/article content rather than inventing results.

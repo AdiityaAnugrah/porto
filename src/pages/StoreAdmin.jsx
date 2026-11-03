@@ -51,17 +51,22 @@ export default function StoreAdmin() {
 
   const loadSummary = async () => {
     if (!token) return;
+    try {
     const response = await fetch(apiUrl("/store/admin/summary"), { headers: authHeaders });
     if (response.status === 401) {
       window.localStorage.removeItem("store_admin_token");
       setToken("");
       return;
     }
+    if (!response.ok) throw new Error("Gagal memuat data store. Coba masuk kembali.");
     const data = await response.json();
     setSummary(data);
     setSelectedProductId((current) =>
       data.products?.some((item) => item.id === current) ? current : data.products?.[0]?.id || ""
     );
+    } catch (error) {
+      setMessage(error.message || "Gagal memuat data store.");
+    }
   };
 
   useEffect(() => {
@@ -341,12 +346,17 @@ export default function StoreAdmin() {
 
   if (!token) {
     return (
-      <div className="pt-24 pb-32 px-6 max-w-md mx-auto min-h-screen">
-        <SEO title="Store Admin" description="Admin store digital." robots={false} />
-        <form onSubmit={login} className="glass-panel rounded-3xl p-6 space-y-4">
-          <h1 className="text-2xl font-bold font-display">Store Admin</h1>
+      <div className="auth-screen">
+        <SEO title="Store Admin" description="Admin store digital." robots="noindex,nofollow" />
+        <div className="auth-intro"><p className="section-label">Aditya / Digital store</p><h1>Di balik<br/>operasional.</h1><p>Kelola produk, kategori, stok, dan pesanan dari satu tempat.</p></div>
+        <form onSubmit={login} className="glass-panel auth-card space-y-4">
+          <h2 className="text-2xl font-display">Masuk ke store admin</h2>
+          <p className="utility-heading-note">Gunakan password admin untuk mengelola store.</p>
+          <label htmlFor="admin-password" className="block text-sm">Password admin</label>
           <input
+            id="admin-password"
             type="password"
+            autoComplete="current-password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -359,7 +369,7 @@ export default function StoreAdmin() {
               <AlertDescription>{message}</AlertDescription>
             </Alert>
           )}
-          <button className="w-full rounded-xl bg-cyan-100 px-5 py-3 font-bold text-black flex items-center justify-center gap-2">
+          <button disabled={loading} className="w-full rounded-xl bg-cyan-100 px-5 py-3 font-bold text-black flex items-center justify-center gap-2">
             {loading ? <FaSpinner className="animate-spin" /> : <><FaSignInAlt /> Login</>}
           </button>
         </form>
@@ -369,11 +379,12 @@ export default function StoreAdmin() {
 
   return (
     <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen">
-      <SEO title="Store Admin" description="Admin store digital." robots={false} />
+      <SEO title="Store Admin" description="Admin store digital." robots="noindex,nofollow" />
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="mb-3 text-xs font-mono uppercase tracking-[0.24em] text-cyan-300/80">Admin</p>
-          <h1 className="text-4xl font-bold font-display">Store Control</h1>
+          <p className="mb-3 text-xs text-cyan-200">Aditya / Digital store</p>
+          <h1 className="text-4xl font-display">Store control.</h1>
+          <p className="utility-heading-note">Produk, stok, dan pesanan. Semua alur operasional di satu tempat.</p>
         </div>
         <button
           onClick={() => {
@@ -385,6 +396,8 @@ export default function StoreAdmin() {
           Logout
         </button>
       </header>
+
+      <dl className="admin-overview"><div><dt>Produk</dt><dd>{summary.products.length}</dd></div><div><dt>Kategori</dt><dd>{summary.categories.length}</dd></div><div><dt>Order dalam ringkasan</dt><dd>{summary.orders.length}</dd></div></dl>
 
       {message && (
         <Alert variant={messageVariant(message)} className="mb-6">
@@ -408,6 +421,7 @@ export default function StoreAdmin() {
                 </button>
               )}
               <select
+                aria-label="Pilih produk untuk edit"
                 value={editingProductId}
                 onChange={(event) => {
                   const nextId = event.target.value;
@@ -429,21 +443,27 @@ export default function StoreAdmin() {
             ["summary", "Ringkasan"],
             ["price", "Harga"],
           ].map(([key, placeholder]) => (
-            <input
-              key={key}
+            <label key={key} className="block text-sm space-y-2">
+              <span>{placeholder}</span>
+              <input
               value={product[key]}
               onChange={(event) => setProduct({ ...product, [key]: event.target.value })}
               placeholder={placeholder}
+              type={key === "price" ? "number" : "text"}
+              min={key === "price" ? "0" : undefined}
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
             />
+            </label>
           ))}
           <div className="grid gap-3 md:grid-cols-[1fr_auto]">
+            <label className="block text-sm space-y-2"><span>Gambar produk (key R2)</span>
             <input
               value={product.image}
               onChange={(event) => setProduct({ ...product, image: event.target.value })}
               placeholder="Image key R2"
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
             />
+            </label>
             <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-cyan-300/20 bg-cyan-300/10 px-4 py-3 font-bold text-cyan-100 hover:bg-cyan-300/15">
               {uploadingImage ? <FaSpinner className="animate-spin" /> : <FaImage />}
               Upload
@@ -452,6 +472,7 @@ export default function StoreAdmin() {
           </div>
           {summary.media?.length > 0 && (
             <select
+              aria-label="Pilih gambar dari media library"
               value={product.image}
               onChange={(event) => setProduct({ ...product, image: event.target.value })}
               className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 outline-none focus:border-cyan-300/50"
@@ -465,6 +486,7 @@ export default function StoreAdmin() {
             </select>
           )}
           <div className="grid gap-3 md:grid-cols-2">
+            <label className="block text-sm space-y-2"><span>Kategori produk</span>
             <select
               value={product.categoryId}
               onChange={(event) => setProduct({ ...product, categoryId: event.target.value })}
@@ -475,6 +497,8 @@ export default function StoreAdmin() {
                 <option key={item.id} value={item.id}>{item.name}</option>
               ))}
             </select>
+            </label>
+            <label className="block text-sm space-y-2"><span>Garansi (jam)</span>
             <input
               type="number"
               min="1"
@@ -483,7 +507,9 @@ export default function StoreAdmin() {
               placeholder="Garansi jam"
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
             />
+            </label>
           </div>
+          <label className="block text-sm space-y-2"><span>Metode pengiriman</span>
           <select
             value={product.fulfillmentType}
             onChange={(event) => setProduct({ ...product, fulfillmentType: event.target.value })}
@@ -492,6 +518,8 @@ export default function StoreAdmin() {
             <option value="auto_stock">Auto stock - stok TXT langsung dikirim setelah PAID</option>
             <option value="manual_upload">Manual upload - admin upload TXT setelah PAID</option>
           </select>
+          </label>
+          <label className="block text-sm space-y-2"><span>Deskripsi produk</span>
           <textarea
             value={product.description}
             onChange={(event) => setProduct({ ...product, description: event.target.value })}
@@ -499,6 +527,7 @@ export default function StoreAdmin() {
             rows="4"
             className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
           />
+          </label>
           <label className="flex items-center gap-3 text-sm text-white/60">
             <input
               type="checkbox"
@@ -527,6 +556,7 @@ export default function StoreAdmin() {
                   </button>
                 )}
                 <select
+                aria-label="Pilih kategori untuk edit"
                   value={editingCategoryId}
                   onChange={(event) => {
                     const nextId = event.target.value;
@@ -543,18 +573,18 @@ export default function StoreAdmin() {
                 </select>
               </div>
             </div>
-            <input
+            <label className="block text-sm space-y-2"><span>Nama kategori</span><input
               value={category.name}
               onChange={(event) => setCategory({ ...category, name: event.target.value })}
               placeholder="Nama kategori"
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
-            />
-            <input
+            /></label>
+            <label className="block text-sm space-y-2"><span>Deskripsi kategori</span><input
               value={category.description}
               onChange={(event) => setCategory({ ...category, description: event.target.value })}
               placeholder="Deskripsi singkat"
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
-            />
+            /></label>
             <label className="flex items-center gap-3 text-sm text-white/60">
               <input
                 type="checkbox"
@@ -570,7 +600,7 @@ export default function StoreAdmin() {
 
           <form onSubmit={addStock} className="glass-panel rounded-3xl p-6 space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2"><FaPlus /> Tambah Stok TXT</h2>
-            <select
+            <label className="block text-sm space-y-2"><span>Produk untuk stok</span><select
               value={selectedProductId}
               onChange={(event) => setSelectedProductId(event.target.value)}
               className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 outline-none focus:border-cyan-300/50"
@@ -580,14 +610,14 @@ export default function StoreAdmin() {
                   {item.name} - stok {item.stock}
                 </option>
               ))}
-            </select>
-            <textarea
+            </select></label>
+            <label className="block text-sm space-y-2"><span>Stok TXT (satu per baris)</span><textarea
               value={stockText}
               onChange={(event) => setStockText(event.target.value)}
               placeholder="Satu stok per baris. Contoh: email@gmail.com|password"
               rows="7"
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none focus:border-cyan-300/50"
-            />
+            /></label>
             <p className="text-xs leading-relaxed text-white/40">
               Jika pembeli beli Qty 2, sistem otomatis mengambil 2 baris stok dan menulisnya bernomor di file TXT.
             </p>
@@ -705,6 +735,7 @@ export default function StoreAdmin() {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-bold">Order Terbaru</h2>
             <select
+              aria-label="Filter status order"
               value={orderStatusFilter}
               onChange={(event) => setOrderStatusFilter(event.target.value)}
               className="rounded-xl border border-white/10 bg-black px-4 py-2 text-sm outline-none focus:border-cyan-300/50"
@@ -766,7 +797,7 @@ export default function StoreAdmin() {
                 onClick={() => setProduct((current) => ({ ...current, image: item.key }))}
                 className="overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left transition-colors hover:border-cyan-300/35"
               >
-                <img src={item.url} alt={item.fileName || item.key} className="aspect-[4/3] w-full object-cover" />
+                <img src={item.url} alt={item.fileName || item.key} width="400" height="300" loading="lazy" className="aspect-[4/3] w-full object-cover" />
                 <div className="p-3 text-xs text-white/55">{item.fileName || item.key}</div>
               </button>
             ))}

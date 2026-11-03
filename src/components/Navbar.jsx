@@ -1,61 +1,44 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { FaHome, FaUser, FaCode, FaEnvelope, FaBookOpen, FaShoppingBag, FaFileInvoice } from "react-icons/fa";
-import { stripLocaleFromPath, useLocalizedPath } from "../lib/i18n";
+import { useEffect, useRef } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { localizedPath, stripLocaleFromPath, useActiveLocale, useLocalizedPath } from '../lib/i18n';
+import InterfaceSound from './common/InterfaceSound';
+import BrandWordmark from './common/BrandWordmark';
 
-const navItems = [
-  { path: "/", label: "Home", icon: FaHome },
-  { path: "/about", label: "About", icon: FaUser },
-  { path: "/projects", label: "Work", icon: FaCode },
-  { path: "/store", label: "Store", icon: FaShoppingBag },
-  { path: "/invoice", label: "Invoice", icon: FaFileInvoice },
-  { path: "/blog", label: "Blog", icon: FaBookOpen },
-  { path: "/contact", label: "Contact", icon: FaEnvelope },
-];
-
-const Navbar = () => {
+export default function Navbar() {
   const location = useLocation();
-  const toLocalized = useLocalizedPath();
-  const activePath = stripLocaleFromPath(location.pathname);
-
+  const locale = useActiveLocale();
+  const to = useLocalizedPath();
+  const menu = useRef(null);
+  const id = locale === 'id';
+  const links = [['/projects', id ? 'Karya' : 'Work'], ['/about', id ? 'Tentang' : 'About'], ['/blog', id ? 'Tulisan' : 'Journal'], ['/store', id ? 'Layanan' : 'Services']];
+  const languagePath = localizedPath(`${stripLocaleFromPath(location.pathname)}${location.search}${location.hash}`, id ? 'en' : 'id');
+  useEffect(() => { if (menu.current) menu.current.open = false; }, [location.pathname]);
+  const escapeMenu = (event) => {
+    if (event.key === 'Escape' && menu.current?.open) {
+      menu.current.open = false;
+      menu.current.querySelector('summary')?.focus();
+    }
+  };
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-2xl">
-      <nav aria-label="Main Navigation" className="retro-window rounded-[28px] px-2.5 sm:px-4 py-2.5 flex justify-between items-center sm:gap-2">
-        <span className="pointer-events-none absolute inset-x-8 top-0 h-px bg-cyan-300/70 blur-[1px]" />
-        {navItems.map((item) => {
-          const isActive = activePath === item.path || (item.path !== '/' && activePath.startsWith(item.path));
-          
-          return (
-            <Link 
-              key={item.path}
-              to={toLocalized(item.path)}
-              aria-label={`Navigate to ${item.label}`}
-              className="relative min-h-11 min-w-11 px-2.5 sm:px-4 py-2 flex flex-col items-center justify-center group rounded-2xl"
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="nav-pill"
-                  className="absolute inset-0 rounded-2xl border border-cyan-300/35 bg-cyan-400/10 shadow-[0_0_22px_rgba(125,211,252,0.18)]"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              
-              <span className={`relative z-10 text-lg sm:text-xl transition-colors duration-300 ${isActive ? 'text-cyan-300' : 'text-white/58 group-hover:text-cyan-100'}`}>
-                <item.icon />
-              </span>
-              <span className="sr-only">{item.label}</span>
-              
-              {/* Tooltip for desktop */}
-              <span className="absolute -top-11 left-1/2 -translate-x-1/2 rounded-full border border-cyan-300/20 bg-black/85 px-3 py-1 text-xs text-cyan-100 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap hidden sm:block pointer-events-none">
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
+    <header className="site-header" onKeyDown={escapeMenu}>
+      <nav className="site-nav" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>
+        <Link to={to('/')} className="brand" aria-label={id ? 'Aditya Anugrah, beranda' : 'Aditya Anugrah, home'}><BrandWordmark /></Link>
+        <div className="desktop-links">{links.map(([path, label]) => <NavLink key={path} to={to(path)} className={({isActive}) => isActive ? 'nav-link is-active' : 'nav-link'}>{label}</NavLink>)}</div>
+        <div className="nav-actions">
+          <InterfaceSound />
+          <Link to={languagePath} className="language-switch" aria-label={id ? 'EN: Switch to English' : 'ID: Ganti ke Bahasa Indonesia'}>{id ? 'EN' : 'ID'}</Link>
+          <Link to={to('/contact')} className="nav-contact">{id ? 'Diskusi project' : 'Let’s talk'}</Link>
+          <details ref={menu} className="mobile-menu">
+            <summary>Menu <span aria-hidden="true">+</span></summary>
+            <div className="mobile-menu-panel" onClick={(event) => { if (event.target.closest('a')) menu.current.open = false; }}>
+              <NavLink to={to('/')}>{id ? 'Beranda' : 'Home'}</NavLink>
+              {links.map(([path,label]) => <NavLink key={path} to={to(path)}>{label}</NavLink>)}
+              <NavLink to={to('/cv')}>CV</NavLink>
+              <NavLink to={to('/contact')}>{id ? 'Kontak' : 'Contact'}</NavLink>
+            </div>
+          </details>
+        </div>
       </nav>
-    </div>
+    </header>
   );
-};
-
-export default Navbar;
+}

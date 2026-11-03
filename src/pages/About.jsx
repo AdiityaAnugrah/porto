@@ -1,63 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SEO from "../components/SEO";
-import ArchivePage from "../components/archive/ArchivePage";
-import { useLocalizedPath } from "../lib/i18n";
+import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+import ArchivePage from '../components/archive/ArchivePage';
+import { useActiveLocale, useLocalizedPath } from '../lib/i18n';
 
-const facts = [
-  ["Focus", "Business websites, internal systems, dashboards, and automation."],
-  ["Approach", "Audit dulu, buang fitur tidak perlu, lalu bangun flow yang cepat dipakai."],
-  ["Stack", "React, Next.js, CodeIgniter, Laravel, Node.js, MySQL, PostgreSQL."],
-  ["Style", "Clean archive interface, dark system, clear hierarchy, fast loading."],
-];
-
-const About = () => {
-  const toLocalized = useLocalizedPath();
-
-  return (
-    <>
-      <SEO title="About Aditya Anugrah" description="Tentang Aditya Anugrah, web developer dan pembuat sistem bisnis." />
-      <ArchivePage
-        eyebrow="Profile archive"
-        title="About"
-        subtitle="Saya membangun website dan sistem yang langsung membantu operasional: transaksi, stok, admin, laporan, dan integrasi."
-        actions={
-          <>
-            <Link to={toLocalized("/projects")} className="archive-btn">Selected work</Link>
-            <Link to={toLocalized("/contact")} className="archive-btn archive-btn-primary">Start project</Link>
-          </>
-        }
-      >
-        <div className="space-y-6">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.35em] text-cyan-200/60">01 / identity</p>
-            <h2 className="mt-3 text-3xl font-black uppercase tracking-[-0.04em] text-white sm:text-5xl">Aditya Anugrah</h2>
-            <p className="mt-4 max-w-2xl text-base leading-8 text-slate-300">
-              Full-stack developer yang fokus pada website bisnis, e-commerce, dashboard operasional, dan integrasi antar sistem. Tampilan baru ini sengaja dibuat lebih ringkas seperti archive supaya pengunjung langsung masuk ke hal penting.
-            </p>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {facts.map(([label, value]) => (
-              <article key={label} className="archive-card">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-200/50">{label}</p>
-                <p className="mt-3 text-sm leading-7 text-slate-200">{value}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="archive-card">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-200/50">02 / working rule</p>
-            <ul className="mt-4 grid gap-3 text-sm leading-7 text-slate-300 md:grid-cols-3">
-              <li>Audit proses dan masalah bisnis.</li>
-              <li>Rancang UI yang mudah dipakai tim.</li>
-              <li>Deploy, ukur, lalu iterasi berdasarkan data.</li>
-            </ul>
-          </div>
+export default function About() {
+  const id = useActiveLocale() === 'id';
+  const to = useLocalizedPath();
+  const facts = id ? [['Fokus','Website bisnis, e-commerce, dashboard operasional, dan otomatisasi.'],['Pendekatan','Pahami prosesnya, tentukan prioritas, lalu bangun alur yang mudah dipakai.'],['Teknologi','React, Next.js, CodeIgniter, Laravel, Node.js, MySQL, PostgreSQL.']] : [['Focus','Business websites, e-commerce, operational dashboards, and automation.'],['Approach','Understand the process, set priorities, then build a flow people can use.'],['Technology','React, Next.js, CodeIgniter, Laravel, Node.js, MySQL, PostgreSQL.']];
+  return <><SEO title="About | Aditya Anugrah" description="Aditya Anugrah, full-stack developer untuk website dan sistem bisnis di Semarang." image="/assets/me-sunset.jpeg"/>
+    <ArchivePage eyebrow={id?'Tentang saya':'About me'} title={id?'Kenalan dulu.':'A little about me.'} subtitle={id?'Saya Aditya Anugrah, full-stack developer yang senang menghubungkan kebutuhan bisnis dengan teknologi.':'I’m Aditya Anugrah, a full-stack developer who likes connecting business needs with technology.'}>
+      <div className="about-grid"><img className="profile-portrait" src="/assets/me-sunset.jpeg" alt="Aditya Anugrah" width="1005" height="1289"/>
+        <div><h2>{id?'Bukan hanya tampilan. Juga cara kerjanya.':'Not just how it looks. How it works, too.'}</h2><div className="prose"><p>{id?'Saya membangun website dan sistem yang membantu operasional sehari-hari: transaksi, stok, administrasi, laporan, dan integrasi.':'I build websites and systems for everyday operations: transactions, inventory, administration, reporting, and integrations.'}</p><p>{id?'Proses saya dimulai dari memahami masalah. Setelah itu, saya menyusun alur, membangun antarmuka dan backend, lalu menyiapkan deployment serta iterasinya.':'My process starts with understanding the problem. Then I map the flow, build the interface and backend, and prepare deployment and iteration.'}</p></div>
+          <dl className="fact-list">{facts.map(([label,value]) => <div className="fact-row" key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+          <div className="page-actions"><Link className="button button-primary" to={to('/contact')}>{id?'Diskusi project':'Discuss a project'}</Link><Link className="button" to={to('/cv')}>{id?'Lihat CV':'View CV'}</Link></div>
         </div>
-      </ArchivePage>
-    </>
-  );
-};
-
-export default About;
+      </div>
+    </ArchivePage>
+  </>;
+}

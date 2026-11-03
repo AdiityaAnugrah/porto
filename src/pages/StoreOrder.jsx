@@ -59,26 +59,36 @@ export default function StoreOrder() {
   const [order, setOrder] = useState(location.state?.order || null);
   const [payment, setPayment] = useState(location.state?.payment || null);
   const [loading, setLoading] = useState(!location.state?.order);
+  const [error, setError] = useState("");
+  const [refreshCount, setRefreshCount] = useState(0);
   const isTerminalStatus = ["PAID", "READY", "EXPIRED", "FAILED"].includes(
     String(order?.status || "").toUpperCase()
   );
 
   useEffect(() => {
+    const controller = new AbortController();
     const load = () => {
-      fetch(apiUrl(`/store/orders/${ref}`))
-        .then((res) => res.json())
+      setError("");
+      fetch(apiUrl(`/store/orders/${encodeURIComponent(ref)}`), { signal: controller.signal })
+        .then((res) => {
+          if (res.status === 404) return { order: null };
+          if (!res.ok) throw new Error("Status pesanan belum berhasil dimuat. Coba periksa kembali.");
+          return res.json();
+        })
         .then((data) => {
           setOrder(data.order);
           setPayment(data.order?.payment);
         })
-        .finally(() => setLoading(false));
+        .catch((cause) => {
+          if (cause.name !== "AbortError") setError("Status pesanan belum berhasil dimuat. Periksa koneksi lalu coba lagi.");
+        })
+        .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     };
 
     load();
-    if (isTerminalStatus) return undefined;
-    const interval = window.setInterval(load, 10000);
-    return () => window.clearInterval(interval);
-  }, [isTerminalStatus, ref]);
+    const interval = isTerminalStatus ? null : window.setInterval(load, 10000);
+    return () => { controller.abort(); if (interval) window.clearInterval(interval); };
+  }, [isTerminalStatus, ref, refreshCount]);
 
   const downloadUrl = order?.downloadUrl
     ? `${String(API_BASE_URL).replace(/\/+$/, "")}${order.downloadUrl}`
@@ -97,6 +107,9 @@ export default function StoreOrder() {
         robots="noindex,nofollow"
       />
 
+      <div className="utility-page-intro"><p className="section-label">Digital store</p><h1>Status pesanan.</h1><p>Pembayaran, detail pembelian, dan file digital dalam satu halaman.</p></div>
+      {error && <Alert variant="destructive" className="mb-6"><AlertTitle>Status belum tersedia</AlertTitle><AlertDescription>{error}</AlertDescription><button className="mt-4 rounded-lg border border-white/40 px-4 py-2 text-sm" onClick={() => setRefreshCount(count => count + 1)}>Coba lagi</button></Alert>}
+
       {loading ? (
         <div className="glass-panel flex min-h-[320px] items-center justify-center rounded-3xl p-8 text-white/60">
           <TetrisLoading size="sm" speed="fast" loadingText="Memuat order..." />
@@ -112,9 +125,9 @@ export default function StoreOrder() {
                 {order.status}
               </span>
             </div>
-            <h1 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight text-white md:text-5xl">
+            <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight text-white md:text-5xl">
               {order.productName}
-            </h1>
+            </h2>
             {order.productSummary && (
               <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 md:text-base">
                 {order.productSummary}
@@ -189,7 +202,7 @@ export default function StoreOrder() {
               ) : (
                 <>
                   {payment?.qrUrl ? (
-                    <img src={payment.qrUrl} alt="QRIS payment" className="mx-auto w-64 max-w-full rounded-xl bg-white p-3" />
+                    <img src={payment.qrUrl} alt="QRIS payment" width="256" height="256" className="mx-auto w-64 max-w-full rounded-xl bg-white p-3" />
                   ) : (
                     <div className="flex min-h-64 items-center justify-center">
                       <Alert variant="warning" className="w-full">
@@ -231,7 +244,7 @@ export default function StoreOrder() {
             </aside>
           </div>
         </>
-      ) : (
+      ) : !error ? (
         <div className="glass-panel rounded-3xl p-6 md:p-10">
           <Alert variant="destructive">
             <AlertTitle>Order tidak ditemukan</AlertTitle>
@@ -241,7 +254,7 @@ export default function StoreOrder() {
             Kembali ke store
           </Link>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

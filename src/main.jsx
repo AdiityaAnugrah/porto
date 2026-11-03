@@ -1,35 +1,24 @@
-import React, { Suspense, lazy } from "react";
+import React, { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
 // Register Service Worker for Instant Subsequent Loads
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js?v=20260626-store-fix').catch(err => {
+    navigator.serviceWorker.register('/sw.js?v=20261103-portfolio').catch(err => {
       console.log('SW registration failed: ', err);
     });
   });
 }
-// Smooth Scroll
-import Lenis from "lenis";
-
-// Initialize Lenis globally
-if (typeof window !== "undefined") {
-  new Lenis({
-    autoRaf: true,
-  });
-}
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./Layout.jsx";
-import PageLoader from "./components/common/PageLoader.jsx";
 import LocaleGate from "./components/LocaleGate.jsx";
 import LocaleRedirect from "./components/LocaleRedirect.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 // Lazy Load Pages for Performance
 const Home = lazy(() => import("./pages/Home.jsx"));
 const About = lazy(() => import("./pages/About.jsx"));
-const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 const Projects = lazy(() => import("./pages/Projects.jsx"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail.jsx"));
 const Contact = lazy(() => import("./pages/Contact.jsx"));
