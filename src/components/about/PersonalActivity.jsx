@@ -20,11 +20,15 @@ function useActivityFeed(path, enabled) {
       setResult(previous => ({ ...previous, loading: true, error: false }));
       try {
         const response = await fetch(apiUrl(path), { signal: request.signal });
-        if (!response.ok) throw new Error('Activity unavailable');
         const data = await response.json();
+        if (!response.ok) {
+          const error = new Error('Activity unavailable');
+          error.code = data?.code;
+          throw error;
+        }
         if (active && controller === request) setResult({ data, loading: false, error: false });
-      } catch {
-        if (active && controller === request) setResult({ data: null, loading: false, error: true });
+      } catch (error) {
+        if (active && controller === request) setResult({ data: null, loading: false, error: error.code || true });
       } finally {
         if (controller === request) window.clearTimeout(timeout);
       }
@@ -50,6 +54,7 @@ function ActivityImage({ src, alt }) {
 function FeedState({ feed, name, id }) {
   if (feed.loading && !feed.data) return <p className="activity-state" role="status">{id ? `Memuat aktivitas ${name}…` : `Loading ${name} activity…`}</p>;
   if (!feed.error) return null;
+  if (feed.error === 'SPOTIFY_REAUTH_REQUIRED') return <div className="activity-state"><p>{id ? 'Koneksi Spotify perlu dihubungkan ulang oleh pemilik situs.' : 'The site owner needs to reconnect Spotify.'}</p><button className="activity-link" type="button" onClick={feed.retry}>{id ? 'Periksa lagi' : 'Check again'}</button></div>;
   return <div className="activity-state"><p>{id ? `Aktivitas ${name} belum berhasil dimuat.` : `${name} activity is temporarily unavailable.`}</p><button className="activity-link" type="button" onClick={feed.retry}>{id ? 'Coba lagi' : 'Try again'}</button></div>;
 }
 
@@ -67,7 +72,7 @@ export default function PersonalActivity() {
   const spotify = useActivityFeed('/spotify/now-playing', visible);
   const steamProfile = steam.data;
   const playing = steamProfile?.state === 'In-Game' && steamProfile?.gameName;
-  const tracks = (Array.isArray(spotify.data) ? spotify.data : spotify.data?.isPlaying ? [spotify.data] : []).filter(track => track?.title).slice(0, 3);
+  const tracks = (Array.isArray(spotify.data) ? spotify.data : spotify.data?.title ? [spotify.data] : []).filter(track => track?.title).slice(0, 3);
   const pubgProfile = pubg.data;
 
   return <section ref={root} id="personal-activity" className="personal-activity" aria-labelledby="personal-activity-title">

@@ -23,6 +23,8 @@ install-api-instrument.sh
 scripts/*
 !scripts/generate-sitemap.mjs
 !scripts/capture-project-previews.mjs
+!scripts/test-spotify.mjs
+!scripts/spotify-reconnect.mjs
 server/store.local.json
 server/analytics.local.json
 

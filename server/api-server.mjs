@@ -6,6 +6,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import http from "node:http";
+import { getDeveloperActivity } from "./developer-activity.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -79,7 +80,19 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === "/spotify/now-playing") {
-      const data = await cached("spotify:now-playing", CACHE_TTL.spotify, getSpotifyTracks);
+      try {
+        const data = await cached("spotify:now-playing", CACHE_TTL.spotify, getSpotifyTracks);
+        return sendJson(res, 200, data);
+      } catch (error) {
+        const code = error.code || "SPOTIFY_UNAVAILABLE";
+        console.warn(`[spotify] ${code}`);
+        return sendJson(res, 503, { error: "Spotify activity unavailable", code });
+      }
+    }
+
+    if (url.pathname === "/developer/activity") {
+      const data = await cached("developer:activity", 300000, getDeveloperActivity);
+      res.setHeader("Cache-Control", "public, max-age=60");
       return sendJson(res, 200, data);
     }
 
@@ -2030,51 +2043,64 @@ async function getSpotifyAccessToken() {
   const refreshToken = requireEnv("SPOTIFY_REFRESH_TOKEN");
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
 
-  const { data } = await requestJson("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-    }),
-  });
-
+  let data;
+  try {
+    ({ data } = await requestJson("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+      }),
+    }));
+  } catch (error) {
+    throw spotifyError(error, true);
+  }
+  if (!data?.access_token) throw spotifyError(new Error("Missing access token"));
   return data.access_token;
 }
 
-async function getSpotifyTracks() {
-  try {
-    const accessToken = await getSpotifyAccessToken();
-    const headers = { Authorization: `Bearer ${accessToken}` };
-    const tracks = [];
+function spotifyError(cause, tokenRequest = false) {
+  const error = new Error("Spotify activity unavailable");
+  error.status = 503;
+  error.code = cause.publicDetail === "invalid_grant" || cause.status === 401 || cause.status === 403
+    ? "SPOTIFY_REAUTH_REQUIRED"
+    : tokenRequest && cause.status === 400 ? "SPOTIFY_CONFIGURATION_ERROR" : "SPOTIFY_UNAVAILABLE";
+  return error;
+}
 
-    const current = await requestJson("https://api.spotify.com/v1/me/player/currently-playing", {
+async function getSpotifyTracks() {
+  const accessToken = await getSpotifyAccessToken();
+  const headers = { Authorization: `Bearer ${accessToken}` };
+  const tracks = [];
+
+  const [current, recent] = await Promise.allSettled([
+    requestJson("https://api.spotify.com/v1/me/player/currently-playing", {
       headers,
     }).catch((error) => {
       if (error.status === 404) return { data: null };
       throw error;
-    });
+    }),
+    requestJson("https://api.spotify.com/v1/me/player/recently-played?limit=5", { headers }),
+  ]);
 
-    const currentTrack = mapSpotifyCurrentTrack(current.data);
-    if (currentTrack) tracks.push(currentTrack);
+  const currentTrack = current.status === "fulfilled" ? mapSpotifyCurrentTrack(current.value.data) : null;
+  if (currentTrack) tracks.push(currentTrack);
 
-    const { data: recentData } = await requestJson("https://api.spotify.com/v1/me/player/recently-played?limit=5", {
-      headers,
-    });
+  const recentData = recent.status === "fulfilled" ? recent.value.data : null;
 
-    const recentTracks = (recentData?.items || [])
-      .map(mapSpotifyRecentTrack)
-      .filter(Boolean)
-      .filter((track) => !tracks.some((existing) => existing.songUrl === track.songUrl));
+  const recentTracks = (recentData?.items || [])
+    .map(mapSpotifyRecentTrack)
+    .filter(Boolean)
+    .filter((track) => !tracks.some((existing) => existing.songUrl === track.songUrl));
 
-    return tracks.concat(recentTracks).slice(0, 5);
-  } catch (error) {
-    console.warn(`[spotify] ${error.message}`);
-    return [];
-  }
+  const result = tracks.concat(recentTracks).filter((track, index, all) => all.findIndex(other => other.songUrl === track.songUrl) === index).slice(0, 5);
+  const failed = [current, recent].filter(response => response.status === "rejected");
+  if (!result.length && failed.length) throw spotifyError(failed.find(response => [401, 403].includes(response.reason.status))?.reason || failed[0].reason);
+  return result;
 }
 
 function mapSpotifyCurrentTrack(data) {
