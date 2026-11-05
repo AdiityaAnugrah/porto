@@ -20,7 +20,9 @@ dist-ssr
 *.tgz
 deploy-*.sh
 install-api-instrument.sh
-scripts/
+scripts/*
+!scripts/generate-sitemap.mjs
+!scripts/capture-project-previews.mjs
 server/store.local.json
 server/analytics.local.json
 

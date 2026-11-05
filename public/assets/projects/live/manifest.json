@@ -1,0 +1,89 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 960
+  },
+  "results": [
+    {
+      "id": "ilenafurniture",
+      "url": "https://ilenafurniture.com/",
+      "file": "ilena-furniture.jpg",
+      "finalUrl": "https://ilenafurniture.com/",
+      "title": "Furniture Modern & Stylish untuk Rumah | Ilena Furniture",
+      "capturedAt": "2026-11-05T06:45:34.177Z",
+      "sha256": "7ea98b3ba862d6aaa29299505b7db67698a2969e3dc3d5977bbe9c2fb10db55c",
+      "bytes": 133475,
+      "status": "captured"
+    },
+    {
+      "id": "ilena-interior",
+      "url": "https://ilenafurniture.net/",
+      "file": "ilena-interior.jpg",
+      "finalUrl": "https://ilenafurniture.net/",
+      "title": "ILENA INTERIOR | Rancang Ruanganmu",
+      "capturedAt": "2026-11-05T06:45:40.343Z",
+      "sha256": "2dbdc3181ab9fd881a065a3f12fb076e91672f5d0317dade64f4015ba645e34f",
+      "bytes": 52511,
+      "status": "captured"
+    },
+    {
+      "id": "titanium-group",
+      "url": "https://bengkeltitanium.com/",
+      "file": "titanium-group.jpg",
+      "status": "unavailable",
+      "error": "HTTP 403"
+    },
+    {
+      "id": "BLCC",
+      "url": "https://blcc.id/",
+      "file": "blcc.jpg",
+      "finalUrl": "https://blcc.id/",
+      "title": "Bahtera Life Community Church – Building Lives. Experiencing His Presence. Advancing God’s Kingdom.",
+      "capturedAt": "2026-11-05T06:46:06.734Z",
+      "sha256": "48719c229980dd2fead244e5432743a56964d2267971e4b69828312dadc01d35",
+      "bytes": 162217,
+      "status": "captured"
+    },
+    {
+      "id": "cargomate",
+      "url": "https://cargomate.id/",
+      "file": "cargomate.jpg",
+      "finalUrl": "https://cargomate.id/",
+      "title": "cargomate – Your Reliable and Timely Logistics Solution",
+      "capturedAt": "2026-11-05T06:46:29.871Z",
+      "sha256": "67531272e9ac2879e1f296e3caba41ae0fe7c8a039bcd4abfd20d6b37c7fca49",
+      "bytes": 113222,
+      "status": "captured"
+    },
+    {
+      "id": "dsinematix.id",
+      "url": "https://dsinematix.id/",
+      "file": "dsinematix.jpg",
+      "status": "unavailable",
+      "error": "page.goto: net::ERR_NAME_NOT_RESOLVED at https://dsinematix.id/\nCall log:\n\u001b[2m  - navigating to \"https://dsinematix.id/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "id": "Lunarea Furniture",
+      "url": "https://lunareafurniture.com/",
+      "file": "lunarea-furniture.jpg",
+      "dismiss": "[onclick^=\"closeModalVoucherAll\"]:visible",
+      "finalUrl": "https://lunareafurniture.com/",
+      "title": "Beranda | Lunarea Furniture",
+      "capturedAt": "2026-11-05T06:49:01.201Z",
+      "sha256": "b7119fe076b9695c9b11e0f24efeedd3b5c89fdd15e47f1e712094595eed8376",
+      "bytes": 140871,
+      "status": "captured"
+    },
+    {
+      "id": "absensi-site",
+      "url": "https://absensicbm.my.id/",
+      "file": "absensi-cbm.jpg",
+      "finalUrl": "https://absensicbm.my.id/onboarding?from=%2F&__sw_reset=1",
+      "title": "Absensi CBM",
+      "capturedAt": "2026-11-05T06:52:52.928Z",
+      "sha256": "8422b4aa6fbb541fceca14a48af4c2e44c40ebe82619425f5e6059ef0a5d58b5",
+      "bytes": 68954,
+      "status": "captured"
+    }
+  ]
+}

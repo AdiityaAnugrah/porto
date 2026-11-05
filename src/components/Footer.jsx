@@ -11,10 +11,9 @@ export default function Footer() {
         <a className="footer-email" href="mailto:hello@adityaanugrah.me">hello@adityaanugrah.me</a>
       </div>
       <div className="container footer-bottom">
-        <Link className="brand" to={to('/')}>Aditya Anugrah</Link>
-        <p>© {new Date().getFullYear()} Aditya Anugrah</p>
-        <nav aria-label="Social"><a href="https://github.com/adiityaanugrah" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/aditya-anugrah/" target="_blank" rel="noreferrer">LinkedIn</a><Link to={to('/cv')}>CV</Link></nav>
-        <nav aria-label="Legal"><Link to={to('/privacy')}>Privacy</Link><Link to={to('/terms')}>Terms</Link><Link to={to('/invoice')}>Invoice</Link></nav>
+        <p>© {new Date().getFullYear()} <Link to={to('/')}>Aditya Anugrah</Link></p>
+        <nav aria-label={id?'Media sosial dan CV':'Social profiles and CV'}><a href="https://github.com/adiityaanugrah" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/aditya-anugrah/" target="_blank" rel="noreferrer">LinkedIn</a><Link to={to('/cv')}>CV</Link></nav>
+        <nav aria-label={id?'Informasi website':'Website information'}><Link to={to('/privacy')}>{id?'Privasi':'Privacy'}</Link><Link to={to('/terms')}>{id?'Ketentuan':'Terms'}</Link><Link to={to('/invoice')}>Invoice</Link></nav>
       </div>
     </footer>
   );

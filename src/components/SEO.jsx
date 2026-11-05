@@ -1,264 +1,71 @@
-// src/components/SEO.jsx
-import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import { imageUrl } from "../lib/media";
-import { localeToOgLocale, localizedPath, stripLocaleFromPath, useActiveLocale } from "../lib/i18n";
+import { useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { imageUrl } from '../lib/media';
+import { portfolioMedia } from '../lib/portfolioMedia';
+import { localeToOgLocale, localizedPath, stripLocaleFromPath, useActiveLocale } from '../lib/i18n';
+import { SITE_URL, SITE_NAME, canonicalPath, seoTitle, robotsValue } from '../lib/seo';
 
-/* ========= Helpers ========= */
+const absolute=value=>new URL(value||'/',SITE_URL+'/').href;
 
-/** Base URL dari env atau origin (fallback) */
-const SITE_URL =
-  (typeof import.meta !== "undefined" &&
-    import.meta.env?.VITE_SITE_URL) ||
-  (typeof window !== "undefined" ? window.location.origin : "");
-
-/** Nama situs (opsional dari env) */
-const SITE_NAME =
-  (typeof import.meta !== "undefined" &&
-    import.meta.env?.VITE_SITE_NAME) ||
-  "Aditya Anugrah";
-/** Pastikan absolute URL */
-const toAbsUrl = (pathOrUrl = "") => {
-  if (!pathOrUrl) return SITE_URL;
-  try {
-    // Sudah absolute
-    new URL(pathOrUrl);
-    return pathOrUrl;
-  } catch {
-    const base = String(SITE_URL || "").replace(/\/+$/, "");
-    const rel = String(pathOrUrl || "").startsWith("/")
-      ? pathOrUrl
-      : `/${pathOrUrl || ""}`;
-    return base + rel;
-  }
+// Adopt fallback metadata rather than leaving two conflicting copies in the head.
+function upsert(selector,tag,attributes,text){
+  const matches=[...document.head.querySelectorAll(selector)];
+  const node=matches.shift()||document.createElement(tag);
+  matches.forEach(extra=>extra.remove());
+  for(const [key,value]of Object.entries(attributes))node.setAttribute(key,String(value));
+  node.dataset.seo='seo-managed';
+  if(text!==undefined)node.textContent=text;
+  if(!node.isConnected)document.head.appendChild(node);
+  return node;
+}
+const meta=(key,value,property=false)=>{
+  if(value===undefined||value===null)return;
+  const attribute=property?'property':'name';
+  upsert(`meta[${attribute}="${key}"]`,'meta',{[attribute]:key,content:value});
 };
+const link=(rel,href,language)=>upsert(`link[rel="${rel}"]${language?`[hreflang="${language}"]`:''}`,'link',{rel,href,...(language?{hreflang:language}:{})});
 
-/** Upsert meta by name/property/link/script dengan data-seo id */
-const upsert = (selector, create, attrs) => {
-  if (typeof document === "undefined") return null;
-  const head = document.head || document.getElementsByTagName("head")[0];
-  if (!head) return null;
-
-  let el = head.querySelector(selector);
-  if (!el) {
-    el = create();
-    head.appendChild(el);
-  }
-  Object.entries(attrs || {}).forEach(([k, v]) => {
-    if (v === null || v === undefined || v === false) return;
-    el.setAttribute(k, String(v));
-  });
-  // khusus script ld+json: textContent, bukan attribute
-  if ("textContent" in attrs) {
-    el.textContent = attrs.textContent;
-  }
-  return el;
-};
-
-const setMetaByName = (name, content, id) =>
-  content
-    ? upsert(`meta[name="${name}"][data-seo="${id}"]`, () => {
-        const m = document.createElement("meta");
-        m.setAttribute("name", name);
-        return m;
-      }, { content, "data-seo": id })
-    : null;
-
-const setMetaByProp = (prop, content, id) =>
-  content
-    ? upsert(`meta[property="${prop}"][data-seo="${id}"]`, () => {
-        const m = document.createElement("meta");
-        m.setAttribute("property", prop);
-        return m;
-      }, { content, "data-seo": id })
-    : null;
-
-const setCanonical = (href, id) =>
-  href
-    ? upsert(`link[rel="canonical"][data-seo="${id}"]`, () => {
-        const l = document.createElement("link");
-        l.setAttribute("rel", "canonical");
-        return l;
-      }, { href, "data-seo": id })
-    : null;
-
-const setAlternate = (hreflang, href, id) =>
-  href
-    ? upsert(`link[rel="alternate"][hreflang="${hreflang}"][data-seo="${id}"]`, () => {
-        const l = document.createElement("link");
-        l.setAttribute("rel", "alternate");
-        return l;
-      }, { hreflang, href, "data-seo": id })
-    : null;
-
-const setJsonLd = (json, id) =>
-  json
-    ? upsert(
-        `script[type="application/ld+json"][data-seo="${id}"]`,
-        () => {
-          const s = document.createElement("script");
-          s.type = "application/ld+json";
-          return s;
-        },
-        {
-            "data-seo": id,
-            textContent: JSON.stringify(
-                Array.isArray(json) && json.length === 1 ? json[0] : { "@context": "https://schema.org", "@graph": json }
-            )
-        }
-      )
-    : null;
-
-/** Normalisasi robots (mis. boolean/array/string) */
-const normalizeRobots = (robots) => {
-  if (!robots) return "index,follow";
-  if (robots === true) return "index,follow";
-  if (robots === false) return "noindex,nofollow";
-  if (Array.isArray(robots)) return robots.join(",");
-  return String(robots);
-};
-
-/** Potong panjang aman (untuk meta) */
-const clamp = (str, n) => {
-  if (!str) return str;
-  const s = String(str);
-  return s.length > n ? `${s.slice(0, n - 1)}…` : s;
-};
-
-/* ========= Komponen ========= */
-
-/**
- * SEO
- * Props:
- * - title, description
- * - path         (untuk canonical, ex: "/about")
- * - type         (og:type) "website" | "article" | "profile" | etc.
- * - image        (relative/absolute)
- * - imageAlt     (alt untuk og/twitter)
- * - robots       (string | string[] | boolean)
- * - jsonLd       (object schema.org)
- * - siteName     (override, default env/VITE_SITE_NAME)
- * - titleTemplate (override, default: `${title} – ${siteName}`)
- * - locale       (default: "id_ID")
- * - twitter      ({ site, creator })
- */
-export default function SEO({
-  title,
-  description,
-  path = "",
-  type = "website",
-  image = "/assets/me-sunset.jpeg",
-  imageAlt,
-  robots = "index,follow",
-  jsonLd,
-  siteName = SITE_NAME,
-  titleTemplate,
-  locale,
-  twitter,
-}) {
-  const activeLocale = useActiveLocale();
-  const location = useLocation();
-  const pagePath = path || stripLocaleFromPath(location.pathname);
-  const normalizedLocale = locale || localeToOgLocale(activeLocale);
-
-  // Handle both single object and array for Knowledge Graph
-  const memoLd = useMemo(() => {
-    if (!jsonLd) return null;
-    return Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-  }, [jsonLd]);
-
-  useEffect(() => {
-    if (typeof document === "undefined") return () => {};
-
-    const id = "seo-managed"; // penanda untuk cleanup
-    const prevTitle = document.title;
-    const prevLang = document.documentElement.getAttribute("lang");
-
-    // Title
-    const fullTitle = title
-      ? (titleTemplate
-          ? titleTemplate.replace(/%s/g, String(title))
-          : `${title} | ${siteName}`)
-      : siteName;
-
-    document.title = fullTitle;
-
-    // Canonical / URL / Image absolute
-    const canonical = toAbsUrl(localizedPath(pagePath, activeLocale));
-    const ogImage = toAbsUrl(imageUrl(image));
-
-    // Robots
-    const robotsNorm = normalizeRobots(robots);
-
-    // ====== Meta by name ======
-    setMetaByName("description", clamp(description, 300), id);
-    setMetaByName("robots", robotsNorm, id);
-    setMetaByName("twitter:card", "summary_large_image", id);
-    setMetaByName("twitter:title", clamp(fullTitle, 70), id);
-    setMetaByName("twitter:description", clamp(description, 200), id);
-    setMetaByName("twitter:image", ogImage, id);
-    setMetaByName("twitter:image:alt", imageAlt || title || siteName, id);
-    if (twitter?.site) setMetaByName("twitter:site", twitter.site, id);
-    if (twitter?.creator) setMetaByName("twitter:creator", twitter.creator, id);
-
-    // ====== Canonical ======
-    setCanonical(canonical, id);
-    setAlternate("id", toAbsUrl(localizedPath(pagePath, "id")), id);
-    setAlternate("en", toAbsUrl(localizedPath(pagePath, "en")), id);
-    setAlternate("x-default", toAbsUrl(localizedPath(pagePath, "en")), id);
-    document.documentElement.setAttribute("lang", activeLocale);
-
-    // ====== Open Graph ======
-    setMetaByProp("og:type", type, id);
-    setMetaByProp("og:title", clamp(fullTitle, 70), id);
-    setMetaByProp("og:description", clamp(description, 200), id);
-    setMetaByProp("og:url", canonical, id);
-    setMetaByProp("og:site_name", siteName, id);
-    setMetaByProp("og:locale", normalizedLocale, id);
-    setMetaByProp("og:locale:alternate", activeLocale === "id" ? "en_US" : "id_ID", id);
-    setMetaByProp("og:image", ogImage, id);
-    setMetaByProp("og:image:secure_url", ogImage, id);
-    setMetaByProp("og:image:alt", imageAlt || title || siteName, id);
-    setMetaByProp("og:image:width", "1200", id);
-    setMetaByProp("og:image:height", "630", id);
-
-    // (Opsional) theme-color sesuai CSS var; aman jika tidak ada
-    try {
-      const theme = getComputedStyle(document.documentElement)
-        .getPropertyValue("--color-bg")
-        .trim();
-      if (theme) setMetaByName("theme-color", theme, id);
-    } catch {
-      // ignore
+export default function SEO({title,description,path='',type='website',image='/assets/me-sunset.jpeg',imageAlt,robots='index,follow',jsonLd,siteName=SITE_NAME,titleTemplate,locale,twitter,publishedTime,modifiedTime,articleSection}){
+  const activeLocale=useActiveLocale(),location=useLocation();
+  const pagePath=canonicalPath(stripLocaleFromPath(path||location.pathname));
+  const customGraph=useMemo(()=>jsonLd?(Array.isArray(jsonLd)?jsonLd:[jsonLd]):[],[jsonLd]);
+  useEffect(()=>{
+    const previousTitle=document.title,previousLang=document.documentElement.lang;
+    const fullTitle=seoTitle(title,siteName,titleTemplate);
+    const summary=description||(activeLocale==='id'?'Portfolio Aditya Anugrah, full-stack developer untuk website, aplikasi bisnis, dan integrasi sistem.':'Aditya Anugrah’s portfolio: full-stack development for websites, business applications, and system integrations.');
+    const canonical=absolute(localizedPath(pagePath,activeLocale));
+    const ogImage=absolute(imageUrl(portfolioMedia(image)||'/assets/me-sunset.jpeg'));
+    const robotsContent=robotsValue(robots),indexable=!robotsContent.includes('noindex');
+    document.title=fullTitle;document.documentElement.lang=activeLocale;
+    meta('description',summary);meta('robots',robotsContent);
+    meta('twitter:card','summary_large_image');meta('twitter:title',fullTitle);meta('twitter:description',summary);meta('twitter:image',ogImage);meta('twitter:image:alt',imageAlt||title||siteName);
+    if(twitter?.site)meta('twitter:site',twitter.site);
+    if(twitter?.creator)meta('twitter:creator',twitter.creator);
+    link('canonical',canonical);
+    if(indexable)for(const lang of ['id','en','x-default'])link('alternate',absolute(localizedPath(pagePath,lang==='x-default'?'en':lang)),lang);
+    for(const [key,value]of Object.entries({type,title:fullTitle,description:summary,url:canonical,site_name:siteName,locale:locale||localeToOgLocale(activeLocale),'locale:alternate':activeLocale==='id'?'en_US':'id_ID',image:ogImage,'image:secure_url':ogImage,'image:alt':imageAlt||title||siteName}))meta('og:'+key,value,true);
+    if(type==='article'){
+      if(publishedTime)meta('article:published_time',publishedTime,true);
+      if(modifiedTime)meta('article:modified_time',modifiedTime,true);
+      if(articleSection)meta('article:section',articleSection,true);
     }
-
-    // ====== JSON-LD ======
-    setJsonLd(memoLd, id);
-
-    // Cleanup saat unmount/route change
-    return () => {
-      document.title = prevTitle;
-      if (prevLang) document.documentElement.setAttribute("lang", prevLang);
-      else document.documentElement.removeAttribute("lang");
-      const nodes = document.head?.querySelectorAll(`[data-seo="${id}"]`);
-      nodes?.forEach((n) => n.parentNode?.removeChild(n));
+    const personId=SITE_URL+'/#person',websiteId=SITE_URL+'/#website';
+    const graph=[];
+    if(indexable){
+      if(!customGraph.some(item=>item['@type']==='Person'))graph.push({'@type':'Person','@id':personId,name:siteName,url:absolute(localizedPath('/about',activeLocale)),jobTitle:'Full-stack Developer'});
+      graph.push({'@type':type==='article'?'BlogPosting':/^\/(projects|blog)$/.test(pagePath)?'CollectionPage':'WebPage','@id':canonical+'#page',url:canonical,name:fullTitle,description:summary,inLanguage:activeLocale,isPartOf:{'@id':websiteId},author:{'@id':personId},...(type==='article'?{headline:title,image:ogImage,...(publishedTime?{datePublished:publishedTime}:{}),...(modifiedTime?{dateModified:modifiedTime}:{})}:{})});
+      const crumbs=[{name:activeLocale==='id'?'Beranda':'Home',item:absolute(localizedPath('/',activeLocale))}];
+      if(pagePath.startsWith('/blog/'))crumbs.push({name:activeLocale==='id'?'Tulisan':'Journal',item:absolute(localizedPath('/blog',activeLocale))});
+      if(pagePath.startsWith('/projects/'))crumbs.push({name:activeLocale==='id'?'Karya':'Work',item:absolute(localizedPath('/projects',activeLocale))});
+      if(pagePath!=='/')crumbs.push({name:seoTitle(title,siteName).replace(' | '+siteName,''),item:canonical});
+      if(crumbs.length>1)graph.push({'@type':'BreadcrumbList',itemListElement:crumbs.map((item,index)=>({'@type':'ListItem',position:index+1,...item}))});
+      graph.push(...customGraph.map(item=>item['@type']==='Person'?{...item,'@id':personId}:item));
+      upsert('script[type="application/ld+json"][data-seo="seo-managed"]','script',{type:'application/ld+json'},JSON.stringify({'@context':'https://schema.org','@graph':graph}));
+    }
+    return()=>{
+      document.title=previousTitle;document.documentElement.lang=previousLang;
+      document.head.querySelectorAll('[data-seo="seo-managed"]').forEach(node=>node.remove());
     };
-  }, [
-    title,
-    description,
-    pagePath,
-    activeLocale,
-    type,
-    image,
-    imageAlt,
-    robots,
-    siteName,
-    titleTemplate,
-    normalizedLocale,
-    twitter?.site,
-    twitter?.creator,
-    memoLd,
-  ]);
-
+  },[title,description,pagePath,activeLocale,type,image,imageAlt,robots,siteName,titleTemplate,locale,twitter?.site,twitter?.creator,publishedTime,modifiedTime,articleSection,customGraph]);
   return null;
 }

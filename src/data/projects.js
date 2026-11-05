@@ -13,9 +13,9 @@ export const projects = [
     team: '2 dev + 1 designer',
     tech: ['React', 'CI4/PHP', 'MySQL','Bootstrap',],
     tags: ['E-Commerce', 'SEO', 'SSR'],
-    cover:
-      'https://i.ibb.co.com/d0sL4g8D/Screenshot-2025-09-12-083216.png',
+    cover: '/assets/projects/live/ilena-furniture.jpg?v=7ea98b3ba862',
     links: { live: 'https://ilenafurniture.com', code: '' },
+    relatedSites: [{label:'Ilena Interior',url:'https://ilenafurniture.net/',image:'/assets/projects/live/ilena-interior.jpg?v=2dbdc3181ab9'}],
     features: [
       'Kalkulator ongkir berbasis dimensi/berat',
       'SKU matrix & varian produk',
@@ -75,7 +75,7 @@ export const projects = [
   },
   {
     id: 'absensi-site',
-    title: 'Absensi.site — Attendance Platform',
+    title: 'Absensi CBM — Attendance Platform',
     summary:
       'Next.js login NIK, kalender shift (L/1-6), device-aware session, dan role-based.',
     category: 'Web Apps',
@@ -86,9 +86,8 @@ export const projects = [
     team: '2 dev',
     tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind/SCSS'],
     tags: ['HR', 'Attendance'],
-    cover:
-      'https://i.ibb.co.com/WW6wVdrM/Screenshot-2025-09-12-084241.png',
-    links: { live: 'https://absensi.site', code: '' },
+    cover: '/assets/projects/live/absensi-cbm.jpg?v=8422b4aa6fbb',
+    links: { live: 'https://absensicbm.my.id/', code: '' },
     features: [
       'Login berbasis pola NIK',
       'Kalender shift (L/1-6)',
@@ -117,8 +116,7 @@ export const projects = [
     team: '2 dev',
     tech: ['Laravel', 'PHP', 'Bootstrap', 'MySQL','Kotlin'],
     tags: ['Church', 'Management'],
-    cover:
-      'https://i.ibb.co.com/ZzJfBprf/Screenshot-2025-09-12-084323.png',
+    cover: '/assets/projects/live/blcc.jpg?v=48719c229980',
     links: { live: 'https://blcc.id', code: '' },
     features: [
       'Data anggota, kehadiran, donasi, dan laporan',
@@ -149,8 +147,7 @@ export const projects = [
     team: '1 dev',
     tech: ['HTML', 'CSS', 'JavaScript','WordPress'],
     tags: ['Landing', 'Marketing'],
-    cover:
-      'https://i.ibb.co.com/PZxWKZjY/Screenshot-2025-09-12-085131.png',
+    cover: '/assets/projects/live/cargomate.jpg?v=67531272e9ac',
     links: { live: 'https://cargomate.id', code: '' },
     features: ['Section hero + CTA', 'Form lead', 'Integrasi analytics'],
     responsibilities: ['Implement UI, optimasi performa'],
@@ -171,8 +168,7 @@ export const projects = [
     team: '2 dev',
     tech: ['CodeIgniter 4', 'PHP', 'Bootstrap', 'MySQL'],
     tags: ['E-Commerce', 'Payment'],
-    cover:
-      'https://i.ibb.co.com/ZRPtqc8r/Screenshot-2025-09-12-083813.png',
+    cover: '/assets/projects/live/lunarea-furniture.jpg?v=b7119fe076b9',
     links: { live: 'https://lunareafurniture.com', code: '' },
     features: [
         'Filter produk (kategori, harga, popularitas)',

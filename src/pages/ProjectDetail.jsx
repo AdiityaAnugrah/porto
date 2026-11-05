@@ -21,6 +21,7 @@ export default function ProjectDetail() {
       <div className="prose"><p>{project.summary}</p></div>
       <div className="detail-sections">{sections.filter(([,items]) => items?.length).map(([label,items]) => <section className="detail-section prose" key={label}><h2>{label}</h2><ul>{items.map(item => <li key={item}>{item}</li>)}</ul></section>)}</div>
       <div className="tech-list">{project.tech?.map(tech => <span className="tech-tag" key={tech}>{tech}</span>)}</div>
+      {project.relatedSites?.length>0&&<section className="detail-gallery" aria-label={id?'Website terkait':'Related websites'}>{project.relatedSites.map(site=><a key={site.url} href={site.url} target="_blank" rel="noreferrer"><PortfolioImage src={site.image} alt={site.label} width="1440" height="960" loading="lazy"/><span className="text-link">{site.label} / {new URL(site.url).hostname} ↗</span></a>)}</section>}
       {project.gallery?.length > 0 && <div className="detail-gallery">{project.gallery.map(item => <PortfolioImage key={item.src} src={item.src} alt={item.alt || project.title} width="1200" height="800" loading="lazy"/>)}</div>}
       <div className="page-actions"><Link className="text-link" to={to('/projects')}>{id?'Kembali ke semua karya':'Back to all work'}</Link></div>
     </ArchivePage>

@@ -1,29 +1,31 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import SEO from '../components/SEO';
 import WorkPreview from '../components/projects/WorkPreview';
-import LogoMotion from '../components/common/LogoMotion';
+import PcSetup from '../components/home/PcSetup';
+import ScrollTypography from '../components/home/ScrollTypography';
 import { projects } from '../data/projects';
 import { posts } from '../data/posts';
 import { useActiveLocale, useLocalizedPath } from '../lib/i18n';
 
-const selected = ['ilenafurniture', 'titanium-group', 'absensi-site', 'service-app'].map(id => projects.find(project => project.id === id)).filter(Boolean);
+const selected = ['ilenafurniture', 'absensi-site', 'Lunarea Furniture', 'cargomate'].map(id => projects.find(project => project.id === id)).filter(Boolean);
 const latest = [...posts].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,3);
 
 export default function Home() {
+  const [pcPower,setPcPower]=useState('on');
   const id = useActiveLocale() === 'id';
   const to = useLocalizedPath();
   return <>
     <SEO title="Aditya Anugrah | Full-stack Developer" description={id ? 'Portfolio Aditya Anugrah. Website, aplikasi bisnis, dashboard, dan integrasi sistem dari Semarang, Indonesia.' : 'Aditya Anugrah’s portfolio. Websites, business applications, dashboards, and system integrations from Semarang, Indonesia.'} image="/assets/me-sunset.jpeg" jsonLd={{'@context':'https://schema.org','@type':'Person',name:'Aditya Anugrah',jobTitle:'Full-stack Developer',url:'https://adityaanugrah.me',sameAs:['https://github.com/adiityaanugrah','https://www.linkedin.com/in/aditya-anugrah/']}} />
-    <section className="home-hero">
-      <img className="hero-photo" src="/assets/me-sunset.avif" alt="" width="1005" height="1289" fetchPriority="high" />
+    <section className="home-hero home-hero--studio home-hero--network home-hero--pc" data-pc-power={pcPower}>
       <div className="hero-scrim" aria-hidden="true" />
-      <div className="hero-copy">
-        <LogoMotion />
-        <p className="hero-identity"><img src="/assets/me-sunset.jpeg" alt="" width="34" height="34" /> Aditya Anugrah / Full-stack developer</p>
-        <h1>{id ? <>Dari ide, jadi<br/>produk digital.</> : <>From an idea to<br/>a digital product.</>}</h1>
+      <PcSetup variant="interactive" onPowerChange={setPcPower}/>
+      <div className="hero-studio-grid container"><div className="hero-copy">
+        <p className="hero-identity hero-profession">Aditya Anugrah / Full-stack developer</p>
+        <ScrollTypography active={pcPower==='on'} lines={id ? ['Dari ide, jadi','produk digital.'] : ['From an idea to','a digital product.']} label={id ? 'Dari ide, jadi produk digital.' : 'From an idea to a digital product.'}/>
         <p className="hero-description">{id ? 'Saya membangun website dan sistem bisnis. Dari tampilan yang mudah digunakan, sampai proses di balik layar yang saling terhubung.' : 'I build websites and business systems. From interfaces people enjoy using to the connected processes behind them.'}</p>
         <div className="hero-actions"><Link className="button button-light" to={to('/projects')}>{id ? 'Lihat karya saya' : 'View my work'}</Link><Link className="button button-ghost" to={to('/contact')}>{id ? 'Ceritakan idemu' : 'Tell me your idea'}</Link></div>
-      </div>
+      </div></div>
       <div className="container hero-bottom"><p>Semarang, Indonesia<br/>Web development & business systems</p><a href="#selected-work">{id ? 'Lihat lebih dekat' : 'Take a closer look'} <span aria-hidden="true">↓</span></a></div>
     </section>
     <section id="selected-work" className="home-section container">
