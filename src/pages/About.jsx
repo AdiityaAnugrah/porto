@@ -4,7 +4,7 @@ import ArchivePage from '../components/archive/ArchivePage';
 import PersonalActivity from '../components/about/PersonalActivity';
 import WorkstationScene from '../components/home/WorkstationScene';
 import AboutStory, { WorkTogether } from '../components/about/AboutStory';
-import ProfileEditorial from '../components/about/ProfileEditorial';
+import ProfileEditorial, { ProfileGallery } from '../components/about/ProfileEditorial';
 import { useActiveLocale, useLocalizedPath } from '../lib/i18n';
 
 export default function About() {
@@ -19,6 +19,7 @@ export default function About() {
           <div className="page-actions"><Link className="button button-primary" to={to('/contact')}>{id?'Diskusi project':'Discuss a project'}</Link><Link className="button" to={to('/cv')}>{id?'Lihat CV':'View CV'}</Link></div>
         </div>
       </div>
+      <ProfileGallery id={id}/>
       <AboutStory id={id}/>
       <PersonalActivity />
       <WorkTogether id={id}/>

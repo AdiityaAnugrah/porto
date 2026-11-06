@@ -60,7 +60,7 @@ export default function PcSetup({ variant='ambient',onPowerChange }) {
     <div ref={host} className="pc-world" role="img" aria-label={id?'Setup PC interaktif Aditya Anugrah':'Aditya Anugrah’s interactive PC setup'}/>
     {status!=='ready'&&<div className="pc-poster" aria-hidden="true"><PcPoster gaming={mode==='gaming'} powerState={powerState}/></div>}
     {interactive&&<>
-      <div className="pc-object-targets">
+      <div className="pc-object-targets" onPointerOver={event=>{if(event.pointerType==='mouse')api.current?.hover(event.target.closest('[data-pc-action]')?.dataset.pcAction);}} onPointerOut={()=>api.current?.hover(null)} onFocus={event=>{if(event.target.matches(':focus-visible'))api.current?.hover(event.target.dataset.pcAction);}} onBlur={()=>api.current?.hover(null)}>
         <button disabled={!available} className="pc-target pc-monitor-access" data-pc-action="monitor" type="button" aria-label={id?'Monitor: ganti tampilan Gaming dan Developer':'Monitor: switch Gaming and Developer displays'} onClick={()=>actions.current?.('monitor')}/>
         <button disabled={!available} className="pc-target" data-pc-action="developer" type="button" aria-label={id?'Keyboard: detail pekerjaan Aditya':'Keyboard: Aditya’s work details'} aria-haspopup="dialog" onClick={()=>actions.current?.('developer')}/>
         <button disabled={!available} className="pc-target" data-pc-action="controller" type="button" aria-label={id?'Controller: detail gaming Aditya':'Controller: Aditya’s gaming details'} aria-haspopup="dialog" onClick={()=>actions.current?.('controller')}/>

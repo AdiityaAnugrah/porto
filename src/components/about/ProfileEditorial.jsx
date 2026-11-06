@@ -1,6 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import './profile-editorial.css';
 
+const galleryPhotos = [
+  { src: '/img/a.avif', width: 1086, height: 1448 },
+  { src: '/img/b.avif', width: 1086, height: 1448 },
+  { src: '/img/c.avif', width: 960, height: 1280 },
+  { src: '/img/d.avif', width: 1070, height: 1600 },
+  { src: '/img/e.avif', width: 1086, height: 1448 },
+];
+
 function usePhotoTilt() {
   const frame = useRef(0);
   const target = useRef(null);
@@ -80,4 +88,51 @@ export default function ProfileEditorial({ id }) {
       <div className="profile-dialog-caption"><h2 id="profile-photo-dialog-title">{photo === 'portrait' ? 'Aditya Anugrah' : (id ? 'Jeda sejenak.' : 'A moment away.')}</h2><p>{photo === 'portrait' ? 'Full-stack developer / Semarang' : (id ? 'Di luar layar / Suasana senja' : 'Beyond the screen / At sunset')}</p></div>
     </dialog>}
   </div>;
+}
+
+function GalleryPhoto({ photo, index, id, onOpen }) {
+  const tilt = usePhotoTilt();
+  const [failed, setFailed] = useState(false);
+  const number = String(index + 1).padStart(2, '0');
+  const title = id ? `Foto pilihan ${number}` : `Selected photo ${number}`;
+  return <button type="button" className="profile-photo-card" aria-label={id ? `Perbesar ${title.toLowerCase()}` : `Enlarge ${title.toLowerCase()}`} aria-haspopup="dialog" onClick={event => onOpen({ ...photo, title, index }, event.currentTarget)} {...tilt}>
+    {failed ? <span className="profile-photo-fallback">{id ? 'Foto belum berhasil dimuat.' : 'The photo could not be loaded.'}</span> : <img src={photo.src} alt={id ? `Foto koleksi personal Aditya Anugrah, ${number}` : `Aditya Anugrah’s personal photo collection, ${number}`} width={photo.width} height={photo.height} loading="lazy" decoding="async" onError={() => setFailed(true)}/>}
+    <span className="profile-photo-number" aria-hidden="true">{number} / Personal</span>
+    <span className="profile-photo-caption"><span className="profile-photo-kicker">{id ? 'Potongan keseharian' : 'Everyday moments'}</span><span className="profile-photo-title">{title}</span></span>
+    <span className="profile-photo-expand" aria-hidden="true">↗</span>
+  </button>;
+}
+
+export function ProfileGallery({ id }) {
+  const [photo, setPhoto] = useState(null);
+  const [failed, setFailed] = useState(false);
+  const dialog = useRef(null);
+  const trigger = useRef(null);
+  useEffect(() => {
+    if (!photo) return;
+    const element = dialog.current;
+    const returnFocus = trigger.current;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    element.showModal();
+    return () => {
+      document.body.style.overflow = previous;
+      if (element.open) element.close();
+      returnFocus?.focus({ preventScroll: true });
+    };
+  }, [photo]);
+  const close = () => setPhoto(null);
+  return <section className="profile-gallery" aria-labelledby="profile-gallery-title">
+    <div className="section-heading"><div><p className="section-label">{id ? 'Album personal' : 'Personal album'}</p><h2 id="profile-gallery-title">{id ? 'Beberapa potongan keseharian.' : 'A few everyday moments.'}</h2></div><span className="profile-gallery-count">{String(galleryPhotos.length).padStart(2, '0')} {id ? 'foto' : 'photos'}</span></div>
+    <div className="profile-gallery-grid">{galleryPhotos.map((item, index) => <GalleryPhoto key={item.src} photo={item} index={index} id={id} onOpen={(selected, button) => { trigger.current = button; setFailed(false); setPhoto(selected); }}/>)}</div>
+    {photo && <dialog ref={dialog} className="profile-photo-dialog" data-lenis-prevent aria-labelledby="profile-gallery-dialog-title" onClose={close} onClick={event => {
+      if (event.target !== event.currentTarget) return;
+      const bounds = event.currentTarget.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) close();
+    }}>
+      <button type="button" className="profile-photo-close" aria-label={id ? 'Tutup foto' : 'Close photo'} onClick={close} autoFocus>×</button>
+      {failed ? <p className="profile-gallery-image-error" role="status">{id ? 'Foto belum berhasil dimuat.' : 'The photo could not be loaded.'}</p> : <img src={photo.src} alt={id ? `Foto koleksi personal Aditya Anugrah, ${photo.index + 1}` : `Aditya Anugrah’s personal photo collection, ${photo.index + 1}`} width={photo.width} height={photo.height} decoding="async" onError={() => setFailed(true)}/>}
+      <div className="profile-dialog-caption"><h2 id="profile-gallery-dialog-title">{photo.title}</h2><p>{id ? 'Koleksi personal' : 'Personal collection'} / {photo.index + 1} {id ? 'dari' : 'of'} {galleryPhotos.length}</p></div>
+    </dialog>}
+  </section>;
 }

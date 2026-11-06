@@ -51,3 +51,20 @@
 @media (max-width: 360px) { .profile-bento { grid-template-rows: 390px minmax(220px, auto); gap: 10px; } .profile-photo-caption { padding: 14px 12px; } .profile-personal-note { padding: 18px 12px; } .profile-note-title { font-size: 1.25rem; } }
 @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) { .profile-photo-card { transform: none; } .profile-photo-card, .profile-photo-card img, .profile-photo-caption { transition: none; } }
 @media print { .profile-photo-caption { opacity: 1; transform: none; } .profile-photo-card { transform: none; } .profile-photo-dialog { display: none; } .profile-bento { break-inside: avoid; } }
+
+.profile-gallery { margin-top: clamp(64px, 8vw, 112px); }
+.profile-gallery .section-heading { gap: 24px; align-items: end; }
+.profile-gallery-count { flex-shrink: 0; color: var(--muted); font-size: .8rem; padding-bottom: 6px; }
+.profile-gallery-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(210px, 23vw, 300px); gap: 16px; margin-top: 32px; }
+.profile-gallery-grid > :first-child { grid-row: span 2; }
+.profile-gallery-grid .profile-photo-card > img { position: absolute; inset: 0; object-position: 50% 30%; }
+.profile-gallery-grid .profile-photo-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.profile-gallery-image-error { min-height: 240px; display: grid; place-items: center; padding: 60px 24px; }
+@media (max-width: 640px) {
+  .profile-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; gap: 12px; }
+  .profile-gallery-grid > :first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 5; max-height: 500px; }
+  .profile-gallery-grid > :not(:first-child) { aspect-ratio: 3 / 4; }
+  .profile-gallery-grid .profile-photo-caption { padding: 14px 12px; }
+  .profile-gallery-grid .profile-photo-title { font-size: 1rem; }
+  .profile-gallery .section-heading { align-items: start; flex-direction: column; }
+}

@@ -95,7 +95,7 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
   for (let row = 0; row < 4; row++) for (let col = 0; col < 13; col++) keys.push(box([.089, .043, .082], [-.67 + col * .111, .045, -.17 + row * .105], col < 4 && row > 0 ? 'accent' : 'ivory', 'keyboard', keyboard));
   keys.push(box([.58, .044, .07], [-.03, .045, .238], 'ivory', 'keyboard', keyboard));
   const mouse = mesh(new THREE.SphereGeometry(1, 20, 12), palette.ivory, [.7, 1.65, .4], 'keyboard'); mouse.scale.set(.13, .07, .2);
-  box([.025, .012, .06], [.7, 1.72, .35], 'dark', 'keyboard');
+  const mouseWheel=box([.025, .012, .06], [.7, 1.72, .35], 'dark', 'keyboard');
   const pad = createController(); pad.scale.setScalar(.34); pad.position.set(-1.25,1.64,.77); pad.rotation.set(-Math.PI/2,0,-.18); scene.add(pad);
   const padHome=pad.position.clone(),padRotation=pad.rotation.clone();
   const keyHomes=new Map(keys.map(key=>[key,key.position.y]));
@@ -107,12 +107,29 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
     host.dataset.intro='idle';host.dataset.padLift='0';renderer.shadowMap.needsUpdate=true;done?.(false);
   }
   pad.traverse(object => { if (object.isMesh) { object.userData.action='controller'; meshes.push(object); } });
-  for (const x of [-1.52, .66]) {
-    box([.25, .44, .25], [x, 1.79, -.64], 'dark', 'music');
-    const cone = cylinder(.075, .025, [x, 1.82, -.502], 'metal', 'music'); cone.rotation.x = Math.PI / 2;
+  const hoverParts=new Map();
+  let hoverKey=null,focusKey=null,hoverTime=performance.now(),hoverMoving=false;
+  function hoverable(name,objects,pivot){
+    const group=new THREE.Group();group.position.copy(pivot);scene.add(group);
+    for(const object of objects){group.attach(object);object.traverse(child=>{if(child.isMesh)child.userData.hoverKey=name;});}
+    group.updateMatrixWorld(true);
+    hoverParts.set(name,{group,home:group.position.clone(),bounds:new THREE.Box3().setFromObject(group).expandByScalar(.025),value:0});
   }
-  strip([[-1.72,1.66,-.02],[-1.72,1.9,-.02],[-1.61,2.04,-.02],[-1.5,1.9,-.02],[-1.5,1.66,-.02]],neonPink,.018);
-  for(const x of[-1.74,-1.48])box([.07,.22,.15],[x,1.73,-.02],'dark','music');
+  hoverable('keyboard',[keyboard],keyboard.position.clone());
+  hoverable('mouse',[mouse,mouseWheel],mouse.position.clone());
+  hoverable('controller',[pad],pad.position.clone());
+  // Intro animations keep their local home coordinates inside the hover wrapper.
+  padHome.copy(pad.position);
+  for (const x of [-1.52, .66]) {
+    const speaker=box([.25, .44, .25], [x, 1.79, -.64], 'dark', 'music');
+    const cone = cylinder(.075, .025, [x, 1.82, -.502], 'metal', 'music'); cone.rotation.x = Math.PI / 2;
+    hoverable(x<0?'speaker-left':'speaker-right',[speaker,cone],speaker.position.clone());
+  }
+  const headphones=[strip([[-1.72,1.66,-.02],[-1.72,1.9,-.02],[-1.61,2.04,-.02],[-1.5,1.9,-.02],[-1.5,1.66,-.02]],neonPink,.018,scene,'music')];
+  for(const x of[-1.74,-1.48])headphones.push(box([.07,.22,.15],[x,1.73,-.02],'dark','music'));
+  hoverable('headphones',headphones,new THREE.Vector3(-1.61,1.8,-.02));
+  function setHover(key){hoverKey=key;invalidate();}
+  function clearHover(){hoverKey=null;focusKey=null;for(const part of hoverParts.values()){part.value=0;part.group.position.copy(part.home);part.group.rotation.set(0,0,0);}host.dataset.hoverObject='none';host.dataset.hoverLift='0';renderer.shadowMap.needsUpdate=true;}
   const ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
   function render() {
     frame = 0; if (!visible || disposed) return;
@@ -126,6 +143,18 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
     host.dataset.fanState=!light?'off':reduced.matches?'reduced':'spinning';
     host.dataset.fanAngle=hardware.rotors[0].object.rotation.z.toFixed(4);
     hardware.update(performance.now(),!reduced.matches);
+    const now=performance.now(),dt=Math.min((now-hoverTime)/1000,.05);hoverTime=now;hoverMoving=false;
+    const activeHover=interactive&&powerState==='on'&&!reduced.matches&&!intro&&host.dataset.intro!=='held'?(focusKey||hoverKey):null;
+    for(const [name,part]of hoverParts){
+      const destination=name===activeHover?1:0;
+      const previous=part.value;
+      part.value=THREE.MathUtils.damp(part.value,destination,14,dt);
+      if(Math.abs(part.value-destination)<.001)part.value=destination;else hoverMoving=true;
+      part.group.position.copy(part.home);part.group.position.y+=part.value*.12;
+      part.group.rotation.z=part.value*(name==='controller'?-.045:.018);
+      if(part.value!==previous)renderer.shadowMap.needsUpdate=true;
+    }
+    host.dataset.hoverObject=activeHover||'none';host.dataset.hoverLift=String(Math.max(0,...[...hoverParts.values()].map(part=>part.value*.12)).toFixed(3));
     host.dataset.coolingScreen='anime';host.dataset.coolingFrames=String(hardware.coolingFrames);host.dataset.coolingState=!screenPowered?'off':reduced.matches?'static':'playing';
     if(intro){
       const current=intro,t=Math.min(1,(performance.now()-current.start)/current.duration),eased=1-(1-t)**3;
@@ -161,11 +190,12 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
     const facing=camera.position.z>monitor.position.z;
     monitorLoop.visible(visible&&facing&&!document.hidden);
     host.dataset.yaw = angle.toFixed(3);
-    for (const [action,position] of Object.entries({monitor:[-.38,2.38,-.47],developer:[-.38,1.69,.33],controller:[pad.position.x,pad.position.y+.07,pad.position.z],music:[-1.52,1.88,-.51],lights:[1.47,2.705,-.07]})) {
+    const padWorld=pad.getWorldPosition(new THREE.Vector3()),keyWorld=keyboard.getWorldPosition(new THREE.Vector3()),powerWorld=hardware.powerButton.getWorldPosition(new THREE.Vector3());
+    for (const [action,position] of Object.entries({monitor:[-.38,2.38,-.47],developer:[keyWorld.x,keyWorld.y+.07,keyWorld.z],controller:[padWorld.x,padWorld.y+.07,padWorld.z],music:[-1.52,1.88,-.51],lights:powerWorld.toArray()})) {
       const button=host.parentElement.querySelector(`[data-pc-action="${action}"]`);
       if(button){const point=new THREE.Vector3(...position).project(camera);button.style.left=`${(point.x*.5+.5)*host.clientWidth}px`;button.style.top=`${(-point.y*.5+.5)*host.clientHeight}px`;}
     }
-    if (tween || keyPress || intro) invalidate();
+    if (tween || keyPress || intro || hoverMoving) invalidate();
     if(fansRunning)fanTimer=setTimeout(()=>{fanTimer=0;invalidate();},1000/24);
   }
   function invalidate() { if (!frame && visible && !disposed) frame = requestAnimationFrame(render); }
@@ -175,31 +205,39 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
   function onScroll() { if (reduced.matches || !visible) return; const rect = host.getBoundingClientRect(); scroll = THREE.MathUtils.clamp((innerHeight * .4 - rect.top - rect.height * .5) / innerHeight, -1, 1); invalidate(); }
   function hit(event) { const rect = canvas.getBoundingClientRect(); pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1); ray.setFromCamera(pointer, camera); return ray.intersectObjects(meshes, false)[0]; }
   let drag = null;
-  const down = event => { if (event.button !== 0) return; drag = { x: event.clientX, y: event.clientY, yaw, moved: false, touch: event.pointerType === 'touch' }; if (!drag.touch) canvas.setPointerCapture(event.pointerId); };
+  const down = event => { if (event.button !== 0) return; setHover(null);drag = { x: event.clientX, y: event.clientY, yaw, moved: false, touch: event.pointerType === 'touch' }; if (!drag.touch) canvas.setPointerCapture(event.pointerId); };
   const move = event => {
     if (drag) {
       const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
       if (Math.abs(dx) > 7 && (!drag.touch || Math.abs(dx) > Math.abs(dy))) { drag.moved = true; yaw = THREE.MathUtils.clamp(drag.yaw + dx * .005, -1.1, 1.5); invalidate(); }
-    } else {const action=hit(event)?.object.userData.action;canvas.style.cursor=action&&(powerState==='on'||action==='lights')?'pointer':'grab';}
+    } else {
+      const object=hit(event)?.object,action=object?.userData.action;
+      let key=object?.userData.hoverKey;
+      // Keep the original footprint hot while a small object lifts away from the pointer.
+      if(!key&&!object&&hoverKey&&ray.ray.intersectBox(hoverParts.get(hoverKey).bounds,new THREE.Vector3()))key=hoverKey;
+      setHover(event.pointerType==='mouse'?key:null);canvas.style.cursor=action&&(powerState==='on'||action==='lights')?'pointer':'grab';
+    }
   };
   const up = event => {
     if (!drag) return;
     const clicked = !drag.moved && Math.hypot(event.clientX-drag.x,event.clientY-drag.y)<8;
     drag=null;if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId);
     if(clicked){const intersection=hit(event);if(!intersection)return;const action=intersection.object.userData.action;
-      if(powerState==='on'||action==='lights')onAction(action,intersection.object);
+      if(action&&(powerState==='on'||action==='lights'))onAction(action,intersection.object);
     }
   };
-  const cancel = () => { drag = null; };
+  const cancel = () => { drag = null;setHover(null); };
+  const leave=()=>setHover(null);
   const lost = event => { event.preventDefault(); onAction('context-lost'); };
-  if(interactive){canvas.addEventListener('pointerdown', down);canvas.addEventListener('pointermove', move);canvas.addEventListener('pointerup', up);canvas.addEventListener('pointercancel', cancel);}
+  if(interactive){canvas.addEventListener('pointerdown', down);canvas.addEventListener('pointermove', move);canvas.addEventListener('pointerup', up);canvas.addEventListener('pointercancel', cancel);canvas.addEventListener('pointerleave',leave);}
   canvas.addEventListener('webglcontextlost', lost);
   window.addEventListener('scroll', onScroll, { passive: true });
-  const motionChange = () => { scroll = 0;clearTimeout(fanTimer);fanTimer=0;lastFanTime=0;if(reduced.matches&&intro){intro.start=-Infinity;}invalidate(); }; reduced.addEventListener('change', motionChange);
+  const motionChange = () => { scroll = 0;clearHover();clearTimeout(fanTimer);fanTimer=0;lastFanTime=0;if(reduced.matches&&intro){intro.start=-Infinity;}invalidate(); }; reduced.addEventListener('change', motionChange);
   resize();
   function applyPower(next){
     if(!['on','off','booting','shutting-down'].includes(next))return;
     powerState=next;light=next!=='off';screenPowered=next==='on'||next==='shutting-down';clearTimeout(fanTimer);fanTimer=0;lastFanTime=0;
+    if(next!=='on')clearHover();
     const level=next==='on'?1:next==='shutting-down'?.55:next==='booting'?.3:0;
     const room=next==='off'?.04:next==='booting'?.32:next==='shutting-down'?.65:1;
     roomLight.intensity=2.8*room;sun.intensity=3*room;fill.intensity=1.2*room;
@@ -210,7 +248,8 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
     underCyan.visible=level>0;underPink.visible=level>0;underCyan.intensity=(gaming?4.2:3.6)*level;underPink.intensity=(gaming?3.8:3.1)*level;invalidate();
   }
   return {
-    setVisible(value) { visible = value;monitorLoop.visible(value&&!document.hidden); if (!value) { clearTimeout(fanTimer);fanTimer=0;lastFanTime=0;host.dataset.fanState='paused';host.dataset.coolingState='paused';cancelIntro();cancelAnimationFrame(frame); frame = 0; drag = null; } else { onScroll(); invalidate(); } },
+    setVisible(value) { visible = value;monitorLoop.visible(value&&!document.hidden); if (!value) { clearHover();clearTimeout(fanTimer);fanTimer=0;lastFanTime=0;host.dataset.fanState='paused';host.dataset.coolingState='paused';cancelIntro();cancelAnimationFrame(frame); frame = 0; drag = null; } else { onScroll(); invalidate(); } },
+    hover(action){focusKey=({developer:'keyboard',keyboard:'keyboard',controller:'controller',music:'speaker-left'})[action]||null;invalidate();},
     rotate(delta) { yaw = THREE.MathUtils.clamp(yaw + delta, -1.1, 1.5); invalidate(); },
     reset() { yaw = .62; scroll = 0; invalidate(); },
     mode(value) { gaming = value;monitorLoop.source(gaming?'gaming':'work');applyPower(powerState); },
@@ -245,7 +284,7 @@ export function createPcWorld(host, { onAction, id, interactive = false }) {
     dispose() {
       disposed = true;clearTimeout(fanTimer); cancelAnimationFrame(frame); resizeObserver.disconnect(); window.removeEventListener('scroll', onScroll); reduced.removeEventListener('change', motionChange);
       cancelIntro();monitorLoop.dispose();hardware.dispose();
-      canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', cancel); canvas.removeEventListener('webglcontextlost', lost);
+      canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', cancel);canvas.removeEventListener('pointerleave',leave); canvas.removeEventListener('webglcontextlost', lost);
       scene.traverse(object=>{if(object.geometry)geometries.add(object.geometry);if(object.material)(Array.isArray(object.material)?object.material:[object.material]).forEach(m=>materials.add(m));});
       geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); texture.dispose(); renderer.dispose(); renderer.forceContextLoss(); canvas.remove();
     },

@@ -70,8 +70,9 @@ export function createPcTower({cyan,pink}) {
   const standby=new THREE.MeshStandardMaterial({color:'#33414b',emissive:'#9cbed3',emissiveIntensity:.8,roughness:.4});
   const power=add(new THREE.CylinderGeometry(.027,.027,.01,16),standby,[.2,.575,.27]);
   power.name='PC power';
-  tower.traverse(object=>{if(object.isMesh){object.userData.action='lights';object.receiveShadow=true;}});
+  power.userData.action='lights';
+  tower.traverse(object=>{if(object.isMesh)object.receiveShadow=true;});
   // Cache case shadows; rotating blades do not redraw the shadow map each frame.
   for(const object of tower.children)if(object.isMesh&&!object.material.transparent)object.castShadow=true;
-  return {tower,rotors,update(now,animate){cooling.update(now,animate);},get coolingFrames(){return cooling.frames;},setPower(value,{screens=value}={}){badgeMaterial.color.setScalar(value?1:0);standby.emissiveIntensity=value?.8:.1;cooling.setPower(screens);},dispose(){badgeTexture.dispose();cooling.dispose();}};
+  return {tower,powerButton:power,rotors,update(now,animate){cooling.update(now,animate);},get coolingFrames(){return cooling.frames;},setPower(value,{screens=value}={}){badgeMaterial.color.setScalar(value?1:0);standby.emissiveIntensity=value?.8:.1;cooling.setPower(screens);},dispose(){badgeTexture.dispose();cooling.dispose();}};
 }
