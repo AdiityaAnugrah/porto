@@ -25,6 +25,8 @@ scripts/*
 !scripts/capture-project-previews.mjs
 !scripts/test-spotify.mjs
 !scripts/spotify-reconnect.mjs
+!scripts/generate-cv-pdf.mjs
+!scripts/generate_cv_pdf.py
 server/store.local.json
 server/analytics.local.json
 

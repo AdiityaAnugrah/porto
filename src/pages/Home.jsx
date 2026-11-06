@@ -4,6 +4,7 @@ import SEO from '../components/SEO';
 import WorkPreview from '../components/projects/WorkPreview';
 import PcSetup from '../components/home/PcSetup';
 import ScrollTypography from '../components/home/ScrollTypography';
+import HomePortraitCard from '../components/home/HomePortraitCard';
 import { projects } from '../data/projects';
 import { posts } from '../data/posts';
 import { useActiveLocale, useLocalizedPath } from '../lib/i18n';
@@ -33,7 +34,7 @@ export default function Home() {
       <div className="work-grid">{selected.map(project => <WorkPreview key={project.id} project={project}/>)}</div>
     </section>
     <section className="profile-section"><div className="container profile-grid">
-      <img className="profile-portrait" src="/assets/me-sunset.jpeg" alt="Aditya Anugrah" width="1005" height="1289" loading="lazy"/>
+      <HomePortraitCard id={id}/>
       <div className="profile-copy"><p className="section-label">{id ? 'Orang di balik layar' : 'The person behind the work'}</p><h2>{id ? <>Halo, saya Aditya.<br/>Senang membangun hal<br/>yang berguna.</> : <>Hi, I’m Aditya.<br/>I like building things<br/>that are useful.</>}</h2><p>{id ? 'Saya full-stack developer yang fokus pada website bisnis, e-commerce, dashboard operasional, dan integrasi antar sistem. Saya mulai dari memahami prosesnya, lalu mencari cara membuatnya lebih sederhana.' : 'I’m a full-stack developer focused on business websites, e-commerce, operational dashboards, and system integrations. I start by understanding the process, then look for ways to make it simpler.'}</p><Link className="text-link" to={to('/about')}>{id ? 'Tentang saya' : 'More about me'} <span aria-hidden="true">↗</span></Link></div>
     </div></section>
     <section className="container home-section">

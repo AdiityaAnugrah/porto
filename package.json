@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "cv:pdf": "node scripts/generate-cv-pdf.mjs",
     "previews": "node scripts/capture-project-previews.mjs",
     "dev": "vite",
     "api": "node server/api-server.mjs",

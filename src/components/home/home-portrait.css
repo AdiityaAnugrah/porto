@@ -1,0 +1,35 @@
+.home-portrait { position: relative; min-width: 0; width: 100%; max-width: 440px; margin: 0 auto; padding: 12px 10px 16px; isolation: isolate; }
+.home-portrait::before { content: ''; position: absolute; inset: 30px 0 0 30px; border: 1px solid #b5a89f; border-radius: 7px; z-index: -1; transform: rotate(2deg); }
+.home-portrait-entry { opacity: 1; }
+.home-portrait[data-entered="false"] .home-portrait-entry { opacity: 0; transform: translateY(24px); }
+.home-portrait[data-entered="true"] .home-portrait-entry { animation: home-portrait-arrive .8s cubic-bezier(.2,.7,.25,1) both; }
+.home-portrait-frame { border: 1px solid #d0c5bd; padding: 12px; border-radius: 7px; background: #f7f6f4; box-shadow: 0 14px 34px #19151816; transform: rotate(-1.3deg); transition: transform .55s cubic-bezier(.2,.7,.25,1), box-shadow .55s ease; }
+.home-portrait-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; padding: 1px 1px 12px; font-size: .75rem; line-height: 1.7; color: #625b60; }
+.home-portrait-photo { position: relative; isolation: isolate; display: block; overflow: hidden; width: 100%; aspect-ratio: 1005 / 1289; padding: 0; border: 0; border-radius: 3px; background: #3d3732; cursor: pointer; }
+.home-portrait-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; pointer-events: none; transition: opacity 1.2s cubic-bezier(.2,.65,.3,1), transform 1.4s cubic-bezier(.2,.65,.3,1); }
+.home-portrait-illustration { z-index: 2; opacity: 1; transform: scale(1); }
+.home-portrait-original { z-index: 1; opacity: 0; transform: scale(1.015); }
+.home-portrait[data-view="original"] .home-portrait-illustration { opacity: 0; transform: scale(1.015); }
+.home-portrait[data-view="original"] .home-portrait-original { opacity: 1; transform: scale(1); }
+.home-portrait-medium { position: absolute; z-index: 3; bottom: 14px; left: 14px; display: grid; padding: 7px 11px; background: #191518f2; color: #f7f6f4; font-size: .75rem; pointer-events: none; }
+.home-portrait-medium > span { grid-area: 1 / 1; transition: opacity .45s ease; }
+.home-portrait-medium-photo { opacity: 0; }
+.home-portrait[data-view="original"] .home-portrait-medium-photo { opacity: 1; }
+.home-portrait[data-view="original"] .home-portrait-medium-art { opacity: 0; }
+.home-portrait-caption { padding: 17px 3px 5px; display: flex; flex-direction: column; gap: 7px; }
+.home-portrait-caption-title { font: 500 clamp(1.25rem, 2vw, 1.6rem)/1.25 var(--font-display); letter-spacing: -.025em; color: #191518; }
+.home-portrait-caption-detail { font-size: .75rem; color: #625b60; line-height: 1.7; }
+.home-portrait-photo:focus-visible { outline: 3px solid #a23f38; outline-offset: 4px; }
+.home-portrait-unavailable { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; color: #f7f6f4; font-size: .85rem; }
+.home-portrait-photo:disabled { opacity: 1; cursor: default; }
+@keyframes home-portrait-arrive { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-portrait:has(.home-portrait-photo:hover) .home-portrait-frame, .home-portrait:focus-within .home-portrait-frame { transform: translateY(-5px) rotate(0); box-shadow: 0 22px 42px #19151824; }
+}
+@media (max-width: 640px) { .home-portrait { max-width: 370px; padding: 8px 10px 14px; } .home-portrait-frame { padding: 10px; } .home-portrait-photo { max-height: 440px; } .home-portrait-caption { padding-top: 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .home-portrait[data-entered] .home-portrait-entry { animation: none; opacity: 1; transform: none; }
+  .home-portrait-frame, .home-portrait-photo img, .home-portrait-medium > span { transition: none; }
+  .home-portrait-frame, .home-portrait-photo img, .home-portrait::before { transform: none; }
+}
+@media print { .home-portrait-entry, .home-portrait[data-entered] .home-portrait-entry { animation: none; opacity: 1; transform: none; } .home-portrait-frame, .home-portrait::before { transform: none; box-shadow: none; } .home-portrait .home-portrait-illustration, .home-portrait-medium { display: none; } .home-portrait .home-portrait-original { opacity: 1; transform: none; } }
